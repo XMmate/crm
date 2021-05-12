@@ -95,6 +95,8 @@ wk_crm
 
 本项目支持Docker一键安装（建议配置 4核16G以以上），[查看具体安装方法](https://gitee.com/wukongcrm/crm_pro/wikis/Docker一键安装教程?sort_id=3033975)
 
+ **CentOS7手动安装教程参考**  [wiki](https://gitee.com/wukongcrm/crm_pro/wikis/CentOS7安装悟空CRM教程)
+
 ### 常见问题
 
 <a href="https://bbs.72crm.com/portal.php?fid=44" target="_blank">常见问题以及解决方案</a>
