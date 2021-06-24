@@ -111,6 +111,7 @@ public class CrmUploadExcelServiceImpl implements CrmUploadExcelService {
             default:
                 throw new CrmException(SystemCodeEnum.SYSTEM_NO_VALID);
         }
+        AuthUtil.queryAuthUserList(uploadExcelBO.getCrmEnum(),CrmAuthEnum.EDIT);
         Long messageId = adminService.saveOrUpdateMessage(adminMessage).getData();
         uploadExcelBO.setMessageId(messageId);
         uploadService.setUploadExcelBO(uploadExcelBO);
