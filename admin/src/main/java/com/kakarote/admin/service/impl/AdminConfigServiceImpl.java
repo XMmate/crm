@@ -167,8 +167,8 @@ public class AdminConfigServiceImpl extends BaseServiceImpl<AdminConfigMapper, A
         stringList.forEach(str -> {
             AdminConfig config = new AdminConfig();
             config.setName(logConfigName);
-            config.setStatus(1);
             config.setValue(str);
+            config.setStatus(1);
             configList.add(config);
         });
         QueryWrapper<AdminConfig> queryWrapper = new QueryWrapper<>();

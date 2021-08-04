@@ -60,9 +60,9 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, 
         List<Field> allFields = TableInfoHelper.getAllFields(tClass);
         SqlSessionFactory sessionFactory = GlobalConfigUtils.getGlobalConfig(table.getConfiguration()).getSqlSessionFactory();
         Set<String> fieldSet = allFields.stream().filter(field -> {
-            TableId tableId = field.getAnnotation(TableId.class);
-            return tableId == null || !Objects.equals(tableId.type(),IdType.AUTO);
-        })
+                            TableId tableId = field.getAnnotation(TableId.class);
+                            return tableId == null || !Objects.equals(tableId.type(),IdType.AUTO);
+                        })
                 .map(field -> StrUtil.toUnderlineCase(field.getName())).collect(Collectors.toSet());
         List<Map<String, Object>> mapList = insertFill(entityList, table,fieldSet);
         StringBuilder sql = new StringBuilder();
