@@ -771,7 +771,7 @@ public class HrmEmployeeServiceImpl extends BaseServiceImpl<HrmEmployeeMapper, H
         }
         if (hrmEmployeeChangeRecord.getEffectTime().getTime() <= System.currentTimeMillis()) {
             //生效时间是当前或者之前 直接修改员工状态
-            HrmEmployee hrmEmployee = EmployeeChangeCron.employeeChangeRecord(hrmEmployeeChangeRecord, UserUtil.getCompanyId());
+            HrmEmployee hrmEmployee = EmployeeChangeCron.employeeChangeRecord(hrmEmployeeChangeRecord);
             saveOrUpdate(hrmEmployee);
         } else {
             changeRecordService.saveOrUpdate(hrmEmployeeChangeRecord);
@@ -823,7 +823,7 @@ public class HrmEmployeeServiceImpl extends BaseServiceImpl<HrmEmployeeMapper, H
         String sortField = StrUtil.isNotEmpty(employeePageListBO.getSortField()) ? StrUtil.toUnderlineCase(employeePageListBO.getSortField()) : null;
         employeePageListBO.setSortField(sortField);
         Collection<Integer> employeeIds = employeeUtil.queryDataAuthEmpIdByMenuId(MenuIdConstant.EMPLOYEE_MENU_ID);
-        BasePage<Map<String, Object>> page = employeeMapper.queryPageList(employeePageListBO.parse(), employeePageListBO, UserUtil.getCompanyId(), birthdayEmpList, employeeIds);
+        BasePage<Map<String, Object>> page = employeeMapper.queryPageList(employeePageListBO.parse(), employeePageListBO, birthdayEmpList, employeeIds);
         page.getList().forEach(map -> {
             Integer employeeId = (Integer) map.get("employeeId");
             List<JSONObject> fieldDatalist = employeeDataService.queryFiledListByEmployeeId(employeeId);
@@ -1403,5 +1403,15 @@ public class HrmEmployeeServiceImpl extends BaseServiceImpl<HrmEmployeeMapper, H
                 record.setSetting(new ArrayList<>());
                 break;
         }
+    }
+
+    @Override
+    public SimpleHrmEmployeeVO querySimpleEmployee(Integer employeeId) {
+        if (employeeId==null) {
+            return new SimpleHrmEmployeeVO();
+        }
+        HrmEmployee hrmEmployee = lambdaQuery().select(HrmEmployee::getEmployeeId, HrmEmployee::getEmployeeName)
+                .eq(HrmEmployee::getEmployeeId, employeeId).eq(HrmEmployee::getIsDel, 0).one();
+        return BeanUtil.copyProperties(hrmEmployee,SimpleHrmEmployeeVO.class);
     }
 }

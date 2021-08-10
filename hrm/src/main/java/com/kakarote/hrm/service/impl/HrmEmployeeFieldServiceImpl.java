@@ -131,7 +131,6 @@ public class HrmEmployeeFieldServiceImpl extends BaseServiceImpl<HrmEmployeeFiel
                 fieldConfig.setWidth(100);
                 fieldConfig.setFieldId(fieldId);
                 fieldConfig.setCreateTime(new Date());
-                fieldConfig.setCompanyId(user.getCompanyId());
                 return fieldConfig;
             }).collect(toList());
             employeeFieldConfigService.saveBatch(fieldConfigList);
