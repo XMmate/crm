@@ -6191,14 +6191,14 @@ DROP TABLE IF EXISTS `wk_crm_invoice_data`;
 CREATE TABLE `wk_crm_invoice_data`  (
   `id` int(0) NOT NULL AUTO_INCREMENT,
   `field_id` int(0) NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '字段名称',
-  `value` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '字段名称',
+  `value` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `create_time` datetime(0) NOT NULL,
-  `batch_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `batch_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `batch_id`(`batch_id`) USING BTREE,
   INDEX `name`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2250 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '发票扩展字段数据表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2250 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '发票扩展字段数据表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wk_crm_invoice_data
@@ -6668,14 +6668,14 @@ DROP TABLE IF EXISTS `wk_crm_receivables_plan_data`;
 CREATE TABLE `wk_crm_receivables_plan_data`  (
   `id` int(0) NOT NULL AUTO_INCREMENT,
   `field_id` int(0) NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '字段名称',
-  `value` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '字段名称',
+  `value` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `create_time` datetime(0) NOT NULL,
-  `batch_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `batch_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `batch_id`(`batch_id`) USING BTREE,
   INDEX `name`(`name`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '回款计划自定义字段存值表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '回款计划自定义字段存值表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wk_crm_receivables_plan_data
