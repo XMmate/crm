@@ -15,7 +15,7 @@
 
 Github下载地址：[https://github.com/72wukong](https://github.com/72wukong)  
 
-QQ群交流群群：[1026560336](http:////shang.qq.com/wpa/qunwpa?idkey=13d5e5809eb9feb350336e55c8b7a00b9cb472078b09b4441222a52dd76b278e)
+QQ群交流群群：[259359511](https://qm.qq.com/cgi-bin/qm/qr?k=G9T2audQqbZBR_HG0aTP9E-8fE7oMeb8&jump_from=webapi)
 
 
 扫码添加小悟官方客服微信，邀您加入千人微信交流群：
