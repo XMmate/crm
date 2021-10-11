@@ -12,7 +12,7 @@ APP_BASE_PATH=$(cd `dirname $0`; pwd)
 function start()
 {
     JAVA_OPTS=-Dspring.profiles.include=core,test
-    if [[ "${project.artifactId}" == "gateway" ]]; then
+    if [[ "${project.artifactId}" == "wk_gateway" ]]; then
     	JAVA_OPTS=
     fi
     # -Xms分配堆最小内存，默认为物理内存的1/64；-Xmx分配最大内存，默认为物理内存的1/4 如果程序会崩溃请将此值调高
