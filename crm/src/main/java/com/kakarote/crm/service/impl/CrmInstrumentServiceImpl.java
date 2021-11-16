@@ -520,13 +520,16 @@ public class CrmInstrumentServiceImpl implements CrmInstrumentService {
         Integer crmType = biParams.getLabel();
         Integer queryType = biParams.getQueryType();
         String search = biParams.getSearch() == null ? null : biParams.getSearch().trim();
+        if(biParams.getDataType() == null && !Objects.equals(1,biParams.getSubUser())) {
+            biParams.setDataType(5);
+        }
         BiAuthority biAuthority = handleDataType(biParams);
         List<Long> userIds = biAuthority.getUserIds();
+        Integer type = BiTimeUtil.analyzeType(biParams.getType());
+        userIds = this.handleUserIds(biParams,userIds);
         if (CollUtil.isEmpty(userIds)) {
             return new BasePage<>();
         }
-        Integer type = BiTimeUtil.analyzeType(biParams.getType());
-        userIds = this.handleUserIds(biParams,userIds);
         BasePage<CrmActivity> page = crmActivityMapper.queryRecordList(biParams.parse(), Dict.create().set("crmType", crmType).set("type", type).set("userIds", userIds).set("startTime", startTime)
                 .set("endTime", endTime).set("queryType", queryType).set("search", search));
         for (CrmActivity crmActivity : page.getList()) {
