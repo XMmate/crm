@@ -220,7 +220,6 @@ public class CrmCustomerServiceImpl extends BaseServiceImpl<CrmCustomerMapper, C
      * @date 2020/10/26 10:16
      **/
     private void setPoolDay(List<Map<String, Object>> list) {
-        Long userId = UserUtil.getUserId();
         Date date = new Date();
         List<CrmCustomerPool> poolList = crmCustomerPoolService.lambdaQuery().eq(CrmCustomerPool::getStatus, 1).eq(CrmCustomerPool::getPutInRule, 1).eq(CrmCustomerPool::getRemindSetting, 1).list();
         poolList.forEach(pool -> {
@@ -242,7 +241,6 @@ public class CrmCustomerServiceImpl extends BaseServiceImpl<CrmCustomerMapper, C
                 //客户级别设置 1全部 2根据级别分别设置
                 Integer levelSetting = rule.getCustomerLevelSetting();
                 String level = rule.getLevel();
-                userIdsList.add(userId);
                 for (Map<String, Object> map : list) {
                     //成交状态 0 未成交 1 已成交
                     Integer dealStatus = (Integer) map.get("dealStatus");
