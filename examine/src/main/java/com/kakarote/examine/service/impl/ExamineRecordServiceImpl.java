@@ -945,7 +945,8 @@ public class ExamineRecordServiceImpl extends BaseServiceImpl<ExamineRecordMappe
         examineRecordLogService.lambdaUpdate()
                 .set(ExamineRecordLog::getExamineStatus, examineStatus)
                 .eq(ExamineRecordLog::getRecordId, recordId)
-                .in(ExamineRecordLog::getExamineStatus, ExamineStatusEnum.UNDERWAY.getStatus(), ExamineStatusEnum.AWAIT.getStatus());
+                .in(ExamineRecordLog::getExamineStatus, ExamineStatusEnum.UNDERWAY.getStatus(), ExamineStatusEnum.AWAIT.getStatus())
+                .update();
         /*
          修改审核记录状态
          */
