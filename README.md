@@ -1,6 +1,10 @@
 # 悟空CRM-11.0
 
 
+ **最新资讯： :collision: 悟空CRM云服务完全免费，且不限人数。悟空云正式上线，包含客户关系管理系统（CRM）人力资源管理系统（CRM）、财务管理系统（FS）、无代码平台、SCRM** 
+
+体验地址：[https://www.72crm.com](http://www.72crm.com)
+
 ## 悟空CRM介绍
 
 
