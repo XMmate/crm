@@ -16,7 +16,7 @@ function start()
     	JAVA_OPTS=
     fi
     # -Xms分配堆最小内存，默认为物理内存的1/64；-Xmx分配最大内存，默认为物理内存的1/4 如果程序会崩溃请将此值调高
-    nohup java -Xms128m -Xmx512m -jar ${JAVA_OPTS} ${project.artifactId}-${project.version}.jar >> /dev/nul 2>&1 &
+    nohup java -Xms128m -Xmx512m -jar ${JAVA_OPTS} ${project.artifactId}-${project.version}.jar >> /dev/null 2>&1 &
     echo "--------项目启动成功--------"
     echo "--------欢迎使用悟空CRM ^_^--------"
 }
