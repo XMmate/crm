@@ -20,6 +20,7 @@ import org.springframework.http.HttpCookie;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,8 +29,10 @@ import java.util.Optional;
 public class PermissionServiceImpl implements PermissionService {
     @Autowired
     private AuthService authService;
+
     @Autowired
     private GatewayConfiguration configuration;
+
     @Autowired
     private Redis redis;
 
@@ -110,12 +113,9 @@ public class PermissionServiceImpl implements PermissionService {
      */
     @Override
     public boolean ignoreAuthentication(String url) {
-        boolean isAuth = Optional.ofNullable(configuration.getIgnoreUrl()).orElse(ListUtil.empty()).stream().anyMatch(ignoreUrl -> ignoreUrl.startsWith(url));
-        if (!isAuth) {
-            if (url.endsWith(SwaggerProvider.API_URI) || NOT_AUTH_URLS.contains(url)) {
-                isAuth = true;
-            }
-        }
-        return isAuth;
+        List<String> ignoreUrlList = Optional.ofNullable(configuration.getIgnoreUrl()).orElse(new ArrayList<>());
+        ignoreUrlList.add(SwaggerProvider.API_URI);
+        ignoreUrlList.addAll(NOT_AUTH_URLS);
+        return ignoreUrlList.stream().anyMatch(ignoreUrl -> url.startsWith(ignoreUrl) || ignoreUrl.startsWith(url));
     }
 }
