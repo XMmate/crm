@@ -113,9 +113,12 @@ public class PermissionServiceImpl implements PermissionService {
      */
     @Override
     public boolean ignoreAuthentication(String url) {
-        List<String> ignoreUrlList = Optional.ofNullable(configuration.getIgnoreUrl()).orElse(new ArrayList<>());
-        ignoreUrlList.add(SwaggerProvider.API_URI);
-        ignoreUrlList.addAll(NOT_AUTH_URLS);
-        return ignoreUrlList.stream().anyMatch(ignoreUrl -> url.startsWith(ignoreUrl) || ignoreUrl.startsWith(url));
+        boolean isAuth = Optional.ofNullable(configuration.getIgnoreUrl()).orElse(ListUtil.empty()).stream().anyMatch(url::startsWith);
+        if (!isAuth) {
+            if (url.endsWith(SwaggerProvider.API_URI) || NOT_AUTH_URLS.contains(url)) {
+                isAuth = true;
+            }
+        }
+        return isAuth;
     }
 }
