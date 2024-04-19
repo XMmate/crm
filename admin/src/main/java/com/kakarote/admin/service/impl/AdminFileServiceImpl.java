@@ -53,7 +53,7 @@ public class AdminFileServiceImpl extends BaseServiceImpl<AdminFileMapper, Admin
         if (StrUtil.isEmpty(batchId)) {
             batchId = IdUtil.simpleUUID();
         }
-        UploadEntity entity = new UploadEntity(BaseUtil.getNextId() + "", file.getOriginalFilename(), file.getSize(), batchId, isPublic);
+        UploadEntity entity = new UploadEntity(BaseUtil.getNextId() + "", FileUtil.getName(file.getOriginalFilename()), file.getSize(), batchId, isPublic);
         entity = FileServiceFactory.build().uploadFile(file.getInputStream(), entity);
         AdminFile adminFile = new AdminFile();
         adminFile.setFileId(Long.valueOf(entity.getFileId()));
@@ -74,7 +74,7 @@ public class AdminFileServiceImpl extends BaseServiceImpl<AdminFileMapper, Admin
 
     @Override
     public UploadEntity uploadBySingle(MultipartFile file, String batchId, String type, String isPublic) throws IOException {
-        String fileName = file.getOriginalFilename();
+        String fileName = FileUtil.getName(file.getOriginalFilename());
         String fileId = BaseUtil.getNextId() + "";
         if (StrUtil.isEmpty(batchId)) {
             batchId = IdUtil.simpleUUID();

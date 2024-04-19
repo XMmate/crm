@@ -220,7 +220,7 @@ public class CallRecordServiceImpl extends BaseServiceImpl<CallRecordMapper, Cal
         String batchId = StrUtil.isNotEmpty(record.getBatchId()) ? record.getBatchId() : IdUtil.simpleUUID();
         UploadEntity entity;
         if (file != null) {
-            entity = new UploadEntity(BaseUtil.getNextId() + "", file.getOriginalFilename(), file.getSize(), batchId,"0");
+            entity = new UploadEntity(BaseUtil.getNextId() + "", FileUtil.getName(file.getOriginalFilename()), file.getSize(), batchId,"0");
             try {
                 entity = FileServiceFactory.build().uploadFile(file.getInputStream(), entity);
             } catch (IOException e) {

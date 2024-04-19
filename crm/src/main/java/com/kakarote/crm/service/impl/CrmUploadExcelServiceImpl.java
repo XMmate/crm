@@ -132,7 +132,7 @@ public class CrmUploadExcelServiceImpl implements CrmUploadExcelService {
         String dirPath = FileUtil.getTmpDirPath();
         try {
             InputStream inputStream = file.getInputStream();
-            File fromStream = FileUtil.writeFromStream(inputStream, dirPath + "/" + IdUtil.simpleUUID() + file.getOriginalFilename());
+            File fromStream = FileUtil.writeFromStream(inputStream, dirPath + "/" + IdUtil.simpleUUID() + FileUtil.getName(file.getOriginalFilename()));
             return fromStream.getAbsolutePath();
         } catch (IOException e) {
             throw new CrmException(SystemCodeEnum.SYSTEM_UPLOAD_FILE_ERROR);
