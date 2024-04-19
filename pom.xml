@@ -50,14 +50,6 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
-        <repository>
-            <id>72crm</id>
-            <name>72crm</name>
-            <url>http://nexus.72crm.com/repository/maven-public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
     </repositories>
 
     <pluginRepositories>

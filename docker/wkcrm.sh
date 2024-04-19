@@ -9,8 +9,6 @@ case "$1" in
 start)
     # shellcheck disable=SC2164
     cd /opt
-    echo "启动sentinel"
-    nohup java -Dserver.port=8079 -Dproject.name=sentinel-dashboard -jar sentinel/sentinel-dashboard.jar > package/logs/sentinel.log 2>&1 &
     echo "启动seata"
     nohup sh seata/bin/seata-server.sh  > package/logs/seata.log 2>&1 &
     # shellcheck disable=SC2039
@@ -43,8 +41,6 @@ restart)
         sh package/$value/72crm.sh stop;
         sleep 0.5s;
     done
-    echo "启动sentinel"
-    nohup java -Dserver.port=8079 -Dproject.name=sentinel-dashboard -jar sentinel/sentinel-dashboard.jar > package/logs/sentinel.log 2>&1 &
     echo "启动seata"
     nohup sh seata/bin/seata-server.sh  > package/logs/seata.log 2>&1 &
     for value in "${server_names[@]}"
