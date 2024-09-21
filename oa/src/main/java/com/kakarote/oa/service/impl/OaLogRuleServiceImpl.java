@@ -22,6 +22,10 @@ import java.util.List;
 @Service
 public class OaLogRuleServiceImpl extends BaseServiceImpl<OaLogRuleMapper, OaLogRule> implements IOaLogRuleService {
 
+
+    /*
+    查询日志提交规则设置列表
+     */
     @Override
     public List<OaLogRule> queryOaLogRuleList() {
         List<OaLogRule> list = list();
@@ -33,6 +37,11 @@ public class OaLogRuleServiceImpl extends BaseServiceImpl<OaLogRuleMapper, OaLog
         return list;
     }
 
+
+    /**
+     * 设置日志提交规则设置列表
+     * @param ruleList
+     */
     @Override
     public void setOaLogRule(List<OaLogRule> ruleList) {
         updateBatchById(ruleList);

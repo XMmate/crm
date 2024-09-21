@@ -71,6 +71,11 @@ public class CrmExamineRecordController {
         return Result.ok(object);
     }
 
+    /**
+     * 进行审批 通过，不通过 ，撤销
+     * @param auditExamine
+     * @return
+     */
     @PostMapping("/auditExamine")
     @ApiOperation("进行审批")
     public Result auditExamine(@RequestBody CrmAuditExamineBO auditExamine) {

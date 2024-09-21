@@ -1,5 +1,6 @@
-package com.kakarote.core.redis;
+package com.kakarote.core.redis.service.Impl;
 
+import com.kakarote.core.redis.service.Redis;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.DataType;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -28,6 +29,7 @@ public class RedisImpl implements Redis {
     //key操作
 
     private String appendKeyPrefix(Object key) {
+        //如果不是字符串，那就先转换成字符串
         if (key instanceof String) {
             return ((String) key);
         }

@@ -5,6 +5,7 @@ import com.kakarote.core.feign.examine.entity.ExamineInfoVo;
 import com.kakarote.core.feign.examine.entity.ExamineRecordLog;
 import com.kakarote.core.feign.examine.entity.ExamineRecordReturnVO;
 import com.kakarote.core.feign.examine.entity.ExamineRecordSaveBO;
+import com.kakarote.core.feign.examine.fallback.ExamineServiceFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 /**
- * @author JiaS
- * @date 2020/12/17
+ * 远程调用审批服务
+ *
  */
-@FeignClient(name = "examine",contextId = "record")
+@FeignClient(name = "examine",contextId = "record" ,fallbackFactory = ExamineServiceFallback.class)
 public interface ExamineService {
 
     @PostMapping("/examineRecord/addExamineRecord")
@@ -31,6 +32,12 @@ public interface ExamineService {
     @PostMapping("/examineRecord/queryExamineRecordInfo")
     public Result<ExamineRecordReturnVO> queryExamineRecordInfo(@RequestParam("recordId") Integer recordId);
 
+
+    /**
+     * 查询审批
+     * @param examineId
+     * @return
+     */
     @PostMapping("/examines/queryExamineById")
     public Result<ExamineInfoVo> queryExamineById(@RequestParam("examineId") Long examineId);
 

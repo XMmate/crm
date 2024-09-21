@@ -192,16 +192,22 @@ public class OaLogController {
     }
 
 
-
+    /**
+     * todo 非admin安全校验
+     * @param ruleList
+     * @return
+     */
     @PostMapping("/queryOaLogRuleList")
-    @ApiOperation("查询日志规则")
+    @ApiOperation("查询日志规则列表")
     public Result<List<OaLogRule>> queryOaLogRuleList(){
         List<OaLogRule> logRules = oaLogRuleService.queryOaLogRuleList();
         return Result.ok(logRules);
     }
 
     /**
-     * 设置日志提交设置
+     * todo 非admin安全校验
+     * @param ruleList
+     * @return
      */
     @PostMapping("/setOaLogRule")
     @ApiOperation("设置日志提交设置")

@@ -14,8 +14,9 @@ import java.io.PrintWriter;
 
 /**
  * @author z
- * 未登录拦截
+ * 未登录或提供了无效的凭证时会触发，这个拦过滤器要安排在过滤器链的末尾
  */
+
 public class AuthorizedFilter implements AuthenticationEntryPoint, Ordered {
 
 
@@ -24,6 +25,7 @@ public class AuthorizedFilter implements AuthenticationEntryPoint, Ordered {
         Result result = Result.error(AuthorizationCodeEnum.AUTHORIZATION_LOGIN);
         response.setContentType(Const.DEFAULT_CONTENT_TYPE);
         PrintWriter out = response.getWriter();
+        //把错误信息写入响应对象
         out.write(result.toJSONString());
         out.flush();
         out.close();

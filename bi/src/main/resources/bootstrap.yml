@@ -9,20 +9,20 @@ spring:
     nacos:
       config:
         enabled: true
-        server-addr: 127.0.0.1:8848
+        server-addr: 100.75.29.25:8848
         file-extension: yaml
         prefix: bi
       discovery:
         enabled: true
-        server-addr: 127.0.0.1:8848
+        server-addr: 100.75.29.25:8848
     sentinel:
       filter:
         enabled: false
       transport:
-        dashboard: ${SENTINEL_DASHBOARD_HOST:127.0.0.1}:${SENTINEL_DASHBOARD_PORT:8079}
+        dashboard: ${SENTINEL_DASHBOARD_HOST:100.75.29.25}:${SENTINEL_DASHBOARD_PORT:8079}
       datasource:
         flow:
-          server-addr: 127.0.0.1:8848
+          server-addr: 100.75.29.25:8848
           dataId: ${spring.application.name}-flow-rules
           groupId: SENTINEL_GROUP
           rule-type: flow

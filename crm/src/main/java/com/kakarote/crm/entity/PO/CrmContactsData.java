@@ -37,7 +37,7 @@ public class CrmContactsData implements Serializable {
 
     private String value;
 
-    @TableField(fill = FieldFill.INSERT)
+    @TableField(fill = FieldFill.INSERT) //自动赋予系统当前时间
     private Date createTime;
 
     private String batchId;

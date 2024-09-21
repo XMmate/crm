@@ -80,7 +80,7 @@ public class CrmCustomerController {
     }
 
     @PostMapping("/add")
-    @ApiOperation("保存数据")
+    @ApiOperation("添加客户")
     @SysLogHandler(behavior = BehaviorEnum.SAVE, object = "#crmModel.entity[customerName]", detail = "'新增了客户:' + #crmModel.entity[customerName]")
     public Result<Map<String, Object>> add(@RequestBody CrmBusinessSaveBO crmModel) {
         Map<String, Object> map = crmCustomerService.addOrUpdate(crmModel, false, null);
@@ -344,6 +344,7 @@ public class CrmCustomerController {
             remindConfig.setStatus(0);
             remindConfig.setValue("3");
             remindConfig.setName("putInPoolRemindDays");
+            remindConfig.setDescription("放入池提醒天数");
             adminService.updateAdminConfig(remindConfig);
         }
         AdminConfig config = adminService.queryFirstConfigByName("expiringContractDays").getData();

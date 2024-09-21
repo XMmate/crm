@@ -6,7 +6,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.kakarote.core.common.Const;
 import com.kakarote.core.common.FieldEnum;
-import com.kakarote.core.field.FieldService;
+import com.kakarote.core.field.service.FieldService;
 import com.kakarote.core.servlet.BaseServiceImpl;
 import com.kakarote.oa.entity.PO.OaExamineFieldExtend;
 import com.kakarote.oa.mapper.OaExamineFieldExtendMapper;

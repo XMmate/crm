@@ -23,9 +23,10 @@ public class BiParams extends PageEntity {
     @ApiModelProperty("用户ID")
     private Long userId;
 
-    @ApiModelProperty("用户IDs")
+    @ApiModelProperty("用户组ids")
     private List<Long> userIds;
 
+    //按年或月或日
     @ApiModelProperty("类型")
     private String type;
 

@@ -1,4 +1,4 @@
-package com.kakarote.core.field;
+package com.kakarote.core.field.service;
 
 import com.kakarote.core.common.FieldEnum;
 

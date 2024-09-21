@@ -18,7 +18,7 @@ CREATE TABLE `xxl_job_group`  (
 -- ----------------------------
 -- Records of xxl_job_group
 -- ----------------------------
-INSERT INTO `xxl_job_group` VALUES (3, 'wk-job', '悟空crm调度中心', 2, 0, null);
+INSERT INTO `xxl_job_group` VALUES (3, 'wk-job', '长情crm调度中心', 2, 0, null);
 
 -- ----------------------------
 -- Table structure for xxl_job_info

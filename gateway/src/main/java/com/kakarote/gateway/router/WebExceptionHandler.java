@@ -31,7 +31,7 @@ import java.util.Map;
 
 /**
  * @author zhangzhiwei
- * webflux拦截404请求
+ * webflux全局异常处理
  */
 
 @Component
@@ -39,6 +39,13 @@ import java.util.Map;
 @Slf4j
 public class WebExceptionHandler extends AbstractErrorWebExceptionHandler {
 
+
+    /**
+     * 构造函数，并自定义返回的错误响应格式。
+     * @param errorAttributes
+     * @param applicationContext
+     * @param serverCodecConfigurer
+     */
     public WebExceptionHandler(ErrorAttributes errorAttributes, ApplicationContext applicationContext,
                                ServerCodecConfigurer serverCodecConfigurer) {
         super(errorAttributes, new ResourceProperties(), applicationContext);
@@ -46,10 +53,24 @@ public class WebExceptionHandler extends AbstractErrorWebExceptionHandler {
         super.setMessageReaders(serverCodecConfigurer.getReaders());
     }
 
+
+    /**
+     * 用于定义全局错误处理的路由。它指定了一个用于处理所有请求的 RouterFunction，当发生错误时，Spring WebFlux 会调用这个路由来生成错误响应。
+     * @param errorAttributes the {@code ErrorAttributes} instance to use to extract error
+     * information
+     * @return
+     */
     @Override
     protected RouterFunction<ServerResponse> getRoutingFunction(final ErrorAttributes errorAttributes) {
         return RouterFunctions.route(RequestPredicates.all(), this::renderErrorResponse);
     }
+
+    /**
+     * 处理全局异常，并根据不同的异常类型生成自定义的错误响应。它通过 ServerResponse 返回不同的 HTTP 状态码和 JSON 格式的响应体，
+     * 适用于网关或其他微服务系统。
+     * @param request
+     * @return
+     */
 
     private Mono<ServerResponse> renderErrorResponse(final ServerRequest request) {
         Throwable error = getError(request);
@@ -75,6 +96,12 @@ public class WebExceptionHandler extends AbstractErrorWebExceptionHandler {
         }
     }
 
+
+    /**
+     * 方法用于定义处理被阻止请求（如限流、熔断等场景）时的逻辑。它使用了 Spring WebFlux 的非阻塞编程模型，
+     * 通过 ServerResponse 返回 HTTP 错误响应（400 Bad Request），并以 JSON 格式输出错误信息
+     * @return
+     */
     @Bean
     public BlockRequestHandler blockRequestHandler() {
         BodyInserter<Result, ReactiveHttpOutputMessage> result = BodyInserters.fromValue(Result.error(SystemCodeEnum.SYSTEM_BAD_REQUEST));

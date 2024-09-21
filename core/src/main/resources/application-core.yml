@@ -28,8 +28,8 @@ feign:
   client:
     config:
       default:
-        connect-timeout: 60000
-        read-timeout: 60000
+        connect-timeout: 600000
+        read-timeout: 600000
 
   sentinel:
     enabled: true
@@ -68,8 +68,8 @@ crm:
     local:
       publicUrl:
       uploadPath:
-        0: D:/upload/private
-        1: D:/upload/public
+        0: E:/upload/private
+        1: E:/upload/public
     cos:
       region:
       secretId:
@@ -86,4 +86,5 @@ crm:
       bucketName:
         0:
         1:
+
 

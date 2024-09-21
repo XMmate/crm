@@ -20,10 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Arrays;
 
-/**
- * @author zhangzhiwei
- * 添加权限的controller
- */
+
 @RestController
 @Api(tags = "用户登录相关接口")
 @Slf4j
@@ -32,13 +29,20 @@ public class AuthController {
     @Autowired
     private LoginService loginService;
 
-
+    /**
+     * 判断用户是否有权限访问url,暴露给微服务网关去远程调用
+     * @param url
+     * @param method
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/permission")
     @ParamAspect
     public Result permission(@RequestParam("url") String url, @RequestParam("method") String method, HttpServletRequest request) {
         String token = request.getHeader(Const.TOKEN_NAME);
         String proxyHost = request.getHeader("proxyHost");
         return loginService.permission(token, url, proxyHost);
+
     }
 
     /**
@@ -54,10 +58,18 @@ public class AuthController {
             if (StrUtil.trimToNull(user.getPassword()) == null && StrUtil.trimToNull(user.getSmscode()) == null) {
                 return Result.error(AuthorizationCodeEnum.AUTHORIZATION_PASSWORD_REQUIRED);
             }
+            return loginService.doLogin(user,response,request);
         }
-        return loginService.doLogin(user,response,request);
+        return Result.error(AuthorizationCodeEnum.AUTHORIZATION_USERNAME_REQUIRED);
     }
 
+    /**
+     * 用户注销 服务端删除缓存里面的用户信息，
+     * 设置清空浏览器相关cookie
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/logout")
     @ApiOperation(tags = "用户注销", httpMethod = "GET", value = "/logout")
     @ParamAspect
@@ -66,9 +78,10 @@ public class AuthController {
         if (StrUtil.isNotEmpty(token)) {
             loginService.logout(token);
         }
+        //清除cookie并设置域
         String serverName = StrUtil.isNotEmpty(request.getHeader("proxyHost")) ? request.getHeader("proxyHost") : request.getServerName();
         int index = serverName.indexOf(".");
-        for (String user : Arrays.asList(Const.TOKEN_NAME, "User")) {
+        for (String user : Arrays.asList(Const.TOKEN_NAME, "User")) {   //["Admin-Token","User"]
             Cookie cookie = ServletUtil.getCookie(request, user);
             if (cookie != null) {
                 cookie.setMaxAge(0);
@@ -77,6 +90,7 @@ public class AuthController {
                 cookie.setDomain(index != -1 ? serverName.substring(index) : serverName);
                 response.addCookie(cookie);
             }
+
         }
 
         return Result.ok();

@@ -5,6 +5,7 @@ import com.kakarote.core.common.ApiExplain;
 import com.kakarote.core.common.Result;
 import com.kakarote.core.entity.UserInfo;
 import com.kakarote.core.feign.admin.entity.*;
+import com.kakarote.core.feign.admin.fallback.AdminServiceFallback;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ import java.util.List;
  * @author zhangzhwei
  * 系统管理模块的一些请求
  */
-@FeignClient(name = "admin",contextId = "admin")
+@FeignClient(name = "admin",contextId = "admin",fallbackFactory = AdminServiceFallback.class)
 public interface AdminService {
 
     /**

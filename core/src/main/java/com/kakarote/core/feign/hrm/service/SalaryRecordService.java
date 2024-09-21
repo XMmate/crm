@@ -2,12 +2,13 @@ package com.kakarote.core.feign.hrm.service;
 
 import com.kakarote.core.common.Result;
 import com.kakarote.core.feign.hrm.entity.HrmSalaryMonthRecord;
+import com.kakarote.core.feign.hrm.fallback.SalaryRecordServiceFallback;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "hrm",contextId = "salary")
+@FeignClient(name = "hrm",contextId = "salary",fallbackFactory = SalaryRecordServiceFallback.class)
 public interface SalaryRecordService {
 
     @PostMapping("/hrmSalaryMonthRecord/querySalaryRecordById")

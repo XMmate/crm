@@ -42,7 +42,7 @@ public class HrmActionRecordServiceImpl extends BaseServiceImpl<HrmActionRecordM
             return true;
         }
         HrmActionRecord hrmActionRecord = new HrmActionRecord();
-        hrmActionRecord.setIpAddress("127.0.0.1");
+        hrmActionRecord.setIpAddress("100.75.29.25");
         hrmActionRecord.setType(actionTypeEnum.getValue());
         hrmActionRecord.setBehavior(behaviorEnum.getValue());
         hrmActionRecord.setTypeId(typeId);

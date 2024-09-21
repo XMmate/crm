@@ -12,12 +12,9 @@ import java.util.Date;
 
 /**
  * <p>
- * 
+ * 待办事项标记处理表
  * </p>
- *
- * @author zhangzhiwei
- * @since 2020-05-23
- */
+**/
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)

@@ -19,13 +19,19 @@ import java.util.Date;
 @Component
 public class LoginLogUtil {
 
+
+    /**
+     * 获取登陆日志
+     * @param request
+     * @return
+     */
     public LoginLogEntity getLogEntity(HttpServletRequest request){
         String ipAddress = ServletUtil.getClientIP(request);
         LoginLogEntity loginLogEntity = new LoginLogEntity();
         loginLogEntity.setAuthResult(1);
         loginLogEntity.setLoginTime(new Date());
         loginLogEntity.setIpAddress(ipAddress);
-        String ipCityInfo = getIpCityInfo1(ipAddress);
+        String ipCityInfo = getIpCityInfo(ipAddress);
         log.info("===> ipCityInfo  : {}",ipCityInfo);
         if (ipCityInfo != null) {
             if (ipCityInfo.contains("内网IP")) {
@@ -45,7 +51,13 @@ public class LoginLogUtil {
         loginLogEntity.setPlatform(userAgent.getOs().toString());
         return loginLogEntity;
     }
-    private String getIpCityInfo1(String ip){
+
+    /**
+     * 查询ip地址的地区，使用ip2region库来实现
+     * @param ip
+     * @return
+     */
+    private String getIpCityInfo(String ip){
         log.info("===> Login IP : {}",ip);
         String dbPath = LoginLogUtil.class.getClassLoader().getResource("").getPath() + "ip2region/ip2region.db";
         log.info("===> dbPath  : {}",dbPath);

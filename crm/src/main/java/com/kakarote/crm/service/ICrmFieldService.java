@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * <p>
- * 自定义字段表 服务类
+ * 处理crm模块的各种字段信息的，例如查询“添加线索的时候需要什么字段”
  * </p>
  *
  * @author zhangzhiwei
@@ -78,6 +78,12 @@ public interface ICrmFieldService extends BaseService<CrmField> {
      */
     public List<CrmModelFiledVO> queryField(CrmModel crmModel);
 
+
+    /**
+     * 查寻字段配置返回给前端
+     * @param crmModel
+     * @return
+     */
     public List<List<CrmModelFiledVO>> queryFormPositionFieldVO(CrmModel crmModel);
 
     /**

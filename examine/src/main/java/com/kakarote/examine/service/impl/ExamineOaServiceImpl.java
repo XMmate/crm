@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.kakarote.core.exception.CrmException;
 import com.kakarote.core.feign.crm.entity.ExamineField;
 import com.kakarote.core.feign.examine.entity.ExamineConditionDataBO;
-import com.kakarote.core.feign.oa.OaService;
+import com.kakarote.core.feign.oa.service.OaService;
 import com.kakarote.examine.constant.ExamineCodeEnum;
 import com.kakarote.examine.entity.PO.ExamineRecord;
 import com.kakarote.examine.entity.VO.ExamineFlowConditionDataVO;

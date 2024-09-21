@@ -6,7 +6,7 @@ import com.kakarote.core.common.Const;
 import com.kakarote.core.entity.UserInfo;
 import com.kakarote.core.feign.admin.entity.SimpleUser;
 import com.kakarote.core.feign.admin.service.AdminService;
-import com.kakarote.core.redis.Redis;
+import com.kakarote.core.redis.service.Redis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

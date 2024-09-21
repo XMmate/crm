@@ -1,4 +1,4 @@
-package com.kakarote.core.redis;
+package com.kakarote.core.redis.service;
 
 import org.springframework.data.redis.connection.DataType;
 import org.springframework.data.redis.core.ZSetOperations;

@@ -42,12 +42,25 @@ public class SysLogController {
     @Autowired
     private ISysLogService sysLogService;
 
+
+    /**
+     * 保存登陆日志
+     * @param sysLog
+     * @return
+     */
     @PostMapping("/saveSysLog")
     public Result saveSysLog(@RequestBody SysLog sysLog){
         sysLogService.saveSysLog(sysLog);
         return Result.ok();
     }
 
+
+    /**
+     * 查询系统日志列表 包括 数据操作日志
+     * 系统操作日志 这里不包括登陆日志
+     * @param querySysLogBO
+     * @return
+     */
 
 
     @PostMapping("/querySysLogPageList")
@@ -93,6 +106,11 @@ public class SysLogController {
         }, dataList);
     }
 
+    /**
+     * 保存登陆日志，提供给远程调用
+     * @param loginLog
+     * @return
+     */
     @PostMapping("/saveLoginLog")
     public Result saveLoginLog(@RequestBody LoginLog loginLog){
         sysLogService.saveLoginLog(loginLog);

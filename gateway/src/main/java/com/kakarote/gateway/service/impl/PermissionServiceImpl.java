@@ -9,7 +9,7 @@ import com.kakarote.core.common.SystemCodeEnum;
 import com.kakarote.core.entity.UserExtraInfo;
 import com.kakarote.core.exception.CrmException;
 import com.kakarote.core.exception.NoLoginException;
-import com.kakarote.core.redis.Redis;
+import com.kakarote.core.redis.service.Redis;
 import com.kakarote.gateway.config.GatewayConfiguration;
 import com.kakarote.gateway.config.SwaggerProvider;
 import com.kakarote.gateway.service.AuthService;
@@ -20,7 +20,6 @@ import org.springframework.http.HttpCookie;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

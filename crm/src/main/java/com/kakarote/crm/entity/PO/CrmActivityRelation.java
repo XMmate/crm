@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 活动关联商机联系人表
+ * 活动关联商机或联系人表
  * </p>
  *
  * @author zhangzhiwei

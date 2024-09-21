@@ -50,7 +50,7 @@
     </select>
 
     <select id="selectRecordTypeIdListByUser" resultType="java.lang.Integer">
-        SELECT DISTINCT r.type_id FROM  `wk_examine_record` r WHERE r.record_id IN (
+        SELECT DISTINCT r.type_id , r.create_time, r.update_time  FROM  `wk_examine_record` r WHERE r.record_id IN (
             SELECT
                 t.record_id
             FROM

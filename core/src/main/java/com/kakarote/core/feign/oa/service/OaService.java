@@ -1,9 +1,10 @@
-package com.kakarote.core.feign.oa;
+package com.kakarote.core.feign.oa.service;
 
 import com.kakarote.core.common.Result;
 import com.kakarote.core.feign.crm.entity.ExamineField;
 import com.kakarote.core.feign.examine.entity.ExamineConditionDataBO;
 import com.kakarote.core.feign.oa.entity.ExamineVO;
+import com.kakarote.core.feign.oa.fallback.OaServiceFallback;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.Map;
 
-@FeignClient(name = "oa",contextId = "eventJob")
+@FeignClient(name = "oa",contextId = "eventJob",fallbackFactory = OaServiceFallback.class)
 public interface OaService {
 
     @PostMapping("/oaEventJob/eventNoticeCron")

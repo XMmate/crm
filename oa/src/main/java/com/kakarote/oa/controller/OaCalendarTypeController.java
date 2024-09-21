@@ -38,8 +38,10 @@ public class OaCalendarTypeController {
     @Autowired
     private IOaCalendarTypeService calendarTypeService;
 
+
+
     @PostMapping("/addOrUpdate")
-    @ApiOperation("添加/更新日历类型")
+    @ApiOperation("添加/更新日程类型")
     @SysLogHandler(applicationName = "admin",subModel = SubModelType.ADMIN_OTHER_SETTINGS,behavior = BehaviorEnum.UPDATE,object = "日历类型设置",detail = "日历类型设置")
     public Result addOrUpdate(@RequestBody OaCalendarType oaCalendarType) {
         calendarTypeService.addOrUpdateType(oaCalendarType);
@@ -48,14 +50,14 @@ public class OaCalendarTypeController {
 
 
     @PostMapping("/delete/{typeId}")
-    @ApiOperation("删除日历类型")
+    @ApiOperation("删除日程类型")
     public Result delete(@PathVariable Integer typeId) {
         calendarTypeService.deleteType(typeId);
         return Result.ok();
     }
 
     @PostMapping("/queryTypeList")
-    @ApiOperation("根据查询后台日历类型列表")
+    @ApiOperation("根据查询后台日程类型列表")
     public Result<List<OaCalendarType>> queryTypeList() {
         List<OaCalendarType> calendarTypeList = calendarTypeService.queryTypeList();
         return Result.ok(calendarTypeList);

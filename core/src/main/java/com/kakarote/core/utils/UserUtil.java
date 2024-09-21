@@ -5,7 +5,7 @@ import cn.hutool.crypto.SecureUtil;
 import com.kakarote.core.common.Const;
 import com.kakarote.core.entity.UserExtraInfo;
 import com.kakarote.core.entity.UserInfo;
-import com.kakarote.core.redis.Redis;
+import com.kakarote.core.redis.service.Redis;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.Cookie;

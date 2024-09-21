@@ -21,7 +21,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/crmEvent")
-@Api(value = "oa日程模块远程调用接口")
+@Api(value = "供oa日程模块远程调用接口")
 public class CrmEventController {
 
 

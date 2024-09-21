@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.kakarote.core.common.Const;
 import com.kakarote.core.common.cache.CrmCacheKey;
 import com.kakarote.core.feign.admin.service.AdminService;
-import com.kakarote.core.redis.Redis;
+import com.kakarote.core.redis.service.Redis;
 import com.kakarote.core.servlet.ApplicationContextHolder;
 import com.kakarote.core.utils.BaseUtil;
 import com.kakarote.core.utils.UserUtil;

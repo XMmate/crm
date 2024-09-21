@@ -1,6 +1,6 @@
 package com.kakarote.job.work;
 
-import com.kakarote.core.feign.work.WorkService;
+import com.kakarote.core.feign.work.service.WorkService;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import org.springframework.beans.factory.annotation.Autowired;

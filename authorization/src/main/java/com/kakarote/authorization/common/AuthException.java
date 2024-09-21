@@ -5,7 +5,7 @@ import org.springframework.security.access.AccessDeniedException;
 
 /**
  * @author z
- * 权限认证异常
+ * security权限认证异常处理
  */
 public class AuthException extends AccessDeniedException {
     private ResultCode resultCode;

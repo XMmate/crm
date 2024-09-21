@@ -30,12 +30,14 @@ public class PageEntity {
 
     public void setPageType(Integer pageType) {
         this.pageType = pageType;
+        //不分页的时候展示10000条，约等于展示全部了
         if (pageType == 0) {
             limit = 10000;
         }
     }
 
     public Integer getLimit() {
+        //分页的情况下每页最大100条
         if (limit > 100 && 1 == pageType) {
             limit = 100;
         }

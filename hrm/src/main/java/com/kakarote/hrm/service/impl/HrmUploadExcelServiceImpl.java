@@ -21,7 +21,7 @@ import com.kakarote.core.feign.admin.entity.AdminMessage;
 import com.kakarote.core.feign.admin.entity.AdminMessageEnum;
 import com.kakarote.core.feign.admin.service.AdminMessageService;
 import com.kakarote.core.feign.admin.service.AdminService;
-import com.kakarote.core.redis.Redis;
+import com.kakarote.core.redis.service.Redis;
 import com.kakarote.core.servlet.ApplicationContextHolder;
 import com.kakarote.core.servlet.upload.UploadConfig;
 import com.kakarote.core.utils.BaseUtil;

@@ -31,10 +31,11 @@ public class LoginLog implements Serializable {
     private Integer id;
 
     @ApiModelProperty(value = "操作人id")
-    @TableField(fill = FieldFill.INSERT)
+    @TableField(value = "create_user_id",fill = FieldFill.INSERT)
     private Long userId;
 
     @ApiModelProperty(value = "操作人")
+    @TableField(exist = false)
     private String realname;
 
     @ApiModelProperty(value = "登录时间")

@@ -51,6 +51,7 @@ public class BiServiceImpl implements BiService {
         BiTimeUtil.BiTimeEntity timeEntity = BiTimeUtil.analyzeType(biParams);
         Integer page = biParams.getPage() > 0 ? (biParams.getPage() - 1) * biParams.getLimit() : 0;
         timeEntity.setPage(page).setLimit(biParams.getLimit());
+
         JSONObject object = biMapper.queryProductSellCount(timeEntity);
         Integer count = object.getInteger("count");
         if(count == 0){
@@ -64,6 +65,12 @@ public class BiServiceImpl implements BiService {
         basePage.setExtraData(object);
         return basePage;
     }
+
+    /**
+     * 产品销售情况导出excel
+     * @param biParams
+     * @return
+     */
 
     @Override
     public List<Map<String, Object>> productSellExport(BiParams biParams) {
@@ -85,6 +92,7 @@ public class BiServiceImpl implements BiService {
         Integer menuId = 102;
         List<JSONObject> resultList = new ArrayList<>();
         JSONObject kv = new JSONObject().fluentPut("map", MonthEnum.values()).fluentPut("year", year);
+        //用户的
         if (isUser == 1) {
             if (userId != null) {
                 //根据数据权限过滤userId
@@ -109,7 +117,9 @@ public class BiServiceImpl implements BiService {
                     resultList.add(new JSONObject().fluentPut("name", name).fluentPut("list", recordList));
                 }
             }
-        } else {
+        }
+        //全公司的
+        else {
             List<Integer> deptIdList;
             if (deptId != null) {
                 deptIdList = adminService.queryChildDeptId(deptId).getData();

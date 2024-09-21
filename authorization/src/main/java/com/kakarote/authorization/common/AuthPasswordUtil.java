@@ -20,20 +20,19 @@ public class AuthPasswordUtil {
         return sign.equals(sign(key, salt))||sign.equals(signP(key,salt))||sign.equals(signP2(key,salt));
     }
 
-    /**
-     * 签名数据
-     *
-     * @param key  key
-     * @param salt 盐
-     * @return 加密后的字符串
+    /** 签名算法1
+     * 把key拼接上"erp"和sale再进行md5
+     * @param key
+     * @param salt
+     * @return
      */
     public static String sign(String key, String salt) {
         return SecureUtil.md5(key.concat("erp").concat(salt));
     }
 
     /**
-     * 签名数据
-     * PHP端签名
+     * 签名算法2
+     *
      *
      * @param key  key
      * @param salt 盐

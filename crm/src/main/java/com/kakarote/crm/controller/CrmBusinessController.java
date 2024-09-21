@@ -71,7 +71,7 @@ public class CrmBusinessController {
     }
 
     @PostMapping("/add")
-    @ApiOperation("保存数据")
+    @ApiOperation("保存商机数据")
     @SysLogHandler(behavior = BehaviorEnum.SAVE,object = "#crmModel.entity[businessName]",detail = "'新增了线索:' + #crmModel.entity[businessName]")
     public Result add(@RequestBody CrmBusinessSaveBO crmModel) {
         crmBusinessService.addOrUpdate(crmModel);
@@ -79,14 +79,14 @@ public class CrmBusinessController {
     }
 
     @PostMapping("/information/{id}")
-    @ApiOperation("查询详情页信息")
+    @ApiOperation("查询商机详情页信息")
     public Result<List<CrmModelFiledVO>> information(@PathVariable("id") @ApiParam(name = "id", value = "id") Integer id) {
         List<CrmModelFiledVO> information = crmBusinessService.information(id);
         return R.ok(information);
     }
 
     @PostMapping("/update")
-    @ApiOperation("修改数据")
+    @ApiOperation("修改商机数据")
     @SysLogHandler(behavior = BehaviorEnum.UPDATE)
     public Result update(@RequestBody CrmBusinessSaveBO crmModel) {
         if (AuthUtil.isRwAuth((Integer) crmModel.getEntity().get("businessId"), CrmEnum.BUSINESS,CrmAuthEnum.EDIT)) {
@@ -118,6 +118,11 @@ public class CrmBusinessController {
         return R.ok(jsonObject);
     }
 
+    /**
+     * 查询合同
+     * @param businessQueryRelationBO
+     * @return
+     */
     @PostMapping("/queryContract")
     public Result<BasePage<JSONObject>> queryContract(@RequestBody CrmBusinessQueryRelationBO businessQueryRelationBO) {
         boolean auth = AuthUtil.isCrmAuth(CrmEnum.BUSINESS, businessQueryRelationBO.getBusinessId(), CrmAuthEnum.READ);

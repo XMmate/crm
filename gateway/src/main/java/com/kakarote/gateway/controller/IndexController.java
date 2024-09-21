@@ -18,19 +18,17 @@ import java.net.URI;
 public class IndexController {
 
 
-    @RequestMapping("/")
-    public Mono<Void> index(ServerHttpResponse response) {
-        return Mono.fromRunnable(() -> {
-            response.setStatusCode(HttpStatus.FOUND);
-            response.getHeaders().setLocation(URI.create("./index.html"));
-        });
-    }
+//    @RequestMapping("/")
+//    public Mono<Void> index(ServerHttpResponse response) {
+//        return Mono.fromRunnable(() -> {
+//            response.setStatusCode(HttpStatus.FOUND);
+//            response.getHeaders().setLocation(URI.create("./index.html"));
+//        });
+//    }
 
-    @RequestMapping("/ping")
-    public Result ping() {
-        return Result.ok();
-    }
 
+
+    //版本号
     @RequestMapping("/version")
     public Result<String> version() {
         return Result.ok(Const.PROJECT_VERSION);

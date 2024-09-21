@@ -16,7 +16,7 @@ import com.kakarote.core.exception.CrmException;
 import com.kakarote.core.feign.admin.entity.AdminConfig;
 import com.kakarote.core.feign.admin.service.AdminService;
 import com.kakarote.core.feign.examine.service.ExamineService;
-import com.kakarote.core.redis.Redis;
+import com.kakarote.core.redis.service.Redis;
 import com.kakarote.core.servlet.ApplicationContextHolder;
 import com.kakarote.core.utils.UserUtil;
 import com.kakarote.crm.common.AuthUtil;
@@ -53,7 +53,7 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
     private Redis redis;
 
     @Autowired
-    private CrmBackLogMapper mapper;
+    private CrmBackLogMapper crmBackLogMapper;
 
     @Autowired
     private ICrmCustomerPoolService customerPoolService;
@@ -112,10 +112,10 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
         Map<String, Object> paras = new HashMap<>();
         paras.put("userId", userId);
         if (authList.contains("crm:customer:index")) {
-            Integer todayLeads = mapper.todayLeadsNum(paras);
-            Integer todayCustomer = mapper.todayCustomerNum(paras);
-            Integer todayBusiness = mapper.todayBusinessNum(paras);
-            Integer followCustomer = mapper.followCustomerNum(paras);
+            Integer todayLeads = crmBackLogMapper.todayLeadsNum(paras);
+            Integer todayCustomer =crmBackLogMapper.todayCustomerNum(paras);
+            Integer todayBusiness = crmBackLogMapper.todayBusinessNum(paras);
+            Integer followCustomer = crmBackLogMapper.followCustomerNum(paras);
             kv.put("todayLeads", todayLeads);
             kv.put("todayCustomer", todayCustomer);
             kv.put("todayBusiness", todayBusiness);
@@ -130,13 +130,13 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
                     record.put("remindDay", pool.getRemindDay());
                     record.put("ids", Collections.singletonList(userId));
                     if (rule.getType().equals(1)) {
-                        recordList.addAll(mapper.putInPoolByRecord(record));
+                        recordList.addAll(crmBackLogMapper.putInPoolByRecord(record));
                     } else if (rule.getType().equals(2)) {
-                        recordList.addAll(mapper.putInPoolByBusiness(record));
+                        recordList.addAll(crmBackLogMapper.putInPoolByBusiness(record));
                     } else if (rule.getType().equals(3)) {
                         Integer startDay = rule.getLimitDay() - pool.getRemindDay();
                         record.put("startDay", startDay);
-                        recordList.addAll(mapper.putInPoolByDealStatus(record));
+                        recordList.addAll(crmBackLogMapper.putInPoolByDealStatus(record));
                     }
                 }
                 List<Integer> customerIdList = recordList.stream().map(record -> record.getInteger("customerId")).collect(Collectors.toList());
@@ -155,14 +155,14 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
             }
         }
         if (authList.contains("crm:leads:index")) {
-            Integer followLeads = mapper.followLeadsNum(paras);
+            Integer followLeads = crmBackLogMapper.followLeadsNum(paras);
             kv.put("followLeads", followLeads);
         }
         if (authList.contains("crm:contract:index")) {
             AdminConfig adminConfig = adminService.queryFirstConfigByName("expiringContractDays").getData();
             if (1 == adminConfig.getStatus()) {
                 paras.put("remindDay", adminConfig.getValue());
-                Integer endContract = mapper.endContractNum(paras);
+                Integer endContract = crmBackLogMapper.endContractNum(paras);
                 kv.put("endContract", endContract);
             }
             List<Integer> ids = examineService.queryCrmExamineIdList(1, 1).getData();
@@ -187,13 +187,13 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
             AdminConfig returnVisitRemindConfig = adminService.queryFirstConfigByName("returnVisitRemindConfig").getData();
             if (Objects.equals(1, returnVisitRemindConfig.getStatus())) {
                 paras.put("remindDay", returnVisitRemindConfig.getValue());
-                Integer returnVisitRemind = mapper.returnVisitRemindNum(paras);
+                Integer returnVisitRemind = crmBackLogMapper.returnVisitRemindNum(paras);
                 kv.put("returnVisitRemind", returnVisitRemind);
             }
         }
 
         if (authList.contains("crm:receivables:index")) {
-            Integer remindReceivablesPlan = mapper.remindReceivablesPlanNum(paras);
+            Integer remindReceivablesPlan = crmBackLogMapper.remindReceivablesPlanNum(paras);
             List<Integer> ids = examineService.queryCrmExamineIdList(2, 1).getData();
             Integer checkReceivables = null;
             if (CollUtil.isNotEmpty(ids)) {
@@ -249,7 +249,7 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
         searchBO.setLimit(crmBackLogBO.getLimit());
         searchBO.setSearchList(crmBackLogBO.getData());
         BasePage<Map<String, Object>> basePage = crmLeadsService.queryPageList(searchBO);
-        Integer overtimeNum = mapper.todayOvertimeNum(getOvertimeQueryData(CrmEnum.LEADS));
+        Integer overtimeNum = crmBackLogMapper.todayOvertimeNum(getOvertimeQueryData(CrmEnum.LEADS));
         basePage.setExtraData(Collections.singletonMap("overtime",overtimeNum));
         return basePage;
     }
@@ -268,7 +268,7 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
         searchBO.setLimit(crmBackLogBO.getLimit());
         searchBO.setSearchList(crmBackLogBO.getData());
         BasePage<Map<String, Object>> basePage = crmCustomerService.queryPageList(searchBO);
-        Integer overtimeNum = mapper.todayOvertimeNum(getOvertimeQueryData(CrmEnum.CUSTOMER));
+        Integer overtimeNum = crmBackLogMapper.todayOvertimeNum(getOvertimeQueryData(CrmEnum.CUSTOMER));
         basePage.setExtraData(Collections.singletonMap("overtime",overtimeNum));
         return basePage;
     }
@@ -283,7 +283,7 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
         searchBO.setSearchList(crmBackLogBO.getData());
         BasePage<Map<String, Object>> basePage = crmBusinessService.queryPageList(searchBO);
         if(basePage.getExtraData() != null && basePage.getExtraData() instanceof JSONObject){
-            Integer overtimeNum = mapper.todayOvertimeNum(getOvertimeQueryData(CrmEnum.BUSINESS));
+            Integer overtimeNum = crmBackLogMapper.todayOvertimeNum(getOvertimeQueryData(CrmEnum.BUSINESS));
             ((JSONObject) basePage.getExtraData()).put("overtime",overtimeNum);
         }
         return basePage;
@@ -355,7 +355,7 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
             throw new CrmException(SystemCodeEnum.SYSTEM_NO_VALID);
         }
         AdminConfig adminConfig = adminService.queryFirstConfigByName("returnVisitRemindConfig").getData();
-        List<String> contractIdList = mapper.returnVisitRemind(StrUtil.join(Const.SEPARATOR, userIds), adminConfig.getValue());
+        List<String> contractIdList = crmBackLogMapper.returnVisitRemind(StrUtil.join(Const.SEPARATOR, userIds), adminConfig.getValue());
         if (isSub == 1) {
             List<String> dealIdList = backLogDealService.queryTypeId(9, 6, UserUtil.getUserId());
             contractIdList.removeAll(dealIdList);
@@ -561,11 +561,11 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
         if (type == 1) {
             ids.addAll(backLogDealService.queryTypeId(7, 8, userId));
         }
-        BasePage<CrmReceivablesPlan> basePage = mapper.remindReceivables(crmBackLogBO.parse(), type, ids, userId);
+        BasePage<CrmReceivablesPlan> basePage = crmBackLogMapper.remindReceivables(crmBackLogBO.parse(), type, ids, userId);
         basePage.getList().forEach(record -> {
             record.setCustomerName(crmCustomerService.getCustomerName(record.getCustomerId()));
         });
-        Integer overtimeNum = mapper.remindReceivablesOvertimeNum(DateUtil.beginOfDay(new Date()), userId);
+        Integer overtimeNum =crmBackLogMapper.remindReceivablesOvertimeNum(DateUtil.beginOfDay(new Date()), userId);
         basePage.setExtraData(Collections.singletonMap("overtime",overtimeNum));
         return basePage;
     }
@@ -620,17 +620,17 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
             case TODAY_CUSTOMER:
                 crmType = 2;
                 dealIdList = backLogDealService.queryTypeId(model, crmType, userId);
-                idList = mapper.queryTodayCustomerId(userId);
+                idList = crmBackLogMapper.queryTodayCustomerId(userId);
                 break;
             case FOLLOW_LEADS:
                 crmType = 1;
                 dealIdList = backLogDealService.queryTypeId(model, crmType, userId);
-                idList = mapper.queryFollowLeadsId(userId);
+                idList = crmBackLogMapper.queryFollowLeadsId(userId);
                 break;
             case FOLLOW_CUSTOMER:
                 crmType = 2;
                 dealIdList = backLogDealService.queryTypeId(model, crmType, userId);
-                idList = mapper.queryFollowCustomerId(userId);
+                idList = crmBackLogMapper.queryFollowCustomerId(userId);
                 break;
             case TO_ENTER_CUSTOMER_POOL:
                 List<CrmCustomerPool> poolList = ApplicationContextHolder.getBean(ICrmCustomerPoolService.class)
@@ -659,16 +659,16 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
                             record.put("ids", AuthUtil.filterUserId(userIdsList));
                         }
                         if (rule.getType().equals(1)) {
-                            recordList.addAll(mapper.putInPoolByRecord(record));
+                            recordList.addAll(crmBackLogMapper.putInPoolByRecord(record));
                         } else if (rule.getType().equals(2)) {
-                            recordList.addAll(mapper.putInPoolByBusiness(record));
+                            recordList.addAll(crmBackLogMapper.putInPoolByBusiness(record));
                         } else if (rule.getType().equals(3)) {
                             Integer startDay = rule.getLimitDay() - pool.getRemindDay();
                             record.put("startDay", startDay);
-                            recordList.addAll(mapper.putInPoolByDealStatus(record));
+                            recordList.addAll(crmBackLogMapper.putInPoolByDealStatus(record));
                         }
                     }
-                    List<Integer> dealIdsInPool = mapper.queryDealIdByPoolId(userId, CrmEnum.CUSTOMER_POOL.getType(), model, pool.getPoolId());
+                    List<Integer> dealIdsInPool =crmBackLogMapper.queryDealIdByPoolId(userId, CrmEnum.CUSTOMER_POOL.getType(), model, pool.getPoolId());
                     customerIdSet = recordList.stream().map(record -> record.getInteger("customerId")).collect(Collectors.toSet());
                     customerIdSet.forEach(customerId -> {
                         if (!dealIdsInPool.contains(customerId)) {
@@ -697,7 +697,7 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
             case REMIND_RECEIVABLES_PLAN:
                 crmType = 8;
                 dealIdList = backLogDealService.queryTypeId(model, crmType, userId);
-                idList = mapper.queryRemindReceivablesPlanId(userId);
+                idList = crmBackLogMapper.queryRemindReceivablesPlanId(userId);
                 break;
             case END_CONTRACT:
                 AdminConfig adminConfig = adminService.queryFirstConfigByName("expiringContractDays").getData();
@@ -706,7 +706,7 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
                 }
                 crmType = 6;
                 dealIdList = backLogDealService.queryTypeId(model, crmType, userId);
-                idList = mapper.queryEndContractId(userId, Integer.valueOf(adminConfig.getValue()));
+                idList = crmBackLogMapper.queryEndContractId(userId, Integer.valueOf(adminConfig.getValue()));
                 break;
             case REMIND_RETURN_VISIT_CONTRACT:
                 AdminConfig returnVisitRemindConfig = adminService.queryFirstConfigByName("returnVisitRemindConfig").getData();
@@ -715,17 +715,17 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
                 }
                 crmType = 6;
                 dealIdList = backLogDealService.queryTypeId(model, crmType, userId);
-                idList = mapper.queryReturnVisitContractId(userId, Integer.valueOf(returnVisitRemindConfig.getValue()));
+                idList = crmBackLogMapper.queryReturnVisitContractId(userId, Integer.valueOf(returnVisitRemindConfig.getValue()));
                 break;
             case TODAY_LEADS:
                 crmType = 1;
                 dealIdList = backLogDealService.queryTypeId(model, crmType, userId);
-                idList = mapper.queryTodayLeadsId(userId);
+                idList = crmBackLogMapper.queryTodayLeadsId(userId);
                 break;
             case TODAY_BUSINESS:
                 crmType = 5;
                 dealIdList = backLogDealService.queryTypeId(model, crmType, userId);
-                idList = mapper.queryTodayBusinessId(userId);
+                idList = crmBackLogMapper.queryTodayBusinessId(userId);
                 break;
             default:
                 break;
@@ -847,13 +847,13 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
                 userIdsList.add(userId);
                 record.put("ids", AuthUtil.filterUserId(new ArrayList<>(userIdsList)));
                 if (rule.getType().equals(1)) {
-                    recordList.addAll(mapper.putInPoolByRecord(record));
+                    recordList.addAll(crmBackLogMapper.putInPoolByRecord(record));
                 } else if (rule.getType().equals(2)) {
-                    recordList.addAll(mapper.putInPoolByBusiness(record));
+                    recordList.addAll(crmBackLogMapper.putInPoolByBusiness(record));
                 } else if (rule.getType().equals(3)) {
                     Integer startDay = rule.getLimitDay() - pool.getRemindDay();
                     record.put("startDay", startDay);
-                    recordList.addAll(mapper.putInPoolByDealStatus(record));
+                    recordList.addAll(crmBackLogMapper.putInPoolByDealStatus(record));
                 }
                 recordList.forEach(r -> {
                     Integer customerId = r.getInteger("customerId");

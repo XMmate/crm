@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 客户规则
+ * 企业配置，logo啊，名称之类的
  * </p>
  *
  * @author zhangzhiwei
@@ -23,7 +23,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("wk_admin_config")
-@ApiModel(value="AdminConfig对象", description="客户规则")
+@ApiModel(value="AdminConfig对象", description="")
 public class AdminConfig implements Serializable {
 
     private static final long serialVersionUID=1L;

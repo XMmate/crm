@@ -14,11 +14,10 @@ import java.util.List;
 
 /**
  * <p>
- * 
+ * 日志规则表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-07-01
+
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

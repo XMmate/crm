@@ -59,6 +59,7 @@ public class CrmRoleFieldServiceImpl extends BaseServiceImpl<CrmRoleFieldMapper,
         QueryWrapper<CrmRoleField> queryWrapper = new QueryWrapper<>();
         List<Integer> roleIds = UserUtil.getUser().getRoles();
         if(roleIds.isEmpty()){
+          //  放回不可变的空列表
             return Collections.emptyList();
         }
         queryWrapper.select("field_id", "field_name", "max(auth_level) as auth_level", "max(mask_type) AS mask_type","field_type")

@@ -8,6 +8,8 @@ import com.kakarote.admin.entity.BO.QuerySysLogBO;
 import com.kakarote.admin.entity.PO.AdminUser;
 import com.kakarote.admin.entity.PO.LoginLog;
 import com.kakarote.admin.entity.PO.SysLog;
+import com.kakarote.admin.mapper.LoginLogMapper;
+import com.kakarote.admin.mapper.SysLogMapper;
 import com.kakarote.admin.service.IAdminUserService;
 import com.kakarote.admin.service.ISysLogService;
 import com.kakarote.core.entity.BasePage;
@@ -26,6 +28,7 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortOrder;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -53,6 +56,7 @@ import java.util.Map;
 public class EsSysLogServiceImpl implements ISysLogService {
 
 
+    //es的客户端
     @Autowired
     private RestHighLevelClient restHighLevelClient;
 
@@ -60,6 +64,10 @@ public class EsSysLogServiceImpl implements ISysLogService {
     private IAdminUserService adminUserService;
 
     private static final Integer SYS_LOG_TYPE = 1;
+
+
+    @Autowired
+    private LoginLogMapper loginLogMapper;
 
     private static final Integer LOGIN_LOG_TYPE = 2;
 
@@ -165,6 +173,11 @@ public class EsSysLogServiceImpl implements ISysLogService {
     @Resource
     private ThreadPoolTaskExecutor adminThreadPoolExecutor;
 
+
+    /**
+     * 保存登陆日志到es
+     * @param sysLog
+     */
     @Override
     public void saveSysLog(SysLog sysLog) {
         String index = getSysLogIndex();
@@ -183,8 +196,12 @@ public class EsSysLogServiceImpl implements ISysLogService {
         });
     }
 
+
     @Override
     public void saveLoginLog(LoginLog loginLog) {
+        //保存到mysql
+        loginLogMapper.insert(loginLog);
+        //保存到es
         String index = getLoginLogIndex();
         adminThreadPoolExecutor.execute(() -> {
             if (loginLog.getAuthResult() == 1){

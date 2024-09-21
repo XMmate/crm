@@ -11,7 +11,7 @@ import com.kakarote.core.common.FieldEnum;
 import com.kakarote.core.exception.CrmException;
 import com.kakarote.core.feign.examine.entity.ExamineInfoVo;
 import com.kakarote.core.feign.examine.service.ExamineService;
-import com.kakarote.core.field.FieldService;
+import com.kakarote.core.field.service.FieldService;
 import com.kakarote.core.servlet.BaseServiceImpl;
 import com.kakarote.oa.common.OaCodeEnum;
 import com.kakarote.oa.entity.BO.ExamineFieldBO;

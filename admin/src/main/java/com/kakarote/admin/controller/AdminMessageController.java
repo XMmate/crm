@@ -16,7 +16,7 @@ import com.kakarote.core.common.Result;
 import com.kakarote.core.common.cache.AdminCacheKey;
 import com.kakarote.core.entity.BasePage;
 import com.kakarote.core.feign.admin.entity.AdminMessageBO;
-import com.kakarote.core.redis.Redis;
+import com.kakarote.core.redis.service.Redis;
 import com.kakarote.core.utils.UserUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

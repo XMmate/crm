@@ -1,7 +1,7 @@
 package com.kakarote.core.common;
 
 /**
- * @author zhangzhiwei
+ *
  * 默认响应类，所有返回消息需要继承这个类
  */
 public interface ResultCode {

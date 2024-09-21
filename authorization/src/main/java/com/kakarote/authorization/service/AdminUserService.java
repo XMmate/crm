@@ -1,6 +1,7 @@
 package com.kakarote.authorization.service;
 
 import com.kakarote.authorization.entity.AdminUserStatusBO;
+import com.kakarote.authorization.service.Fallback.AdminUserServiceFallback;
 import com.kakarote.core.common.Result;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -17,7 +18,7 @@ import java.util.List;
  * 向admin模块请求企业信息
  */
 @Component
-@FeignClient(name = "admin")
+@FeignClient(name = "admin",fallbackFactory= AdminUserServiceFallback.class)
 public interface AdminUserService {
 
     /**

@@ -21,6 +21,8 @@ public class CrmAnalysisController {
     @Autowired
     private ICrmCommonService crmCommonService;
 
+
+    //把一些数据删了 todo 还没搞明白
     @PostMapping("/initCrmData")
     @ApiExplain("初始化crm数据")
     public Result<Boolean> initCrmData() {

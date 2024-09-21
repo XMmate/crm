@@ -196,7 +196,7 @@ public class ActionRecordUtil {
             crmActionRecord.setTypes(crmEnum.getType());
             crmActionRecord.setActionId(actionId);
             crmActionRecord.setContent(JSON.toJSONString(textList));
-            crmActionRecord.setIpAddress("127.0.0.1");
+            crmActionRecord.setIpAddress("100.75.29.25");
             crmActionRecord.setDetail(StrUtil.join("", textList));
             crmActionRecord.setBehavior(BehaviorEnum.UPDATE.getType());
             crmActionRecord.setObject(name);
@@ -219,7 +219,7 @@ public class ActionRecordUtil {
         ArrayList<String> strings = new ArrayList<>();
         strings.add("新建了" + crmEnum.getRemarks());
         crmActionRecord.setContent(JSON.toJSONString(strings));
-        crmActionRecord.setIpAddress("127.0.0.1");
+        crmActionRecord.setIpAddress("100.75.29.25");
         crmActionRecord.setDetail("新建了" + crmEnum.getRemarks() + "：" + name);
         crmActionRecord.setBehavior(BehaviorEnum.SAVE.getType());
         crmActionRecord.setObject(name);

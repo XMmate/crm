@@ -7,8 +7,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * @author zhangzhiwei
  * 返回数据
+ * @param <T>
  */
 
 public class Result<T> implements Serializable {

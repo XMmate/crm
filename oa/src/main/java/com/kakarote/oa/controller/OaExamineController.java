@@ -78,7 +78,7 @@ public class OaExamineController {
     }
 
 
-    @ApiOperation("查询详情或比编辑字段")
+    @ApiOperation("查询审批详情或比编辑字段")
     @PostMapping("/getField")
     public Result<List> getField(@RequestBody GetExamineFieldBO getExamineFieldBO){
         if (StrUtil.isNotEmpty(getExamineFieldBO.getType())) {

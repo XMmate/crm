@@ -20,7 +20,7 @@ CREATE TABLE `xxl_job_group`  (
 -- ----------------------------
 -- Records of xxl_job_group
 -- ----------------------------
-INSERT INTO `xxl_job_group` VALUES (3, 'wk-job', '悟空crm调度中心', 2, 0, '172.17.0.2:9998');
+INSERT INTO `xxl_job_group` VALUES (3, 'wk-job', '长情crm调度中心', 2, 0, '172.17.0.2:9998');
 
 -- ----------------------------
 -- Table structure for xxl_job_info

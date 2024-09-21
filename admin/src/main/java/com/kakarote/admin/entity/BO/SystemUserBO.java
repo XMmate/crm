@@ -17,7 +17,6 @@ public class SystemUserBO implements Serializable {
     private String username;
 
     @ApiModelProperty("凭证")
-    @NotNull
     private String code;
 
     @ApiModelProperty("密码")

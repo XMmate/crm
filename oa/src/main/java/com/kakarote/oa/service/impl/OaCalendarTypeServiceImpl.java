@@ -61,6 +61,10 @@ public class OaCalendarTypeServiceImpl extends BaseServiceImpl<OaCalendarTypeMap
     private CrmEventService crmEventService;
 
 
+    /**
+     * 添加或修改日程类型
+     * @param oaCalendarType
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void addOrUpdateType(OaCalendarType oaCalendarType) {
@@ -72,6 +76,11 @@ public class OaCalendarTypeServiceImpl extends BaseServiceImpl<OaCalendarTypeMap
             updateById(oaCalendarType);
         }
     }
+
+    /**
+     * 根据id删除日程类型
+     * @param typeId
+     */
 
     @Override
     public void deleteType(Integer typeId) {
@@ -85,6 +94,10 @@ public class OaCalendarTypeServiceImpl extends BaseServiceImpl<OaCalendarTypeMap
         removeById(typeId);
     }
 
+    /**
+     * 查询日程类型列表
+     * @return
+     */
     @Override
     public List<OaCalendarType> queryTypeList() {
         return lambdaQuery().select(OaCalendarType::getTypeId,OaCalendarType::getTypeName,OaCalendarType::getColor)

@@ -10,13 +10,19 @@ import java.util.List;
  *  服务类
  * </p>
  *
- * @author wyq
- * @since 2020-05-15
+
  */
 public interface IOaLogRuleService extends BaseService<OaLogRule> {
-
+    /**
+     * 查询日志提交规则设置列表
+     * @return
+     */
     List<OaLogRule> queryOaLogRuleList();
 
+    /**
+     * 设置日志提交规则设置列表
+     * @param ruleList
+     */
 
     void setOaLogRule(List<OaLogRule> ruleList);
 }

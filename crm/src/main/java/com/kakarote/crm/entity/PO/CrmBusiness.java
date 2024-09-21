@@ -15,9 +15,7 @@ import java.util.Date;
  * <p>
  * 商机表
  * </p>
- *
- * @author zhangzhiwei
- * @since 2020-05-27
+
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

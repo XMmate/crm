@@ -12,7 +12,7 @@ import com.kakarote.core.exception.CrmException;
 import com.kakarote.core.feign.admin.entity.AdminMessage;
 import com.kakarote.core.feign.admin.entity.AdminMessageEnum;
 import com.kakarote.core.feign.admin.service.AdminService;
-import com.kakarote.core.redis.Redis;
+import com.kakarote.core.redis.service.Redis;
 import com.kakarote.core.servlet.BaseServiceImpl;
 import com.kakarote.core.utils.UserUtil;
 import com.kakarote.hrm.common.EmployeeHolder;

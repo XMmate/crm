@@ -14,6 +14,5 @@ import lombok.experimental.Accessors;
 @Data
 @ToString
 public class LoginVO {
-
     private String adminToken;
 }

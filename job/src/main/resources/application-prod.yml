@@ -1,7 +1,7 @@
 xxl:
   job:
     admin:
-      addresses: http://127.0.0.1:7070/xxl-job-admin
+      addresses: http://100.75.29.25:7070/xxl-job-admin
     executor:
       appname: wk-job
       ip:
@@ -11,7 +11,7 @@ xxl:
     accessToken:
 spring:
   redis:
-    host: ${REDIS_HOST:127.0.0.1}
+    host: ${REDIS_HOST:100.75.29.25}
     port: ${REDIS_PORT:6379}
     password: ${REDIS_PASSWORD:123456}
     database: 12
@@ -19,7 +19,7 @@ spring:
       pool:
         max-active: 300
   datasource:
-    url: jdbc:${DATASOURCE_DBTYPE:mysql}://${DATASOURCE_HOST:127.0.0.1}:${DATASOURCE_PORT:3306}/wk_crm_single?characterEncoding=utf8&useSSL=false&zeroDateTimeBehavior=convertToNull&tinyInt1isBit=false&serverTimezone=Asia/Shanghai&useAffectedRows=true
+    url: jdbc:${DATASOURCE_DBTYPE:mysql}://${DATASOURCE_HOST:100.75.29.25}:${DATASOURCE_PORT:3306}/wk_crm_single?characterEncoding=utf8&useSSL=false&zeroDateTimeBehavior=convertToNull&tinyInt1isBit=false&serverTimezone=Asia/Shanghai&useAffectedRows=true
     username: ${DATASOURCE_USERNAME:root}
-    password: ${DATASOURCE_PASSWORD:password}
+    password: ${DATASOURCE_PASSWORD:123456}
 

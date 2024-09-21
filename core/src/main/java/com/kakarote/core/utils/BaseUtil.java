@@ -6,7 +6,7 @@ import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.IdUtil;
 import com.kakarote.core.entity.UserInfo;
-import com.kakarote.core.redis.Redis;
+import com.kakarote.core.redis.service.Redis;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -82,7 +82,7 @@ public class BaseUtil {
     }
 
     public static String getIp(){
-        return "127.0.0.1";
+        return "100.75.29.25";
     }
 
     public static boolean isTime(String str){

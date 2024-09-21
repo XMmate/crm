@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
+/**通话记录表
  * @author Ian
  * @date 2020/8/27
  */

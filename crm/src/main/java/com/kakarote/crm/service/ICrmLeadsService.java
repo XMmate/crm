@@ -30,14 +30,18 @@ import java.util.Map;
  */
 public interface ICrmLeadsService extends BaseService<CrmLeads> {
     /**
-     * 查询字段配置
+     * 查询新增线索时的字段配置
      *
      * @param id 主键ID
      * @return data
      */
     public  List<CrmModelFiledVO> queryField(Integer id);
 
-
+    /**
+     * 查询新增线索所需字段
+     * @param id
+     * @return
+     */
     public  List<List<CrmModelFiledVO>> queryFormPositionField(Integer id);
 
     /**

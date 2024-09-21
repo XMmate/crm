@@ -26,9 +26,9 @@ import com.kakarote.core.common.cache.AdminCacheKey;
 import com.kakarote.core.exception.CrmException;
 import com.kakarote.core.feign.crm.service.CrmAnalysisService;
 import com.kakarote.core.feign.jxc.service.JxcExamineService;
-import com.kakarote.core.feign.km.KmService;
-import com.kakarote.core.feign.oa.OaService;
-import com.kakarote.core.feign.work.WorkService;
+import com.kakarote.core.feign.km.service.KmService;
+import com.kakarote.core.feign.oa.service.OaService;
+import com.kakarote.core.feign.work.service.WorkService;
 import com.kakarote.core.servlet.BaseServiceImpl;
 import com.kakarote.core.utils.BaseUtil;
 import com.kakarote.core.utils.UserUtil;
@@ -89,7 +89,7 @@ public class AdminConfigServiceImpl extends BaseServiceImpl<AdminConfigMapper, A
 
     /**
      * 设置企业配置
-     *
+     *企业logo 企业名称等
      */
     @Override
     public void setAdminConfig(AdminCompanyBO adminCompanyBO) {
@@ -169,6 +169,7 @@ public class AdminConfigServiceImpl extends BaseServiceImpl<AdminConfigMapper, A
             config.setName(logConfigName);
             config.setValue(str);
             config.setStatus(1);
+            config.setDescription("欢迎标语");
             configList.add(config);
         });
         QueryWrapper<AdminConfig> queryWrapper = new QueryWrapper<>();

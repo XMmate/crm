@@ -18,7 +18,7 @@ import com.kakarote.core.feign.admin.service.AdminService;
 import com.kakarote.core.feign.crm.entity.CrmEventBO;
 import com.kakarote.core.feign.crm.entity.QueryEventCrmPageBO;
 import com.kakarote.core.feign.crm.entity.SimpleCrmEntity;
-import com.kakarote.core.field.FieldService;
+import com.kakarote.core.field.service.FieldService;
 import com.kakarote.core.servlet.ApplicationContextHolder;
 import com.kakarote.core.servlet.BaseServiceImpl;
 import com.kakarote.core.servlet.upload.FileEntity;
@@ -170,9 +170,16 @@ public class CrmLeadsServiceImpl extends BaseServiceImpl<CrmLeadsMapper, CrmLead
         return filedVOS;
     }
 
+
+    /**
+     * 查询新增线索所需字段
+     * @param id
+     * @return
+     */
     @Override
     public List<List<CrmModelFiledVO>> queryFormPositionField(Integer id) {
         CrmModel crmModel = queryById(id);
+        //crmModel封装了lable=1这个参数
         return crmFieldService.queryFormPositionFieldVO(crmModel);
     }
 
@@ -208,7 +215,7 @@ public class CrmLeadsServiceImpl extends BaseServiceImpl<CrmLeadsMapper, CrmLead
     }
 
     /**
-     * 查询字段配置
+     * 根据id查询配置
      *
      * @param id 主键ID
      * @return data

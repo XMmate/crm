@@ -6,7 +6,7 @@ import com.kakarote.core.common.cache.CrmCacheKey;
 import com.kakarote.core.entity.UserInfo;
 import com.kakarote.core.feign.admin.service.AdminService;
 import com.kakarote.core.feign.crm.service.CrmService;
-import com.kakarote.core.redis.Redis;
+import com.kakarote.core.redis.service.Redis;
 import com.kakarote.core.utils.UserUtil;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.annotation.XxlJob;

@@ -28,7 +28,7 @@ public interface GatewayRouteService extends BaseService<GatewayRoute> {
     public void saveRouter(RouteDefinition routeDefinition);
 
     /**
-     * 获取router列表
+     * 获取路由列表
      */
     public Collection<RouteDefinition> getRouteDefinitions();
 

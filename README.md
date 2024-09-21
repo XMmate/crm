@@ -1,47 +1,7 @@
-# 悟空CRM-11.0
-
-
- **最新资讯： :collision: 悟空CRM云服务免费试用。悟空云正式上线，包含客户关系管理系统（CRM）人力资源管理系统（CRM）、财务管理系统（FS）、无代码平台、SCRM** 
-
-体验地址：[https://www.72crm.com](http://www.72crm.com)
-
-## 悟空CRM介绍
-
-
-悟空CRM在中国的开源管理软件行业有较高的知名度。目前软件已达到千万级的用户量，开源系统下载量达到200多万次，已覆盖设计制造业、服务业、金融业、政府机构等多种行业。与阿里巴巴、腾讯、OPPO、航天信息、CCTV等多家知名企业达成战略合作。
-
-公司先后获得河南省高新技术企业、国家3A信用企业、IOS9001、IOS27001软件产品认证等20多项荣誉奖项。拥有50余项软件著作权。 获得20余家国内媒体报道。公司自成立以来，以高科技为起点，以技术为核心、 以完善的售后服务为后盾，秉承稳固与发展、求实与创新的精神，已为国内外上万家企业提供了服务。 在为实现企业价值最大化的过程中， 实现了自身的价值的提升，取得了最大程度的双赢合作，并获得了社会各界的广泛赞誉和认同。
-
-官网地址：[http://www.5kcrm.com](http://www.5kcrm.com/)
-
-演示地址：(https://demo10.72crm.com/#/crm)  
-帐号：18688888888   密码：123456a
-
-Github下载地址：[https://github.com/72wukong](https://github.com/72wukong)  
-
-QQ群交流群群：[259359511](https://qm.qq.com/cgi-bin/qm/qr?k=G9T2audQqbZBR_HG0aTP9E-8fE7oMeb8&jump_from=webapi)
-
-
-扫码添加小悟官方客服微信，邀您加入千人微信交流群：
-
-<img src="https://images.gitee.com/uploads/images/2019/1231/115927_f9c580c8_345098.png" width="200">
-
-关注悟空CRM公众号，了解更多悟空资讯
-
-<img src="https://images.gitee.com/uploads/images/2019/1202/135713_d3566c6a_345098.jpeg" width="200">
 
 
 
-
-
- :boom:  :boom:  :boom: 注：悟空CRM采用全新的前后端分离模式，本仓库代码中已集成前端vue打包后文件，  **可免去打包操作，无需运行前端** 。如需调整前端代码，请单独下载前端代码
-
-
-(<a href="https://gitee.com/wukongcrm/W72crm_web" target="_blank">点击下载前端代码</a>) 
-
-
-
-## 悟空CRM目录结构
+## 长情CRM目录结构
 
 ``` lua
 wk_crm
@@ -94,7 +54,7 @@ CRM/OA功能：<br/>
 
 
 
-## 悟空CRM使用的主要技术栈
+## 长情CRM使用的主要技术栈
 
 | 名称                  | 版本                        | 说明 |
 |---------------------|---------------------------|----|
@@ -111,7 +71,7 @@ CRM/OA功能：<br/>
 | feign               | 2.2.2.RELEASE             |  服务调用        |
 
 
-## 悟空CRM项目架构图
+## 长情CRM项目架构图
 
 
 <img src="https://images.gitee.com/uploads/images/2020/0910/094237_e7cb3bca_1096736.jpeg" width="650">
@@ -134,7 +94,7 @@ CRM/OA功能：<br/>
 
 本项目支持Docker一键安装（建议配置 4核16G以以上），[查看具体安装方法](https://gitee.com/wukongcrm/crm_pro/wikis/Docker一键安装教程?sort_id=3033975)
 
- **CentOS7手动安装教程参考**  [wiki](https://gitee.com/wukongcrm/crm_pro/wikis/CentOS7安装悟空CRM教程)
+ **CentOS7手动安装教程参考**  [wiki](https://gitee.com/wukongcrm/crm_pro/wikis/CentOS7安装长情CRM教程)
 
 ### 常见问题
 
@@ -153,7 +113,7 @@ CRM/OA功能：<br/>
 ```
    spring.datasource.platform=mysql
    db.num=1
-   db.url.0=jdbc:mysql://127.0.0.1:3306/nacos?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true
+   db.url.0=jdbc:mysql://100.75.29.25:3306/nacos?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true
    db.user=root
    db.password=password
 ```
@@ -176,7 +136,7 @@ CRM/OA功能：<br/>
 
         
 ```
-spring.elasticsearch.rest.uris = elasticsearch地址 例：127.0.0.1:9200
+spring.elasticsearch.rest.uris = elasticsearch地址 例：100.75.29.25:9200
 spring.elasticsearch.rest.username = elasticsearch用户名 例：elastic 无密码可留空
 spring.elasticsearch.rest.password = elasticsearch密码 例: password 无密码可留空
 
@@ -224,13 +184,7 @@ crm.upload.local.uploadPath      需要配置两个地址0为登录才可访问�
 #### 10. 初始化用户信息(序列号)<br/>
 
 
-```
-访问http://localhost:8443/  
-按照提示初始化超级管理员账号和密码信息,其中序列号填写，成功之后使用初始化后的管理员账户登录系统添加其他员工，分配权限等
-激活序列号：
-6EA74C261C4BA344BC716FCD68295694BABFE016F5B7FA4890E4E29B0F52A5D965EE4A1AF633633D4573A2559630986F976D8F2920D688686CB60967F6FFB9FDADE6AC6DFD39416DE175D0DE01699C816244C16EE4E533A959E3ED0653143A7363E5B98E62126A78CDC5578636F456D29FD2B063FCBED837D50B10450C6FFBF0290DB782C8D4525864A96A98C37C0106FB5D8392A7E828F0BEFA86B4CD28BEBE83628A59BB23F60B7799A22C8D7B2039ED30F05492E9D2A2E2A03D7AC0199EA2CE529D561AE622B3C0DECC50D8A223BC5DA03E3AFF1150F0F217B0BE0400835369329DB74454870D5314DBA7C24B98CCE5600CBDAF264A21974FA3C85E7EAF0A
 
-```
 
 #### 11. 升级说明以及注意事项<br/>
 
@@ -264,7 +218,7 @@ crm.upload.local.uploadPath      需要配置两个地址0为登录才可访问�
 #### 3.更新日志<br/>
 <a href="https://www.72crm.com/upgrade_log" target="_blank">点击查看更新日志</a> 
 <br/>
-### 四、悟空CRM功能模块预览
+### 四、长情CRM功能模块预览
 
 
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0928/172541_efed65bd_345098.png "01.png")

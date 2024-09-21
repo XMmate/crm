@@ -1,12 +1,12 @@
 package com.kakarote.core.feign.email;
 
 import com.kakarote.core.common.Result;
-import com.kakarote.core.feign.email.impl.EmailServiceImpl;
+import com.kakarote.core.feign.email.fallback.EmailServiceFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "email", contextId = "email",fallback = EmailServiceImpl.class)
+@FeignClient(name = "email", contextId = "email",fallbackFactory = EmailServiceFallback.class)
 public interface EmailService {
 
     /**

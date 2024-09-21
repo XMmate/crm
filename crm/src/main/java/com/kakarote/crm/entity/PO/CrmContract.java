@@ -105,8 +105,10 @@ public class CrmContract implements Serializable {
     @ApiModelProperty(value = "最后跟进时间")
     private Date lastTime;
 
-    private BigDecimal receivedMoney;
 
+    @ApiModelProperty(value = "收到的款项")
+    private BigDecimal receivedMoney;
+    @ApiModelProperty(value = "未收到的款项")
     private BigDecimal unreceivedMoney;
 
     @ApiModelProperty(value = "产品列表")

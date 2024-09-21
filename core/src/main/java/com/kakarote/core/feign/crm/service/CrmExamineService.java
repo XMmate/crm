@@ -5,7 +5,8 @@ import com.kakarote.core.common.Result;
 import com.kakarote.core.feign.crm.entity.CrmExamineData;
 import com.kakarote.core.feign.crm.entity.CrmSaveExamineRecordBO;
 import com.kakarote.core.feign.crm.entity.SimpleCrmInfo;
-import com.kakarote.core.feign.crm.service.impl.FeignCrmExamineServiceImpl;
+
+import com.kakarote.core.feign.crm.fallback.CrmEventServiceFallback;
 import com.kakarote.core.feign.examine.entity.ExamineConditionDataBO;
 import com.kakarote.core.feign.examine.entity.ExamineMessageBO;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.Map;
 
-@FeignClient(name = "crm",contextId = "examine",fallback = FeignCrmExamineServiceImpl.class)
+@FeignClient(name = "crm",contextId = "examine",fallbackFactory = CrmEventServiceFallback.class)
 public interface CrmExamineService {
 
     @PostMapping("/crmExamineRecord/saveExamineRecord")
@@ -30,6 +31,13 @@ public interface CrmExamineService {
     @PostMapping("/crmExamine/queryExamineStepIsExist")
     Result<Boolean> queryExamineStepIsExist(@RequestParam("categoryType") Integer categoryType);
 
+
+    /**
+     * 查询审批列表
+     * @param recordId
+     * @param ownerUserId
+     * @return
+     */
     @PostMapping("/crmExamineRecord/queryExamineRecordList")
     Result<JSONObject> queryExamineRecordList(
             @RequestParam("recordId") Integer recordId,

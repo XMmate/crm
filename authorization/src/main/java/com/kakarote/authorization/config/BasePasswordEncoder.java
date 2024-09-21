@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * @author z
- * 密码校验
+ * 自定义密码校验
  */
 @Slf4j
 public class BasePasswordEncoder implements PasswordEncoder {

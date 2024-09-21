@@ -12,7 +12,7 @@ import java.util.List;
 public interface BiEsStatisticsService {
 
     /**
-     * es统计客户数量
+     * 获取统计客户信息
      * @date 2020/12/1 10:58
      * @param timeEntity
      * @param isNeedDealNum

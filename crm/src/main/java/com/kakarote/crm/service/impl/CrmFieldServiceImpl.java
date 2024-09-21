@@ -16,7 +16,7 @@ import com.kakarote.core.exception.CrmException;
 import com.kakarote.core.feign.admin.entity.AdminConfig;
 import com.kakarote.core.feign.admin.service.AdminService;
 import com.kakarote.core.feign.crm.entity.ExamineField;
-import com.kakarote.core.field.FieldService;
+import com.kakarote.core.field.service.FieldService;
 import com.kakarote.core.servlet.ApplicationContextHolder;
 import com.kakarote.core.servlet.BaseServiceImpl;
 import com.kakarote.core.utils.BaseUtil;
@@ -608,6 +608,8 @@ public class CrmFieldServiceImpl extends BaseServiceImpl<CrmFieldMapper, CrmFiel
         }
         return fieldList;
     }
+
+
 
     @Override
     public List<List<CrmModelFiledVO>> queryFormPositionFieldVO(CrmModel crmModel) {

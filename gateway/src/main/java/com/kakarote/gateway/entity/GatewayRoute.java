@@ -12,7 +12,7 @@ import java.time.LocalDate;
 
 /**
  * @author zhangzhiwei
- * 网关路由
+ * 网关路由表
  */
 @Data
 @Builder

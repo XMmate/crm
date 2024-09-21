@@ -10,7 +10,7 @@ import com.kakarote.core.feign.admin.entity.CallUser;
 import com.kakarote.core.feign.admin.service.AdminService;
 import com.kakarote.core.feign.admin.service.CallUserService;
 import com.kakarote.core.feign.crm.entity.BiParams;
-import com.kakarote.core.redis.Redis;
+import com.kakarote.core.redis.service.Redis;
 import com.kakarote.core.utils.BaseUtil;
 import com.kakarote.crm.entity.BO.CallRecordBO;
 import com.kakarote.crm.entity.PO.CallRecord;

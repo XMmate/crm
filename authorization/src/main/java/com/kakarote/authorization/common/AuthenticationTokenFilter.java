@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.kakarote.authorization.entity.AuthorizationUser;
 import com.kakarote.core.common.Const;
 import com.kakarote.core.entity.UserInfo;
-import com.kakarote.core.redis.Redis;
+import com.kakarote.core.redis.service.Redis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,10 +21,9 @@ import java.util.ArrayList;
 
 /**
  * @author zhangzhiwei
- * 默认的token处理类
+ * 负责在每个请求处理之前对请求进行认证或其他处理逻辑
  */
 public class AuthenticationTokenFilter extends OncePerRequestFilter implements Ordered {
-
 
     @Autowired
     private Redis redis;
@@ -47,6 +46,8 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter implements O
         chain.doFilter(request, response);
     }
 
+
+    //Ordered 接口来自 Spring Framework，允许通过实现 getOrder() 方法来定义过滤器在过滤器链中的顺序。值越小，优先级越高
     @Override
     public int getOrder() {
         return -1;

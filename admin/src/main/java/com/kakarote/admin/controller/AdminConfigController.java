@@ -140,7 +140,7 @@ public class AdminConfigController {
     }
 
     /**
-     * 设置企业模块
+     * 设置企业模块 停用或者启用
      *
      * @param moduleSetting data
      */

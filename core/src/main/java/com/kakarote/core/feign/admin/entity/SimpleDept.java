@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  * @author zhangzhiwei
- * 简单的用户对象
+ * 简单的部门对象
  */
 @Data
 @ApiModel("部门对象")

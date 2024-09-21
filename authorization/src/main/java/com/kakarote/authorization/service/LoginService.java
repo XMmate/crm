@@ -2,6 +2,7 @@ package com.kakarote.authorization.service;
 
 import com.kakarote.authorization.entity.AuthorizationUser;
 import com.kakarote.core.common.Result;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author z
  */
+
+
 public interface LoginService {
     /**
      * 登录方法的处理
@@ -36,8 +39,8 @@ public interface LoginService {
 
     /**
      * 退出登陆
-     * @param authentication
+     * @param token
      * @return Result
      */
-    Result logout(String authentication);
+    Result logout(String token);
 }

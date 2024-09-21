@@ -40,14 +40,14 @@ public class BiCustomerController {
         return Result.ok(objectList);
     }
 
-    @ApiOperation("客户总量分析图")
+    @ApiOperation("客户总量分析表")
     @PostMapping("/totalCustomerTable")
     public Result<JSONObject> totalCustomerTable(@RequestBody BiParams biParams) {
         JSONObject object = biCustomerService.totalCustomerTable(biParams);
         return Result.ok(object);
     }
 
-    @ApiOperation("客户总量分析图导出")
+    @ApiOperation("客户总量分析表导出")
     @PostMapping("/totalCustomerTableExport")
     public void totalCustomerTableExport(@RequestBody BiParams biParams) {
         JSONObject kv = biCustomerService.totalCustomerTable(biParams);

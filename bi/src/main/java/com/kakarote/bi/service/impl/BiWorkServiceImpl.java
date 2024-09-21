@@ -12,7 +12,7 @@ import com.kakarote.core.feign.admin.service.AdminService;
 import com.kakarote.core.feign.crm.entity.BiParams;
 import com.kakarote.core.feign.examine.entity.ExamineInfoVo;
 import com.kakarote.core.feign.examine.service.ExamineService;
-import com.kakarote.core.feign.oa.OaService;
+import com.kakarote.core.feign.oa.service.OaService;
 import com.kakarote.core.feign.oa.entity.ExamineVO;
 import com.kakarote.core.utils.BiTimeUtil;
 import org.springframework.beans.BeanUtils;

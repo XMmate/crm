@@ -95,15 +95,17 @@ public class ExamineController {
 
 
     @PostMapping("/previewFiledName")
-    @ApiOperation("获取审批流程条件")
+    @ApiOperation("获取审批流程条件，字段")
     public Result<List<ExamineFlowConditionDataVO>> previewFiledName(@RequestBody ExaminePreviewBO examinePreviewBO){
         List<ExamineFlowConditionDataVO> filedNameList = examineService.previewFiledName(examinePreviewBO.getLabel(),examinePreviewBO.getRecordId(),examinePreviewBO.getExamineId());
         return Result.ok(filedNameList);
     }
 
 
+
+
     @PostMapping("/previewExamineFlow")
-    @ApiOperation("预览审批流程")
+    @ApiOperation("填写审批需要的字段")
     public Result<ExaminePreviewVO> previewExamineFlow(@RequestBody ExaminePreviewBO examinePreviewBO){
         ExaminePreviewVO examineFlowVO = examineService.previewExamineFlow(examinePreviewBO);
         return Result.ok(examineFlowVO);

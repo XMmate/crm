@@ -5,6 +5,7 @@ import com.kakarote.core.common.Result;
 import com.kakarote.core.feign.crm.entity.ExamineField;
 import com.kakarote.core.feign.jxc.entity.JxcExamine;
 import com.kakarote.core.feign.jxc.entity.JxcState;
+import com.kakarote.core.feign.jxc.fallback.JxcExamineServiceFalllback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 
-@FeignClient(name = "jxc",contextId = "jxcExamine")
+@FeignClient(name = "jxc",contextId = "jxcExamine",fallbackFactory = JxcExamineServiceFalllback.class)
 public interface JxcExamineService {
     @PostMapping("/jxcExamine/examine")
     Result examine(@RequestParam("label") Integer label, @RequestParam("state") Integer state, @RequestParam("id") Integer id);

@@ -21,7 +21,7 @@ import com.kakarote.core.entity.UserInfo;
 import com.kakarote.core.exception.CrmException;
 import com.kakarote.core.feign.crm.service.CrmService;
 import com.kakarote.core.feign.hrm.service.HrmService;
-import com.kakarote.core.redis.Redis;
+import com.kakarote.core.redis.service.Redis;
 import com.kakarote.core.servlet.BaseServiceImpl;
 import com.kakarote.core.utils.UserUtil;
 import org.apache.commons.lang3.StringUtils;

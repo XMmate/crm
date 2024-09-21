@@ -10,7 +10,8 @@ import reactor.core.publisher.Mono;
 
 /**
  * @author zhangzhiwei
- * 路由配置工厂
+ * 路由配置工厂  提供动态路由功能
+ * 实现了 RouteDefinitionRepository 接口，负责管理 Spring Cloud Gateway 的路由定义
  */
 @Component
 public class RouteRepository implements RouteDefinitionRepository {
@@ -19,12 +20,20 @@ public class RouteRepository implements RouteDefinitionRepository {
     private GatewayRouteService gatewayRouteService;
 
 
-
+    /**
+     *  从自定义数据源获取路由定义
+     * @return
+     */
     @Override
     public Flux<RouteDefinition> getRouteDefinitions() {
         return Flux.fromIterable(gatewayRouteService.getRouteDefinitions());
     }
 
+    /**
+     * 保存提交的路由信息
+     * @param route
+     * @return
+     */
     @Override
     public Mono<Void> save(Mono<RouteDefinition> route) {
         return route.flatMap(routeDefinition -> {
@@ -33,6 +42,12 @@ public class RouteRepository implements RouteDefinitionRepository {
         });
     }
 
+
+    /**
+     * 删除路由信息
+     * @param routeId
+     * @return
+     */
     @Override
     public Mono<Void> delete(Mono<String> routeId) {
         return routeId.flatMap(id -> {

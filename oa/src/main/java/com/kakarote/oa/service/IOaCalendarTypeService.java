@@ -25,8 +25,18 @@ public interface IOaCalendarTypeService extends BaseService<OaCalendarType> {
 
     void addOrUpdateType(OaCalendarType oaCalendarType);
 
+
+    /**
+     * 根据id删除日常类型
+     * @param typeId
+     */
     void deleteType(Integer typeId);
 
+
+    /**
+     * 查询日程类型列表
+     * @return
+     */
     List<OaCalendarType> queryTypeList();
 
     List<OaCalendarType> queryTypeListByUser(Long userId);

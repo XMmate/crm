@@ -5,7 +5,7 @@ import com.kakarote.core.entity.BasePage;
 import com.kakarote.core.feign.crm.entity.CrmSearchBO;
 import com.kakarote.core.feign.crm.entity.ExamineField;
 import com.kakarote.core.feign.crm.entity.SimpleCrmEntity;
-import com.kakarote.core.feign.crm.service.impl.CrmServiceImpl;
+import com.kakarote.core.feign.crm.fallback.CrmServiceFallback;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +16,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-@FeignClient(name = "crm", contextId = "", fallback = CrmServiceImpl.class)
+@FeignClient(name = "crm", contextId = "", fallbackFactory = CrmServiceFallback.class)
 public interface CrmService {
 
     /**

@@ -4,7 +4,7 @@ import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import com.kakarote.core.common.Result;
 import com.kakarote.core.feign.admin.service.AdminService;
-import com.kakarote.core.redis.Redis;
+import com.kakarote.core.redis.service.Redis;
 import com.kakarote.oa.entity.BO.QueryEventListBO;
 import com.kakarote.oa.entity.PO.OaEvent;
 import com.kakarote.oa.mapper.OaEventMapper;

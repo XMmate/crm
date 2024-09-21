@@ -421,6 +421,11 @@ public class AdminUserController {
         return R.ok(status);
     }
 
+    /**
+     * 初始化系统
+     * @param systemUserBO
+     * @return
+     */
     @PostMapping("/initUser")
     @ApiOperation("初始化系统用户")
     @ParamAspect

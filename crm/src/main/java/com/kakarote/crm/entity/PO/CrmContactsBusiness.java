@@ -4,10 +4,13 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.elasticsearch.common.recycler.Recycler;
 
+import javax.validation.Valid;
 import java.io.Serializable;
 
 /**
@@ -29,9 +32,9 @@ public class CrmContactsBusiness implements Serializable {
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
-
+   @ApiModelProperty(value = "商机id")
     private Integer businessId;
-
+    @ApiModelProperty(value = "联系人id")
     private Integer contactsId;
 
 

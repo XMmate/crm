@@ -6,7 +6,7 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.kakarote.core.common.Const;
 import com.kakarote.core.common.FieldEnum;
-import com.kakarote.core.field.FieldService;
+import com.kakarote.core.field.service.FieldService;
 import com.kakarote.core.servlet.BaseServiceImpl;
 import com.kakarote.hrm.entity.PO.HrmFieldExtend;
 import com.kakarote.hrm.mapper.HrmFieldExtendMapper;

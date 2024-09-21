@@ -1,4 +1,4 @@
-package com.kakarote.core.field;
+package com.kakarote.core.field.service.Impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
@@ -11,6 +11,7 @@ import com.kakarote.core.common.FieldEnum;
 import com.kakarote.core.feign.admin.service.AdminFileService;
 import com.kakarote.core.feign.admin.service.AdminService;
 import com.kakarote.core.feign.crm.entity.CrmFieldPatch;
+import com.kakarote.core.field.service.FieldService;
 import com.kakarote.core.servlet.ApplicationContextHolder;
 import com.kakarote.core.utils.TagUtil;
 import com.kakarote.core.utils.UserCacheUtil;

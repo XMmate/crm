@@ -42,6 +42,12 @@ public class ExamineRecordController {
         return Result.ok(examineRecordVO);
     }
 
+
+    /**
+     * 通过或拒绝
+     * @param examineBO
+     * @return
+     */
     @PostMapping("/auditExamine")
     @ApiOperation("进行审批")
     public Result auditExamine(@RequestBody ExamineBO examineBO) {

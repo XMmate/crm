@@ -45,7 +45,12 @@ public class BiEsStatisticsServiceImpl implements BiEsStatisticsService {
     @Autowired
     private ElasticsearchRestTemplate elasticsearchRestTemplate;
 
-
+    /**
+     * 获取统计客户信息
+     * @param timeEntity
+     * @param isNeedDealNum
+     * @return
+     */
     @Override
     public List<JSONObject> getStatisticsCustomerInfo(BiTimeUtil.BiTimeEntity timeEntity, boolean isNeedDealNum) {
         List<JSONObject> jsonObjectList = new ArrayList<>();

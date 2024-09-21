@@ -5,6 +5,7 @@ import com.kakarote.core.common.Result;
 import com.kakarote.core.entity.BasePage;
 import com.kakarote.core.feign.crm.entity.CrmEventBO;
 import com.kakarote.core.feign.crm.entity.QueryEventCrmPageBO;
+import com.kakarote.core.feign.crm.fallback.CrmEventServiceFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 import java.util.Map;
 
-@FeignClient(name = "crm",contextId = "crmEvent")
+@FeignClient(name = "crm",contextId = "crmEvent",fallbackFactory= CrmEventServiceFallback.class)
 public interface CrmEventService {
 
     @PostMapping("/crmEvent/endContract")

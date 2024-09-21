@@ -30,12 +30,22 @@ public class GatewayRouteController {
         return Result.ok();
     }
 
+
+    /**
+     * 重载配置
+     * @return
+     */
     @RequestMapping("/reloadConfig")
     public Result reloadConfig(){
         gatewayRouteService.loadConfig();
         return Result.ok();
     }
 
+
+    /**
+     * 查询升级
+     * @return
+     */
     @RequestMapping("/queryUpgradeFile")
     public Result<JSONObject> queryUpgradeFile(){
         if (FileUtil.exist(fileUrl)) {

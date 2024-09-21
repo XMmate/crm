@@ -2,6 +2,7 @@ package com.kakarote.core.feign.admin.service;
 
 import com.kakarote.core.common.ApiExplain;
 import com.kakarote.core.common.Result;
+import com.kakarote.core.feign.admin.fallback.AdminFileServiceFallbackFactory;
 import com.kakarote.core.servlet.upload.FileEntity;
 import com.kakarote.core.servlet.upload.UploadEntity;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -13,11 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * @author zhangzhiwei
- * 文件操作相关接口
- */
-@FeignClient(name = "admin", contextId = "file")
+
+@FeignClient(name = "admin", contextId = "file",fallbackFactory = AdminFileServiceFallbackFactory.class)
 @Component
 public interface AdminFileService {
     /**
@@ -71,6 +69,11 @@ public interface AdminFileService {
     @PostMapping(value = "/adminFile/queryNum")
     public Result<Integer> queryNum(@RequestBody List<String> batchId);
 
+    /**
+     * 查询文件列表
+     * @param batchIdList
+     * @return
+     */
     @PostMapping(value = "/adminFile/queryFileList")
     public Result<List<FileEntity>> queryFileList(@RequestBody List<String> batchIdList);
 
@@ -79,11 +82,24 @@ public interface AdminFileService {
     Result<String> copyJxcImg(@RequestParam(value = "batchId") String batchId);
 
 
+    /**
+     * 批量保存文件
+     * @param adminFileIdList
+     * @param batchId
+     */
     @PostMapping(value = "/adminFile/saveBatchFileEntity")
     @ApiExplain("批量保存附件(查询附件id,修改batchId)")
     void saveBatchFileEntity(@RequestParam(value = "adminFileIdList") List<String> adminFileIdList,
                              @RequestParam(value = "batchId") String batchId);
 
+
+    /**
+     * 上传文件
+     * @param file
+     * @param batchId
+     * @param type
+     * @return
+     */
     @PostMapping(value = "/adminFile/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ApiExplain("上传文件")
     public Result<UploadEntity> upload(@RequestPart("file") MultipartFile file,

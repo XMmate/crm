@@ -89,6 +89,10 @@ public class CrmCommonServiceImpl implements ICrmCommonService {
     private ExamineService examineService;
 
 
+    /**
+     * 初始化crm数据
+     * @return
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean initCrmData(){
@@ -98,10 +102,15 @@ public class CrmCommonServiceImpl implements ICrmCommonService {
             }
         }
         log.info("开始初始化客户管理模块数据！");
+        //清空活动表
         ApplicationContextHolder.getBean(ICrmActivityService.class).lambdaUpdate().remove();
+        //清空活动关联商机联系人表
         ApplicationContextHolder.getBean(ICrmActivityRelationService.class).lambdaUpdate().remove();
+        //删除附件
         this.deleteFile(crmBusinessService,CrmBusiness::getBatchId,CrmBusiness::getBatchId);
+        //删除商机表
         crmBusinessService.lambdaUpdate().remove();
+        //删除商机阶段变化表
         ApplicationContextHolder.getBean(ICrmBusinessChangeService.class).lambdaUpdate().remove();
         ApplicationContextHolder.getBean(ICrmBusinessDataService.class).lambdaUpdate().remove();
         ApplicationContextHolder.getBean(ICrmBusinessProductService.class).lambdaUpdate().remove();

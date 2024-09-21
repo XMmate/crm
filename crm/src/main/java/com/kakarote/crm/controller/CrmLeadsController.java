@@ -35,13 +35,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * <p>
- * 线索表 前端控制器
- * </p>
- *
- * @author zhangzhiwei
- * @since 2020-05-21
+ * 线索模块
  */
+
 @RestController
 @RequestMapping("/crmLeads")
 @Api(tags = "线索模块接口")
@@ -134,8 +130,10 @@ public class CrmLeadsController {
         return R.ok();
     }
 
+
+      //todo 搞明白这里
     @PostMapping("/field")
-    @ApiOperation("查询新增所需字段")
+    @ApiOperation("查询新增线索所需字段")
     public Result<List> queryLeadsField(@RequestParam(value = "type",required = false) String type) {
         if (StrUtil.isNotEmpty(type)){
             return R.ok(crmLeadsService.queryField(null));

@@ -11,7 +11,7 @@ import com.kakarote.core.common.FieldEnum;
 import com.kakarote.core.common.SystemCodeEnum;
 import com.kakarote.core.exception.CrmException;
 import com.kakarote.core.feign.admin.entity.SimpleUser;
-import com.kakarote.core.field.FieldService;
+import com.kakarote.core.field.service.FieldService;
 import com.kakarote.core.servlet.ApplicationContextHolder;
 import com.kakarote.core.utils.UserCacheUtil;
 import com.kakarote.crm.constant.CrmEnum;

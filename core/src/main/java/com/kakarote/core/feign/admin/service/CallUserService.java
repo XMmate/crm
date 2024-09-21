@@ -2,15 +2,13 @@ package com.kakarote.core.feign.admin.service;
 
 import com.kakarote.core.common.Result;
 import com.kakarote.core.feign.admin.entity.CallUser;
+import com.kakarote.core.feign.admin.fallback.CallUserServiceFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-/**
- * @author Ian
- * @date 2020/8/28
- */
-@FeignClient(name = "admin",contextId = "call")
+
+@FeignClient(name = "admin",contextId = "call",fallbackFactory = CallUserServiceFallback.class)
 public interface CallUserService {
 
     /**

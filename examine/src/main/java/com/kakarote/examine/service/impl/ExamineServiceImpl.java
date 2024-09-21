@@ -21,7 +21,7 @@ import com.kakarote.core.feign.crm.entity.ExamineField;
 import com.kakarote.core.feign.crm.entity.SimpleCrmInfo;
 import com.kakarote.core.feign.crm.service.CrmExamineService;
 import com.kakarote.core.feign.examine.entity.ExamineConditionDataBO;
-import com.kakarote.core.feign.oa.OaService;
+import com.kakarote.core.feign.oa.service.OaService;
 import com.kakarote.core.servlet.ApplicationContextHolder;
 import com.kakarote.core.servlet.BaseServiceImpl;
 import com.kakarote.core.utils.TagUtil;

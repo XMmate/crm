@@ -19,8 +19,8 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * @author zhangzhiwei
- * 系统默认用户标识
+ * @author liujiaming
+ * UserDetails是一个接口，我们要实现它才能内返回 UserDetails对象
  */
 
 @Data
@@ -30,7 +30,6 @@ import java.util.List;
 @Accessors(chain = true)
 @ApiModel(value = "权限认证对象")
 public class AuthorizationUser extends UserInfo implements UserDetails {
-
     /**
      * 短信验证码
      */

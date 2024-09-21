@@ -8,7 +8,7 @@ import com.kakarote.core.entity.UserExtraInfo;
 import com.kakarote.core.entity.UserInfo;
 import com.kakarote.core.exception.NoLoginException;
 import com.kakarote.core.feign.admin.service.AdminService;
-import com.kakarote.core.redis.Redis;
+import com.kakarote.core.redis.service.Redis;
 import com.kakarote.core.servlet.LoginFromCookie;
 import com.kakarote.core.utils.UserUtil;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package com.kakarote.core.feign.work;
+package com.kakarote.core.feign.work.service;
 
 import com.kakarote.core.common.Result;
 import org.springframework.cloud.openfeign.FeignClient;

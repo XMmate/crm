@@ -31,25 +31,25 @@ CREATE TABLE `config_info`  (
 -- ----------------------------
 -- Records of config_info
 -- ----------------------------
-INSERT INTO `config_info` VALUES (1, 'service.vgroupMapping.crm_tx_group', 'SEATA_GROUP', 'default', 'c21f969b5f03d33d43e04f8f136e7682', '2020-10-12 09:06:43', '2020-10-12 09:10:53', NULL, '127.0.0.1', '', '', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `config_info` VALUES (2, 'service.vgroupMapping.admin_tx_group', 'SEATA_GROUP', 'default', 'c21f969b5f03d33d43e04f8f136e7682', '2020-10-12 09:06:43', '2020-10-12 09:10:54', NULL, '127.0.0.1', '', '', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `config_info` VALUES (3, 'store.mode', 'SEATA_GROUP', 'db', 'd77d5e503ad1439f585ac494268b351b', '2020-10-12 09:06:43', '2020-10-12 09:10:54', NULL, '127.0.0.1', '', '', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `config_info` VALUES (4, 'store.db.datasource', 'SEATA_GROUP', 'druid', '3d650fb8a5df01600281d48c47c9fa60', '2020-10-12 09:06:43', '2020-10-12 09:10:54', NULL, '127.0.0.1', '', '', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `config_info` VALUES (5, 'store.db.dbType', 'SEATA_GROUP', 'mysql', '81c3b080dad537de7e10e0987a4bf52e', '2020-10-12 09:06:43', '2020-10-12 09:10:54', NULL, '127.0.0.1', '', '', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `config_info` VALUES (6, 'store.db.driverClassName', 'SEATA_GROUP', 'com.mysql.jdbc.Driver', '683cf0c3a5a56cec94dfac94ca16d760', '2020-10-12 09:06:43', '2020-10-12 09:10:54', NULL, '127.0.0.1', '', '', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `config_info` VALUES (7, 'store.db.url', 'SEATA_GROUP', 'jdbc:mysql://mysql:3306/seata?useUnicode=true', '3c0c8ba10c3daee50a2db1dd0f397282', '2020-10-12 09:06:43', '2020-10-12 09:10:54', NULL, '127.0.0.1', '', '', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `config_info` VALUES (8, 'store.db.user', 'SEATA_GROUP', 'root', '63a9f0ea7bb98050796b649e85481845', '2020-10-12 09:06:44', '2020-10-12 09:10:54', NULL, '127.0.0.1', '', '', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `config_info` VALUES (9, 'store.db.password', 'SEATA_GROUP', 'password', '5f4dcc3b5aa765d61d8327deb882cf99', '2020-10-12 09:06:44', '2020-10-12 09:10:54', NULL, '127.0.0.1', '', '', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `config_info` VALUES (10, 'store.db.minConn', 'SEATA_GROUP', '5', 'e4da3b7fbbce2345d7772b0674a318d5', '2020-10-12 09:06:44', '2020-10-12 09:10:54', NULL, '127.0.0.1', '', '', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `config_info` VALUES (11, 'store.db.maxConn', 'SEATA_GROUP', '30', '34173cb38f07f89ddbebc2ac9128303f', '2020-10-12 09:06:44', '2020-10-12 09:10:54', NULL, '127.0.0.1', '', '', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `config_info` VALUES (12, 'store.db.globalTable', 'SEATA_GROUP', 'global_table', '8b28fb6bb4c4f984df2709381f8eba2b', '2020-10-12 09:06:44', '2020-10-12 09:10:54', NULL, '127.0.0.1', '', '', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `config_info` VALUES (13, 'store.db.branchTable', 'SEATA_GROUP', 'branch_table', '54bcdac38cf62e103fe115bcf46a660c', '2020-10-12 09:06:44', '2020-10-12 09:10:54', NULL, '127.0.0.1', '', '', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `config_info` VALUES (14, 'store.db.queryLimit', 'SEATA_GROUP', '100', 'f899139df5e1059396431415e770c6dd', '2020-10-12 09:06:44', '2020-10-12 09:10:54', NULL, '127.0.0.1', '', '', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `config_info` VALUES (15, 'store.db.lockTable', 'SEATA_GROUP', 'lock_table', '55e0cae3b6dc6696b768db90098b8f2f', '2020-10-12 09:06:44', '2020-10-12 09:10:54', NULL, '127.0.0.1', '', '', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `config_info` VALUES (16, 'store.db.maxWait', 'SEATA_GROUP', '5000', 'a35fe7f7fe8217b4369a0af4244d1fca', '2020-10-12 09:06:44', '2020-10-12 09:10:54', NULL, '127.0.0.1', '', '', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `config_info` VALUES (17, 'service.vgroupMapping.oa_tx_group', 'SEATA_GROUP', 'default', 'c21f969b5f03d33d43e04f8f136e7682', '2020-10-12 09:06:43', '2020-10-12 09:10:54', NULL, '127.0.0.1', '', '', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `config_info` VALUES (18, 'service.vgroupMapping.examine_tx_group', 'SEATA_GROUP', 'default', 'c21f969b5f03d33d43e04f8f136e7682', '2020-10-12 09:06:43', '2020-10-12 09:10:54', NULL, '127.0.0.1', '', '', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `config_info` VALUES (19, 'service.vgroupMapping.hrm_tx_group', 'SEATA_GROUP', 'default', 'c21f969b5f03d33d43e04f8f136e7682', '2020-10-12 09:06:43', '2020-10-12 09:10:54', NULL, '127.0.0.1', '', '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `config_info` VALUES (1, 'service.vgroupMapping.crm_tx_group', 'SEATA_GROUP', 'default', 'c21f969b5f03d33d43e04f8f136e7682', '2020-10-12 09:06:43', '2020-10-12 09:10:53', NULL, '100.75.29.25', '', '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `config_info` VALUES (2, 'service.vgroupMapping.admin_tx_group', 'SEATA_GROUP', 'default', 'c21f969b5f03d33d43e04f8f136e7682', '2020-10-12 09:06:43', '2020-10-12 09:10:54', NULL, '100.75.29.25', '', '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `config_info` VALUES (3, 'store.mode', 'SEATA_GROUP', 'db', 'd77d5e503ad1439f585ac494268b351b', '2020-10-12 09:06:43', '2020-10-12 09:10:54', NULL, '100.75.29.25', '', '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `config_info` VALUES (4, 'store.db.datasource', 'SEATA_GROUP', 'druid', '3d650fb8a5df01600281d48c47c9fa60', '2020-10-12 09:06:43', '2020-10-12 09:10:54', NULL, '100.75.29.25', '', '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `config_info` VALUES (5, 'store.db.dbType', 'SEATA_GROUP', 'mysql', '81c3b080dad537de7e10e0987a4bf52e', '2020-10-12 09:06:43', '2020-10-12 09:10:54', NULL, '100.75.29.25', '', '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `config_info` VALUES (6, 'store.db.driverClassName', 'SEATA_GROUP', 'com.mysql.jdbc.Driver', '683cf0c3a5a56cec94dfac94ca16d760', '2020-10-12 09:06:43', '2020-10-12 09:10:54', NULL, '100.75.29.25', '', '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `config_info` VALUES (7, 'store.db.url', 'SEATA_GROUP', 'jdbc:mysql://mysql:3306/seata?useUnicode=true', '3c0c8ba10c3daee50a2db1dd0f397282', '2020-10-12 09:06:43', '2020-10-12 09:10:54', NULL, '100.75.29.25', '', '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `config_info` VALUES (8, 'store.db.user', 'SEATA_GROUP', 'root', '63a9f0ea7bb98050796b649e85481845', '2020-10-12 09:06:44', '2020-10-12 09:10:54', NULL, '100.75.29.25', '', '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `config_info` VALUES (9, 'store.db.password', 'SEATA_GROUP', 'password', '5f4dcc3b5aa765d61d8327deb882cf99', '2020-10-12 09:06:44', '2020-10-12 09:10:54', NULL, '100.75.29.25', '', '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `config_info` VALUES (10, 'store.db.minConn', 'SEATA_GROUP', '5', 'e4da3b7fbbce2345d7772b0674a318d5', '2020-10-12 09:06:44', '2020-10-12 09:10:54', NULL, '100.75.29.25', '', '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `config_info` VALUES (11, 'store.db.maxConn', 'SEATA_GROUP', '30', '34173cb38f07f89ddbebc2ac9128303f', '2020-10-12 09:06:44', '2020-10-12 09:10:54', NULL, '100.75.29.25', '', '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `config_info` VALUES (12, 'store.db.globalTable', 'SEATA_GROUP', 'global_table', '8b28fb6bb4c4f984df2709381f8eba2b', '2020-10-12 09:06:44', '2020-10-12 09:10:54', NULL, '100.75.29.25', '', '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `config_info` VALUES (13, 'store.db.branchTable', 'SEATA_GROUP', 'branch_table', '54bcdac38cf62e103fe115bcf46a660c', '2020-10-12 09:06:44', '2020-10-12 09:10:54', NULL, '100.75.29.25', '', '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `config_info` VALUES (14, 'store.db.queryLimit', 'SEATA_GROUP', '100', 'f899139df5e1059396431415e770c6dd', '2020-10-12 09:06:44', '2020-10-12 09:10:54', NULL, '100.75.29.25', '', '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `config_info` VALUES (15, 'store.db.lockTable', 'SEATA_GROUP', 'lock_table', '55e0cae3b6dc6696b768db90098b8f2f', '2020-10-12 09:06:44', '2020-10-12 09:10:54', NULL, '100.75.29.25', '', '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `config_info` VALUES (16, 'store.db.maxWait', 'SEATA_GROUP', '5000', 'a35fe7f7fe8217b4369a0af4244d1fca', '2020-10-12 09:06:44', '2020-10-12 09:10:54', NULL, '100.75.29.25', '', '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `config_info` VALUES (17, 'service.vgroupMapping.oa_tx_group', 'SEATA_GROUP', 'default', 'c21f969b5f03d33d43e04f8f136e7682', '2020-10-12 09:06:43', '2020-10-12 09:10:54', NULL, '100.75.29.25', '', '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `config_info` VALUES (18, 'service.vgroupMapping.examine_tx_group', 'SEATA_GROUP', 'default', 'c21f969b5f03d33d43e04f8f136e7682', '2020-10-12 09:06:43', '2020-10-12 09:10:54', NULL, '100.75.29.25', '', '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `config_info` VALUES (19, 'service.vgroupMapping.hrm_tx_group', 'SEATA_GROUP', 'default', 'c21f969b5f03d33d43e04f8f136e7682', '2020-10-12 09:06:43', '2020-10-12 09:10:54', NULL, '100.75.29.25', '', '', NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for config_info_aggr
@@ -133,7 +133,7 @@ INSERT INTO `config_info_route` VALUES (113, 'oa', 'lb://oa', '[{\"name\":\"Path
 INSERT INTO `config_info_route` VALUES (114, 'email', 'lb://email', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/email*/**\"}}]', '[]', 100, '邮箱相关接口', 1, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
 INSERT INTO `config_info_route` VALUES (115, 'km', 'lb://km', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/km*/**\"}}]', '[]', 100, '知识库相关接口', 1, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
 INSERT INTO `config_info_route` VALUES (116, 'bi', 'lb://bi', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/bi*/**\"}}]', '[]', 100, '商业智能相关接口', 1, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
-INSERT INTO `config_info_route` VALUES (117, 'file', 'http://127.0.0.1:8012/onlinePreview', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/onlinePreview\"}}]', '[]', 100, '文件预览相关接口', 0, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
+INSERT INTO `config_info_route` VALUES (117, 'file', 'http://100.75.29.25:8012/onlinePreview', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/onlinePreview\"}}]', '[]', 100, '文件预览相关接口', 0, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
 INSERT INTO `config_info_route` VALUES (118, 'queryShareUrl', 'lb://km', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/documentShare/queryShareUrl/*\"}}]', '[]', 100, '知识库分享接口', 0, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
 INSERT INTO `config_info_route` VALUES (119, 'crmCallUpload', 'lb://crmCall/upload', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"crmCall/upload/*\"}}]', '[]', 100, '呼叫中心上传接口', 0, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
 INSERT INTO `config_info_route` VALUES (123, 'permission', 'lb://authorization/permission', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/permission\"}}]', '[]', 100, '用户权限验证接口', 0, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
@@ -236,38 +236,38 @@ CREATE TABLE `his_config_info`  (
 -- ----------------------------
 -- Records of his_config_info
 -- ----------------------------
-INSERT INTO `his_config_info` VALUES (0, 1, 'service.vgroupMapping.crm_tx_group', 'SEATA_GROUP', '', 'default', 'c21f969b5f03d33d43e04f8f136e7682', '2020-10-12 09:06:43', '2020-10-12 09:06:43', NULL, '127.0.0.1', 'I', '');
-INSERT INTO `his_config_info` VALUES (0, 2, 'service.vgroupMapping.admin_tx_group', 'SEATA_GROUP', '', 'default', 'c21f969b5f03d33d43e04f8f136e7682', '2020-10-12 09:06:43', '2020-10-12 09:06:43', NULL, '127.0.0.1', 'I', '');
-INSERT INTO `his_config_info` VALUES (0, 3, 'store.mode', 'SEATA_GROUP', '', 'db', 'd77d5e503ad1439f585ac494268b351b', '2020-10-12 09:06:43', '2020-10-12 09:06:43', NULL, '127.0.0.1', 'I', '');
-INSERT INTO `his_config_info` VALUES (0, 4, 'store.db.datasource', 'SEATA_GROUP', '', 'druid', '3d650fb8a5df01600281d48c47c9fa60', '2020-10-12 09:06:43', '2020-10-12 09:06:43', NULL, '127.0.0.1', 'I', '');
-INSERT INTO `his_config_info` VALUES (0, 5, 'store.db.dbType', 'SEATA_GROUP', '', 'mysql', '81c3b080dad537de7e10e0987a4bf52e', '2020-10-12 09:06:43', '2020-10-12 09:06:43', NULL, '127.0.0.1', 'I', '');
-INSERT INTO `his_config_info` VALUES (0, 6, 'store.db.driverClassName', 'SEATA_GROUP', '', 'com.mysql.jdbc.Driver', '683cf0c3a5a56cec94dfac94ca16d760', '2020-10-12 09:06:43', '2020-10-12 09:06:43', NULL, '127.0.0.1', 'I', '');
-INSERT INTO `his_config_info` VALUES (0, 7, 'store.db.url', 'SEATA_GROUP', '', 'jdbc:mysql://127.0.0.1:3306/seata?useUnicode=true', 'cbb3bd573704f125fb4f2489208abaec', '2020-10-12 09:06:43', '2020-10-12 09:06:43', NULL, '127.0.0.1', 'I', '');
-INSERT INTO `his_config_info` VALUES (0, 8, 'store.db.user', 'SEATA_GROUP', '', 'root', '63a9f0ea7bb98050796b649e85481845', '2020-10-12 09:06:43', '2020-10-12 09:06:44', NULL, '127.0.0.1', 'I', '');
-INSERT INTO `his_config_info` VALUES (0, 9, 'store.db.password', 'SEATA_GROUP', '', 'password', '5f4dcc3b5aa765d61d8327deb882cf99', '2020-10-12 09:06:43', '2020-10-12 09:06:44', NULL, '127.0.0.1', 'I', '');
-INSERT INTO `his_config_info` VALUES (0, 10, 'store.db.minConn', 'SEATA_GROUP', '', '5', 'e4da3b7fbbce2345d7772b0674a318d5', '2020-10-12 09:06:43', '2020-10-12 09:06:44', NULL, '127.0.0.1', 'I', '');
-INSERT INTO `his_config_info` VALUES (0, 11, 'store.db.maxConn', 'SEATA_GROUP', '', '30', '34173cb38f07f89ddbebc2ac9128303f', '2020-10-12 09:06:43', '2020-10-12 09:06:44', NULL, '127.0.0.1', 'I', '');
-INSERT INTO `his_config_info` VALUES (0, 12, 'store.db.globalTable', 'SEATA_GROUP', '', 'global_table', '8b28fb6bb4c4f984df2709381f8eba2b', '2020-10-12 09:06:43', '2020-10-12 09:06:44', NULL, '127.0.0.1', 'I', '');
-INSERT INTO `his_config_info` VALUES (0, 13, 'store.db.branchTable', 'SEATA_GROUP', '', 'branch_table', '54bcdac38cf62e103fe115bcf46a660c', '2020-10-12 09:06:43', '2020-10-12 09:06:44', NULL, '127.0.0.1', 'I', '');
-INSERT INTO `his_config_info` VALUES (0, 14, 'store.db.queryLimit', 'SEATA_GROUP', '', '100', 'f899139df5e1059396431415e770c6dd', '2020-10-12 09:06:43', '2020-10-12 09:06:44', NULL, '127.0.0.1', 'I', '');
-INSERT INTO `his_config_info` VALUES (0, 15, 'store.db.lockTable', 'SEATA_GROUP', '', 'lock_table', '55e0cae3b6dc6696b768db90098b8f2f', '2020-10-12 09:06:43', '2020-10-12 09:06:44', NULL, '127.0.0.1', 'I', '');
-INSERT INTO `his_config_info` VALUES (0, 16, 'store.db.maxWait', 'SEATA_GROUP', '', '5000', 'a35fe7f7fe8217b4369a0af4244d1fca', '2020-10-12 09:06:43', '2020-10-12 09:06:44', NULL, '127.0.0.1', 'I', '');
-INSERT INTO `his_config_info` VALUES (1, 17, 'service.vgroupMapping.crm_tx_group', 'SEATA_GROUP', '', 'default', 'c21f969b5f03d33d43e04f8f136e7682', '2020-10-12 09:10:53', '2020-10-12 09:10:53', NULL, '127.0.0.1', 'U', '');
-INSERT INTO `his_config_info` VALUES (2, 18, 'service.vgroupMapping.admin_tx_group', 'SEATA_GROUP', '', 'default', 'c21f969b5f03d33d43e04f8f136e7682', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '127.0.0.1', 'U', '');
-INSERT INTO `his_config_info` VALUES (3, 19, 'store.mode', 'SEATA_GROUP', '', 'db', 'd77d5e503ad1439f585ac494268b351b', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '127.0.0.1', 'U', '');
-INSERT INTO `his_config_info` VALUES (4, 20, 'store.db.datasource', 'SEATA_GROUP', '', 'druid', '3d650fb8a5df01600281d48c47c9fa60', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '127.0.0.1', 'U', '');
-INSERT INTO `his_config_info` VALUES (5, 21, 'store.db.dbType', 'SEATA_GROUP', '', 'mysql', '81c3b080dad537de7e10e0987a4bf52e', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '127.0.0.1', 'U', '');
-INSERT INTO `his_config_info` VALUES (6, 22, 'store.db.driverClassName', 'SEATA_GROUP', '', 'com.mysql.jdbc.Driver', '683cf0c3a5a56cec94dfac94ca16d760', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '127.0.0.1', 'U', '');
-INSERT INTO `his_config_info` VALUES (7, 23, 'store.db.url', 'SEATA_GROUP', '', 'jdbc:mysql://127.0.0.1:3306/seata?useUnicode=true', 'cbb3bd573704f125fb4f2489208abaec', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '127.0.0.1', 'U', '');
-INSERT INTO `his_config_info` VALUES (8, 24, 'store.db.user', 'SEATA_GROUP', '', 'root', '63a9f0ea7bb98050796b649e85481845', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '127.0.0.1', 'U', '');
-INSERT INTO `his_config_info` VALUES (9, 25, 'store.db.password', 'SEATA_GROUP', '', 'password', '5f4dcc3b5aa765d61d8327deb882cf99', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '127.0.0.1', 'U', '');
-INSERT INTO `his_config_info` VALUES (10, 26, 'store.db.minConn', 'SEATA_GROUP', '', '5', 'e4da3b7fbbce2345d7772b0674a318d5', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '127.0.0.1', 'U', '');
-INSERT INTO `his_config_info` VALUES (11, 27, 'store.db.maxConn', 'SEATA_GROUP', '', '30', '34173cb38f07f89ddbebc2ac9128303f', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '127.0.0.1', 'U', '');
-INSERT INTO `his_config_info` VALUES (12, 28, 'store.db.globalTable', 'SEATA_GROUP', '', 'global_table', '8b28fb6bb4c4f984df2709381f8eba2b', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '127.0.0.1', 'U', '');
-INSERT INTO `his_config_info` VALUES (13, 29, 'store.db.branchTable', 'SEATA_GROUP', '', 'branch_table', '54bcdac38cf62e103fe115bcf46a660c', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '127.0.0.1', 'U', '');
-INSERT INTO `his_config_info` VALUES (14, 30, 'store.db.queryLimit', 'SEATA_GROUP', '', '100', 'f899139df5e1059396431415e770c6dd', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '127.0.0.1', 'U', '');
-INSERT INTO `his_config_info` VALUES (15, 31, 'store.db.lockTable', 'SEATA_GROUP', '', 'lock_table', '55e0cae3b6dc6696b768db90098b8f2f', '2020-10-12 09:10:54', '2020-10-12 09:10:54', NULL, '127.0.0.1', 'U', '');
-INSERT INTO `his_config_info` VALUES (16, 32, 'store.db.maxWait', 'SEATA_GROUP', '', '5000', 'a35fe7f7fe8217b4369a0af4244d1fca', '2020-10-12 09:10:54', '2020-10-12 09:10:54', NULL, '127.0.0.1', 'U', '');
+INSERT INTO `his_config_info` VALUES (0, 1, 'service.vgroupMapping.crm_tx_group', 'SEATA_GROUP', '', 'default', 'c21f969b5f03d33d43e04f8f136e7682', '2020-10-12 09:06:43', '2020-10-12 09:06:43', NULL, '100.75.29.25', 'I', '');
+INSERT INTO `his_config_info` VALUES (0, 2, 'service.vgroupMapping.admin_tx_group', 'SEATA_GROUP', '', 'default', 'c21f969b5f03d33d43e04f8f136e7682', '2020-10-12 09:06:43', '2020-10-12 09:06:43', NULL, '100.75.29.25', 'I', '');
+INSERT INTO `his_config_info` VALUES (0, 3, 'store.mode', 'SEATA_GROUP', '', 'db', 'd77d5e503ad1439f585ac494268b351b', '2020-10-12 09:06:43', '2020-10-12 09:06:43', NULL, '100.75.29.25', 'I', '');
+INSERT INTO `his_config_info` VALUES (0, 4, 'store.db.datasource', 'SEATA_GROUP', '', 'druid', '3d650fb8a5df01600281d48c47c9fa60', '2020-10-12 09:06:43', '2020-10-12 09:06:43', NULL, '100.75.29.25', 'I', '');
+INSERT INTO `his_config_info` VALUES (0, 5, 'store.db.dbType', 'SEATA_GROUP', '', 'mysql', '81c3b080dad537de7e10e0987a4bf52e', '2020-10-12 09:06:43', '2020-10-12 09:06:43', NULL, '100.75.29.25', 'I', '');
+INSERT INTO `his_config_info` VALUES (0, 6, 'store.db.driverClassName', 'SEATA_GROUP', '', 'com.mysql.jdbc.Driver', '683cf0c3a5a56cec94dfac94ca16d760', '2020-10-12 09:06:43', '2020-10-12 09:06:43', NULL, '100.75.29.25', 'I', '');
+INSERT INTO `his_config_info` VALUES (0, 7, 'store.db.url', 'SEATA_GROUP', '', 'jdbc:mysql://100.75.29.25:3306/seata?useUnicode=true', 'cbb3bd573704f125fb4f2489208abaec', '2020-10-12 09:06:43', '2020-10-12 09:06:43', NULL, '100.75.29.25', 'I', '');
+INSERT INTO `his_config_info` VALUES (0, 8, 'store.db.user', 'SEATA_GROUP', '', 'root', '63a9f0ea7bb98050796b649e85481845', '2020-10-12 09:06:43', '2020-10-12 09:06:44', NULL, '100.75.29.25', 'I', '');
+INSERT INTO `his_config_info` VALUES (0, 9, 'store.db.password', 'SEATA_GROUP', '', 'password', '5f4dcc3b5aa765d61d8327deb882cf99', '2020-10-12 09:06:43', '2020-10-12 09:06:44', NULL, '100.75.29.25', 'I', '');
+INSERT INTO `his_config_info` VALUES (0, 10, 'store.db.minConn', 'SEATA_GROUP', '', '5', 'e4da3b7fbbce2345d7772b0674a318d5', '2020-10-12 09:06:43', '2020-10-12 09:06:44', NULL, '100.75.29.25', 'I', '');
+INSERT INTO `his_config_info` VALUES (0, 11, 'store.db.maxConn', 'SEATA_GROUP', '', '30', '34173cb38f07f89ddbebc2ac9128303f', '2020-10-12 09:06:43', '2020-10-12 09:06:44', NULL, '100.75.29.25', 'I', '');
+INSERT INTO `his_config_info` VALUES (0, 12, 'store.db.globalTable', 'SEATA_GROUP', '', 'global_table', '8b28fb6bb4c4f984df2709381f8eba2b', '2020-10-12 09:06:43', '2020-10-12 09:06:44', NULL, '100.75.29.25', 'I', '');
+INSERT INTO `his_config_info` VALUES (0, 13, 'store.db.branchTable', 'SEATA_GROUP', '', 'branch_table', '54bcdac38cf62e103fe115bcf46a660c', '2020-10-12 09:06:43', '2020-10-12 09:06:44', NULL, '100.75.29.25', 'I', '');
+INSERT INTO `his_config_info` VALUES (0, 14, 'store.db.queryLimit', 'SEATA_GROUP', '', '100', 'f899139df5e1059396431415e770c6dd', '2020-10-12 09:06:43', '2020-10-12 09:06:44', NULL, '100.75.29.25', 'I', '');
+INSERT INTO `his_config_info` VALUES (0, 15, 'store.db.lockTable', 'SEATA_GROUP', '', 'lock_table', '55e0cae3b6dc6696b768db90098b8f2f', '2020-10-12 09:06:43', '2020-10-12 09:06:44', NULL, '100.75.29.25', 'I', '');
+INSERT INTO `his_config_info` VALUES (0, 16, 'store.db.maxWait', 'SEATA_GROUP', '', '5000', 'a35fe7f7fe8217b4369a0af4244d1fca', '2020-10-12 09:06:43', '2020-10-12 09:06:44', NULL, '100.75.29.25', 'I', '');
+INSERT INTO `his_config_info` VALUES (1, 17, 'service.vgroupMapping.crm_tx_group', 'SEATA_GROUP', '', 'default', 'c21f969b5f03d33d43e04f8f136e7682', '2020-10-12 09:10:53', '2020-10-12 09:10:53', NULL, '100.75.29.25', 'U', '');
+INSERT INTO `his_config_info` VALUES (2, 18, 'service.vgroupMapping.admin_tx_group', 'SEATA_GROUP', '', 'default', 'c21f969b5f03d33d43e04f8f136e7682', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '100.75.29.25', 'U', '');
+INSERT INTO `his_config_info` VALUES (3, 19, 'store.mode', 'SEATA_GROUP', '', 'db', 'd77d5e503ad1439f585ac494268b351b', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '100.75.29.25', 'U', '');
+INSERT INTO `his_config_info` VALUES (4, 20, 'store.db.datasource', 'SEATA_GROUP', '', 'druid', '3d650fb8a5df01600281d48c47c9fa60', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '100.75.29.25', 'U', '');
+INSERT INTO `his_config_info` VALUES (5, 21, 'store.db.dbType', 'SEATA_GROUP', '', 'mysql', '81c3b080dad537de7e10e0987a4bf52e', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '100.75.29.25', 'U', '');
+INSERT INTO `his_config_info` VALUES (6, 22, 'store.db.driverClassName', 'SEATA_GROUP', '', 'com.mysql.jdbc.Driver', '683cf0c3a5a56cec94dfac94ca16d760', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '100.75.29.25', 'U', '');
+INSERT INTO `his_config_info` VALUES (7, 23, 'store.db.url', 'SEATA_GROUP', '', 'jdbc:mysql://100.75.29.25:3306/seata?useUnicode=true', 'cbb3bd573704f125fb4f2489208abaec', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '100.75.29.25', 'U', '');
+INSERT INTO `his_config_info` VALUES (8, 24, 'store.db.user', 'SEATA_GROUP', '', 'root', '63a9f0ea7bb98050796b649e85481845', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '100.75.29.25', 'U', '');
+INSERT INTO `his_config_info` VALUES (9, 25, 'store.db.password', 'SEATA_GROUP', '', 'password', '5f4dcc3b5aa765d61d8327deb882cf99', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '100.75.29.25', 'U', '');
+INSERT INTO `his_config_info` VALUES (10, 26, 'store.db.minConn', 'SEATA_GROUP', '', '5', 'e4da3b7fbbce2345d7772b0674a318d5', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '100.75.29.25', 'U', '');
+INSERT INTO `his_config_info` VALUES (11, 27, 'store.db.maxConn', 'SEATA_GROUP', '', '30', '34173cb38f07f89ddbebc2ac9128303f', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '100.75.29.25', 'U', '');
+INSERT INTO `his_config_info` VALUES (12, 28, 'store.db.globalTable', 'SEATA_GROUP', '', 'global_table', '8b28fb6bb4c4f984df2709381f8eba2b', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '100.75.29.25', 'U', '');
+INSERT INTO `his_config_info` VALUES (13, 29, 'store.db.branchTable', 'SEATA_GROUP', '', 'branch_table', '54bcdac38cf62e103fe115bcf46a660c', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '100.75.29.25', 'U', '');
+INSERT INTO `his_config_info` VALUES (14, 30, 'store.db.queryLimit', 'SEATA_GROUP', '', '100', 'f899139df5e1059396431415e770c6dd', '2020-10-12 09:10:53', '2020-10-12 09:10:54', NULL, '100.75.29.25', 'U', '');
+INSERT INTO `his_config_info` VALUES (15, 31, 'store.db.lockTable', 'SEATA_GROUP', '', 'lock_table', '55e0cae3b6dc6696b768db90098b8f2f', '2020-10-12 09:10:54', '2020-10-12 09:10:54', NULL, '100.75.29.25', 'U', '');
+INSERT INTO `his_config_info` VALUES (16, 32, 'store.db.maxWait', 'SEATA_GROUP', '', '5000', 'a35fe7f7fe8217b4369a0af4244d1fca', '2020-10-12 09:10:54', '2020-10-12 09:10:54', NULL, '100.75.29.25', 'U', '');
 
 -- ----------------------------
 -- Table structure for permissions

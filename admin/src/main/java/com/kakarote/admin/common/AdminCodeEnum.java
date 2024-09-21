@@ -27,7 +27,7 @@ public enum AdminCodeEnum implements ResultCode {
     ADMIN_PHONE_EXIST_ERROR(1121, "手机号不存在！"),
     ADMIN_SMS_SEND_FREQUENCY_ERROR(1122, "短信发送频率过高，请稍候再试！"),
     ADMIN_SMS_SEND_ERROR(1123, "发送验证码失败，请稍候再试！"),
-    ADMIN_MANAGE_UPDATE_ERROR(1124, "超级管理员账号需要到悟空个人中心修改手机号信息！"),
+    ADMIN_MANAGE_UPDATE_ERROR(1124, "超级管理员账号需要到长情个人中心修改手机号信息！"),
     ADMIN_USER_NOT_EXIST_ERROR(1125, "用户不存在！"),
     ADMIN_ACCOUNT_ERROR(1126, "账号不能和原账号相同！"),
     ADMIN_PASSWORD_ERROR(1127, "密码输入错误！"),

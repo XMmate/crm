@@ -2,7 +2,7 @@ package com.kakarote.core.feign.hrm.service;
 
 import com.kakarote.core.common.Result;
 import com.kakarote.core.feign.hrm.entity.HrmEmployee;
-import com.kakarote.core.feign.hrm.service.impl.HrmServiceImpl;
+import com.kakarote.core.feign.hrm.fallback.HrmServiceFallback;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 import java.util.Set;
 
-@FeignClient(name = "hrm",contextId = "hrm",fallback = HrmServiceImpl.class)
+@FeignClient(name = "hrm",contextId = "hrm",fallbackFactory = HrmServiceFallback.class)
 public interface HrmService {
 
     @PostMapping("/hrm/queryEmployeeListByIds")
