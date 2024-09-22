@@ -2,6 +2,8 @@ package com.kakarote.authorization.entity;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.annotation.JSONField;
+import com.kakarote.authorization.entity.PO.WkAdminUser;
 import com.kakarote.core.entity.UserInfo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author liujiaming
@@ -30,6 +33,7 @@ import java.util.List;
 @Accessors(chain = true)
 @ApiModel(value = "权限认证对象")
 public class AuthorizationUser extends UserInfo implements UserDetails {
+   private WkAdminUser wkAdminUser;
     /**
      * 短信验证码
      */
@@ -52,6 +56,15 @@ public class AuthorizationUser extends UserInfo implements UserDetails {
     private Integer type = 1;
 
     private List<UserInfo> userInfoList = new ArrayList<>();
+    //存储权限信息
+    private List<String> permissions;
+   public AuthorizationUser(WkAdminUser wkAdminUser, List<String> permissions){
+       this.wkAdminUser =wkAdminUser;
+       this.permissions = permissions;
+
+   }
+    @JSONField(serialize = false)
+    private List<GrantedAuthority> authorities;
 
     public AuthorizationUser setUserInfoList(List<Object> objList) {
         objList.forEach(obj -> {
@@ -60,14 +73,17 @@ public class AuthorizationUser extends UserInfo implements UserDetails {
         return this;
     }
 
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorityList = new ArrayList<>();
-        getAuthoritiesUrlList().forEach(authoritiesUrl -> {
-            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(authoritiesUrl);
-            authorityList.add(grantedAuthority);
-        });
-        return authorityList;
+        if(authorities!=null){
+            return authorities;
+        }
+                authorities = permissions.stream().
+                map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+        return authorities;
+
     }
 
     @Override

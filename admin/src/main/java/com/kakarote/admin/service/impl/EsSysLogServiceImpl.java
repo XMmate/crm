@@ -285,6 +285,11 @@ public class EsSysLogServiceImpl implements ISysLogService {
         return page;
     }
 
+    /**
+     * 查询登录日志列表 到es里面去查询
+     * @param querySysLogBO
+     * @return
+     */
     @Override
     public BasePage<LoginLog> queryLoginLogPageList(QuerySysLogBO querySysLogBO) {
         getLoginLogIndex();

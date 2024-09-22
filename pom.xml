@@ -22,6 +22,8 @@
         <module>job</module>
         <module>examine</module>
         <module>hrm</module>
+        <module>wk_auth</module>
+        <module>crm_gateway</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

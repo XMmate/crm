@@ -2,6 +2,7 @@ package com.kakarote.authorization.service;
 
 import com.kakarote.authorization.entity.AuthorizationUser;
 import com.kakarote.core.common.Result;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,7 @@ public interface LoginService {
      * @param request
      * @return Result
      */
-    public Result login(AuthorizationUser user, HttpServletResponse response, HttpServletRequest request);
+    public Result login(AuthorizationUser user, HttpServletResponse response, HttpServletRequest request , AbstractAuthenticationToken authenticationToken);
 
     /**
      * 预登录

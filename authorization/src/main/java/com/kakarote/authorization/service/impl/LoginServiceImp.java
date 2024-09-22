@@ -23,11 +23,17 @@ import com.kakarote.core.redis.service.Redis;
 import com.kakarote.core.servlet.ApplicationContextHolder;
 import com.kakarote.core.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.OAuth2Request;
+import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,31 +53,40 @@ public class LoginServiceImp implements LoginService {
     @Autowired
     private LoginLogUtil loginLogUtil;
 
+    @Autowired
+    @Qualifier("authorizationServerTokenServicesCustom")
+    private AuthorizationServerTokenServices tokenServices;
 
     @Autowired
     private Redis redis;
 
     @Override
-    public Result login(AuthorizationUser user, HttpServletResponse response, HttpServletRequest request) {
+    public Result login(AuthorizationUser user, HttpServletResponse response, HttpServletRequest request,AbstractAuthenticationToken authentication) {
+
+
+        OAuth2Request oAuth2Request = new OAuth2Request(null, "crm", null, true,
+                Collections.singleton("all"), null, null, null, null);
+        OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request, authentication);
+        OAuth2AccessToken token = tokenServices.createAccessToken(oAuth2Authentication);
         LoginLogEntity logEntity = loginLogUtil.getLogEntity(request);
-        String token = IdUtil.simpleUUID();
-        UserInfo userInfo = user.toUserInfo();
+        UserInfo userInfo = user.getWkAdminUser().toUserInfo();
         logEntity.setUserId(userInfo.getUserId());
         logEntity.setRealname(userInfo.getRealname());
         if (userInfo.getStatus() == 0) {
             logEntity.setAuthResult(2);
             logEntity.setFailResult(AuthorizationCodeEnum.AUTHORIZATION_USER_DISABLE_ERROR.getMsg());
             ApplicationContextHolder.getBean(LogService.class).saveLoginLog(logEntity);
-
             throw new CrmException(AuthorizationCodeEnum.AUTHORIZATION_USER_DISABLE_ERROR);
         }
         userInfo.setRoles(adminUserService.queryUserRoleIds(userInfo.getUserId()).getData());
-        UserUtil.userToken(token, userInfo, user.getType());
+        //设置cokkie
+        UserUtil.userToken(token.toString(), userInfo, user.getType());
         if (userInfo.getStatus() == 2) {
             adminUserService.activateUser(AdminUserStatusBO.builder().status(1).ids(Collections.singletonList(userInfo.getUserId())).build());
         }
+        //保存日志
         ApplicationContextHolder.getBean(LogService.class).saveLoginLog(logEntity);
-        return Result.ok(new LoginVO().setAdminToken(token));
+        return Result.ok(new LoginVO().setAdminToken(token.toString()));
     }
 
     @Override
@@ -90,8 +105,9 @@ public class LoginServiceImp implements LoginService {
             }
         }
         //todo 其他登陆方式没写
+        AbstractAuthenticationToken authenticationToken;
         try {
-            AbstractAuthenticationToken authenticationToken;
+
             switch (loginType){
                 case PASSWORD:
                     authenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername().trim(), user.getPassword().trim());
@@ -107,7 +123,7 @@ public class LoginServiceImp implements LoginService {
                 //todo 登陆日志写到数据库
                 return this.handleLoginPassWordToManyError(user.getUsername().trim());
             }
-            return login(userInfo.getAuthorizationUserList().get(0).setType(user.getType()), response, request);
+            return login(userInfo.getAuthorizationUserList().get(0).setType(user.getType()), response, request, authenticationToken );
         } catch (AuthException e) {
             return Result.error(e.getResultCode());
         } catch (BadCredentialsException e) {

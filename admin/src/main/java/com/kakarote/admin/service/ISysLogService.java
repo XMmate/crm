@@ -21,5 +21,10 @@ public interface ISysLogService {
 
     BasePage<SysLog> querySysLogPageList(QuerySysLogBO querySysLogBO);
 
+    /**
+     * 查询登录日志列表
+     * @param querySysLogBO
+     * @return
+     */
     BasePage<LoginLog> queryLoginLogPageList(QuerySysLogBO querySysLogBO);
 }

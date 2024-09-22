@@ -48,6 +48,11 @@ public class ExamineController {
         return Result.ok(examineService.getById(examineId));
     }
 
+    /**
+     * todo 缺少权限控制，
+     * @param examinePageBo
+     * @return
+     */
 
     @PostMapping("/queryList")
     @ApiOperation("查询全部审批流列表")

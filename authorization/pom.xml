@@ -20,6 +20,7 @@
             <groupId>com.kakarote</groupId>
             <artifactId>core</artifactId>
             <version>${core.version}</version>
+
         </dependency>
         <!-- 注意是starter,自动配置 -->
         <dependency>

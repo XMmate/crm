@@ -130,7 +130,7 @@ public class AdminConfigController {
 
     /**
      * 查询企业模块配置
-     *
+     *“应用管理”
      * @author zhangzhiwei
      */
     @ApiOperation(value = "查询企业模块配置")

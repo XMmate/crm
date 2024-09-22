@@ -12,7 +12,7 @@ import java.util.Date;
 
 /**
  * <p>
- * 系统登录日志表
+ * 系统登录日志表 es里面也保存了数据
  * </p>
  *
  * @author zhangzhiwei

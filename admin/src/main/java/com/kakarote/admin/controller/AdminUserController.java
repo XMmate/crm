@@ -240,7 +240,7 @@ public class AdminUserController {
     private IAdminDeptService deptService;
 
     @PostMapping("/queryLoginUser")
-    @ApiOperation("查询当前登录用户")
+    @ApiOperation("查询当前登录用户的基本信息")
     public Result<AdminUserVO> queryLoginUser(HttpServletRequest request, HttpServletResponse response) {
         String name = "readNotice";
         AdminUser user = adminUserService.getById(UserUtil.getUserId());

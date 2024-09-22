@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.kakarote.authorization.common.AuthPasswordUtil;
 import com.kakarote.authorization.entity.AuthorizationUser;
+import com.kakarote.authorization.entity.PO.WkAdminUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -25,7 +26,7 @@ public class BasePasswordEncoder implements PasswordEncoder {
             return false;
         }
         try {
-            AuthorizationUser user = JSON.parseObject(userJson, AuthorizationUser.class);
+            WkAdminUser user = JSON.parseObject(userJson, WkAdminUser.class);
             return AuthPasswordUtil.verify(user.getUsername() + password.toString(), user.getSalt(), user.getPassword());
         } catch (Exception e) {
             log.warn("JSON转换错误，str:{}", userJson);

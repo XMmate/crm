@@ -1,7 +1,7 @@
 
+本项目基于悟空crm 一些修复了安全漏洞
 
-
-## 长情CRM目录结构
+## 目录结构
 
 ``` lua
 wk_crm
@@ -215,9 +215,7 @@ crm.upload.local.uploadPath      需要配置两个地址0为登录才可访问�
 - 商业智能依赖crm,oa模块
 
 ```
-#### 3.更新日志<br/>
-<a href="https://www.72crm.com/upgrade_log" target="_blank">点击查看更新日志</a> 
-<br/>
+
 ### 四、长情CRM功能模块预览
 
 

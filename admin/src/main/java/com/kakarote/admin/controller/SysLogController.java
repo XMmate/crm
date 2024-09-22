@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 
 /**
  * <p>
+ *     todo 这一些接口都缺少权限校验
  * 系统日志 前端控制器
  * </p>
  *
@@ -117,6 +118,12 @@ public class SysLogController {
         return Result.ok();
     }
 
+
+    /**
+     * todo 缺少权限校验
+     * @param querySysLogBO
+     * @return
+     */
     @PostMapping("/queryLoginLogPageList")
     @ApiOperation("查询登录日志列表")
     public Result<BasePage<LoginLog>> queryLoginLogPageList(@RequestBody QuerySysLogBO querySysLogBO){

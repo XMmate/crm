@@ -88,13 +88,16 @@ public class AdminUserServiceImpl extends BaseServiceImpl<AdminUserMapper, Admin
     @CreateCache(name = Const.ADMIN_USER_NAME_CACHE_NAME, expire = 3, timeUnit = TimeUnit.DAYS)
     private Cache<Long, SimpleUser> userCache;
 
+
+    /**
+     * 根据用户名查用户
+     * @param username
+     * @return
+     */
     @Override
     public List<Map<String, Object>> findByUsername(String username) {
-        List<Map<String, Object>> userInfoList = getBaseMapper().findByUsername(username);
-        userInfoList.forEach(userInfo -> {
-            userInfo.put("superUserId", UserUtil.getSuperUser());
-            userInfo.put("superRoleId", UserUtil.getSuperRole());
-        });
+       List<Map<String, Object>> userInfoList = getBaseMapper().findByUsername(username);
+
         return userInfoList;
     }
 

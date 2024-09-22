@@ -9,7 +9,7 @@ spring:
       pool:
         max-active: 300
   datasource:
-    url: jdbc:${DATASOURCE_DBTYPE:mysql}://${DATASOURCE_HOST:100.75.29.25}:${DATASOURCE_PORT:3306}/nacos?characterEncoding=utf8&useSSL=false&zeroDateTimeBehavior=convertToNull&tinyInt1isBit=false&serverTimezone=Asia/Shanghai&useAffectedRows=true
+    url: jdbc:${DATASOURCE_DBTYPE:mysql}://${DATASOURCE_HOST:100.75.29.25}:${DATASOURCE_PORT:3306}/wk_crm_single?characterEncoding=utf8&useSSL=false&zeroDateTimeBehavior=convertToNull&tinyInt1isBit=false&serverTimezone=Asia/Shanghai&useAffectedRows=true
     username: ${DATASOURCE_USERNAME:root}
     password: ${DATASOURCE_PASSWORD:123456}
 

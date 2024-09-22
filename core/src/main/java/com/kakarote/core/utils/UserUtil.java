@@ -82,7 +82,7 @@ public class UserUtil {
         }
     }
 
-    /**
+    /**设置cookie
      * @param token    用户token
      * @param userInfo 用户登录信息
      * @param type     type 1 PC登录 2 mobile登录

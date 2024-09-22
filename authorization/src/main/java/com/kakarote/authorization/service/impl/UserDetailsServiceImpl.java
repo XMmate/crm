@@ -1,6 +1,9 @@
 package com.kakarote.authorization.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.kakarote.authorization.entity.AuthorizationUser;
+import com.kakarote.authorization.entity.PO.WkAdminUser;
+import com.kakarote.authorization.mapper.WkAdminUserMapper;
 import com.kakarote.authorization.service.AdminUserService;
 import com.kakarote.core.common.Result;
 import lombok.AllArgsConstructor;
@@ -10,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,19 +22,17 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
-
-    @Autowired
-    private AdminUserService adminUserService;
+@Autowired
+     private WkAdminUserMapper wkAdminUserMapper;
 
     @Override
     @SuppressWarnings("unchecked")
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        Result result = adminUserService.findByUsername(username);
-        if (result.hasSuccess()) {
-            return new AuthorizationUser().setUserInfoList((List<Object>) result.getData());
-
-        }
-        throw new UsernameNotFoundException(null);
+        LambdaQueryWrapper<WkAdminUser> queryWrapper=new LambdaQueryWrapper();
+        queryWrapper.eq(WkAdminUser::getUsername,username);
+        WkAdminUser wkAdminUser = wkAdminUserMapper.selectOne(queryWrapper);
+        ArrayList<String> list = new ArrayList<>();
+        list.add("dev");
+        return new AuthorizationUser(wkAdminUser,list);
     }
 }
