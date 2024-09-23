@@ -3,6 +3,7 @@ package com.kakarote.authorization;
 import com.alicp.jetcache.anno.config.EnableCreateCacheAnnotation;
 import com.alicp.jetcache.anno.config.EnableMethodCache;
 import com.kakarote.core.CoreApplication;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -19,6 +20,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 @ComponentScan(basePackageClasses = {CoreApplication.class, AuthorizationApplication.class})
 @EnableMethodCache(basePackages = "com.kakarote.authorization",order = -9999)
 @EnableCreateCacheAnnotation
+@MapperScan("com.kakarote.authorization.mapper")
 public class AuthorizationApplication {
 
 	public static void main(String[] args) {

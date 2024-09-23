@@ -7,6 +7,9 @@ import org.springframework.cloud.netflix.ribbon.RibbonClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * 使用nacos的负载均衡策略
+ */
 @Configuration
 @RibbonClients(
         value = {

@@ -61,13 +61,14 @@ public class LoginServiceImp implements LoginService {
     private Redis redis;
 
     @Override
-    public Result login(AuthorizationUser user, HttpServletResponse response, HttpServletRequest request,AbstractAuthenticationToken authentication) {
-
-
-        OAuth2Request oAuth2Request = new OAuth2Request(null, "crm", null, true,
+    public Result login(AuthorizationUser user, HttpServletResponse response, HttpServletRequest request,Authentication authentication) {
+        OAuth2Request oAuth2Request = new OAuth2Request(null, "crm", authentication.getAuthorities(), true,
                 Collections.singleton("all"), null, null, null, null);
         OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request, authentication);
         OAuth2AccessToken token = tokenServices.createAccessToken(oAuth2Authentication);
+
+
+
         LoginLogEntity logEntity = loginLogUtil.getLogEntity(request);
         UserInfo userInfo = user.getWkAdminUser().toUserInfo();
         logEntity.setUserId(userInfo.getUserId());
@@ -123,7 +124,7 @@ public class LoginServiceImp implements LoginService {
                 //todo 登陆日志写到数据库
                 return this.handleLoginPassWordToManyError(user.getUsername().trim());
             }
-            return login(userInfo.getAuthorizationUserList().get(0).setType(user.getType()), response, request, authenticationToken );
+            return login(userInfo.getAuthorizationUserList().get(0).setType(user.getType()), response, request, authentication );
         } catch (AuthException e) {
             return Result.error(e.getResultCode());
         } catch (BadCredentialsException e) {

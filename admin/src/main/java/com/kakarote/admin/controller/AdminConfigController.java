@@ -29,6 +29,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -82,11 +83,10 @@ public class AdminConfigController {
      */
     @ApiOperation(value = "查询企业配置")
     @PostMapping("/queryAdminConfig")
+    @PreAuthorize("hasAuthority('admin')")
     public Result<AdminCompanyBO> queryAdminConfig() {
         return R.ok(adminConfigService.queryAdminConfig());
     }
-
-
     @ApiOperation(value = "头部设置")
     @PostMapping("/queryHeaderModelSort")
     public Result<List<String>> queryHeaderModelSort() {

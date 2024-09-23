@@ -55,11 +55,11 @@ public class PermissionServiceImpl implements PermissionService {
      * @param method         请求方法
      * @return true/false
      */
-    @Override
-    public boolean hasPermission(String authentication, String url, String method) {
-        Result result = authService.hasPermission(authentication, url, method);
-        return result.hasSuccess();
-    }
+//    @Override
+//    public boolean hasPermission(String authentication, String url, String method) {
+//        Result result = authService.hasPermission(authentication, url, method);
+//        return result.hasSuccess();
+//    }
 
     /**
      * 判断token是否有效
@@ -69,40 +69,40 @@ public class PermissionServiceImpl implements PermissionService {
      * @param cookies
      * @return true为令牌已失效
      */
-    @Override
-    public String invalidAccessToken(String authentication, String url, MultiValueMap<String, HttpCookie> cookies) {
-        if (StrUtil.isEmpty(authentication)) {
-            boolean isSpecialUrl = false;
-            for (String specialUrl : AUTH_SPECIAL_URLS) {
-                if (specialUrl.contains("*")) {
-                    if (url.startsWith(specialUrl.replace("*", ""))) {
-                        isSpecialUrl = true;
-                        break;
-                    }
-                } else {
-                    if (url.equals(specialUrl)) {
-                        isSpecialUrl = true;
-                        break;
-                    }
-                }
-            }
-            if (isSpecialUrl) {
-                HttpCookie first = cookies.getFirst(Const.TOKEN_NAME);
-                authentication = first != null ? first.getValue() : "";
-            }
-        }
-        if (StrUtil.isEmpty(authentication)) {
-            throw new CrmException(SystemCodeEnum.SYSTEM_NOT_LOGIN);
-        }
-        Object data = redis.get(authentication);
-        if (data == null) {
-            throw new CrmException(SystemCodeEnum.SYSTEM_NOT_LOGIN);
-        }
-        if (data instanceof UserExtraInfo) {
-            throw new NoLoginException((UserExtraInfo) data);
-        }
-        return authentication;
-    }
+//    @Override
+//    public String invalidAccessToken(String authentication, String url, MultiValueMap<String, HttpCookie> cookies) {
+//        if (StrUtil.isEmpty(authentication)) {
+//            boolean isSpecialUrl = false;
+//            for (String specialUrl : AUTH_SPECIAL_URLS) {
+//                if (specialUrl.contains("*")) {
+//                    if (url.startsWith(specialUrl.replace("*", ""))) {
+//                        isSpecialUrl = true;
+//                        break;
+//                    }
+//                } else {
+//                    if (url.equals(specialUrl)) {
+//                        isSpecialUrl = true;
+//                        break;
+//                    }
+//                }
+//            }
+//            if (isSpecialUrl) {
+//                HttpCookie first = cookies.getFirst(Const.TOKEN_NAME);
+//                authentication = first != null ? first.getValue() : "";
+//            }
+//        }
+//        if (StrUtil.isEmpty(authentication)) {
+//            throw new CrmException(SystemCodeEnum.SYSTEM_NOT_LOGIN);
+//        }
+//        Object data = redis.get(authentication);
+//        if (data == null) {
+//            throw new CrmException(SystemCodeEnum.SYSTEM_NOT_LOGIN);
+//        }
+//        if (data instanceof UserExtraInfo) {
+//            throw new NoLoginException((UserExtraInfo) data);
+//        }
+//        return authentication;
+//    }
 
     /**
      * 判断url是否不需要授权

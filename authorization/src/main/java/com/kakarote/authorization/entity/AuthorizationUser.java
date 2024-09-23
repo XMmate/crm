@@ -33,6 +33,8 @@ import java.util.stream.Collectors;
 @Accessors(chain = true)
 @ApiModel(value = "权限认证对象")
 public class AuthorizationUser extends UserInfo implements UserDetails {
+
+
    private WkAdminUser wkAdminUser;
     /**
      * 短信验证码
@@ -61,18 +63,9 @@ public class AuthorizationUser extends UserInfo implements UserDetails {
    public AuthorizationUser(WkAdminUser wkAdminUser, List<String> permissions){
        this.wkAdminUser =wkAdminUser;
        this.permissions = permissions;
-
    }
     @JSONField(serialize = false)
     private List<GrantedAuthority> authorities;
-
-    public AuthorizationUser setUserInfoList(List<Object> objList) {
-        objList.forEach(obj -> {
-            this.userInfoList.add(BeanUtil.copyProperties(obj, AuthorizationUser.class));
-        });
-        return this;
-    }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -83,14 +76,12 @@ public class AuthorizationUser extends UserInfo implements UserDetails {
                 map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
         return authorities;
-
     }
 
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
-
     @Override
     public boolean isAccountNonLocked() {
         return true;

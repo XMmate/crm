@@ -17,14 +17,14 @@ public interface PermissionService {
      * @param method 请求方法
      * @return true/false
      */
-    boolean hasPermission(String authentication, String url, String method);
+//    boolean hasPermission(String authentication, String url, String method);
 
     /**
      * 获取正确的token
      *
      * @param authentication 权限标识
      */
-    String invalidAccessToken(String authentication,String url, MultiValueMap<String, HttpCookie> cookies);
+//    String invalidAccessToken(String authentication,String url, MultiValueMap<String, HttpCookie> cookies);
 
     /**
      * 判断url是否不需要授权

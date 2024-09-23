@@ -58,25 +58,25 @@ public class LoginLogUtil {
      * @return
      */
     private String getIpCityInfo(String ip){
-        log.info("===> Login IP : {}",ip);
-        String dbPath = LoginLogUtil.class.getClassLoader().getResource("").getPath() + "ip2region/ip2region.db";
-        log.info("===> dbPath  : {}",dbPath);
-        File file = new File(dbPath);
-        if (!file.exists()) {
-            return null;
-        }
-        try {
-            DbConfig config = new DbConfig();
-            DbSearcher searcher = new DbSearcher(config, dbPath);
-            Method method = searcher.getClass().getMethod("btreeSearch", String.class);
-            if (!Util.isIpAddress(ip)) {
-                return null;
-            }
-            DataBlock dataBlock  = (DataBlock) method.invoke(searcher, ip);
-            return dataBlock.getRegion();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        log.info("===> Login IP : {}",ip);
+//        String dbPath = LoginLogUtil.class.getClassLoader().getResource("").getPath() + "ip2region/ip2region.db";
+//        log.info("===> dbPath  : {}",dbPath);
+//        File file = new File(dbPath);
+//        if (!file.exists()) {
+//            return null;
+//        }
+//        try {
+//            DbConfig config = new DbConfig();
+//            DbSearcher searcher = new DbSearcher(config, dbPath);
+//            Method method = searcher.getClass().getMethod("btreeSearch", String.class);
+//            if (!Util.isIpAddress(ip)) {
+//                return null;
+//            }
+//            DataBlock dataBlock  = (DataBlock) method.invoke(searcher, ip);
+//            return dataBlock.getRegion();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         return null;
     }
 }

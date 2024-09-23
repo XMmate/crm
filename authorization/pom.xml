@@ -53,13 +53,33 @@
     </dependencies>
     <build>
         <resources>
+            <resource>
+                <!-- xml放在java目录下-->
+                <directory>src/main/java/com/kakarote/${name}/</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
             <!--解决idea不识别resources的问题-->
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+                <excludes>
+                    <exclude>fonts/*</exclude>
+                </excludes>
+            </resource>
+
+            <!--自定义字体文件，打印预览使用-->
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>fonts/*</include>
+                </includes>
             </resource>
         </resources>
         <plugins>
+
             <!--打包jar-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -73,7 +93,7 @@
                             <!--jar包不包含唯一版本标识-->
                             <useUniqueVersions>false</useUniqueVersions>
                             <!--指定入口类-->
-                            <mainClass>com.kakarote.authorization.AuthorizationApplication</mainClass>
+                            <mainClass>com.kakarote.crm.CrmApplication</mainClass>
                         </manifest>
                         <manifestEntries>
                             <!--MANIFEST.MF 中 Class-Path 加入资源文件目录-->
@@ -107,11 +127,6 @@
             <!--拷贝资源文件 copy-resources-->
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
-                <configuration>
-                    <nonFilteredFileExtensions>
-                        <nonFilteredFileExtension>db</nonFilteredFileExtension>
-                    </nonFilteredFileExtensions>
-                </configuration>
                 <executions>
                     <execution>
                         <id>copy-resources</id>
@@ -152,4 +167,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

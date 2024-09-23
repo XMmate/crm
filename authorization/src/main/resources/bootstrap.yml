@@ -27,3 +27,4 @@ spring:
           dataId: ${spring.application.name}-flow-rules
           groupId: SENTINEL_GROUP
           rule-type: flow
+
