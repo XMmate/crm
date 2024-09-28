@@ -19,6 +19,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * 员工 变动 计划
+ */
 @Component
 @Slf4j
 public class EmployeeChangeCron {
@@ -34,6 +37,9 @@ public class EmployeeChangeCron {
 
     /**
      * 调岗晋升转正
+     * 1.扫描员工更变表
+     * 2.扫描员工表，查询判断转正日期
+     * 2.把更变信息更新到员工表
      *
      */
     public void employeeChangeRecords() {
@@ -43,12 +49,14 @@ public class EmployeeChangeCron {
                 .groupBy(HrmEmployeeChangeRecord::getEmployeeId)
                 .having("max(create_time)").list();
         hrmEmployeeChangeRecords.forEach(changeRecord -> {
+            //把数据添加到员工表
             employeeList.add(employeeChangeRecord(changeRecord));
         });
         List<HrmEmployee> list = employeeService.lambdaQuery()
                 .ne(HrmEmployee::getStatus,EmployeeStatusEnum.OFFICIAL.getValue())
                 .apply("to_days(become_time) = to_days(now())")
                 .list();
+        //这样的操作会直接改变原来列表中的元素
         list.forEach(employee -> {
             employee.setBecomeTime(new Date());
             employee.setStatus(EmployeeStatusEnum.OFFICIAL.getValue());
@@ -56,6 +64,7 @@ public class EmployeeChangeCron {
         });
         employeeList.addAll(list);
         if (CollUtil.isNotEmpty(employeeList)){
+            //更新记录到员工表
             employeeService.saveOrUpdateBatch(employeeList);
         }
     }
@@ -77,6 +86,10 @@ public class EmployeeChangeCron {
             employeeService.saveOrUpdateBatch(employeeList);
         }
     }
+
+    /*
+    * 员工变动记录
+    * */
 
     public static HrmEmployee employeeChangeRecord(HrmEmployeeChangeRecord changeRecord) {
         Integer changeType = changeRecord.getChangeType();

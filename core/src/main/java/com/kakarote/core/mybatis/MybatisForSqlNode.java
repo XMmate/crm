@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Clinton Begin
+ * 对 MyBatis 动态 SQL 功能的进一步扩展
  */
 public class MybatisForSqlNode implements SqlNode {
     public static final String ITEM_PREFIX = "__frch_";

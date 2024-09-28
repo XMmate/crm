@@ -39,9 +39,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 系统日志切面
+ * 系统日志切面的处理逻辑
  *
- * @author hmb
+ *
  */
 @Slf4j
 @Aspect
@@ -67,7 +67,7 @@ public class SysLogAspect {
 
     private List<SysLogEntity> logEntityList;
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")  //一个 Java 注解，用于告诉编译器在特定的代码块中忽略指定类型的警告。"unchecked" 表示编译器会忽略“未经检查的类型转换”警告，通常与泛型相关
     @Before(value = "point(sysLogHandler)", argNames = "joinPoint,sysLogHandler")
     public void beforeMethod(JoinPoint joinPoint, SysLogHandler sysLogHandler) {
         SysLog sysLog = joinPoint.getTarget().getClass().getDeclaredAnnotation(SysLog.class);

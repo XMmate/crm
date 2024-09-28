@@ -9,6 +9,7 @@ import com.xxl.job.core.handler.annotation.XxlJob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class EventNoticeJob {
 
@@ -17,7 +18,9 @@ public class EventNoticeJob {
 
     @Autowired
     private Redis redis;
-
+    /**
+     * 定时器日程提醒
+     */
 
     @XxlJob("EventNoticeJob")
     public ReturnT<String> EventNoticeJobHandler(String param) {
@@ -27,7 +30,6 @@ public class EventNoticeJob {
             redis.del(OaCacheKey.EVENT_NOTICE_JOB_KEY);
             UserUtil.removeUser();
         }
-
         return ReturnT.SUCCESS;
     }
 }

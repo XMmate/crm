@@ -13,7 +13,7 @@ import java.util.Date;
 
 /**
  * <p>
- * 员工岗位/职位变更记录
+ * 员工岗位/职位变更记录表
  * </p>
  *
  * @author huangmingbo
@@ -27,7 +27,7 @@ import java.util.Date;
 public class HrmEmployeeChangeRecord implements Serializable {
 
     private static final long serialVersionUID=1L;
-
+   //记录id
     @TableId(value = "record_id", type = IdType.AUTO)
     private Integer recordId;
 

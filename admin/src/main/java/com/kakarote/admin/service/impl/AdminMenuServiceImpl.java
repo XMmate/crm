@@ -36,6 +36,7 @@ public class AdminMenuServiceImpl extends BaseServiceImpl<AdminMenuMapper, Admin
      */
     @Override
     public List<AdminMenu> queryMenuList(Long userId) {
+        //是管理员就返回全部菜单
         if (UserUtil.isAdmin()) {
             return query().list();
         }

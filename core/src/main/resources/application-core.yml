@@ -32,9 +32,9 @@ feign:
         read-timeout: 600000
 
   sentinel:
-    enabled: true
+    enabled: true  #启用 Sentinel，用于流量控制、熔断降级等功能，帮助保护服务的稳定性。
   httpclient:
-    enabled: false
+    enabled: false  #禁用默认的 HTTP 客户端
   okhttp:
     enabled: true
 jetcache:
@@ -44,10 +44,10 @@ jetcache:
     default:
       type: redis
       keyConvertor: fastjson
-      poolConfig:
-        minIdle: 5
-        maxIdle: 20
-        maxTotal: 50
+      poolConfig:   #Redis 连接池配置
+        minIdle: 5  #最小空闲连接数为 5
+        maxIdle: 20  #最大空闲连接数为 20
+        maxTotal: 50  #最大连接数为 50
       host: ${spring.redis.host}
       port: ${spring.redis.port}
       password: ${spring.redis.password}

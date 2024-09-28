@@ -12,7 +12,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * @author zhangzhiwei
+ *
  */
 @SpringBootApplication
 @EnableAutoDataSourceProxy
@@ -24,6 +24,11 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableCreateCacheAnnotation
 public class CrmApplication {
 	public static void main(String[] args) {
+		/**
+		 * javax.xml.accessExternalSchema: 允许XML解析器访问外部XML模式（XSD）。设置为all表示可以访问所有外部模式。
+		 *
+		 * javax.xml.accessExternalDTD: 允许XML解析器访问外部文档类型定义（DTD）。同样，设置为all表示可以访问所有外部DTD
+		 */
 		System.setProperty("javax.xml.accessExternalSchema","all");
 		System.setProperty("javax.xml.accessExternalDTD","all");
 		SpringApplication.run(CrmApplication.class, args);

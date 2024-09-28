@@ -2,14 +2,16 @@
 // Source code recreated from a .class file by IntelliJ IDEA
 // (powered by FernFlower decompiler)
 //
-
+/**
+ * 用于解析 MyBatis 中的 DTD（文档类型定义）。
+ * 主要功能是为 XML 配置文件提供 DTD 解析，确保 MyBatis 能正确加载和验证 XML 配置 而不依赖于网络请求
+ */
 package com.kakarote.core.mybatis;
 
 import org.apache.ibatis.io.Resources;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;

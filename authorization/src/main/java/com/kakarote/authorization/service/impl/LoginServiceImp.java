@@ -66,9 +66,6 @@ public class LoginServiceImp implements LoginService {
                 Collections.singleton("all"), null, null, null, null);
         OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request, authentication);
         OAuth2AccessToken token = tokenServices.createAccessToken(oAuth2Authentication);
-
-
-
         LoginLogEntity logEntity = loginLogUtil.getLogEntity(request);
         UserInfo userInfo = user.getWkAdminUser().toUserInfo();
         logEntity.setUserId(userInfo.getUserId());
@@ -80,7 +77,7 @@ public class LoginServiceImp implements LoginService {
             throw new CrmException(AuthorizationCodeEnum.AUTHORIZATION_USER_DISABLE_ERROR);
         }
         userInfo.setRoles(adminUserService.queryUserRoleIds(userInfo.getUserId()).getData());
-        //设置cokkie
+        //信息到redis 和cookie
         UserUtil.userToken(token.toString(), userInfo, user.getType());
         if (userInfo.getStatus() == 2) {
             adminUserService.activateUser(AdminUserStatusBO.builder().status(1).ids(Collections.singletonList(userInfo.getUserId())).build());

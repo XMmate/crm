@@ -15,6 +15,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 这段代码定义了一个 MybatisXMLBuilder 类，主要用于解析 MyBatis 的 XML 配置文件，尤其是动态 SQL 部分。
+ * 它实现了一些基本的 XML 节点处理逻辑，包括 trim、where、set、foreach、if、choose 等动态 SQL 标签的解析
+ */
 public class MybatisXMLBuilder extends BaseBuilder {
     private final XNode context;
     private boolean isDynamic;

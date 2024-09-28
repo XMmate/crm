@@ -17,6 +17,7 @@ import com.kakarote.core.feign.admin.entity.SimpleDept;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -42,6 +43,7 @@ public class AdminDeptController {
 
     @PostMapping("/queryDeptTree")
     @ApiOperation("查询部门列表树")
+    @PreAuthorize("hasAuthority('admin')")
     public Result<List<AdminDeptVO>> queryDeptTree(@RequestBody AdminDeptQueryBO queryBO) {
         List<AdminDeptVO> deptList = adminDeptService.queryDeptTree(queryBO);
         return Result.ok(deptList);
@@ -49,6 +51,7 @@ public class AdminDeptController {
 
     @PostMapping("/addDept")
     @ApiOperation("新增部门")
+    @PreAuthorize("hasAuthority('admin')")
     @SysLogHandler(behavior = BehaviorEnum.SAVE,object = "#adminDept.name",detail = "'添加了部门:'+#adminDept.name")
     public Result addDept(@RequestBody @Valid AdminDeptBO adminDept) {
         adminDeptService.addDept(adminDept);
@@ -57,6 +60,7 @@ public class AdminDeptController {
 
     @PostMapping("/setDept")
     @ApiOperation("修改部门")
+    @PreAuthorize("hasAuthority('admin')")
     @SysLogHandler(behavior = BehaviorEnum.SAVE,object = "#adminDept.name",detail = "'修改了部门:'+#adminDept.name")
     public Result setDept(@RequestBody @Valid AdminDeptBO adminDept) {
         adminDeptService.setDept(adminDept);
@@ -65,6 +69,7 @@ public class AdminDeptController {
 
     @PostMapping("/deleteDept/{deptId}")
     @ApiOperation("删除部门")
+    @PreAuthorize("hasAuthority('admin')")
     @SysLogHandler(behavior = BehaviorEnum.DELETE)
     public Result deleteDept(@PathVariable("deptId") Integer deptId) {
         adminDeptService.deleteDept(deptId);
@@ -73,6 +78,7 @@ public class AdminDeptController {
 
     @RequestMapping("/getNameByDeptId")
     @ApiExplain("根据部门ID获取部门名称")
+    @PreAuthorize("hasAuthority('admin')")
     public Result getNameByDeptId(Integer deptId) {
         return R.ok(adminDeptService.getNameByDeptId(deptId));
     }

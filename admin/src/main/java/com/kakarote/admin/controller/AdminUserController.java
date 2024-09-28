@@ -239,6 +239,12 @@ public class AdminUserController {
     @Autowired
     private IAdminDeptService deptService;
 
+    /**
+     * 完成密码认证后走到这一步
+     * @param request
+     * @param response
+     * @return
+     */
     @PostMapping("/queryLoginUser")
     @ApiOperation("查询当前登录用户的基本信息")
     public Result<AdminUserVO> queryLoginUser(HttpServletRequest request, HttpServletResponse response) {

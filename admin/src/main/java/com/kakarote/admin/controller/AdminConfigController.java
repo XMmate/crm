@@ -56,19 +56,17 @@ public class AdminConfigController {
     @Autowired
     private IAdminConfigService adminConfigService;
 
-
     @Autowired
     private IAdminUserConfigService adminUserConfigService;
 
     @Autowired
     private IAdminModelSortService adminModelSortService;
-
-
     /**
      * 设置系统配置
      */
     @ApiOperation(value = "设置企业配置")
     @PostMapping("/setAdminConfig")
+    @PreAuthorize("hasAuthority('admin')")
     @SysLogHandler(subModel = SubModelType.ADMIN_COMPANY_HOME,behavior = BehaviorEnum.UPDATE,object = "企业首页配置",detail = "'企业首页配置:'+#adminCompanyBO.companyName")
     public Result setAdminConfig(@RequestBody AdminCompanyBO adminCompanyBO) {
         adminConfigService.setAdminConfig(adminCompanyBO);
@@ -83,12 +81,13 @@ public class AdminConfigController {
      */
     @ApiOperation(value = "查询企业配置")
     @PostMapping("/queryAdminConfig")
-    @PreAuthorize("hasAuthority('admin')")
+//    @PreAuthorize("hasAuthority('admin')")  //有admin权限才可以看
     public Result<AdminCompanyBO> queryAdminConfig() {
         return R.ok(adminConfigService.queryAdminConfig());
     }
     @ApiOperation(value = "头部设置")
     @PostMapping("/queryHeaderModelSort")
+    @PreAuthorize("hasAuthority('admin')")
     public Result<List<String>> queryHeaderModelSort() {
         List<AdminModelSort> list = adminModelSortService.lambdaQuery().select(AdminModelSort::getModel)
                 .eq(AdminModelSort::getType, 1)
@@ -99,6 +98,7 @@ public class AdminConfigController {
 
     @ApiOperation(value = "头部设置")
     @PostMapping("/setHeaderModelSort")
+    @PreAuthorize("hasAuthority('admin')")
     public Result setHeaderModelSort(@RequestBody List<String> list) {
         List<AdminModelSort> modelSortList = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
@@ -135,6 +135,7 @@ public class AdminConfigController {
      */
     @ApiOperation(value = "查询企业模块配置")
     @PostMapping("/queryModuleSetting")
+    @PreAuthorize("hasAuthority('admin')")
     public Result<List<ModuleSettingVO>> queryModuleSetting() {
         return R.ok(adminConfigService.queryModuleSetting());
     }
@@ -146,6 +147,7 @@ public class AdminConfigController {
      */
     @ApiOperation(value = "设置企业模块")
     @PostMapping("/setModuleSetting")
+    @PreAuthorize("hasAuthority('admin')")
     @SysLogHandler(subModel = SubModelType.ADMIN_OTHER_SETTINGS,behavior = BehaviorEnum.UPDATE)
     public Result setModuleSetting(@Valid @RequestBody ModuleSettingBO moduleSetting) {
         AdminConfig adminConfig = adminConfigService.getById(moduleSetting.getSettingId());
@@ -159,6 +161,7 @@ public class AdminConfigController {
 
     @ApiOperation(value = "设置日志欢迎语")
     @PostMapping("/setLogWelcomeSpeech")
+    @PreAuthorize("hasAuthority('admin')")
     @SysLogHandler(subModel = SubModelType.ADMIN_OTHER_SETTINGS,behavior = BehaviorEnum.UPDATE,object = "设置日志欢迎语",detail = "设置日志欢迎语")
     public Result setLogWelcomeSpeech(@Valid @RequestBody List<String> stringList) {
         adminConfigService.setLogWelcomeSpeech(stringList);

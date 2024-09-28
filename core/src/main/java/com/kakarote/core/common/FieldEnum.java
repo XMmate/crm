@@ -74,12 +74,14 @@ public enum FieldEnum {
     RECRUIT_CHANNEL(55,"recruit_channel","招聘渠道"),
     ;
 
+    //类型
     @Getter
     private Integer type;
 
+    //表单类型
     @Getter
     private String formType;
-
+    //描述
     @Getter
     private String desc;
 

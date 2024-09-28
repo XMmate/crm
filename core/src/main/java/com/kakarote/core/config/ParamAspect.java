@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author zhangzhiwei
- * user注入切面
+ * user注入切面 把用户信息保存到线程变量里面去
  */
 @Aspect
 @Component
@@ -46,6 +46,12 @@ public class ParamAspect implements Ordered {
     @Autowired
     private AdminService adminService;
 
+    /**所有访问controller层的方法都会被在这里拦截校验token
+     * @Aspect：该注解表明这是一个切面类，用于拦截特定的方法调用并在方法前后执行一些逻
+     * @param point
+     * @return
+     * @throws Throwable
+     */
     @Around("(execution(* com.kakarote.*.controller..*(..))||execution(* com.kakarote.*.*.controller..*(..))) && execution(@(org.springframework.web.bind.annotation.*Mapping) * *(..))  && !execution(@(com.kakarote.core.common.ParamAspect) * *(..))")
     public Object around(ProceedingJoinPoint point) throws Throwable {
         ServletRequestAttributes attributes = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes());

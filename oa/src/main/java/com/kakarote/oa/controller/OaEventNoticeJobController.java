@@ -22,28 +22,20 @@ import java.util.List;
 public class OaEventNoticeJobController {
 
     @Autowired
-    private OaEventNoticeMapper oaEventNoticeMapper;
-
-    @Autowired
-    private AdminService adminService;
-
-    @Autowired
     private IOaEventService oaEventService;
 
     @Autowired
     private OaEventMapper eventMapper;
-
-    @Autowired
-    private Redis redis;
-
     /**
      * 定时器日程提醒
      */
     @PostMapping("/eventNoticeCron")
     public Result eventNoticeCron(){
+        //当前日期的开始和结束时间
         DateTime nowDate = DateUtil.date();
         long startTime = DateUtil.beginOfDay(nowDate).getTime();
         long endTime = DateUtil.endOfDay(nowDate).getTime();
+
         QueryEventListBO queryEventListBO = new QueryEventListBO();
         queryEventListBO.setStartTime(startTime);
         queryEventListBO.setEndTime(endTime);

@@ -63,10 +63,14 @@ public class UserInfo implements Serializable {
     @JsonIgnore
     private transient HttpServletResponse response;
 
+
+    //角色
     private List<Integer> roles;
 
     private Integer emailAccount;
 
+
+    //超级管理id
     private Long superUserId;
 
     private Integer superRoleId;

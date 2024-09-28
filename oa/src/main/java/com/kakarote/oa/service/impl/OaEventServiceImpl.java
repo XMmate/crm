@@ -115,10 +115,16 @@ public class OaEventServiceImpl extends BaseServiceImpl<OaEventMapper, OaEvent> 
     }
 
 
+    /**
+     * 活动通知
+     * @param oaEventList
+     */
+
     @Override
     public void eventNotice(List<OaEvent> oaEventList) {
         DateTime nowDate = DateUtil.date();
         long startTime = DateUtil.beginOfDay(nowDate).getTime();
+        //30天后
         long endTime = DateUtil.endOfDay(nowDate.offsetNew(DateField.DAY_OF_YEAR, 30)).getTime();
         List<OaEventDTO> recordList = queryList(oaEventList, startTime, endTime);
         AdminMessageEnum messageEnum = AdminMessageEnum.OA_EVENT_MESSAGE;

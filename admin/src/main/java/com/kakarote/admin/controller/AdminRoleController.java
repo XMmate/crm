@@ -53,6 +53,12 @@ public class AdminRoleController {
     @Autowired
     private IAdminRoleAuthService adminRoleAuthService;
 
+
+    /**
+     * 查询角色权限，进入首页前查询，然后让首页选择性渲染？
+     * todo 没搞明白里面的算法
+     * @return
+     */
     @PostMapping("/auth")
     @ApiOperation("角色权限")
     public Result<JSONObject> auth() {

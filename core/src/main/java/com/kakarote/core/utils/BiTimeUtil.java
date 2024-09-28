@@ -15,9 +15,7 @@ import lombok.experimental.Accessors;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- * @author zhangzhiwei
- */
+
 public class BiTimeUtil {
     /**
      * 自动化分析类型
@@ -51,15 +49,18 @@ public class BiTimeUtil {
     }
 
     /**
-     * 分析类型
+     * 分析类型 这里负责处理时间问题，开始时间到结束时间，计算这段时间封装到返回对象里面
+     * 再去数据库查找
      * @param biParams
      * @return
      */
     public static BiTimeEntity analyzeType(BiParams biParams) {
         BiTimeEntity biTimeEntity;
         if (biParams.getYear() != null){
+            //按年分析
             biTimeEntity = analyzeTimeByYear(biParams);
         }else {
+            //不是按年分享，其他类型分享
             biTimeEntity = analyzeTime(biParams);
         }
         biTimeEntity.setUserIds(analyzeAuth(biParams));
@@ -147,6 +148,7 @@ public class BiTimeUtil {
         return CollectionUtil.join(userIdList, ",");
     }
 
+    //日期分享， yealr参数为空
     public static BiTimeEntity analyzeTime(BiParams biParams) {
         Date beginDate = DateUtil.date();
         Date endDate = DateUtil.date();
@@ -333,7 +335,7 @@ public class BiTimeUtil {
                     beginDate = DateUtil.beginOfYear(DateUtil.offsetMonth(date, -12));
                     endDate = DateUtil.endOfYear(DateUtil.offsetMonth(date, -12));
                     break;
-                    //季度
+                    //本季度
                 case "quarter":
                     beginDate = DateUtil.beginOfQuarter(date);
                     endDate = DateUtil.endOfQuarter(date);

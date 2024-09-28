@@ -1,7 +1,7 @@
 xxl:
   job:
     admin:
-      addresses: http://100.75.29.25:7070/xxl-job-admin
+      addresses: http://100.75.29.25:7080/xxl-job-admin
     executor:
       appname: wk-job
       ip:

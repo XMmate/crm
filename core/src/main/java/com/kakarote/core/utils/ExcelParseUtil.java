@@ -34,7 +34,9 @@ public class ExcelParseUtil {
      */
     public static void exportExcel(List<? extends Map<String, Object>> dataList, ExcelParseService excelParseService, List<?> list, HttpServletResponse response) {
         try (ExcelWriter writer = cn.hutool.poi.excel.ExcelUtil.getWriter(excelParseService.isXlsx())) {
+            //对象转换
             List<ExcelDataEntity> headList = excelParseService.parseData(list, false);
+
             Map<String, Integer> headMap = new HashMap<>(headList.size(), 1.0f);
             headList.forEach(head -> {
                 writer.addHeaderAlias(head.getFieldName(), head.getName());

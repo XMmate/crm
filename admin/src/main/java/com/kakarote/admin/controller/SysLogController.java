@@ -14,6 +14,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,8 @@ import java.util.stream.Collectors;
 
 /**
  * <p>
- *     todo 这一些接口都缺少权限校验
+ *
+ *
  * 系统日志 前端控制器
  * </p>
  *
@@ -63,9 +65,9 @@ public class SysLogController {
      * @return
      */
 
-
     @PostMapping("/querySysLogPageList")
     @ApiOperation("查询系统日志列表")
+    @PreAuthorize("hasAuthority('admin')")
     public Result<BasePage<SysLog>> querySysLogPageList(@RequestBody QuerySysLogBO querySysLogBO){
         BasePage<SysLog> page = sysLogService.querySysLogPageList(querySysLogBO);
         return Result.ok(page);
@@ -73,6 +75,7 @@ public class SysLogController {
 
     @PostMapping("/exportSysLog")
     @ApiOperation("导出系统日志")
+    @PreAuthorize("hasAuthority('admin')")
     public void exportSysLog(@RequestBody QuerySysLogBO querySysLogBO, HttpServletResponse response){
         querySysLogBO.setPageType(0);
         BasePage<SysLog> page = sysLogService.querySysLogPageList(querySysLogBO);
@@ -98,7 +101,6 @@ public class SysLogController {
         ExcelParseUtil.exportExcel(objectList, new ExcelParseUtil.ExcelParseService() {
             @Override
             public void castData(Map<String, Object> record, Map<String, Integer> headMap) {
-
             }
             @Override
             public String getExcelName() {
@@ -126,6 +128,7 @@ public class SysLogController {
      */
     @PostMapping("/queryLoginLogPageList")
     @ApiOperation("查询登录日志列表")
+    @PreAuthorize("hasAuthority('admin')")
     public Result<BasePage<LoginLog>> queryLoginLogPageList(@RequestBody QuerySysLogBO querySysLogBO){
         BasePage<LoginLog> page = sysLogService.queryLoginLogPageList(querySysLogBO);
         return Result.ok(page);
@@ -134,6 +137,7 @@ public class SysLogController {
 
     @PostMapping("/exportLoginLog")
     @ApiOperation("导出登陆日志")
+    @PreAuthorize("hasAuthority('admin')")
     public void exportLoginLog(@RequestBody QuerySysLogBO querySysLogBO, HttpServletResponse response){
         querySysLogBO.setPageType(0);
         BasePage<LoginLog> page = sysLogService.queryLoginLogPageList(querySysLogBO);

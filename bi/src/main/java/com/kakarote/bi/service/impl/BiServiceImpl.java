@@ -79,6 +79,7 @@ public class BiServiceImpl implements BiService {
         BiTimeUtil.BiTimeEntity timeEntity = BiTimeUtil.analyzeType(biParams);
         timeEntity.setPage(0).setLimit(10000);
         List<ProductStatisticsVO> productSell = biMapper.queryProductSell(timeEntity);
+        //这里把对象转换成了map
         return productSell.stream().map(BeanUtil::beanToMap).collect(Collectors.toList());
     }
 

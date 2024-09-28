@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * @author zhangzhiwei
- * feign客户端解码设置
+ * feign客户端解码设置 把请求头里面的主机号和Token携带在里面发起远程调用
  */
 @Configuration
 public class FeignConfig implements RequestInterceptor {
@@ -44,6 +44,11 @@ public class FeignConfig implements RequestInterceptor {
         return () -> httpMessageConverters;
     }
 
+    /**
+     * apply 方法用于在每个请求中添加自定义头信息
+     * @param requestTemplate
+     */
+
     @Override
     public void apply(RequestTemplate requestTemplate) {
         ServletRequestAttributes attributes = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes());
@@ -54,9 +59,14 @@ public class FeignConfig implements RequestInterceptor {
         }
     }
 
+
+    /**
+     * 自定义的 HTTP 消息转换器
+     */
     private class GateWayMappingJackson2HttpMessageConverter extends MappingJackson2HttpMessageConverter {
         GateWayMappingJackson2HttpMessageConverter() {
             List<MediaType> mediaTypes = new ArrayList<>();
+            //这意味着该转换器只会处理 JSON 格式的请求和响应
             mediaTypes.add(MediaType.APPLICATION_JSON);
             setSupportedMediaTypes(mediaTypes);
         }
@@ -73,6 +83,7 @@ public class FeignConfig implements RequestInterceptor {
             Object data = super.decode(response, type);
             if (data instanceof Result) {
                 if (!((Result) data).hasSuccess()) {
+                    //请求未成功，抛出异常
                     throw new FeignServiceException(((Result) data).getCode(), ((Result) data).getMsg());
                 }
             }

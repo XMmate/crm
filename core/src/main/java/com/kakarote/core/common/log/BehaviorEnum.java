@@ -1,5 +1,9 @@
 package com.kakarote.core.common.log;
 
+/**
+ *
+ * 操作行为的枚举
+ */
 public enum BehaviorEnum {
 
     /**

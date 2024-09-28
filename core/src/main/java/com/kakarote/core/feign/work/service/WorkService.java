@@ -7,6 +7,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 @FeignClient(name = "work",contextId = "taskJob")
 public interface WorkService {
 
+
+    /**
+     * 更新任务
+     * @return
+     */
+
     @PostMapping("/workTask/updateTaskJob")
     Result updateTaskJob();
 

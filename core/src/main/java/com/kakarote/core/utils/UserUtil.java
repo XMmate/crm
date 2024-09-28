@@ -82,9 +82,10 @@ public class UserUtil {
         }
     }
 
-    /**设置cookie
+    /**保存新的登陆信息，排挤掉旧的
      * @param token    用户token
      * @param userInfo 用户登录信息
+     *  @Integer type  类型 1 PC 2 Model
      * @param type     type 1 PC登录 2 mobile登录
      */
     public static void userToken(String token, UserInfo userInfo, Integer type) {
@@ -94,7 +95,9 @@ public class UserUtil {
         userExit(userInfo.getUserId(), type, 1);
         Redis redis = BaseUtil.getRedis();
         String userToken = getUserToken(type,userInfo.getUserId());
+        //key(token) vale（userInfo）
         redis.setex(token, Const.MAX_USER_EXIST_TIME, userInfo);
+        //key(WK:USER:TOKEN:type + ":" + userId.toString())  vale(token)
         redis.setex(userToken, Const.MAX_USER_EXIST_TIME, token);
         Cookie cookie = new Cookie(Const.TOKEN_NAME, token);
         Long second = DateUtil.betweenMs(new Date(), DateUtil.parseDate("2030-01-01")) / 1000L;
@@ -112,11 +115,21 @@ public class UserUtil {
         return 180162;
     }
 
+    /**
+     * 判断是不是超级管理员
+     * @return
+     */
+
     public static boolean isAdmin() {
         UserInfo userInfo = getUser();
         return userInfo.getUserId().equals(userInfo.getSuperUserId()) || userInfo.getRoles().contains(userInfo.getSuperRoleId());
     }
 
+    /**
+     * 处理用户退出登陆逻辑的
+     * @param userId
+     * @param type
+     */
     public static void userExit(Long userId, Integer type) {
         if (type == null) {
             for (Integer integer : Arrays.asList(1, 2, 3, 4)) {
@@ -127,6 +140,12 @@ public class UserUtil {
         }
 
     }
+
+    /**
+     * 处理用户退出登陆逻辑的
+     * @param userId
+     * @param type
+     */
 
     private static void userExit(Long userId, Integer type, Integer extra) {
         Redis redis = BaseUtil.getRedis();

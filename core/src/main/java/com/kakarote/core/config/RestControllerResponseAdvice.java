@@ -67,6 +67,12 @@ public class RestControllerResponseAdvice implements ResponseBodyAdvice<Object> 
         }
     }
 
+    /**
+     *    将下划线命名法转换为驼峰命名法
+     * @param param
+     * @return
+     */
+
     private String underlineToCame(String param) {
         if (param == null || "".equals(param.trim())) {
             return "";

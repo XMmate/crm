@@ -13,6 +13,12 @@ public class TaskJob {
     @Autowired
     private WorkService workService;
 
+
+    /**
+     * 更新任务
+     * @return
+     */
+
     @XxlJob("TaskJob")
     public ReturnT<String> TaskJobHandler(String param){
         workService.updateTaskJob();

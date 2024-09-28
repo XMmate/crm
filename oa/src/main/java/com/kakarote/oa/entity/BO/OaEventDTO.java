@@ -1,5 +1,8 @@
 package com.kakarote.oa.entity.BO;
 
+/**
+ * 日程的dto
+ */
 public class OaEventDTO {
     private Integer eventId;
     private String title;

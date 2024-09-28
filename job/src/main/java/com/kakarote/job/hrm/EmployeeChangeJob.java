@@ -7,6 +7,11 @@ import com.xxl.job.core.handler.annotation.XxlJob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+
+/**
+ * 人事调动
+ * 员工变动记录  远程调用hrmd服务 ，扫描员工调用表，把需要更新的内容更新到员工表
+ */
 @Component
 public class EmployeeChangeJob {
 

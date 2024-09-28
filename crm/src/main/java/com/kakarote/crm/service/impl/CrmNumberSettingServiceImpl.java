@@ -239,7 +239,7 @@ public class CrmNumberSettingServiceImpl extends BaseServiceImpl<CrmNumberSettin
      * @param numberSettingList 设置参数
      */
     @Override
-    @GlobalTransactional(rollbackFor = Exception.class)
+    @GlobalTransactional(rollbackFor = Exception.class)   //发起全局事务的入口方法
     public void setNumberSetting(List<CrmNumberSettingVO> numberSettingList) {
         String name = "numberSetting";
         //最小规则列

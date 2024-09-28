@@ -13,9 +13,15 @@ public class HrmJobController {
     @Autowired
     private EmployeeChangeCron employeeChangeCron;
 
+
+    /**
+     * 员工变动记录
+     */
     @PostMapping("/employeeChangeRecords")
     public void employeeChangeRecords(){
+        //调岗晋升转正
         employeeChangeCron.employeeChangeRecords();
+        //离职更变
         employeeChangeCron.employeeQuit();
     }
 }
