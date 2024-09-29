@@ -8,8 +8,8 @@ import com.kakarote.crm.entity.PO.CrmCustomerPoolFieldSort;
  * 公海列表页字段排序表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-29
+ * @author liujiaming
+ * @since 2024-05-29
  */
 public interface CrmCustomerPoolFieldSortMapper extends BaseMapper<CrmCustomerPoolFieldSort> {
 

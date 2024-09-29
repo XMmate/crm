@@ -47,7 +47,7 @@ import static com.kakarote.hrm.service.impl.HrmUploadExcelServiceImpl.UPLOAD_EXC
  * </p>
  *
  * @author hmb
- * @since 2020-11-05
+ * @since 2024-11-05
  */
 @Service
 public class HrmSalaryArchivesServiceImpl extends BaseServiceImpl<HrmSalaryArchivesMapper, HrmSalaryArchives> implements IHrmSalaryArchivesService {

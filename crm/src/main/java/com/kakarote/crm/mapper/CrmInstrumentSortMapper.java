@@ -8,8 +8,8 @@ import com.kakarote.crm.entity.PO.CrmInstrumentSort;
  * 仪表盘排序表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-06-04
+ * @author liujiaming
+ * @since 2024-06-04
  */
 public interface CrmInstrumentSortMapper extends BaseMapper<CrmInstrumentSort> {
 

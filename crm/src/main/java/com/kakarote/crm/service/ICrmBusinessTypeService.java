@@ -16,8 +16,8 @@ import java.util.List;
  * 商机状态组类别 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-27
+ * @author liujiaming
+ * @since 2024-05-27
  */
 public interface ICrmBusinessTypeService extends BaseService<CrmBusinessType> {
 

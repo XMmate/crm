@@ -18,7 +18,7 @@ import java.util.List;
  * </p>
  *
  * @author huangmingbo
- * @since 2020-06-08
+ * @since 2024-06-08
  */
 @Service
 public class HrmEmployeeAbnormalChangeRecordServiceImpl extends BaseServiceImpl<HrmEmployeeAbnormalChangeRecordMapper, HrmEmployeeAbnormalChangeRecord> implements IHrmEmployeeAbnormalChangeRecordService {

@@ -17,8 +17,8 @@ import java.util.List;
  * 审批步骤表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-28
+ * @author liujiaming
+ * @since 2024-05-28
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

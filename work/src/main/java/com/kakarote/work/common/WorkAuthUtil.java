@@ -21,7 +21,7 @@ import java.util.Set;
 
 
 /**
- * @author wyq
+ * @author liujiaming
  */
 @Component
 public class WorkAuthUtil {

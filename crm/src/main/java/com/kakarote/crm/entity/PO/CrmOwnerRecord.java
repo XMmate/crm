@@ -15,8 +15,8 @@ import java.util.Date;
  * 负责人变更记录表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-08-12
+ * @author liujiaming
+ * @since 2024-08-12
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

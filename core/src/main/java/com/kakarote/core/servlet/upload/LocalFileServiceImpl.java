@@ -8,7 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 本地上传文件
  */
 public class LocalFileServiceImpl implements FileService {

@@ -52,8 +52,8 @@ import java.util.stream.Collectors;
  * 项目表 服务实现类
  * </p>
  *
- * @author wyq
- * @since 2020-05-15
+ * @author liujiaming
+ * @since 2024-05-15
  */
 @Service
 public class WorkServiceImpl extends BaseServiceImpl<WorkMapper, Work> implements IWorkService {
@@ -90,12 +90,15 @@ public class WorkServiceImpl extends BaseServiceImpl<WorkMapper, Work> implement
     @Autowired
     private CrmService crmService;
 
+        /*
+        * 新增项目*/
     @Override
     public Work addWork(Work work) {
         Long userId = UserUtil.getUserId();
         if (StringUtils.isEmpty(work.getName()) || null == work.getName()) {
-//            throw new CrmException(WorkCodeEnum.WORK_CREATE_NAME_NULL_ERROR);
+            throw new CrmException(WorkCodeEnum.WORK_CREATE_NAME_NULL_ERROR);
         }
+        //随机生成一个批次id
         if (StrUtil.isEmpty(work.getBatchId())) {
             work.setBatchId(IdUtil.simpleUUID());
         }
@@ -110,12 +113,11 @@ public class WorkServiceImpl extends BaseServiceImpl<WorkMapper, Work> implement
         }
         work.setOwnerUserId(SeparatorUtil.fromLongSet(ownerUserIds));
         work.setCreateUserId(userId);
-        work.setCreateTime(new Date());
         save(work);
+        //创建任务分类表
         WorkTaskClass workTaskClass = new WorkTaskClass();
         workTaskClass.setClassId(0);
         workTaskClass.setName("要做");
-        workTaskClass.setCreateTime(new Date());
         workTaskClass.setCreateUserId(userId);
         workTaskClass.setWorkId(work.getWorkId());
         workTaskClass.setOrderNum(1);
@@ -203,6 +205,12 @@ public class WorkServiceImpl extends BaseServiceImpl<WorkMapper, Work> implement
         return work;
     }
 
+
+    /**
+     * 编辑更新项目
+     * @param work
+     * @return
+     */
     @Override
     public Work updateWork(Work work) {
         Long userId = UserUtil.getUserId();

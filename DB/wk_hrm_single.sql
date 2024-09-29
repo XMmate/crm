@@ -321,8 +321,8 @@ CREATE TABLE `wk_hrm_achievement_table`  (
 -- ----------------------------
 -- Records of wk_hrm_achievement_table
 -- ----------------------------
-INSERT INTO `wk_hrm_achievement_table` VALUES (48, 'KPI模板', 2, '1.结果导向原则：以业绩目标考核为主，员工要时刻关注岗位目标、充分理解团队目标，个人目标要支撑团队目标。\n2.关键绩效（KP）由本岗位岗位职责、重点工作、团队目标等分解而来。\n3.KPI为衡量该关键绩效（KP）的关键业绩指标，要目标明确、可量化、易计算。\n4.固定项考核指公司可根据实际情况设定固定考核指标，适用于考核范围内所有人员，员工不可编辑 。例如：行为态度类考核、能力素质类考核等。', 1, 1, '2020-06-22 10:10:09', 14773);
-INSERT INTO `wk_hrm_achievement_table` VALUES (49, 'OKR模板', 1, '1.OKR的主要目标是明确公司和团队的“目标”以及明确每个目标达成的可衡量的“关键结果”。\n2.个人首先要充分理解团队整体目标，个人目标的设定要支撑团队目标。\n3.本着“挑战导向”原则，目标一定要具有挑战性，超越当前现状，可衡量，可分解；关键成果是支持目标落地的具体事项，也要可衡量。\n4.目标一般不超过5项，每个目标一般拆解为1-3个关键成果，权重总和为100%。', 1, 1, '2020-06-23 10:43:46', 14773);
+INSERT INTO `wk_hrm_achievement_table` VALUES (48, 'KPI模板', 2, '1.结果导向原则：以业绩目标考核为主，员工要时刻关注岗位目标、充分理解团队目标，个人目标要支撑团队目标。\n2.关键绩效（KP）由本岗位岗位职责、重点工作、团队目标等分解而来。\n3.KPI为衡量该关键绩效（KP）的关键业绩指标，要目标明确、可量化、易计算。\n4.固定项考核指公司可根据实际情况设定固定考核指标，适用于考核范围内所有人员，员工不可编辑 。例如：行为态度类考核、能力素质类考核等。', 1, 1, '2024-06-22 10:10:09', 14773);
+INSERT INTO `wk_hrm_achievement_table` VALUES (49, 'OKR模板', 1, '1.OKR的主要目标是明确公司和团队的“目标”以及明确每个目标达成的可衡量的“关键结果”。\n2.个人首先要充分理解团队整体目标，个人目标的设定要支撑团队目标。\n3.本着“挑战导向”原则，目标一定要具有挑战性，超越当前现状，可衡量，可分解；关键成果是支持目标落地的具体事项，也要可衡量。\n4.目标一般不超过5项，每个目标一般拆解为1-3个关键成果，权重总和为100%。', 1, 1, '2024-06-23 10:43:46', 14773);
 
 -- ----------------------------
 -- Table structure for wk_hrm_action_record
@@ -382,15 +382,15 @@ CREATE TABLE `wk_hrm_config`  (
 -- ----------------------------
 -- Records of wk_hrm_config
 -- ----------------------------
-INSERT INTO `wk_hrm_config` VALUES (145, 2, '0', '2020-06-09 14:38:43');
-INSERT INTO `wk_hrm_config` VALUES (146, 3, '0', '2020-06-09 14:38:43');
-INSERT INTO `wk_hrm_config` VALUES (147, 4, '0', '2020-06-09 14:38:43');
-INSERT INTO `wk_hrm_config` VALUES (148, 5, '0', '2020-06-09 14:38:43');
-INSERT INTO `wk_hrm_config` VALUES (149, 1, '沟通表达能力差', '2020-06-23 10:47:47');
-INSERT INTO `wk_hrm_config` VALUES (150, 1, '候选人放弃', '2020-06-23 10:47:47');
-INSERT INTO `wk_hrm_config` VALUES (151, 1, '薪资要求过高', '2020-06-23 10:47:47');
-INSERT INTO `wk_hrm_config` VALUES (152, 1, '稳定性较差', '2020-06-23 10:47:47');
-INSERT INTO `wk_hrm_config` VALUES (153, 1, '相关经验少', '2020-06-23 10:47:47');
+INSERT INTO `wk_hrm_config` VALUES (145, 2, '0', '2024-06-09 14:38:43');
+INSERT INTO `wk_hrm_config` VALUES (146, 3, '0', '2024-06-09 14:38:43');
+INSERT INTO `wk_hrm_config` VALUES (147, 4, '0', '2024-06-09 14:38:43');
+INSERT INTO `wk_hrm_config` VALUES (148, 5, '0', '2024-06-09 14:38:43');
+INSERT INTO `wk_hrm_config` VALUES (149, 1, '沟通表达能力差', '2024-06-23 10:47:47');
+INSERT INTO `wk_hrm_config` VALUES (150, 1, '候选人放弃', '2024-06-23 10:47:47');
+INSERT INTO `wk_hrm_config` VALUES (151, 1, '薪资要求过高', '2024-06-23 10:47:47');
+INSERT INTO `wk_hrm_config` VALUES (152, 1, '稳定性较差', '2024-06-23 10:47:47');
+INSERT INTO `wk_hrm_config` VALUES (153, 1, '相关经验少', '2024-06-23 10:47:47');
 
 -- ----------------------------
 -- Table structure for wk_hrm_dept
@@ -2431,7 +2431,7 @@ CREATE TABLE `wk_hrm_salary_change_template`  (
 -- ----------------------------
 -- Records of wk_hrm_salary_change_template
 -- ----------------------------
-INSERT INTO `wk_hrm_salary_change_template` VALUES (1, '默认模板', 1, '[{\"code\":10101,\"name\":\"基本工资\"},{\"code\":10102,\"name\":\"岗位工资\"},{\"code\":10103,\"name\":\"职务工资\"}]', '2020-11-24 21:20:43', 0);
+INSERT INTO `wk_hrm_salary_change_template` VALUES (1, '默认模板', 1, '[{\"code\":10101,\"name\":\"基本工资\"},{\"code\":10102,\"name\":\"岗位工资\"},{\"code\":10103,\"name\":\"职务工资\"}]', '2024-11-24 21:20:43', 0);
 
 -- ----------------------------
 -- Table structure for wk_hrm_salary_config
@@ -2805,7 +2805,7 @@ CREATE TABLE `wk_hrm_salary_slip_template`  (
 -- ----------------------------
 -- Records of wk_hrm_salary_slip_template
 -- ----------------------------
-INSERT INTO `wk_hrm_salary_slip_template` VALUES (1, '默认模板', 0, 1, '2020-11-24 21:20:42', 0);
+INSERT INTO `wk_hrm_salary_slip_template` VALUES (1, '默认模板', 0, 1, '2024-11-24 21:20:42', 0);
 
 -- ----------------------------
 -- Table structure for wk_hrm_salary_slip_template_option

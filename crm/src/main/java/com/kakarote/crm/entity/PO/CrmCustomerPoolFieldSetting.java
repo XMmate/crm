@@ -16,8 +16,8 @@ import java.io.Serializable;
  * 公海列表页字段设置表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-29
+ * @author liujiaming
+ * @since 2024-05-29
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

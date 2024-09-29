@@ -21,8 +21,8 @@ import java.util.Map;
  * 合同表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-27
+ * @author liujiaming
+ * @since 2024-05-27
  */
 public interface CrmContractMapper extends BaseMapper<CrmContract> {
 

@@ -10,8 +10,8 @@ import org.apache.ibatis.annotations.Param;
  *  Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-07-06
+ * @author liujiaming
+ * @since 2024-07-06
  */
 public interface CrmInvoiceMapper extends BaseMapper<CrmInvoice> {
 

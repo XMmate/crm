@@ -49,7 +49,7 @@ public interface AdminUserService {
 
     /**
     * 通过用户ID查询没有权限的菜单
-    * @date 2020/8/20 15:25
+    * @date 2024/8/20 15:25
     * @param userId
     * @return 结果信息
     **/

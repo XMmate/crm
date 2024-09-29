@@ -15,8 +15,8 @@ import java.io.Serializable;
  * 客户规则
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-12
+ * @author liujiaming
+ * @since 2024-05-12
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

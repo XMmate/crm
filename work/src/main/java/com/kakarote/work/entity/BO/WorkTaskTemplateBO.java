@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * @author wyq
+ * @author liujiaming
  */
 @Data
 @ApiModel("项目任务看板筛选信息")

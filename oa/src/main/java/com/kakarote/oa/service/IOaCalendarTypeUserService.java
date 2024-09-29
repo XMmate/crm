@@ -8,8 +8,8 @@ import com.kakarote.oa.entity.PO.OaCalendarTypeUser;
  * 用户关联日历类型 服务类
  * </p>
  *
- * @author wyq
- * @since 2020-05-15
+ * @author liujiaming
+ * @since 2024-05-15
  */
 public interface IOaCalendarTypeUserService extends BaseService<OaCalendarTypeUser> {
 

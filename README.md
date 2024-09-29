@@ -74,7 +74,7 @@ CRM/OA功能：<br/>
 ## 长情CRM项目架构图
 
 
-<img src="https://images.gitee.com/uploads/images/2020/0910/094237_e7cb3bca_1096736.jpeg" width="650">
+<img src="https://images.gitee.com/uploads/images/2024/0910/094237_e7cb3bca_1096736.jpeg" width="650">
 
 ## 使用说明
 
@@ -219,14 +219,14 @@ crm.upload.local.uploadPath      需要配置两个地址0为登录才可访问�
 ### 四、长情CRM功能模块预览
 
 
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0928/172541_efed65bd_345098.png "01.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0928/172557_c001d047_345098.png "02.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0928/172612_97363074_345098.png "03.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0928/172625_47a2798b_345098.png "04.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0928/172636_ae5cad59_345098.png "05.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0928/172648_c7928c60_345098.png "06.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0928/172704_ac4c3308_345098.png "07.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0928/172714_84b7ee29_345098.png "08.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0928/172726_4552bddb_345098.png "10.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0928/172736_da77deec_345098.png "11.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0928/172745_e22b7a4a_345098.png "12.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2024/0928/172541_efed65bd_345098.png "01.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2024/0928/172557_c001d047_345098.png "02.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2024/0928/172612_97363074_345098.png "03.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2024/0928/172625_47a2798b_345098.png "04.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2024/0928/172636_ae5cad59_345098.png "05.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2024/0928/172648_c7928c60_345098.png "06.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2024/0928/172704_ac4c3308_345098.png "07.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2024/0928/172714_84b7ee29_345098.png "08.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2024/0928/172726_4552bddb_345098.png "10.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2024/0928/172736_da77deec_345098.png "11.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2024/0928/172745_e22b7a4a_345098.png "12.png")

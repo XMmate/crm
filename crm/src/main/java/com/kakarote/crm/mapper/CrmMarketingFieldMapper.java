@@ -7,8 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * @author JiaS
- * @date 2020/12/2
+ * @author liujiaming
+ * @date 2024/12/2
  */
 public interface CrmMarketingFieldMapper extends BaseMapper<CrmMarketingField> {
 

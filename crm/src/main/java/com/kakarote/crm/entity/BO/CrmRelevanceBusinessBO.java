@@ -8,7 +8,7 @@ import lombok.ToString;
 import java.util.List;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 业务关联对象
  */
 @Data

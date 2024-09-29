@@ -1,7 +1,7 @@
 package com.kakarote.core;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  */
 public class CoreApplication {
 

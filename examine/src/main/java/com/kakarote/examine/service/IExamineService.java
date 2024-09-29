@@ -16,8 +16,8 @@ import java.util.List;
  * 审批表 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-13
+ * @author liujiaming
+ * @since 2024-11-13
  */
 public interface IExamineService extends BaseService<Examine> {
 

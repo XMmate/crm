@@ -15,8 +15,8 @@ import java.util.List;
  * 项目排序表 服务实现类
  * </p>
  *
- * @author wyq
- * @since 2020-05-15
+ * @author liujiaming
+ * @since 2024-05-15
  */
 @Service
 public class WorkOrderServiceImpl extends BaseServiceImpl<WorkOrderMapper, WorkOrder> implements IWorkOrderService {

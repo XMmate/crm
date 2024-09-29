@@ -19,8 +19,8 @@ import javax.validation.constraints.NotNull;
  * 项目收藏表 前端控制器
  * </p>
  *
- * @author wyq
- * @since 2020-05-15
+ * @author liujiaming
+ * @since 2024-05-15
  */
 @RestController
 @RequestMapping("/workCollect")
@@ -30,7 +30,7 @@ public class WorkCollectController {
     private IWorkCollectService workCollectService;
 
     @PostMapping("/collect/{workId}")
-    @ApiOperation("收藏按钮")
+    @ApiOperation("收藏和取消收藏按钮")
     public Result collect(@PathVariable @NotNull Integer workId){
         workCollectService.collect(workId);
         return R.ok();

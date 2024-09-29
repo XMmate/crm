@@ -54,8 +54,8 @@ import java.util.stream.Collectors;
  * 公海表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-29
+ * @author liujiaming
+ * @since 2024-05-29
  */
 @Service(value = "customerPoolService")
 public class CrmCustomerPoolServiceImpl extends BaseServiceImpl<CrmCustomerPoolMapper, CrmCustomerPool> implements ICrmCustomerPoolService, CrmPageService {

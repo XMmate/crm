@@ -14,8 +14,8 @@ import java.util.Map;
  * 自定义字段表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-19
+ * @author liujiaming
+ * @since 2024-05-19
  */
 public interface CrmFieldMapper extends BaseMapper<CrmField> {
 

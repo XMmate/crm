@@ -12,7 +12,7 @@ import java.util.List;
  * 用户点赞日志关系表  服务类
  * </p>
  *
- * @author JiaS
+ * @author liujiaming
  * @since 2021-03-02
  */
 public interface IOaLogUserFavourService extends BaseService<OaLogUserFavour> {

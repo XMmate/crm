@@ -70,7 +70,7 @@ public class BiCustomerServiceImpl implements BiCustomerService {
 
     /**
      * 处理需要的表名
-     * @date 2020/11/21 17:22
+     * @date 2024/11/21 17:22
      * @param tableNameList
      * @return void
      **/

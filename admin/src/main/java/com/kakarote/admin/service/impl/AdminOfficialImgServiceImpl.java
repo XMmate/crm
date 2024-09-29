@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
  * 官网图片 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-04-27
+ * @author liujiaming
+ * @since 2024-04-27
  */
 @Service
 public class AdminOfficialImgServiceImpl extends BaseServiceImpl<AdminOfficialImgMapper, AdminOfficialImg> implements IAdminOfficialImgService {

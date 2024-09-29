@@ -19,8 +19,8 @@ import java.util.List;
  * 任务分类表 服务实现类
  * </p>
  *
- * @author wyq
- * @since 2020-05-15
+ * @author liujiaming
+ * @since 2024-05-15
  */
 @Service
 public class WorkTaskClassServiceImpl extends BaseServiceImpl<WorkTaskClassMapper, WorkTaskClass> implements IWorkTaskClassService {

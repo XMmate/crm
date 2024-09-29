@@ -19,8 +19,8 @@ import java.util.Map;
  * 商机表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-27
+ * @author liujiaming
+ * @since 2024-05-27
  */
 public interface CrmBusinessMapper extends BaseMapper<CrmBusiness> {
     /**

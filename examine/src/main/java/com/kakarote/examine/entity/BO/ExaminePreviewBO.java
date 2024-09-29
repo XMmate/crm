@@ -7,8 +7,8 @@ import lombok.Data;
 import java.util.Map;
 
 /**
- * @author JiaS
- * @date 2020/12/15
+ * @author liujiaming
+ * @date 2024/12/15
  */
 @Data
 @ApiModel("预览审批流程BO")

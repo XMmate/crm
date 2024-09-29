@@ -26,8 +26,8 @@ import java.util.stream.Collectors;
  * 任务评论表 服务实现类
  * </p>
  *
- * @author wyq
- * @since 2020-05-18
+ * @author liujiaming
+ * @since 2024-05-18
  */
 @Service
 public class WorkTaskCommentServiceImpl extends BaseServiceImpl<WorkTaskCommentMapper, WorkTaskComment> implements IWorkTaskCommentService {

@@ -1,7 +1,7 @@
 package com.kakarote.core.common;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 系统响应错误代码枚举类
  */
 

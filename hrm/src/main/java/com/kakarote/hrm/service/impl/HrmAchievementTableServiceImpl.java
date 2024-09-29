@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  * </p>
  *
  * @author huangmingbo
- * @since 2020-05-12
+ * @since 2024-05-12
  */
 @Service
 public class HrmAchievementTableServiceImpl extends BaseServiceImpl<HrmAchievementTableMapper, HrmAchievementTable> implements IHrmAchievementTableService {

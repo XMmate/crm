@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
  * 任务关联业务表 服务实现类
  * </p>
  *
- * @author wyq
- * @since 2020-05-18
+ * @author liujiaming
+ * @since 2024-05-18
  */
 @Service
 public class WorkTaskRelationServiceImpl extends BaseServiceImpl<WorkTaskRelationMapper, WorkTaskRelation> implements IWorkTaskRelationService {

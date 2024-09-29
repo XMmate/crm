@@ -78,7 +78,7 @@ import java.util.stream.Collectors;
 import static com.kakarote.core.servlet.ApplicationContextHolder.getBean;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * pageElasticsearch
  */
 public interface CrmPageService {
@@ -1015,7 +1015,7 @@ public interface CrmPageService {
      * @param recordId
      * @param examineRecordSaveBO
      * @return void
-     * @date 2020/12/18 13:44
+     * @date 2024/12/18 13:44
      **/
     default void supplementFieldInfo(Integer label, Integer typeId, Integer recordId, ExamineRecordSaveBO examineRecordSaveBO) {
         examineRecordSaveBO.setLabel(label);

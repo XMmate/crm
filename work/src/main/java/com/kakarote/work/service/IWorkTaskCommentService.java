@@ -10,8 +10,8 @@ import java.util.List;
  * 任务评论表 服务类
  * </p>
  *
- * @author wyq
- * @since 2020-05-18
+ * @author liujiaming
+ * @since 2024-05-18
  */
 public interface IWorkTaskCommentService extends BaseService<WorkTaskComment> {
 

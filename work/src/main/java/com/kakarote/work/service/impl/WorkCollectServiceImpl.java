@@ -13,12 +13,17 @@ import org.springframework.stereotype.Service;
  * 项目收藏表 服务实现类
  * </p>
  *
- * @author wyq
- * @since 2020-05-15
+ * @author liujiaming
+ * @since 2024-05-15
  */
 @Service
 public class WorkCollectServiceImpl extends BaseServiceImpl<WorkCollectMapper, WorkCollect> implements IWorkCollectService {
 
+
+    /**
+     * 收藏和取消收藏
+     * @param workId
+     */
     @Override
     public void collect(Integer workId) {
         Long userId = UserUtil.getUserId();

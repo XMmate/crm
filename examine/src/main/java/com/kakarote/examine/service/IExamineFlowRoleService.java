@@ -8,8 +8,8 @@ import com.kakarote.examine.entity.PO.ExamineFlowRole;
  * 审批流程角色审批记录表 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-13
+ * @author liujiaming
+ * @since 2024-11-13
  */
 public interface IExamineFlowRoleService extends BaseService<ExamineFlowRole> {
 

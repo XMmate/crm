@@ -12,7 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  */
 @SpringBootApplication
 @EnableDiscoveryClient

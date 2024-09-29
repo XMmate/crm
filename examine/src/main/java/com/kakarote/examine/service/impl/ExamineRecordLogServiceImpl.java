@@ -26,8 +26,8 @@ import java.util.Map;
  * 审核日志表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-19
+ * @author liujiaming
+ * @since 2024-11-19
  */
 @Service
 public class ExamineRecordLogServiceImpl extends BaseServiceImpl<ExamineRecordLogMapper, ExamineRecordLog> implements IExamineRecordLogService {

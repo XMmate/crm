@@ -22,8 +22,8 @@ import java.util.Map;
  * 后台菜单表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-04-27
+ * @author liujiaming
+ * @since 2024-04-27
  */
 @Service
 public class AdminMenuServiceImpl extends BaseServiceImpl<AdminMenuMapper, AdminMenu> implements IAdminMenuService {
@@ -117,7 +117,7 @@ public class AdminMenuServiceImpl extends BaseServiceImpl<AdminMenuMapper, Admin
      * 通过parentId和realm查询菜单
      *
      * @return 菜单列表
-     * @author zhangzhiwei
+     * @author liujiaming
      */
     private AdminMenuVO queryMenuListByRealm(String realm) {
         AdminMenu adminMenu = lambdaQuery().eq(AdminMenu::getParentId, 0).eq(AdminMenu::getRealm, realm).one();

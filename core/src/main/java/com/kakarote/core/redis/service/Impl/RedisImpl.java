@@ -15,7 +15,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * redis简易封装,如有需要的方法不存在可以在此类中添加
  * 也可以使用RedisTemplate
  */

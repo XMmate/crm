@@ -12,7 +12,7 @@ import com.kakarote.hrm.entity.VO.QuerySalarySlipListVO;
  * </p>
  *
  * @author hmb
- * @since 2020-11-03
+ * @since 2024-11-03
  */
 public interface IHrmSalarySlipService extends BaseService<HrmSalarySlip> {
 

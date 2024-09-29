@@ -16,8 +16,8 @@ import java.io.Serializable;
  * 招聘渠道表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-06-02
+ * @author liujiaming
+ * @since 2024-06-02
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

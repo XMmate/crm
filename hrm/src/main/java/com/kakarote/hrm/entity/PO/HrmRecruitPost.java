@@ -20,7 +20,7 @@ import java.util.Date;
  * </p>
  *
  * @author huangmingbo
- * @since 2020-06-04
+ * @since 2024-06-04
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

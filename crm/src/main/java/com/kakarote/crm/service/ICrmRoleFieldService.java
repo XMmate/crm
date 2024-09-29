@@ -13,8 +13,8 @@ import java.util.Map;
  * 角色字段授权表 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-22
+ * @author liujiaming
+ * @since 2024-05-22
  */
 public interface ICrmRoleFieldService extends BaseService<CrmRoleField> {
 

@@ -14,8 +14,8 @@ import java.util.List;
  * 审核日志表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-19
+ * @author liujiaming
+ * @since 2024-11-19
  */
 public interface ExamineRecordLogMapper extends BaseMapper<ExamineRecordLog> {
 

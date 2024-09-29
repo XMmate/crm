@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author huangmingbo
- * @since 2020-05-12
+ * @since 2024-05-12
  */
 @Service
 public class HrmInsuranceProjectServiceImpl extends BaseServiceImpl<HrmInsuranceProjectMapper, HrmInsuranceProject> implements IHrmInsuranceProjectService {

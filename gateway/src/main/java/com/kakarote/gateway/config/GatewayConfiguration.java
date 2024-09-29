@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 默认的一些配置
  */
 @Data

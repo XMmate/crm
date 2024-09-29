@@ -10,7 +10,7 @@ import com.kakarote.hrm.entity.PO.HrmSalarySlipTemplate;
  * </p>
  *
  * @author hmb
- * @since 2020-11-03
+ * @since 2024-11-03
  */
 public interface IHrmSalarySlipTemplateService extends BaseService<HrmSalarySlipTemplate> {
 

@@ -86,7 +86,7 @@ public class BiServiceImpl implements BiService {
     /**
      * 获取商业智能业绩目标完成情况
      *
-     * @author wyq
+     * @author liujiaming
      */
     @Override
     public List<JSONObject> taskCompleteStatistics(String year, Integer status, Integer deptId, Long userId, Integer isUser) {

@@ -8,8 +8,8 @@ import com.kakarote.crm.entity.PO.CrmBusinessChange;
  * 商机阶段变化表 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-27
+ * @author liujiaming
+ * @since 2024-05-27
  */
 public interface ICrmBusinessChangeService extends BaseService<CrmBusinessChange> {
 

@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * 上传文件entity对象
  *
- * @author zhangzhiwei
+ * @author liujiaming
  */
 @Data
 public class UploadEntity {

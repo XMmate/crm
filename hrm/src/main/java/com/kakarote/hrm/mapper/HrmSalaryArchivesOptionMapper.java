@@ -9,7 +9,7 @@ import com.kakarote.hrm.entity.PO.HrmSalaryArchivesOption;
  * </p>
  *
  * @author hmb
- * @since 2020-11-06
+ * @since 2024-11-06
  */
 public interface HrmSalaryArchivesOptionMapper extends BaseMapper<HrmSalaryArchivesOption> {
 

@@ -18,8 +18,8 @@ import java.util.List;
  * 员工每月社保记录 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-26
+ * @author liujiaming
+ * @since 2024-05-26
  */
 public interface HrmInsuranceMonthEmpRecordMapper extends BaseMapper<HrmInsuranceMonthEmpRecord> {
 

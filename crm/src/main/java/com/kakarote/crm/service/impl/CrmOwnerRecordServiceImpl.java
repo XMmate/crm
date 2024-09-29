@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
  * 负责人变更记录表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-08-12
+ * @author liujiaming
+ * @since 2024-08-12
  */
 @Service
 public class CrmOwnerRecordServiceImpl extends BaseServiceImpl<CrmOwnerRecordMapper, CrmOwnerRecord> implements ICrmOwnerRecordService {

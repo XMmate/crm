@@ -7,7 +7,7 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 
 /**
- * @author wyq
+ * @author liujiaming
  */
 @Data
 @ApiModel("归档已完成任务参数")

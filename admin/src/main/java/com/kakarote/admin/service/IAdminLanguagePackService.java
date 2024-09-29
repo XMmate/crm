@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * </p>
  *
  * @author zmj
- * @since 2020-12-01
+ * @since 2024-12-01
  */
 public interface IAdminLanguagePackService extends BaseService<AdminLanguagePack> {
 

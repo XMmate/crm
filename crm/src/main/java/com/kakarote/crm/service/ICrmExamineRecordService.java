@@ -16,8 +16,8 @@ import java.util.Map;
  * 审核记录表 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-28
+ * @author liujiaming
+ * @since 2024-05-28
  */
 public interface ICrmExamineRecordService extends BaseService<CrmExamineRecord> {
     /**

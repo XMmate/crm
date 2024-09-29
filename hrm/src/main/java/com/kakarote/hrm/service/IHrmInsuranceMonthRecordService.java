@@ -13,8 +13,8 @@ import com.kakarote.hrm.entity.VO.QueryInsuranceRecordListVO;
  * 每月社保记录 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-26
+ * @author liujiaming
+ * @since 2024-05-26
  */
 public interface IHrmInsuranceMonthRecordService extends BaseService<HrmInsuranceMonthRecord> {
 

@@ -16,7 +16,7 @@ public class CallUserServiceFallback implements FallbackFactory<CallUserService>
             @Override
             public Result<Boolean> authorize(CallUser callUser) {
                 log.error(cause.getMessage());
-                return Result.ok();
+                return Result.ok(false);
             }
 
             @Override

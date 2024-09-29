@@ -18,7 +18,7 @@ import java.util.*;
  * </p>
  *
  * @author huangmingbo
- * @since 2020-05-12
+ * @since 2024-05-12
  */
 public interface HrmEmployeeMapper extends BaseMapper<HrmEmployee> {
 

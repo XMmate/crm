@@ -8,7 +8,7 @@ import com.kakarote.oa.entity.PO.OaExamineFieldExtend;
  * 自定义字段表 Mapper 接口
  * </p>
  *
- * @author JiaS
+ * @author liujiaming
  * @since 2021-03-04
  */
 public interface OaExamineFieldExtendMapper extends BaseMapper<OaExamineFieldExtend> {

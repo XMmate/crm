@@ -8,8 +8,8 @@ import com.kakarote.crm.entity.PO.CrmCustomerSettingUser;
  * 员工拥有以及锁定客户员工关联表 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-29
+ * @author liujiaming
+ * @since 2024-05-29
  */
 public interface ICrmCustomerSettingUserService extends BaseService<CrmCustomerSettingUser> {
 

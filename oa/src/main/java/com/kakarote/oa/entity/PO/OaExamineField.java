@@ -20,8 +20,8 @@ import java.util.Map;
  * 自定义字段表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-06-22
+ * @author liujiaming
+ * @since 2024-06-22
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

@@ -14,8 +14,8 @@ import java.util.List;
  * 打印模板表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-04-27
+ * @author liujiaming
+ * @since 2024-04-27
  */
 public interface CrmPrintTemplateMapper extends BaseMapper<CrmPrintTemplate> {
 

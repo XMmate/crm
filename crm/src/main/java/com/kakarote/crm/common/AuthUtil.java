@@ -21,7 +21,7 @@ import java.util.*;
 /**
  * 权限相关封装
  *
- * @author zhangzhiwei
+ * @author liujiaming
  */
 public class AuthUtil {
 

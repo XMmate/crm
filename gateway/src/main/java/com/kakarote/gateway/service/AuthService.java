@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * 远程调用鉴权接口
  *
- * @author zhangzhiwei
+ * @author liujiaming
  */
 @FeignClient(name = "authorization", fallback = AuthServiceFallback.class)
 public interface AuthService {

@@ -55,10 +55,10 @@ CREATE TABLE `xxl_job_info`  (
 -- ----------------------------
 -- Records of xxl_job_info
 -- ----------------------------
-INSERT INTO `xxl_job_info` VALUES (11, 3, '0 0 2 * * ?', '定时放入公海', '2020-08-21 14:56:42', '2020-09-26 16:06:42', 'admin', '', 'LAST', 'CrmCustomerJob', '', 'SERIAL_EXECUTION', 7200, 0, 'BEAN', '', 'GLUE代码初始化', '2020-08-21 14:56:42', '', 1, 1601488800000, 1602554400000);
-INSERT INTO `xxl_job_info` VALUES (12, 3, '0 0 0 * * ?', '日程通知', '2020-08-24 14:43:08', '2020-09-26 16:06:35', 'admin', '', 'FIRST', 'EventNoticeJob', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2020-08-24 14:43:08', '', 1, 1602547200000, 1602633600000);
-INSERT INTO `xxl_job_info` VALUES (13, 3, '0 0 1 * * ?', '任务设置延期', '2020-08-24 14:43:43', '2020-09-26 16:06:27', 'admin', '', 'FIRST', 'TaskJob', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2020-08-24 14:43:43', '', 1, 1602550800000, 1602637200000);
-INSERT INTO `xxl_job_info` VALUES (14, 3, '0 0 2 * * ?', '同步客户信息', '2020-10-27 10:15:45', '2020-10-27 10:15:45', 'admin', '', 'FIRST', 'BiCustomerStatsJob', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2020-10-27 10:15:45', '', 1, 0, 0);
+INSERT INTO `xxl_job_info` VALUES (11, 3, '0 0 2 * * ?', '定时放入公海', '2024-08-21 14:56:42', '2024-09-26 16:06:42', 'admin', '', 'LAST', 'CrmCustomerJob', '', 'SERIAL_EXECUTION', 7200, 0, 'BEAN', '', 'GLUE代码初始化', '2024-08-21 14:56:42', '', 1, 1601488800000, 1602554400000);
+INSERT INTO `xxl_job_info` VALUES (12, 3, '0 0 0 * * ?', '日程通知', '2024-08-24 14:43:08', '2024-09-26 16:06:35', 'admin', '', 'FIRST', 'EventNoticeJob', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2024-08-24 14:43:08', '', 1, 1602547200000, 1602633600000);
+INSERT INTO `xxl_job_info` VALUES (13, 3, '0 0 1 * * ?', '任务设置延期', '2024-08-24 14:43:43', '2024-09-26 16:06:27', 'admin', '', 'FIRST', 'TaskJob', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2024-08-24 14:43:43', '', 1, 1602550800000, 1602637200000);
+INSERT INTO `xxl_job_info` VALUES (14, 3, '0 0 2 * * ?', '同步客户信息', '2024-10-27 10:15:45', '2024-10-27 10:15:45', 'admin', '', 'FIRST', 'BiCustomerStatsJob', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2024-10-27 10:15:45', '', 1, 0, 0);
 
 -- ----------------------------
 -- Table structure for xxl_job_lock
@@ -156,7 +156,7 @@ CREATE TABLE `xxl_job_registry`  (
 -- ----------------------------
 -- Records of xxl_job_registry
 -- ----------------------------
-INSERT INTO `xxl_job_registry` VALUES (1, 'EXECUTOR', 'wk-job', '172.17.0.2:9998', '2020-10-13 01:45:55');
+INSERT INTO `xxl_job_registry` VALUES (1, 'EXECUTOR', 'wk-job', '172.17.0.2:9998', '2024-10-13 01:45:55');
 
 -- ----------------------------
 -- Table structure for xxl_job_user

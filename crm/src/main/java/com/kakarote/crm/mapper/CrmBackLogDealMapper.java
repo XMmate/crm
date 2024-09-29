@@ -8,8 +8,8 @@ import com.kakarote.crm.entity.PO.CrmBackLogDeal;
  *  Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-23
+ * @author liujiaming
+ * @since 2024-05-23
  */
 public interface CrmBackLogDealMapper extends BaseMapper<CrmBackLogDeal> {
 

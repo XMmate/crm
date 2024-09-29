@@ -50,8 +50,8 @@ import java.util.stream.Collectors;
  * 工作日志表 服务实现类
  * </p>
  *
- * @author wyq
- * @since 2020-05-15
+ * @author liujiaming
+ * @since 2024-05-15
  */
 @Service
 public class OaLogServiceImpl extends BaseServiceImpl<OaLogMapper, OaLog> implements IOaLogService {
@@ -450,7 +450,7 @@ public class OaLogServiceImpl extends BaseServiceImpl<OaLogMapper, OaLog> implem
      * 根据id删除日志
      *
      * @param logId 日志ID
-     * @author zhangzhiwei
+     * @author liujiaming
      */
     @Transactional(rollbackFor = Exception.class)
     @Override

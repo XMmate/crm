@@ -66,8 +66,8 @@ import java.util.stream.Collectors;
  * 打印模板表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-04-27
+ * @author liujiaming
+ * @since 2024-04-27
  */
 @Service
 public class CrmPrintTemplateServiceImpl extends BaseServiceImpl<CrmPrintTemplateMapper, CrmPrintTemplate> implements ICrmPrintTemplateService {

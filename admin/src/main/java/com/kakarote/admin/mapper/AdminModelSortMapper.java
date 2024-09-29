@@ -8,8 +8,8 @@ import com.kakarote.core.servlet.BaseMapper;
  * 客户管理导航栏排序表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-04-27
+ * @author liujiaming
+ * @since 2024-04-27
  */
 public interface AdminModelSortMapper extends BaseMapper<AdminModelSort> {
 

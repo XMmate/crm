@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
  * 商机状态 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-27
+ * @author liujiaming
+ * @since 2024-05-27
  */
 @Service
 public class CrmBusinessStatusServiceImpl extends BaseServiceImpl<CrmBusinessStatusMapper, CrmBusinessStatus> implements ICrmBusinessStatusService {

@@ -8,8 +8,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author JiaS
- * @date 2020/12/25
+ * @author liujiaming
+ * @date 2024/12/25
  */
 @Data
 public class SimpleCrmInfo implements Serializable {

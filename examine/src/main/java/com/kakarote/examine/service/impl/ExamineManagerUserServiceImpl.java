@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
  * 审批管理员设置表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-13
+ * @author liujiaming
+ * @since 2024-11-13
  */
 @Service
 public class ExamineManagerUserServiceImpl extends BaseServiceImpl<ExamineManagerUserMapper, ExamineManagerUser> implements IExamineManagerUserService {

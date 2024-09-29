@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @author JiaS
- * @date 2020/12/2
+ * @author liujiaming
+ * @date 2024/12/2
  */
 @Service
 public class CrmMarketingFormServiceImpl extends BaseServiceImpl<CrmMarketingFormMapper, CrmMarketingForm> implements ICrmMarketingFormService {

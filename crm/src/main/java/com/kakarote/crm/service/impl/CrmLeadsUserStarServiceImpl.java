@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
  * 用户线索标星关系表  服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-21
+ * @author liujiaming
+ * @since 2024-05-21
  */
 @Service
 public class CrmLeadsUserStarServiceImpl extends BaseServiceImpl<CrmLeadsUserStarMapper, CrmLeadsUserStar> implements ICrmLeadsUserStarService {

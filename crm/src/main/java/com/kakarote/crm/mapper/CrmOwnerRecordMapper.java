@@ -8,8 +8,8 @@ import com.kakarote.crm.entity.PO.CrmOwnerRecord;
  * 负责人变更记录表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-08-12
+ * @author liujiaming
+ * @since 2024-08-12
  */
 public interface CrmOwnerRecordMapper extends BaseMapper<CrmOwnerRecord> {
 

@@ -10,8 +10,8 @@ import java.util.List;
  * 授权坐席 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-04-27
+ * @author liujiaming
+ * @since 2024-04-27
  */
 public interface IAdminUserHisTableService extends BaseService<AdminUserHisTable> {
 

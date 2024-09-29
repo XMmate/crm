@@ -19,8 +19,8 @@ import java.util.List;
  * crm活动表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-25
+ * @author liujiaming
+ * @since 2024-05-25
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

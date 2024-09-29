@@ -5,7 +5,7 @@ import com.kakarote.oa.entity.PO.OaExamineField;
 import java.util.List;
 
 /**
- * @author wyq
+ * @author liujiaming
  */
 public class FieldUtil {
     private List<OaExamineField> recordList;

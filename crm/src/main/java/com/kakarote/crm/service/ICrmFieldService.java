@@ -17,8 +17,8 @@ import java.util.List;
  * 处理crm模块的各种字段信息的，例如查询“添加线索的时候需要什么字段”
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-19
+ * @author liujiaming
+ * @since 2024-05-19
  */
 public interface ICrmFieldService extends BaseService<CrmField> {
 

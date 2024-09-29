@@ -11,7 +11,7 @@ import com.kakarote.core.entity.BasePage;
  * </p>
  *
  * @author hmb
- * @since 2020-11-25
+ * @since 2024-11-25
  */
 public interface ISysLogService {
 

@@ -3,7 +3,7 @@ package com.kakarote.crm.constant;
 import com.kakarote.core.common.Const;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 客户管理管理模块的常量
  */
 public class CrmConst extends Const {

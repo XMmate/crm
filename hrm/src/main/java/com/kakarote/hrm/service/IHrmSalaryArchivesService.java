@@ -18,7 +18,7 @@ import java.util.Map;
  * </p>
  *
  * @author hmb
- * @since 2020-11-05
+ * @since 2024-11-05
  */
 public interface IHrmSalaryArchivesService extends BaseService<HrmSalaryArchives> {
 

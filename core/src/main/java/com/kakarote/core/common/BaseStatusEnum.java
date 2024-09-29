@@ -1,7 +1,7 @@
 package com.kakarote.core.common;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 默认的状态枚举
  */
 

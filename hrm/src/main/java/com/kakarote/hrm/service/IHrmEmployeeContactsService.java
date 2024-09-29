@@ -9,7 +9,7 @@ import com.kakarote.hrm.entity.PO.HrmEmployeeContacts;
  * </p>
  *
  * @author huangmingbo
- * @since 2020-05-12
+ * @since 2024-05-12
  */
 public interface IHrmEmployeeContactsService extends BaseService<HrmEmployeeContacts> {
 

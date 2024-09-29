@@ -11,8 +11,8 @@ import java.util.List;
  * 审核日志表 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-28
+ * @author liujiaming
+ * @since 2024-05-28
  */
 public interface ICrmExamineLogService extends BaseService<CrmExamineLog> {
 

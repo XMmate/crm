@@ -9,8 +9,8 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 
 /**
- * @author JiaS
- * @date 2020/9/16
+ * @author liujiaming
+ * @date 2024/9/16
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

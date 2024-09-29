@@ -1,7 +1,7 @@
 package com.kakarote.admin.common;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 模块的枚举
  */
 

@@ -29,8 +29,8 @@ import java.util.List;
  * 部门表 前端控制器
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-04-27
+ * @author liujiaming
+ * @since 2024-04-27
  */
 @RestController
 @RequestMapping("/adminDept")

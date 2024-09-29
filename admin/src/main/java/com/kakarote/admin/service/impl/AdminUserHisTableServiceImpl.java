@@ -22,8 +22,8 @@ import java.util.List;
  * 授权坐席 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-04-27
+ * @author liujiaming
+ * @since 2024-04-27
  */
 @Service
 public class AdminUserHisTableServiceImpl extends BaseServiceImpl<AdminUserHisTableMapper, AdminUserHisTable> implements IAdminUserHisTableService {

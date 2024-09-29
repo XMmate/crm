@@ -25,8 +25,8 @@ import java.util.List;
  * 审批表 前端控制器
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-13
+ * @author liujiaming
+ * @since 2024-11-13
  */
 @RestController
 @RequestMapping("/examines")

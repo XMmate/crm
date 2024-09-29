@@ -20,8 +20,8 @@ import java.util.Map;
  *  服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-07-06
+ * @author liujiaming
+ * @since 2024-07-06
  */
 public interface ICrmReturnVisitService extends BaseService<CrmReturnVisit> {
 

@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
  * 淘汰原因表 前端控制器
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-06-02
+ * @author liujiaming
+ * @since 2024-06-02
  */
 @RestController
 @RequestMapping("/hrmRecruitEliminate")

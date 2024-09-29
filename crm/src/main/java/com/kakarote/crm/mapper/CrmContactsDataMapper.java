@@ -8,8 +8,8 @@ import com.kakarote.crm.entity.PO.CrmContactsData;
  * 联系人扩展字段数据表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-26
+ * @author liujiaming
+ * @since 2024-05-26
  */
 public interface CrmContactsDataMapper extends BaseMapper<CrmContactsData> {
 

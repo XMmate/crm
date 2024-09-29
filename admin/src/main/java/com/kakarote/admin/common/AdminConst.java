@@ -3,7 +3,7 @@ package com.kakarote.admin.common;
 import com.kakarote.core.common.Const;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 系统管理模块的常量
  */
 public class AdminConst extends Const {

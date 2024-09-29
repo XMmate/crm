@@ -17,8 +17,8 @@ import java.util.Objects;
  * 后台菜单表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-06-03
+ * @author liujiaming
+ * @since 2024-06-03
  */
 @Data
 @Accessors(chain = true)

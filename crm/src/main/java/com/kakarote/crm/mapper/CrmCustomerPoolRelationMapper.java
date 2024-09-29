@@ -8,8 +8,8 @@ import com.kakarote.crm.entity.PO.CrmCustomerPoolRelation;
  * 客户公海关联表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-29
+ * @author liujiaming
+ * @since 2024-05-29
  */
 public interface CrmCustomerPoolRelationMapper extends BaseMapper<CrmCustomerPoolRelation> {
 

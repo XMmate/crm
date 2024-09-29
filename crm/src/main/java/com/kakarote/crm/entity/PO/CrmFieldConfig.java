@@ -15,8 +15,8 @@ import java.util.Date;
  * 字段配置表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-19
+ * @author liujiaming
+ * @since 2024-05-19
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

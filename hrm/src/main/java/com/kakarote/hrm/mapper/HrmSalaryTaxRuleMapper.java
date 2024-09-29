@@ -8,8 +8,8 @@ import com.kakarote.hrm.entity.PO.HrmSalaryTaxRule;
  * 计税规则 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-26
+ * @author liujiaming
+ * @since 2024-05-26
  */
 public interface HrmSalaryTaxRuleMapper extends BaseMapper<HrmSalaryTaxRule> {
 

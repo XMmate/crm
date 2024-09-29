@@ -46,7 +46,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * </p>
  *
  * @author zmj
- * @since 2020-12-01
+ * @since 2024-12-01
  */
 @Service
 public class AdminLanguagePackServiceImpl extends BaseServiceImpl<AdminLanguagePackMapper, AdminLanguagePack> implements IAdminLanguagePackService {

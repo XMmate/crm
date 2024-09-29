@@ -9,7 +9,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 路由配置工厂  提供动态路由功能
  * 实现了 RouteDefinitionRepository 接口，负责管理 Spring Cloud Gateway 的路由定义
  */

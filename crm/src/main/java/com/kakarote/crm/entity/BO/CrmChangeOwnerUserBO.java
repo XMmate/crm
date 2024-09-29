@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 负责人变更BO
  */
 @Data

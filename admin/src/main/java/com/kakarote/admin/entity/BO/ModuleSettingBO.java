@@ -10,7 +10,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 模块设置VO
  */
 @ToString

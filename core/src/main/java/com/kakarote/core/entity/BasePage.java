@@ -12,7 +12,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 默认分页
  */
 public class BasePage<T> implements IPage<T> {

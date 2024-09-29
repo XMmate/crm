@@ -11,8 +11,8 @@ import java.util.List;
  * 审核日志表 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-19
+ * @author liujiaming
+ * @since 2024-11-19
  */
 public interface IExamineRecordLogService extends BaseService<ExamineRecordLog> {
 

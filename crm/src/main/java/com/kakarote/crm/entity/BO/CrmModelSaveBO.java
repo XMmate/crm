@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * crm模块保存的BO
  *
- * @author zhangzhiwei
+ * @author liujiaming
  */
 @Data
 @ToString

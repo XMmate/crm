@@ -33,8 +33,8 @@ import java.util.Objects;
  * 系统自动生成编号设置表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-28
+ * @author liujiaming
+ * @since 2024-05-28
  */
 @Service
 public class CrmNumberSettingServiceImpl extends BaseServiceImpl<CrmNumberSettingMapper, CrmNumberSetting> implements ICrmNumberSettingService {

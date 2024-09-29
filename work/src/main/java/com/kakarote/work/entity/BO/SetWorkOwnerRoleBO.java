@@ -8,7 +8,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @author wyq
+ * @author liujiaming
  */
 @Data
 @ApiModel("设置项目成员角色参数")

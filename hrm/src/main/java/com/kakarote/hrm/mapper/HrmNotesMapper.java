@@ -15,8 +15,8 @@ import java.util.Set;
  * 备忘 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-07-13
+ * @author liujiaming
+ * @since 2024-07-13
  */
 public interface HrmNotesMapper extends BaseMapper<HrmNotes> {
 

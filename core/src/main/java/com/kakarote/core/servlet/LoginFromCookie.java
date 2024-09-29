@@ -3,7 +3,7 @@ package com.kakarote.core.servlet;
 import java.lang.annotation.*;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 尝试从cookie获取登录态
  */
 @Retention(RetentionPolicy.RUNTIME)

@@ -8,8 +8,8 @@ import com.kakarote.crm.entity.PO.CrmContactsBusiness;
  * 商机联系人关联表 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-26
+ * @author liujiaming
+ * @since 2024-05-26
  */
 public interface ICrmContactsBusinessService extends BaseService<CrmContactsBusiness> {
     /**

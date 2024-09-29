@@ -17,8 +17,8 @@ import java.io.Serializable;
  * 审批条件扩展字段表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-18
+ * @author liujiaming
+ * @since 2024-11-18
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

@@ -8,8 +8,8 @@ import com.kakarote.core.servlet.BaseMapper;
  * 角色菜单对应关系表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-04-27
+ * @author liujiaming
+ * @since 2024-04-27
  */
 public interface AdminRoleMenuMapper extends BaseMapper<AdminRoleMenu> {
 

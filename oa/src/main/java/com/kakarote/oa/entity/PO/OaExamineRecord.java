@@ -17,8 +17,8 @@ import java.util.List;
  * 审核记录表
  * </p>
  *
- * @author wyq
- * @since 2020-05-15
+ * @author liujiaming
+ * @since 2024-05-15
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

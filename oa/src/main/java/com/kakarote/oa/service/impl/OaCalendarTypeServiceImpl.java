@@ -36,8 +36,8 @@ import java.util.stream.Collectors;
  * 日历类型 服务实现类
  * </p>
  *
- * @author wyq
- * @since 2020-05-15
+ * @author liujiaming
+ * @since 2024-05-15
  */
 @Service
 public class OaCalendarTypeServiceImpl extends BaseServiceImpl<OaCalendarTypeMapper, OaCalendarType> implements IOaCalendarTypeService {

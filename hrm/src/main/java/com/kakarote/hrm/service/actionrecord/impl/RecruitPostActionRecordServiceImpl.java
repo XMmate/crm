@@ -23,7 +23,7 @@ import java.util.Map;
  * @ClassName: HrmRecruitPostActionRecordService.java
  * @Description: 招聘职位操作记录
  * @author: hmb
- * @date: 2020-04-29 16:14
+ * @date: 2024-04-29 16:14
  */
 @Service("recruitPostActionRecordService")
 @SysLog(subModel = SubModelType.HRM_RECRUITMENT)

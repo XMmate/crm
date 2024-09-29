@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * @author wyq
+ * @author liujiaming
  */
 @Data
 @ApiModel("项目成员任务统计信息")

@@ -44,8 +44,8 @@ import java.util.stream.Collectors;
  * 客户规则 前端控制器
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-04-27
+ * @author liujiaming
+ * @since 2024-04-27
  */
 @RestController
 @RequestMapping("/adminConfig")
@@ -77,7 +77,7 @@ public class AdminConfigController {
      * 查询企业配置
      *
      * @return Result
-     * @author zhangzhiwei
+     * @author liujiaming
      */
     @ApiOperation(value = "查询企业配置")
     @PostMapping("/queryAdminConfig")
@@ -131,7 +131,7 @@ public class AdminConfigController {
     /**
      * 查询企业模块配置
      *“应用管理”
-     * @author zhangzhiwei
+     * @author liujiaming
      */
     @ApiOperation(value = "查询企业模块配置")
     @PostMapping("/queryModuleSetting")

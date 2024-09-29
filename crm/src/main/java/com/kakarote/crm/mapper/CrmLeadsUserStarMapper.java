@@ -8,8 +8,8 @@ import com.kakarote.crm.entity.PO.CrmLeadsUserStar;
  * 用户线索标星关系表  Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-21
+ * @author liujiaming
+ * @since 2024-05-21
  */
 public interface CrmLeadsUserStarMapper extends BaseMapper<CrmLeadsUserStar> {
 

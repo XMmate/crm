@@ -1,8 +1,8 @@
 package com.kakarote.examine.constant;
 
 /**
- * @author JiaS
- * @date 2020/12/17
+ * @author liujiaming
+ * @date 2024/12/17
  */
 public class ExamineConst {
 

@@ -8,7 +8,7 @@ import com.kakarote.hrm.entity.PO.HrmConfig;
  * </p>
  *
  * @author huangmingbo
- * @since 2020-05-13
+ * @since 2024-05-13
  */
 public interface HrmConfigMapper extends BaseMapper<HrmConfig> {
 

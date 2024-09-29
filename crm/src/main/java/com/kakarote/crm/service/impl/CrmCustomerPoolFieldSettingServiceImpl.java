@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
  * 公海列表页字段设置表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-29
+ * @author liujiaming
+ * @since 2024-05-29
  */
 @Service
 public class CrmCustomerPoolFieldSettingServiceImpl extends BaseServiceImpl<CrmCustomerPoolFieldSettingMapper, CrmCustomerPoolFieldSetting> implements ICrmCustomerPoolFieldSettingService {

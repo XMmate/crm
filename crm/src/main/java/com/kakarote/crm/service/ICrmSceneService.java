@@ -14,8 +14,8 @@ import java.util.List;
  * 场景 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-06-06
+ * @author liujiaming
+ * @since 2024-06-06
  */
 public interface ICrmSceneService extends BaseService<CrmScene> {
 

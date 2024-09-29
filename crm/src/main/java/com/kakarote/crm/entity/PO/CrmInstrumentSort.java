@@ -16,8 +16,8 @@ import java.io.Serializable;
  * 仪表盘排序表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-06-04
+ * @author liujiaming
+ * @since 2024-06-04
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

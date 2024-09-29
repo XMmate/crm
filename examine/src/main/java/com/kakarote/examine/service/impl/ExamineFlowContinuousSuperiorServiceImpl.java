@@ -29,8 +29,8 @@ import java.util.stream.Collectors;
  * 审批流程连续多级主管审批记录表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-13
+ * @author liujiaming
+ * @since 2024-11-13
  */
 @Service("continuousSuperiorService")
 public class ExamineFlowContinuousSuperiorServiceImpl extends BaseServiceImpl<ExamineFlowContinuousSuperiorMapper, ExamineFlowContinuousSuperior> implements IExamineFlowContinuousSuperiorService, ExamineTypeService {

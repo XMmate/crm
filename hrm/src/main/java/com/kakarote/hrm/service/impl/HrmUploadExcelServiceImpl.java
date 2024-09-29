@@ -142,7 +142,7 @@ public class HrmUploadExcelServiceImpl implements HrmUploadExcelService {
          * 查询导入顺序
          *
          * @param rowList 行数据
-         * @author zhangzhiwei
+         * @author liujiaming
          */
         protected void queryExcelHead(List<Object> rowList) {
             fieldList = ApplicationContextHolder.getBean(IHrmEmployeeService.class).downloadExcelFiled();

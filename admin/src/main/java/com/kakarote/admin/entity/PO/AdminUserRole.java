@@ -16,8 +16,8 @@ import java.io.Serializable;
  * 用户角色对应关系表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-06-03
+ * @author liujiaming
+ * @since 2024-06-03
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

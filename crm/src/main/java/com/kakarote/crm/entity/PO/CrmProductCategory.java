@@ -15,8 +15,8 @@ import java.io.Serializable;
  * 产品分类表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-26
+ * @author liujiaming
+ * @since 2024-05-26
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

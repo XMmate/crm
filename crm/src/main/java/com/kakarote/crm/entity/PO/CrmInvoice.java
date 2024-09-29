@@ -18,8 +18,8 @@ import java.util.Date;
  * 
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-07-06
+ * @author liujiaming
+ * @since 2024-07-06
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

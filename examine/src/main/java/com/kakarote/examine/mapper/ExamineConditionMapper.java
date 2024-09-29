@@ -8,8 +8,8 @@ import com.kakarote.examine.entity.PO.ExamineCondition;
  * 审批条件表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-13
+ * @author liujiaming
+ * @since 2024-11-13
  */
 public interface ExamineConditionMapper extends BaseMapper<ExamineCondition> {
 

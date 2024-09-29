@@ -8,8 +8,8 @@ import com.kakarote.examine.entity.PO.ExamineManagerUser;
  * 审批管理员设置表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-13
+ * @author liujiaming
+ * @since 2024-11-13
  */
 public interface ExamineManagerUserMapper extends BaseMapper<ExamineManagerUser> {
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * 当前用户可查询对象
- * @author zhangzhiwei
+ * @author liujiaming
  */
 @ApiModel("用户可查询对象")
 @Data

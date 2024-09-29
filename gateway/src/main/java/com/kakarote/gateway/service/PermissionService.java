@@ -5,7 +5,7 @@ import org.springframework.util.MultiValueMap;
 
 /**
  * 统一鉴权service
- * @author zhangzhiwei
+ * @author liujiaming
  */
 public interface PermissionService {
 

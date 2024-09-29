@@ -16,8 +16,8 @@ import java.util.Date;
  * 回款计划表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-28
+ * @author liujiaming
+ * @since 2024-05-28
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

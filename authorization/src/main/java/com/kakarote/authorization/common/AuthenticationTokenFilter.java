@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 负责在每个请求处理之前对请求进行认证或其他处理逻辑
  */
 public class AuthenticationTokenFilter extends OncePerRequestFilter implements Ordered {

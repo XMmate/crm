@@ -11,8 +11,8 @@ public enum WorkCodeEnum implements ResultCode {
     WORK_TASK_EXIST_ERROR(3006,"任务不存在"),
     WORK_AUTH_ERROR(3007,"无权访问"),
     WORK_LABEL_DELETE_ERROR(3008,"使用中的标签不能删除"),
-    WORK_TASK_IN_TRASH_ERROR(3009,"任务不在回收站")
-    ;
+    WORK_TASK_IN_TRASH_ERROR(3009,"任务不在回收站"),
+    WORK_CREATE_NAME_NULL_ERROR(4000,"项目名不能为空" );
 
     WorkCodeEnum(int code, String msg) {
         this.code = code;

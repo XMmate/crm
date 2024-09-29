@@ -7,8 +7,8 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @author JiaS
- * @date 2020/12/18
+ * @author liujiaming
+ * @date 2024/12/18
  */
 @Data
 public class ExamineRecordVO {

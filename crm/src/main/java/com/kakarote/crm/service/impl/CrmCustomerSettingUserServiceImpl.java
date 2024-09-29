@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
  * 员工拥有以及锁定客户员工关联表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-29
+ * @author liujiaming
+ * @since 2024-05-29
  */
 @Service
 public class CrmCustomerSettingUserServiceImpl extends BaseServiceImpl<CrmCustomerSettingUserMapper, CrmCustomerSettingUser> implements ICrmCustomerSettingUserService {

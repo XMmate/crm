@@ -1,8 +1,8 @@
 package com.kakarote.oa.service;
 
 /**
- * @author JiaS
- * @date 2020/11/13
+ * @author liujiaming
+ * @date 2024/11/13
  */
 public interface IOaCommonService {
 

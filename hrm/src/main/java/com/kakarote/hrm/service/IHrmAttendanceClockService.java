@@ -18,8 +18,8 @@ import java.util.Set;
  * 打卡记录表 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-12-07
+ * @author liujiaming
+ * @since 2024-12-07
  */
 public interface IHrmAttendanceClockService extends BaseService<HrmAttendanceClock> {
 

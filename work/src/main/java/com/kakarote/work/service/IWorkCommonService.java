@@ -1,8 +1,8 @@
 package com.kakarote.work.service;
 
 /**
- * @author JiaS
- * @date 2020/11/16
+ * @author liujiaming
+ * @date 2024/11/16
  */
 public interface IWorkCommonService {
 

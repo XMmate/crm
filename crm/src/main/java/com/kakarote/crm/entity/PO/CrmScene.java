@@ -16,8 +16,8 @@ import java.util.Date;
  * 场景
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-06-06
+ * @author liujiaming
+ * @since 2024-06-06
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * crm通用搜索对象
  */
 @Data

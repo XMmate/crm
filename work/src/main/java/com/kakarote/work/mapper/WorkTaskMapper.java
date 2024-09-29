@@ -22,8 +22,8 @@ import java.util.List;
  * 任务表 Mapper 接口
  * </p>
  *
- * @author wyq
- * @since 2020-05-18
+ * @author liujiaming
+ * @since 2024-05-18
  */
 public interface WorkTaskMapper extends BaseMapper<WorkTask> {
 

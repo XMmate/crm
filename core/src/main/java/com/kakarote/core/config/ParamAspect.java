@@ -29,7 +29,7 @@ import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * user注入切面 把用户信息保存到线程变量里面去
  */
 @Aspect

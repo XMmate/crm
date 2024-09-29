@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
- * @author wyq
+ * @author liujiaming
  */
 @Component
 @FeignClient(name = "work")

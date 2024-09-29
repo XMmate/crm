@@ -22,8 +22,8 @@ import java.util.List;
  * 回款计划自定义字段存值表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-21
+ * @author liujiaming
+ * @since 2024-05-21
  */
 @Service
 public class CrmReceivablesPlanDataServiceImpl extends BaseServiceImpl<CrmReceivablesPlanDataMapper, CrmReceivablesPlanData> implements ICrmReceivablesPlanDataService {

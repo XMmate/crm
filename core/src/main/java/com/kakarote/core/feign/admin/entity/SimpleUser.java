@@ -7,7 +7,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 简单的用户对象
  */
 @Data

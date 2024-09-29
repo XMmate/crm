@@ -22,8 +22,8 @@ import java.util.Map;
  * 自定义字段表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-19
+ * @author liujiaming
+ * @since 2024-05-19
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

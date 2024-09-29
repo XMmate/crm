@@ -8,10 +8,14 @@ import com.kakarote.work.entity.PO.WorkCollect;
  * 项目收藏表 服务类
  * </p>
  *
- * @author wyq
- * @since 2020-05-15
+ * @author liujiaming
+ * @since 2024-05-15
  */
 public interface IWorkCollectService extends BaseService<WorkCollect> {
 
+    /**
+     * 收藏和取消收藏
+     * @param workId
+     */
     public void collect(Integer workId);
 }

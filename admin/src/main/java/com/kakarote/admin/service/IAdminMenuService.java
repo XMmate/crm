@@ -13,8 +13,8 @@ import java.util.Map;
  * 后台菜单表 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-04-27
+ * @author liujiaming
+ * @since 2024-04-27
  */
 public interface IAdminMenuService extends BaseService<AdminMenu> {
     /**

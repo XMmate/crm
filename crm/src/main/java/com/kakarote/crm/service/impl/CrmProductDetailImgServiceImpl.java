@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
  * 产品详情图片 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-26
+ * @author liujiaming
+ * @since 2024-05-26
  */
 @Service
 public class CrmProductDetailImgServiceImpl extends BaseServiceImpl<CrmProductDetailImgMapper, CrmProductDetailImg> implements ICrmProductDetailImgService {

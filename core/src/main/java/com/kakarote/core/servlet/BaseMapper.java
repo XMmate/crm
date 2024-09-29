@@ -1,7 +1,7 @@
 package com.kakarote.core.servlet;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 通用mapper
  */
 

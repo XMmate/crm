@@ -15,7 +15,7 @@ public class CrmAnalysisServiceFallback implements FallbackFactory<CrmAnalysisSe
             @Override
             public Result<Boolean> initCrmData() {
                 log.error(cause.getMessage());
-                return Result.ok();
+                return Result.ok(false);
             }
         };
     }

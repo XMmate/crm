@@ -7,8 +7,8 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @author JiaS
- * @date 2020/11/6
+ * @author liujiaming
+ * @date 2024/11/6
  */
 @Data
 @ApiModel("项目查询参数")

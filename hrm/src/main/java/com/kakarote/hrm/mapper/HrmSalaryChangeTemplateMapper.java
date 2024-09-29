@@ -12,7 +12,7 @@ import java.util.List;
  * </p>
  *
  * @author hmb
- * @since 2020-11-05
+ * @since 2024-11-05
  */
 public interface HrmSalaryChangeTemplateMapper extends BaseMapper<HrmSalaryChangeTemplate> {
 

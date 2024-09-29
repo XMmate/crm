@@ -19,8 +19,8 @@ import java.util.List;
  * 用户表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-04-27
+ * @author liujiaming
+ * @since 2024-04-27
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

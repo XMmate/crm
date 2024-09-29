@@ -14,8 +14,8 @@ import java.util.Map;
  * 审批条件表 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-13
+ * @author liujiaming
+ * @since 2024-11-13
  */
 public interface IExamineConditionService extends BaseService<ExamineCondition> {
 
@@ -29,7 +29,7 @@ public interface IExamineConditionService extends BaseService<ExamineCondition> 
 
     /**
      * 判断条件是否通过
-     * @date 2020/12/16 13:18
+     * @date 2024/12/16 13:18
      * @param conditionDataList
      * @param conditionMap
      * @param userInfo

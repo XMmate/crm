@@ -32,8 +32,8 @@ import java.util.stream.Collectors;
  * 审批流程自选成员记录表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-13
+ * @author liujiaming
+ * @since 2024-11-13
  */
 @Service("optionalService")
 public class ExamineFlowOptionalServiceImpl extends BaseServiceImpl<ExamineFlowOptionalMapper, ExamineFlowOptional> implements IExamineFlowOptionalService, ExamineTypeService {

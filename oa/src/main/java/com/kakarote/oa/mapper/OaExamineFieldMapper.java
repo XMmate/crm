@@ -11,8 +11,8 @@ import java.util.List;
  * 自定义字段表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-06-22
+ * @author liujiaming
+ * @since 2024-06-22
  */
 public interface OaExamineFieldMapper extends BaseMapper<OaExamineField> {
 

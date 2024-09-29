@@ -8,8 +8,8 @@ import com.kakarote.examine.entity.PO.ExamineRecord;
  * 审核记录表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-19
+ * @author liujiaming
+ * @since 2024-11-19
  */
 public interface ExamineRecordMapper extends BaseMapper<ExamineRecord> {
 

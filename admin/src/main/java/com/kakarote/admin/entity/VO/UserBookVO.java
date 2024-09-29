@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  */
 @Data
 public class UserBookVO implements Serializable {

@@ -21,12 +21,21 @@ import java.util.Map;
  * 项目表 服务类
  * </p>
  *
- * @author wyq
- * @since 2020-05-15
+ * @author liujiaming
+ * @since 2024-05-15
  */
 public interface IWorkService extends BaseService<Work> {
+    /**
+     * 新建项目
+     * @param work
+     * @return
+     */
     public Work addWork(Work work);
 
+
+    /*
+    * 编辑更新项目
+    * */
     public Work updateWork(Work work);
 
     public WorkInfoVo queryById(Integer workId);

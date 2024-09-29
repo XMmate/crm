@@ -8,8 +8,8 @@ import com.kakarote.crm.entity.PO.CrmScene;
  * 场景 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-06-06
+ * @author liujiaming
+ * @since 2024-06-06
  */
 public interface CrmSceneMapper extends BaseMapper<CrmScene> {
 

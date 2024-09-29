@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author JiaS
- * @date 2020/9/14
+ * @author liujiaming
+ * @date 2024/9/14
  */
 @Slf4j
 public class BiPatch {
@@ -25,7 +25,7 @@ public class BiPatch {
      * @param timeList
      * @param timeFiledName
      * @return void
-     * @date 2020/9/14 16:09
+     * @date 2024/9/14 16:09
      **/
     public static void supplementJsonList(List<JSONObject> jsonList, String timeFiledName, List<Integer> timeList, String... filedNames) {
         if (jsonList != null) {
@@ -50,7 +50,7 @@ public class BiPatch {
 
     /**
      * 自定义时间取年份或对应表名
-     * @date 2020/9/17 18:46
+     * @date 2024/9/17 18:46
      * @param beginTime
      * @param finalTime
      * @param isTableName

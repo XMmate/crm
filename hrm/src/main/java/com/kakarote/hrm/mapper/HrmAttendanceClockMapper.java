@@ -18,8 +18,8 @@ import java.util.Set;
  * 打卡记录表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-12-07
+ * @author liujiaming
+ * @since 2024-12-07
  */
 public interface HrmAttendanceClockMapper extends BaseMapper<HrmAttendanceClock> {
 

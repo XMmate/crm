@@ -37,8 +37,8 @@ import java.util.stream.Collectors;
  * 商机状态组类别 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-27
+ * @author liujiaming
+ * @since 2024-05-27
  */
 @Service
 public class CrmBusinessTypeServiceImpl extends BaseServiceImpl<CrmBusinessTypeMapper, CrmBusinessType> implements ICrmBusinessTypeService {

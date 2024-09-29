@@ -6,8 +6,8 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * @author JiaS
- * @date 2020/12/19
+ * @author liujiaming
+ * @date 2024/12/19
  */
 @Data
 public class ExamineRecordLogVO {

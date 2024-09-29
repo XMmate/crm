@@ -31,8 +31,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author JiaS
- * @date 2020/12/1
+ * @author liujiaming
+ * @date 2024/12/1
  */
 @Slf4j
 @Service
@@ -109,7 +109,7 @@ public class BiEsStatisticsServiceImpl implements BiEsStatisticsService {
 
     /**
      * 处理分组日期
-     * @date 2020/12/1 13:45
+     * @date 2024/12/1 13:45
      * @param dateFormat
      * @return org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramInterval
      **/

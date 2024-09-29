@@ -11,8 +11,8 @@ import java.util.List;
  * 每月员工薪资项表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-26
+ * @author liujiaming
+ * @since 2024-05-26
  */
 public interface HrmSalaryMonthOptionValueMapper extends BaseMapper<HrmSalaryMonthOptionValue> {
 

@@ -3,7 +3,7 @@ package com.kakarote.core.common;
 import lombok.Getter;
 
 /**
- * @author JiaS
+ * @author liujiaming
  * @date 2021/1/11
  */
 public enum FieldEnum {

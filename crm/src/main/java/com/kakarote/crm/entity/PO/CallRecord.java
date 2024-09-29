@@ -12,7 +12,7 @@ import java.util.Date;
 
 /**通话记录表
  * @author Ian
- * @date 2020/8/27
+ * @date 2024/8/27
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

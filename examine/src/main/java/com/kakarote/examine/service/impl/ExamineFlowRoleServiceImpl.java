@@ -27,8 +27,8 @@ import java.util.stream.Collectors;
  * 审批流程角色审批记录表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-13
+ * @author liujiaming
+ * @since 2024-11-13
  */
 @Service("roleService")
 public class ExamineFlowRoleServiceImpl extends BaseServiceImpl<ExamineFlowRoleMapper, ExamineFlowRole> implements IExamineFlowRoleService, ExamineTypeService {

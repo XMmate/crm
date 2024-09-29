@@ -29,8 +29,8 @@ import java.util.stream.Collectors;
  * 打卡记录表 前端控制器
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-12-07
+ * @author liujiaming
+ * @since 2024-12-07
  */
 @RestController
 @RequestMapping("/hrmAttendanceClock")

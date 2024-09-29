@@ -26,8 +26,8 @@ import java.util.List;
  * 系统消息表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-04-27
+ * @author liujiaming
+ * @since 2024-04-27
  */
 @Service
 public class AdminMessageServiceImpl extends BaseServiceImpl<AdminMessageMapper, AdminMessage> implements IAdminMessageService {
@@ -183,7 +183,7 @@ public class AdminMessageServiceImpl extends BaseServiceImpl<AdminMessageMapper,
     /**
      * 添加任务消息
      *
-     * @author zhangzhiwei
+     * @author liujiaming
      */
     private void addOaTaskMessage(AdminMessageEnum messageEnum, String name, Integer typeId, Long userId, List<Long> ids) {
         List<AdminMessage> messageList = new ArrayList<>();
@@ -207,7 +207,7 @@ public class AdminMessageServiceImpl extends BaseServiceImpl<AdminMessageMapper,
     /**
      * 添加日志发送消息
      *
-     * @author zhangzhiwei
+     * @author liujiaming
      */
     private void addOaLogSendMessage(AdminMessageEnum messageEnum, Integer typeId, Long userId, List<Long> ids) {
         List<AdminMessage> messageList = new ArrayList<>();
@@ -228,7 +228,7 @@ public class AdminMessageServiceImpl extends BaseServiceImpl<AdminMessageMapper,
     /**
      * 添加日志回复消息
      *
-     * @author zhangzhiwei
+     * @author liujiaming
      */
     private void addOaLogReplyMessage(AdminMessageEnum messageEnum, String title, String content, Integer typeId, Long userId, List<Long> ids) {
         AdminMessage adminMessage = new AdminMessage();
@@ -263,7 +263,7 @@ public class AdminMessageServiceImpl extends BaseServiceImpl<AdminMessageMapper,
     /**
      * 添加oa待审批提醒
      *
-     * @author wyq
+     * @author liujiaming
      */
     private void addOaExamineNotice(AdminMessageEnum messageEnum, String title, Integer typeId, Long userId, List<Long> ids) {
         AdminMessage adminMessage = new AdminMessage();
@@ -280,7 +280,7 @@ public class AdminMessageServiceImpl extends BaseServiceImpl<AdminMessageMapper,
     /**
      * 添加OA公告消息
      *
-     * @author zhangzhiwei
+     * @author liujiaming
      */
     private void addOaNoticeMessage(AdminMessageEnum messageEnum, String title, Integer typeId, Long userId, List<Long> ids) {
         List<AdminMessage> messageList = new ArrayList<>();
@@ -301,7 +301,7 @@ public class AdminMessageServiceImpl extends BaseServiceImpl<AdminMessageMapper,
     /**
      * 添加OA日程消息
      *
-     * @author zhangzhiwei
+     * @author liujiaming
      */
     private void addOaEventMessage(AdminMessageEnum messageEnum, String title, Integer typeId, Long userId, List<Long> ids) {
         List<AdminMessage> messageList = new ArrayList<>();
@@ -322,7 +322,7 @@ public class AdminMessageServiceImpl extends BaseServiceImpl<AdminMessageMapper,
     /**
      * 添加CRM审批消息
      *
-     * @author zhangzhiwei
+     * @author liujiaming
      */
     private void addCrmExamineMessage(AdminMessageEnum messageEnum, String content, String title, Integer typeId, Long userId, List<Long> ids) {
         AdminMessage adminMessage = new AdminMessage();

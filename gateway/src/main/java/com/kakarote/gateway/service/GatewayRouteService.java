@@ -9,7 +9,7 @@ import java.util.Collection;
 
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 网关的路由处理
  */
 public interface GatewayRouteService extends BaseService<GatewayRoute> {

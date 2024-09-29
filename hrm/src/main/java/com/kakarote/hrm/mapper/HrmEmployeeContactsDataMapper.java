@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
  * </p>
  *
  * @author huangmingbo
- * @since 2020-05-12
+ * @since 2024-05-12
  */
 public interface HrmEmployeeContactsDataMapper extends BaseMapper<HrmEmployeeContactsData> {
 

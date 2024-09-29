@@ -8,8 +8,8 @@ import com.kakarote.crm.entity.PO.CrmMarketingInfo;
  * 营销数据表 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-08-12
+ * @author liujiaming
+ * @since 2024-08-12
  */
 public interface ICrmMarketingInfoService extends BaseService<CrmMarketingInfo> {
 

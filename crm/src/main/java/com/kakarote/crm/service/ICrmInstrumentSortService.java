@@ -9,8 +9,8 @@ import com.kakarote.crm.entity.PO.CrmInstrumentSort;
  * 仪表盘排序表 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-06-04
+ * @author liujiaming
+ * @since 2024-06-04
  */
 public interface ICrmInstrumentSortService extends BaseService<CrmInstrumentSort> {
 

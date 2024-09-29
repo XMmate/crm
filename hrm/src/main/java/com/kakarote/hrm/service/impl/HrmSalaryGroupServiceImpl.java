@@ -33,8 +33,8 @@ import java.util.Set;
  * 薪资组 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-26
+ * @author liujiaming
+ * @since 2024-05-26
  */
 @Service("salaryGroupService")
 public class HrmSalaryGroupServiceImpl extends BaseServiceImpl<HrmSalaryGroupMapper, HrmSalaryGroup> implements IHrmSalaryGroupService {

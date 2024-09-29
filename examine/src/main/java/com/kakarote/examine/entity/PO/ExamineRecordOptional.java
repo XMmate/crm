@@ -16,8 +16,8 @@ import java.io.Serializable;
  * 审核自选成员选择成员表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-12-02
+ * @author liujiaming
+ * @since 2024-12-02
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

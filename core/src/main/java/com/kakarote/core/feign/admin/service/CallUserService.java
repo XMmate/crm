@@ -13,7 +13,7 @@ public interface CallUserService {
 
     /**
     * 员工坐席授权
-    * @date 2020/8/28 14:19
+    * @date 2024/8/28 14:19
     * @param callUser
     * @return
     **/
@@ -23,7 +23,7 @@ public interface CallUserService {
 
     /**
      * 判断用户是否为坐席
-     * @date 2020/8/28 14:19
+     * @date 2024/8/28 14:19
      * @return
      **/
     @PostMapping("/adminUserHisTable/checkAuth")

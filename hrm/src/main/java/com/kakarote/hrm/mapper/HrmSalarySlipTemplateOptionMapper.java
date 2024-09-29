@@ -9,7 +9,7 @@ import com.kakarote.hrm.entity.PO.HrmSalarySlipTemplateOption;
  * </p>
  *
  * @author hmb
- * @since 2020-11-03
+ * @since 2024-11-03
  */
 public interface HrmSalarySlipTemplateOptionMapper extends BaseMapper<HrmSalarySlipTemplateOption> {
 

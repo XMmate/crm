@@ -19,8 +19,8 @@ import java.util.List;
  * 业绩目标
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-07-22
+ * @author liujiaming
+ * @since 2024-07-22
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

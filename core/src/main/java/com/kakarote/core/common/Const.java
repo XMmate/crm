@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 默认配置常量信息
  *
- * @author zhangzhiwei
+ * @author liujiaming
  */
 public class Const implements Serializable {
 

@@ -28,8 +28,8 @@ import java.util.Objects;
  * 任务评论表 前端控制器
  * </p>
  *
- * @author wyq
- * @since 2020-05-18
+ * @author liujiaming
+ * @since 2024-05-18
  */
 @RestController
 @RequestMapping("/workTaskComment")

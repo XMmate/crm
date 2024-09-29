@@ -9,7 +9,7 @@ import com.kakarote.crm.entity.PO.CrmTeamMembers;
  Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
+ * @author liujiaming
  * @since 2021-04-07
  */
 public interface CrmTeamMembersMapper extends BaseMapper<CrmTeamMembers> {

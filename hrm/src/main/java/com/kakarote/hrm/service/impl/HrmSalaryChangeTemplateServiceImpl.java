@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  * </p>
  *
  * @author hmb
- * @since 2020-11-05
+ * @since 2024-11-05
  */
 @Service
 public class HrmSalaryChangeTemplateServiceImpl extends BaseServiceImpl<HrmSalaryChangeTemplateMapper, HrmSalaryChangeTemplate> implements IHrmSalaryChangeTemplateService {

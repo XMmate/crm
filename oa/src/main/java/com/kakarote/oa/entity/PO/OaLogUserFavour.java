@@ -16,7 +16,7 @@ import java.io.Serializable;
  * 用户点赞日志关系表 
  * </p>
  *
- * @author JiaS
+ * @author liujiaming
  * @since 2021-03-02
  */
 @Data

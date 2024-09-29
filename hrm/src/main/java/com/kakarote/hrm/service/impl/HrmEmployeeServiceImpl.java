@@ -56,7 +56,7 @@ import java.util.stream.Stream;
  * </p>
  *
  * @author huangmingbo
- * @since 2020-05-12
+ * @since 2024-05-12
  */
 @Service
 public class HrmEmployeeServiceImpl extends BaseServiceImpl<HrmEmployeeMapper, HrmEmployee> implements IHrmEmployeeService {

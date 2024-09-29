@@ -12,8 +12,8 @@ import java.util.List;
  * 发票扩展字段数据表 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-27
+ * @author liujiaming
+ * @since 2024-05-27
  */
 public interface ICrmInvoiceDataService extends BaseService<CrmInvoiceData> {
     /**

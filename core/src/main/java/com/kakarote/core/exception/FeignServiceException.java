@@ -3,7 +3,7 @@ package com.kakarote.core.exception;
 import feign.Request;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * feign异常
  */
 public class FeignServiceException extends feign.FeignException {

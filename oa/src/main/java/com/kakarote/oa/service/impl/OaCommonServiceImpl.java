@@ -27,8 +27,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * @author JiaS
- * @date 2020/11/13
+ * @author liujiaming
+ * @date 2024/11/13
  */
 @Slf4j
 @Service
@@ -169,7 +169,7 @@ public class OaCommonServiceImpl implements IOaCommonService {
 
     /**
      * 删除附件
-     * @date 2020/11/20 15:41
+     * @date 2024/11/20 15:41
      * @param baseService
      * @param resultColumn
      * @param queryColumn
@@ -193,7 +193,7 @@ public class OaCommonServiceImpl implements IOaCommonService {
 
     /**
      * 验证非管理员有无权限
-     * @date 2020/11/23 10:35
+     * @date 2024/11/23 10:35
      * @param
      * @return boolean
      **/

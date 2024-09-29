@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
  * 计税规则 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-26
+ * @author liujiaming
+ * @since 2024-05-26
  */
 @Service
 public class HrmSalaryTaxRuleServiceImpl extends BaseServiceImpl<HrmSalaryTaxRuleMapper, HrmSalaryTaxRule> implements IHrmSalaryTaxRuleService {

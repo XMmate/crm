@@ -8,7 +8,7 @@ import com.kakarote.oa.entity.PO.OaLogUserFavour;
  * 用户点赞日志关系表  Mapper 接口
  * </p>
  *
- * @author JiaS
+ * @author liujiaming
  * @since 2021-03-02
  */
 public interface OaLogUserFavourMapper extends BaseMapper<OaLogUserFavour> {

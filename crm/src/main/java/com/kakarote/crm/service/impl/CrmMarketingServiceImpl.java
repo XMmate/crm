@@ -42,8 +42,8 @@ import java.util.stream.Collectors;
  * 营销表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-08-12
+ * @author liujiaming
+ * @since 2024-08-12
  */
 @Service
 public class CrmMarketingServiceImpl extends BaseServiceImpl<CrmMarketingMapper, CrmMarketing> implements ICrmMarketingService {

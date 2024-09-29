@@ -17,8 +17,8 @@ import java.util.List;
  * 系统薪资项模板 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-26
+ * @author liujiaming
+ * @since 2024-05-26
  */
 @Service
 public class HrmSalaryOptionTemplateServiceImpl extends BaseServiceImpl<HrmSalaryOptionTemplateMapper, HrmSalaryOptionTemplate> implements IHrmSalaryOptionTemplateService {

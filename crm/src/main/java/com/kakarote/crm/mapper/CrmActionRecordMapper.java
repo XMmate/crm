@@ -14,8 +14,8 @@ import java.util.List;
  * 字段操作记录表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-25
+ * @author liujiaming
+ * @since 2024-05-25
  */
 public interface CrmActionRecordMapper extends BaseMapper<CrmActionRecord> {
 

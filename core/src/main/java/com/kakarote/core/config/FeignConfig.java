@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * feign客户端解码设置 把请求头里面的主机号和Token携带在里面发起远程调用
  */
 @Configuration

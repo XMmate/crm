@@ -1,7 +1,7 @@
 package com.kakarote.crm.constant;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 场景枚举
  */
 public enum CrmSceneEnum {

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author wyq
+ * @author liujiaming
  */
 public class WorkUtil {
     public static List<Integer> toList(List<String> labelList) {
@@ -32,7 +32,7 @@ public class WorkUtil {
 
     /**
     * 判断集合有无交集
-    * @date 2020/11/17 11:09
+    * @date 2024/11/17 11:09
     * @param commaSplice
     * @param ids
     * @return 

@@ -67,8 +67,8 @@ import java.util.stream.Collectors;
  * 客户表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-29
+ * @author liujiaming
+ * @since 2024-05-29
  */
 @Service(value = "customerService")
 @Slf4j
@@ -217,7 +217,7 @@ public class CrmCustomerServiceImpl extends BaseServiceImpl<CrmCustomerMapper, C
      *
      * @param list
      * @return java.util.List<java.util.Map < java.lang.String, java.lang.Object>>
-     * @date 2020/10/26 10:16
+     * @date 2024/10/26 10:16
      **/
     private void setPoolDay(List<Map<String, Object>> list) {
         Date date = new Date();
@@ -297,7 +297,7 @@ public class CrmCustomerServiceImpl extends BaseServiceImpl<CrmCustomerMapper, C
      * @param levelSetting
      * @param map
      * @return void
-     * @date 2020/10/26 10:02
+     * @date 2024/10/26 10:02
      **/
     private static void setPoolDayForCustomer(Date startTime, Date date, Integer limitDay, Integer levelSetting, Map<String, Object> map) {
         if (startTime == null) {

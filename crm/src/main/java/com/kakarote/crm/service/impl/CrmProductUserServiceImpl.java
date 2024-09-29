@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
  * 产品员工小程序显示关联表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-26
+ * @author liujiaming
+ * @since 2024-05-26
  */
 @Service
 public class CrmProductUserServiceImpl extends BaseServiceImpl<CrmProductUserMapper, CrmProductUser> implements ICrmProductUserService {

@@ -18,8 +18,8 @@ import java.util.List;
  * 招聘渠道表 前端控制器
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-06-02
+ * @author liujiaming
+ * @since 2024-06-02
  */
 @RestController
 @RequestMapping("/hrmRecruitChannel")

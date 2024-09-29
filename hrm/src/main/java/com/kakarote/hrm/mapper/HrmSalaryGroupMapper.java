@@ -14,8 +14,8 @@ import java.util.Set;
  * 薪资组 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-26
+ * @author liujiaming
+ * @since 2024-05-26
  */
 public interface HrmSalaryGroupMapper extends BaseMapper<HrmSalaryGroup> {
 

@@ -16,8 +16,8 @@ import java.util.Map;
  * crm活动表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-25
+ * @author liujiaming
+ * @since 2024-05-25
  */
 public interface CrmActivityMapper extends BaseMapper<CrmActivity> {
     /**

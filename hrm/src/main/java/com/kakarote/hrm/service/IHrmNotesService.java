@@ -14,8 +14,8 @@ import java.util.Set;
  * 备忘 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-07-13
+ * @author liujiaming
+ * @since 2024-07-13
  */
 public interface IHrmNotesService extends BaseService<HrmNotes> {
 

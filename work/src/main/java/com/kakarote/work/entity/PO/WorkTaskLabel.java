@@ -15,8 +15,8 @@ import java.util.Date;
  * 任务标签表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-06-29
+ * @author liujiaming
+ * @since 2024-06-29
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

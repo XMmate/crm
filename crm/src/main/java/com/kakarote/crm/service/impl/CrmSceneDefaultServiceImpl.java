@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
  * 场景默认关系表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-06-06
+ * @author liujiaming
+ * @since 2024-06-06
  */
 @Service
 public class CrmSceneDefaultServiceImpl extends BaseServiceImpl<CrmSceneDefaultMapper, CrmSceneDefault> implements ICrmSceneDefaultService {

@@ -7,15 +7,11 @@
         <groupId>com.kakarote</groupId>
         <artifactId>wkcrm</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-
     </parent>
-
     <artifactId>wk_job</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>job</name>
     <description>任务调度中心</description>
-
-
     <dependencies>
         <dependency>
             <groupId>com.kakarote</groupId>

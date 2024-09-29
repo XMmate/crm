@@ -8,8 +8,8 @@ import com.kakarote.examine.entity.PO.ExamineConditionData;
  * 审批条件扩展字段表 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-13
+ * @author liujiaming
+ * @since 2024-11-13
  */
 public interface IExamineConditionDataService extends BaseService<ExamineConditionData> {
 

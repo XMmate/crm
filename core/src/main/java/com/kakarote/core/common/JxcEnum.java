@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * 进销存的模块枚举
  *
- * @author zhangzhiwei
+ * @author liujiaming
  * @date 2021年4月1日17:17:09
  */
 public enum JxcEnum {

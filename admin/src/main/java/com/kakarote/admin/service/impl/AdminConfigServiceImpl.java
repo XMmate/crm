@@ -46,8 +46,8 @@ import java.util.stream.Collectors;
  * 客户规则 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-04-27
+ * @author liujiaming
+ * @since 2024-04-27
  */
 @Service
 @Slf4j
@@ -358,7 +358,7 @@ public class AdminConfigServiceImpl extends BaseServiceImpl<AdminConfigMapper, A
      *
      * @param
      * @return boolean
-     * @date 2020/11/23 10:35
+     * @date 2024/11/23 10:35
      **/
     private boolean verifyInitAuth() {
         boolean isNoAuth = false;

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author hmb
- * @since 2020-11-05
+ * @since 2024-11-05
  */
 @Service
 public class HrmSalaryChangeRecordServiceImpl extends BaseServiceImpl<HrmSalaryChangeRecordMapper, HrmSalaryChangeRecord> implements IHrmSalaryChangeRecordService {

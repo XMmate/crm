@@ -9,7 +9,7 @@ import com.kakarote.hrm.entity.PO.HrmEmployeeChangeRecord;
  * </p>
  *
  * @author huangmingbo
- * @since 2020-05-12
+ * @since 2024-05-12
  */
 public interface HrmEmployeeChangeRecordMapper extends BaseMapper<HrmEmployeeChangeRecord> {
 

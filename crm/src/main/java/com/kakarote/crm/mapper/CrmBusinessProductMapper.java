@@ -11,8 +11,8 @@ import java.util.List;
  * 商机产品关系表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-27
+ * @author liujiaming
+ * @since 2024-05-27
  */
 public interface CrmBusinessProductMapper extends BaseMapper<CrmBusinessProduct> {
     /**

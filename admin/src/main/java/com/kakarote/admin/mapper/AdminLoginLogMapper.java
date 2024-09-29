@@ -8,8 +8,8 @@ import com.kakarote.core.servlet.BaseMapper;
  * 系统登录日志表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-04-27
+ * @author liujiaming
+ * @since 2024-04-27
  */
 public interface AdminLoginLogMapper extends BaseMapper<LoginLog> {
 

@@ -43,8 +43,8 @@ import java.util.stream.Collectors;
  * 营销表 前端控制器
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-08-12
+ * @author liujiaming
+ * @since 2024-08-12
  */
 @RestController
 @RequestMapping("/crmMarketing")

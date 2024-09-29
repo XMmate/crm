@@ -9,7 +9,7 @@ import com.kakarote.hrm.entity.PO.HrmRecruitInterview;
  * </p>
  *
  * @author huangmingbo
- * @since 2020-05-12
+ * @since 2024-05-12
  */
 public interface HrmRecruitInterviewMapper extends BaseMapper<HrmRecruitInterview> {
 

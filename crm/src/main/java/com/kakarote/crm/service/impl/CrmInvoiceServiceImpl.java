@@ -62,8 +62,8 @@ import java.util.stream.Collectors;
  * 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-07-06
+ * @author liujiaming
+ * @since 2024-07-06
  */
 @Service
 @Slf4j
@@ -101,7 +101,7 @@ public class CrmInvoiceServiceImpl extends BaseServiceImpl<CrmInvoiceMapper, Crm
 
     /**
      * 补充审批字段信息
-     * @date 2020/12/18 13:44
+     * @date 2024/12/18 13:44
      * @param examineRecordSaveBO
      * @return void
      **/

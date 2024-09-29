@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
  * 活动关联商机联系人表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-25
+ * @author liujiaming
+ * @since 2024-05-25
  */
 @Service
 public class CrmActivityRelationServiceImpl extends BaseServiceImpl<CrmActivityRelationMapper, CrmActivityRelation> implements ICrmActivityRelationService {

@@ -11,8 +11,8 @@ import java.util.List;
  * 角色字段授权表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-22
+ * @author liujiaming
+ * @since 2024-05-22
  */
 public interface CrmRoleFieldMapper extends BaseMapper<CrmRoleField> {
 

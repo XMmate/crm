@@ -13,8 +13,8 @@ import java.util.List;
  * 日历类型 Mapper 接口
  * </p>
  *
- * @author wyq
- * @since 2020-05-15
+ * @author liujiaming
+ * @since 2024-05-15
  */
 public interface OaCalendarTypeMapper extends BaseMapper<OaCalendarType> {
 

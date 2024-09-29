@@ -6,14 +6,14 @@ import com.kakarote.core.utils.BiTimeUtil;
 import java.util.List;
 
 /**
- * @author JiaS
- * @date 2020/12/1
+ * @author liujiaming
+ * @date 2024/12/1
  */
 public interface BiEsStatisticsService {
 
     /**
      * 获取统计客户信息
-     * @date 2020/12/1 10:58
+     * @date 2024/12/1 10:58
      * @param timeEntity
      * @param isNeedDealNum
      * @return java.util.List<com.alibaba.fastjson.JSONObject>
@@ -23,7 +23,7 @@ public interface BiEsStatisticsService {
 
     /**
      * 统计结果合并
-     * @date 2020/12/1 10:58
+     * @date 2024/12/1 10:58
      * @param customerNumList
      * @param dealNumList
      * @return java.util.List<com.alibaba.fastjson.JSONObject>

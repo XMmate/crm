@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /** 新增修改部门用的
- * @author zhangzhiwei
+ * @author liujiaming
  */
 @Data
 @ToString

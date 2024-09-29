@@ -8,8 +8,8 @@ import com.kakarote.crm.entity.PO.CrmCustomerPoolRule;
  * 公海收回规则表 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-29
+ * @author liujiaming
+ * @since 2024-05-29
  */
 public interface ICrmCustomerPoolRuleService extends BaseService<CrmCustomerPoolRule> {
 

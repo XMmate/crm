@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * gateway全局拦截
  */
 @Component

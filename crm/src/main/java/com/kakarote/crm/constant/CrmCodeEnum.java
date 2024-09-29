@@ -4,7 +4,7 @@ import com.kakarote.core.common.Const;
 import com.kakarote.core.common.ResultCode;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * crm响应错误代码枚举类
  */
 
@@ -43,8 +43,8 @@ public enum CrmCodeEnum implements ResultCode {
     CRM_ILLEGAL_CHARACTERS_ERROR(2031, "包含非法字符"),
     CRM_PHONE_FORMAT_ERROR(2032,"手机号格式错误"),
     CRM_PRICE_FORMAT_ERROR(2033,"价格应为数字格式"),
-    CRM_DATETIME_FORMAT_ERROR(2034,"日期格式错误，例:2020-01-01 00:00:00"),
-    CRM_DATE_FORMAT_ERROR(2035,"日期格式错误，例:2020-01-01"),
+    CRM_DATETIME_FORMAT_ERROR(2034,"日期格式错误，例:2024-01-01 00:00:00"),
+    CRM_DATE_FORMAT_ERROR(2035,"日期格式错误，例:2024-01-01"),
     CRM_CUSTOMER_POOL_EXIST_USER_ERROR(2036,"公海内有客户，不能停用"),
     CRM_CUSTOMER_POOL_LAST_ERROR(2037,"最后一个启用公海不能停用"),
     CRM_FIELD_EXISTED(2038,"%s已存在"),

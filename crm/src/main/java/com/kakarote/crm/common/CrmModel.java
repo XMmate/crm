@@ -3,7 +3,7 @@ package com.kakarote.crm.common;
 import java.util.HashMap;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * crm模块单个的实体类对象
  */
 public class CrmModel extends HashMap<String, Object> {

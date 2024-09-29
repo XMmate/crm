@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.ToString;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 字段宽度BO
  */
 @Data

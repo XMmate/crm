@@ -10,8 +10,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author JiaS
- * @date 2020/9/25
+ * @author liujiaming
+ * @date 2024/9/25
  */
 @Data
 public class OaExamineCategoryVO {

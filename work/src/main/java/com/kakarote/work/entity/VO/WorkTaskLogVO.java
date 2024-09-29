@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * @author wyq
+ * @author liujiaming
  */
 @Data
 @ApiModel("任务活动日志信息")

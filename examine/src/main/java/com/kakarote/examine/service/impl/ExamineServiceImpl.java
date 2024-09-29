@@ -49,8 +49,8 @@ import java.util.stream.Collectors;
  * 审批表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-13
+ * @author liujiaming
+ * @since 2024-11-13
  */
 @Service
 public class ExamineServiceImpl extends BaseServiceImpl<ExamineMapper, Examine> implements IExamineService {
@@ -385,7 +385,7 @@ public class ExamineServiceImpl extends BaseServiceImpl<ExamineMapper, Examine> 
 
     /**
      * 获取条件字段名称
-     * @date 2020/12/16 11:12
+     * @date 2024/12/16 11:12
      * @param examineFlowVOList
      * @param conditionDataVoS
      * @return void

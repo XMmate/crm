@@ -10,7 +10,7 @@ import java.util.List;
  * </p>
  *
  * @author huangmingbo
- * @since 2020-05-13
+ * @since 2024-05-13
  */
 public interface IHrmConfigService extends BaseService<HrmConfig> {
 

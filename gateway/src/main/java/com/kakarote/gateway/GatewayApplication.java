@@ -12,7 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 网关服务
  */
 @SpringBootApplication

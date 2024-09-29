@@ -16,8 +16,8 @@ import java.util.Objects;
  * 字段排序表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-19
+ * @author liujiaming
+ * @since 2024-05-19
  */
 @Data
 @Accessors(chain = true)

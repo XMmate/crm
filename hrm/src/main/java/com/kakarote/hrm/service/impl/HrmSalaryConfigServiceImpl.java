@@ -27,8 +27,8 @@ import java.util.Optional;
  * 薪资初始配置 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-26
+ * @author liujiaming
+ * @since 2024-05-26
  */
 @Service
 public class HrmSalaryConfigServiceImpl extends BaseServiceImpl<HrmSalaryConfigMapper, HrmSalaryConfig> implements IHrmSalaryConfigService {

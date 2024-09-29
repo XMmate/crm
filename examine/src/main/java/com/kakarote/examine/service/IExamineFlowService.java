@@ -10,8 +10,8 @@ import java.util.Map;
  * 审批流程表 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-13
+ * @author liujiaming
+ * @since 2024-11-13
  */
 public interface IExamineFlowService extends BaseService<ExamineFlow> {
 

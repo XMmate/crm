@@ -11,8 +11,8 @@ import java.io.Serializable;
  * 审批表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-18
+ * @author liujiaming
+ * @since 2024-11-18
  */
 @Data
 @ApiModel(value="Examine对象", description="审批表")

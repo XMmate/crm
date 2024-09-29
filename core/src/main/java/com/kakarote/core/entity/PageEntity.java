@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.Objects;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 分页需继承的类
  */
 @Data

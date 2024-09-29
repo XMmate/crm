@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * 文件操作实体类对象
  *
- * @author zhangzhiwei
+ * @author liujiaming
  */
 @Data
 @ApiModel("文件对象")

@@ -8,8 +8,8 @@ import com.kakarote.crm.entity.PO.CrmCustomerPoolFieldStyle;
  * 公海列表页字段样式表 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-29
+ * @author liujiaming
+ * @since 2024-05-29
  */
 public interface ICrmCustomerPoolFieldStyleService extends BaseService<CrmCustomerPoolFieldStyle> {
 

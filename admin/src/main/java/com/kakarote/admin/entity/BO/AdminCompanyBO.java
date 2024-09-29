@@ -8,7 +8,7 @@ import lombok.ToString;
 import javax.validation.constraints.NotEmpty;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * BO业务逻辑代码
  */
 @Data

@@ -6,8 +6,8 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @author JiaS
- * @date 2020/11/17
+ * @author liujiaming
+ * @date 2024/11/17
  */
 @Data
 public class AdminInitDataBO {

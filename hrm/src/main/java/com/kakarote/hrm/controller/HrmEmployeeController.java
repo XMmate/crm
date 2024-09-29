@@ -45,7 +45,7 @@ import java.util.*;
  * </p>
  *
  * @author huangmingbo
- * @since 2020-05-12
+ * @since 2024-05-12
  */
 @RestController
 @RequestMapping("/hrmEmployee")
@@ -318,7 +318,7 @@ public class HrmEmployeeController {
     }
 
     /**
-     * @author wyq
+     * @author liujiaming
      * 获取导入模板
      */
     @PostMapping("/downloadExcel")
@@ -428,7 +428,7 @@ public class HrmEmployeeController {
     }
 
     /**
-     * @author wyq
+     * @author liujiaming
      * 员工导入
      */
     @PostMapping("/uploadExcel")

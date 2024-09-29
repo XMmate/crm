@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 /**
- * @author zhangzhiwei
- * mybatisPlus的自动注入
+ * @author liujiaming
+ * mybatisPlus的自动注入 用于create_time update_time字段的注入
  */
 @Component
 public class BaseMetaObjectHandler implements MetaObjectHandler {

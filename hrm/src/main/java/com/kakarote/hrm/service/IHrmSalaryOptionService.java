@@ -13,8 +13,8 @@ import java.util.List;
  * 系统薪资项 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-26
+ * @author liujiaming
+ * @since 2024-05-26
  */
 public interface IHrmSalaryOptionService extends BaseService<HrmSalaryOption> {
 

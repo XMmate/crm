@@ -41,7 +41,7 @@ import java.util.Optional;
  * </p>
  *
  * @author huangmingbo
- * @since 2020-05-12
+ * @since 2024-05-12
  */
 @Service
 public class HrmRecruitInterviewServiceImpl extends BaseServiceImpl<HrmRecruitInterviewMapper, HrmRecruitInterview> implements IHrmRecruitInterviewService {

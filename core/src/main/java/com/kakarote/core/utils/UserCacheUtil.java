@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 用户缓存相关方法
  */
 @Component

@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
  * 营销数据表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-08-12
+ * @author liujiaming
+ * @since 2024-08-12
  */
 @Service
 public class CrmMarketingInfoServiceImpl extends BaseServiceImpl<CrmMarketingInfoMapper, CrmMarketingInfo> implements ICrmMarketingInfoService {

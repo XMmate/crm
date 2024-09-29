@@ -12,8 +12,8 @@ import java.util.List;
  * 字段排序表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-19
+ * @author liujiaming
+ * @since 2024-05-19
  */
 public interface CrmFieldSortMapper extends BaseMapper<CrmFieldSort> {
 

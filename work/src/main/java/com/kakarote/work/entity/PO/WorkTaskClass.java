@@ -12,11 +12,11 @@ import java.util.Date;
 
 /**
  * <p>
- * 任务分类表
+ * 项目任务分类表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-06-29
+ * @author liujiaming
+ * @since 2024-06-29
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

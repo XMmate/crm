@@ -66,8 +66,8 @@ import java.util.stream.Collectors;
  * 回款计划表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-28
+ * @author liujiaming
+ * @since 2024-05-28
  */
 @Service
 public class CrmReceivablesPlanServiceImpl extends BaseServiceImpl<CrmReceivablesPlanMapper, CrmReceivablesPlan> implements ICrmReceivablesPlanService,CrmPageService {

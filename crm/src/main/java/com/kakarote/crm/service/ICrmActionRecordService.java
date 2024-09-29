@@ -14,8 +14,8 @@ import java.util.List;
  * 字段操作记录表 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-25
+ * @author liujiaming
+ * @since 2024-05-25
  */
 public interface ICrmActionRecordService extends BaseService<CrmActionRecord> {
 

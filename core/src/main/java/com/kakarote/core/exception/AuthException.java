@@ -1,7 +1,7 @@
 package com.kakarote.core.exception;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 无权访问异常
  */
 public class AuthException extends RuntimeException {

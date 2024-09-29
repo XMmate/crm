@@ -16,7 +16,7 @@ import java.io.Serializable;
  * 角色表
  * </p>
  *
- * @author zhangzhiwei
+ * @author liujiaming
  * @since 2021-04-23
  */
 @Data

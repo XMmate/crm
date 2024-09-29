@@ -10,8 +10,8 @@ import java.util.List;
  * 用户商机标星关系表  服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-27
+ * @author liujiaming
+ * @since 2024-05-27
  */
 public interface ICrmBusinessUserStarService extends BaseService<CrmBusinessUserStar> {
     /**

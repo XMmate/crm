@@ -10,8 +10,8 @@ import java.util.List;
  * 字段配置表 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-19
+ * @author liujiaming
+ * @since 2024-05-19
  */
 public interface ICrmFieldConfigService extends BaseService<CrmFieldConfig> {
 

@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
 import java.util.List;
 
 /**
- * @author wyq
+ * @author liujiaming
  */
 @Data
 @ApiModel("工作台任务信息")

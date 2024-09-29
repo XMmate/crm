@@ -11,7 +11,7 @@ import java.util.Set;
  * 角色表 服务类
  * </p>
  *
- * @author zhangzhiwei
+ * @author liujiaming
  * @since 2021-04-23
  */
 public interface IAdminRoleAuthService extends BaseService<AdminRoleAuth> {

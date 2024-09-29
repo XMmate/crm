@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * swagger聚合
  */
 @Component

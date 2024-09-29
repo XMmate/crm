@@ -8,8 +8,8 @@ import com.kakarote.work.entity.PO.WorkTaskRelation;
  * 任务关联业务表 服务类
  * </p>
  *
- * @author wyq
- * @since 2020-05-18
+ * @author liujiaming
+ * @since 2024-05-18
  */
 public interface IWorkTaskRelationService extends BaseService<WorkTaskRelation> {
     public void saveWorkTaskRelation(WorkTaskRelation workTaskRelation);

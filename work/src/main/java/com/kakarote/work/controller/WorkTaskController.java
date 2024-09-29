@@ -30,8 +30,8 @@ import java.util.Map;
  * 任务表 前端控制器
  * </p>
  *
- * @author wyq
- * @since 2020-05-18
+ * @author liujiaming
+ * @since 2024-05-18
  */
 @RestController
 @RequestMapping("/workTask")
@@ -301,11 +301,12 @@ public class WorkTaskController {
 
 
     /**
-     * 更新任务
+     * 更新任务 供远程调用
      * @return
      */
     @PostMapping("/updateTaskJob")
     public Result updateTaskJob(){
+        //当任务的结束时间小于当前时间 而且还没有完成的话，就改成延期的任务了
         workTaskService.lambdaUpdate()
                 .set(WorkTask::getStatus,2)
                 .eq(WorkTask::getStatus,1).apply("stop_time < now()").update();

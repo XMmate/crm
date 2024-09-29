@@ -10,7 +10,7 @@ import lombok.ToString;
 import java.util.List;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 菜单相关VO
  */
 @Data

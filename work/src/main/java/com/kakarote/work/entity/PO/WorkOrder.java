@@ -15,8 +15,8 @@ import java.io.Serializable;
  * 项目排序表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-06-29
+ * @author liujiaming
+ * @since 2024-06-29
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

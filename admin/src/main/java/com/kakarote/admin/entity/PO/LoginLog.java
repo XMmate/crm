@@ -15,8 +15,8 @@ import java.util.Date;
  * 系统登录日志表 es里面也保存了数据
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-06-03
+ * @author liujiaming
+ * @since 2024-06-03
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

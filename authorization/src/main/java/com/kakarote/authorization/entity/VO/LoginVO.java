@@ -6,7 +6,7 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 登录成功的vo
  */
 @ApiModel(value="登录成功返回对象", description="登录成功返回对象")

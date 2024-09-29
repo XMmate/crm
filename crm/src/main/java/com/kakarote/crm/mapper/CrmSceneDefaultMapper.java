@@ -8,8 +8,8 @@ import com.kakarote.crm.entity.PO.CrmSceneDefault;
  * 场景默认关系表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-06-06
+ * @author liujiaming
+ * @since 2024-06-06
  */
 public interface CrmSceneDefaultMapper extends BaseMapper<CrmSceneDefault> {
 

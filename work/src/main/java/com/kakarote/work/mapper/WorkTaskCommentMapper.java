@@ -11,8 +11,8 @@ import org.apache.ibatis.annotations.Select;
  * 任务评论表 Mapper 接口
  * </p>
  *
- * @author wyq
- * @since 2020-05-18
+ * @author liujiaming
+ * @since 2024-05-18
  */
 public interface WorkTaskCommentMapper extends BaseMapper<WorkTaskComment> {
 

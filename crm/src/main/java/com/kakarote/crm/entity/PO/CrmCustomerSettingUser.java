@@ -16,8 +16,8 @@ import java.io.Serializable;
  * 员工拥有以及锁定客户员工关联表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-29
+ * @author liujiaming
+ * @since 2024-05-29
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

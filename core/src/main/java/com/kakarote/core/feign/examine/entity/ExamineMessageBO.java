@@ -4,8 +4,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * @author JiaS
- * @date 2020/12/21
+ * @author liujiaming
+ * @date 2024/12/21
  */
 @Data
 public class ExamineMessageBO {

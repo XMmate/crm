@@ -11,8 +11,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author JiaS
- * @date 2020/12/2
+ * @author liujiaming
+ * @date 2024/12/2
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

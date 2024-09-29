@@ -8,8 +8,8 @@ import com.kakarote.oa.entity.PO.OaLogRule;
  *  Mapper 接口
  * </p>
  *
- * @author wyq
- * @since 2020-05-15
+ * @author liujiaming
+ * @since 2024-05-15
  */
 public interface OaLogRuleMapper extends BaseMapper<OaLogRule> {
 

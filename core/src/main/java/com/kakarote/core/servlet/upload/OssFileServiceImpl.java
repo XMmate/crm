@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.InputStream;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * oss上传文件
  */
 public class OssFileServiceImpl implements FileService {

@@ -34,8 +34,8 @@ import java.util.stream.Collectors;
  * 自定义字段表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-06-22
+ * @author liujiaming
+ * @since 2024-06-22
  */
 @Service
 public class OaExamineFieldServiceImpl extends BaseServiceImpl<OaExamineFieldMapper, OaExamineField> implements IOaExamineFieldService {

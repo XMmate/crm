@@ -17,8 +17,8 @@ import java.util.List;
  * 商机状态组类别
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-27
+ * @author liujiaming
+ * @since 2024-05-27
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

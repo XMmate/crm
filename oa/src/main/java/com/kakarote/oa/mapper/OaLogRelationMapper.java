@@ -8,8 +8,8 @@ import com.kakarote.oa.entity.PO.OaLogRelation;
  * 日志关联业务表 Mapper 接口
  * </p>
  *
- * @author wyq
- * @since 2020-05-15
+ * @author liujiaming
+ * @since 2024-05-15
  */
 public interface OaLogRelationMapper extends BaseMapper<OaLogRelation> {
 

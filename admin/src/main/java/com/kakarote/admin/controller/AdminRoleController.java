@@ -36,8 +36,8 @@ import java.util.stream.Collectors;
  * 角色表 前端控制器
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-04-27
+ * @author liujiaming
+ * @since 2024-04-27
  */
 @RestController
 @RequestMapping("/adminRole")
@@ -215,6 +215,11 @@ public class AdminRoleController {
         return Result.ok(roleIdList);
     }
 
+    /**
+     * 查询项目角色 ，work服务远程有调用这个接口
+     * @param label
+     * @return
+     */
     @PostMapping(value = "/queryWorkRole")
     @ApiExplain("查询项目管理角色")
     public Result<Integer> queryWorkRole(@RequestParam("label") Integer label) {

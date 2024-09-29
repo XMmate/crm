@@ -16,8 +16,8 @@ import java.io.Serializable;
  * 审批流程主管审批记录表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-18
+ * @author liujiaming
+ * @since 2024-11-18
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

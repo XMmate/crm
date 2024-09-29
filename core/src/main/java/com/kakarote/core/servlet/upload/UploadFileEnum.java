@@ -1,7 +1,7 @@
 package com.kakarote.core.servlet.upload;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 上传文件方式枚举
  */
 

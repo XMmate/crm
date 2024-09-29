@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
  * 打印记录表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-07-31
+ * @author liujiaming
+ * @since 2024-07-31
  */
 @Service
 public class CrmPrintRecordServiceImpl extends BaseServiceImpl<CrmPrintRecordMapper, CrmPrintRecord> implements ICrmPrintRecordService {

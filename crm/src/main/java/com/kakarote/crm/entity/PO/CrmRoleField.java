@@ -18,8 +18,8 @@ import java.io.Serializable;
  * 角色字段授权表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-22
+ * @author liujiaming
+ * @since 2024-05-22
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

@@ -8,8 +8,8 @@ import com.kakarote.core.servlet.BaseMapper;
  * 业绩目标 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-07-22
+ * @author liujiaming
+ * @since 2024-07-22
  */
 public interface CrmAchievementMapper extends BaseMapper<CrmAchievement> {
 

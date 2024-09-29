@@ -37,8 +37,8 @@ import java.util.stream.Collectors;
  * 角色表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-04-27
+ * @author liujiaming
+ * @since 2024-04-27
  */
 @Service
 public class AdminRoleServiceImpl extends BaseServiceImpl<AdminRoleMapper, AdminRole> implements IAdminRoleService {
@@ -414,7 +414,7 @@ public class AdminRoleServiceImpl extends BaseServiceImpl<AdminRoleMapper, Admin
     }
 
     /**
-     * @author zhangzhiwei
+     * @author liujiaming
      * 复制
      */
     @Transactional(rollbackFor = Exception.class)

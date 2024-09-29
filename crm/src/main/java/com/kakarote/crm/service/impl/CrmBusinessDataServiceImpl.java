@@ -22,8 +22,8 @@ import java.util.List;
  * 商机扩展字段数据表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-27
+ * @author liujiaming
+ * @since 2024-05-27
  */
 @Service
 public class CrmBusinessDataServiceImpl extends BaseServiceImpl<CrmBusinessDataMapper, CrmBusinessData> implements ICrmBusinessDataService {

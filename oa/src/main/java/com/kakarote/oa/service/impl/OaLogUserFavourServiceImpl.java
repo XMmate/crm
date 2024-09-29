@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
  * 用户点赞日志关系表  服务实现类
  * </p>
  *
- * @author JiaS
+ * @author liujiaming
  * @since 2021-03-02
  */
 @Service

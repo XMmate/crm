@@ -39,7 +39,7 @@ public class CrmExamineServiceFallback implements FallbackFactory<CrmExamineServ
             @Override
             public Result<Boolean> queryExamineStepIsExist(Integer categoryType) {
                 log.error(cause.getMessage());
-                return Result.ok();
+                return Result.ok(false);
             }
 
             @Override
@@ -57,7 +57,7 @@ public class CrmExamineServiceFallback implements FallbackFactory<CrmExamineServ
             @Override
             public Result<Boolean> updateCheckStatusByNewExamine(ExamineConditionDataBO examineConditionDataBO) {
                 log.error(cause.getMessage());
-                return Result.ok();
+                return Result.ok(false);
             }
 
             @Override

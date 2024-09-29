@@ -8,8 +8,8 @@ import com.kakarote.crm.entity.PO.CrmActivityRelation;
  * 活动关联商机联系人表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-25
+ * @author liujiaming
+ * @since 2024-05-25
  */
 public interface CrmActivityRelationMapper extends BaseMapper<CrmActivityRelation> {
 

@@ -7,8 +7,8 @@ import com.kakarote.crm.entity.PO.CrmMarketingField;
 import java.util.List;
 
 /**
- * @author JiaS
- * @date 2020/12/2
+ * @author liujiaming
+ * @date 2024/12/2
  */
 public interface ICrmMarketingFieldService extends BaseService<CrmMarketingField> {
 

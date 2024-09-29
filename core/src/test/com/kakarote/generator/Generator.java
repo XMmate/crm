@@ -35,7 +35,7 @@ public class Generator {
     private static GlobalConfig getGlobalConfig(){
         GlobalConfig globalConfig = new GlobalConfig();
         globalConfig.setOutputDir("D://generator/src/main/java");
-        globalConfig.setAuthor("zhangzhiwei");
+        globalConfig.setAuthor("liujiaming");
         globalConfig.setOpen(false);
         globalConfig.setKotlin(false);
         globalConfig.setSwagger2(true);

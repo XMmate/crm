@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * @author wyq
+ * @author liujiaming
  */
 @Data
 @ApiModel("通讯录查询")

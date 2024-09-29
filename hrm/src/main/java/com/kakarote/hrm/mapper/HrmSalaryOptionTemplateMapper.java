@@ -8,8 +8,8 @@ import com.kakarote.hrm.entity.PO.HrmSalaryOptionTemplate;
  * 系统薪资项模板 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-26
+ * @author liujiaming
+ * @since 2024-05-26
  */
 public interface HrmSalaryOptionTemplateMapper extends BaseMapper<HrmSalaryOptionTemplate> {
 

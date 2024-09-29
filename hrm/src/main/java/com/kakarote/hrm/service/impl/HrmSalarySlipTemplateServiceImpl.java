@@ -20,7 +20,7 @@ import java.util.List;
  * </p>
  *
  * @author hmb
- * @since 2020-11-03
+ * @since 2024-11-03
  */
 @Service
 public class HrmSalarySlipTemplateServiceImpl extends BaseServiceImpl<HrmSalarySlipTemplateMapper, HrmSalarySlipTemplate> implements IHrmSalarySlipTemplateService {

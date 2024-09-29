@@ -63,8 +63,8 @@ import java.util.stream.Collectors;
  * 审批表 服务实现类
  * </p>
  *
- * @author wyq
- * @since 2020-05-15
+ * @author liujiaming
+ * @since 2024-05-15
  */
 @Service
 public class OaExamineServiceImpl extends BaseServiceImpl<OaExamineMapper, OaExamine> implements IOaExamineService {
@@ -465,7 +465,7 @@ public class OaExamineServiceImpl extends BaseServiceImpl<OaExamineMapper, OaExa
      * @param recordId
      * @param examineRecordSaveBO
      * @return void
-     * @date 2020/12/18 13:44
+     * @date 2024/12/18 13:44
      **/
     public void supplementFieldInfo(Integer label, Integer typeId, Integer recordId, ExamineRecordSaveBO examineRecordSaveBO) {
         examineRecordSaveBO.setLabel(label);

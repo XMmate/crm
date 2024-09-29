@@ -17,8 +17,8 @@ import java.util.List;
  * 审批表 Mapper 接口
  * </p>
  *
- * @author wyq
- * @since 2020-05-15
+ * @author liujiaming
+ * @since 2024-05-15
  */
 public interface OaExamineMapper extends BaseMapper<OaExamine> {
 

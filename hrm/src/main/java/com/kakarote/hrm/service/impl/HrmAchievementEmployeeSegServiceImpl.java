@@ -21,7 +21,7 @@ import java.util.List;
  * </p>
  *
  * @author huangmingbo
- * @since 2020-05-12
+ * @since 2024-05-12
  */
 @Service
 public class HrmAchievementEmployeeSegServiceImpl extends BaseServiceImpl<HrmAchievementEmployeeSegMapper, HrmAchievementEmployeeSeg> implements IHrmAchievementEmployeeSegService {

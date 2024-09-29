@@ -8,8 +8,8 @@ import com.kakarote.examine.entity.PO.ExamineFlowMember;
  * 审批流程指定成员记录表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-13
+ * @author liujiaming
+ * @since 2024-11-13
  */
 public interface ExamineFlowMemberMapper extends BaseMapper<ExamineFlowMember> {
 

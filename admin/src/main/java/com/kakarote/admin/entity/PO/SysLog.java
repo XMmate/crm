@@ -17,8 +17,8 @@ import java.util.Date;
  * 系统日志
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-25
+ * @author liujiaming
+ * @since 2024-11-25
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

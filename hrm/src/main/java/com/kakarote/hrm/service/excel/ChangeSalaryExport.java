@@ -84,7 +84,7 @@ public class ChangeSalaryExport extends ExcelImport {
                     try {
                         setChangeSalaryRecordBO.setEnableDate(parseDate(enableDateStr));
                     } catch (DateException e) {
-                        rowList.add(0, "填生效时间格式不正确.(example:2020-01-01;2020.01.01;2020/01/01)");
+                        rowList.add(0, "填生效时间格式不正确.(example:2024-01-01;2020.01.01;2024/01/01)");
                         errorList.add(rowList);
                         return;
                     }

@@ -42,8 +42,8 @@ import java.util.Map;
  * CRM仪表盘 前端控制器
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-25
+ * @author liujiaming
+ * @since 2024-05-25
  */
 @Slf4j
 @RestController
@@ -191,7 +191,7 @@ public class CrmInstrumentController {
         }else {
             filedList.add(new CrmModelFiledVO("crmTypeName", FieldEnum.TEXT, "*所属" + crmEnum.getRemarks(), 1));
         }
-        filedList.add(new CrmModelFiledVO("createTime", FieldEnum.DATE, "跟进时间-例:2020-2-1", 1));
+        filedList.add(new CrmModelFiledVO("createTime", FieldEnum.DATE, "跟进时间-例:2024-2-1", 1));
         filedList.add(new CrmModelFiledVO("category", FieldEnum.TEXT, "跟进方式", 1));
         if (crmType == 2){
             filedList.add(new CrmModelFiledVO("contactsNames", FieldEnum.TEXT, "相关联系人", 1));
@@ -213,7 +213,7 @@ public class CrmInstrumentController {
             String desc = CrmEnum.CONTRACT.equals(crmEnum) ? "编号" : "名称";
             hintRow.createCell(0).setCellValue("注意事项：\n" +
                             "1、表头标“*”的红色字体为必填项\n" +
-                            "2、跟进时间：推荐格式为2020-2-1\n" +
+                            "2、跟进时间：推荐格式为2024-2-1\n" +
                             "3、若相关数据有多条时用“/”区分例如：杭州科技有限公司／卡卡罗特软件科技有限公司\n" +
                             "4、所属" + crmEnum.getRemarks() + "中的" + crmEnum.getRemarks() + "需要存在系统中，" +
                                 "且填写的所属" + crmEnum.getRemarks() + desc +"与系统中的" + crmEnum.getRemarks() + desc +"必须保持一致否则会导入失败\n" +

@@ -14,8 +14,8 @@ import java.util.List;
  * 审核日志表 Mapper 接口
  * </p>
  * TODO 目前为了兼容以前代码，先临时使用JSONObject,待更新
- * @author zhangzhiwei
- * @since 2020-05-28
+ * @author liujiaming
+ * @since 2024-05-28
  */
 public interface CrmExamineLogMapper extends BaseMapper<CrmExamineLog> {
 

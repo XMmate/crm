@@ -8,8 +8,8 @@ import com.kakarote.crm.entity.PO.CrmCustomerPoolFieldSetting;
  * 公海列表页字段设置表 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-29
+ * @author liujiaming
+ * @since 2024-05-29
  */
 public interface ICrmCustomerPoolFieldSettingService extends BaseService<CrmCustomerPoolFieldSetting> {
 

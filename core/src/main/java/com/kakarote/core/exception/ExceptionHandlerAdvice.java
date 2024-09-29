@@ -22,7 +22,7 @@ import javax.servlet.ServletException;
 
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 全局异常处理类
  */
 @RestControllerAdvice

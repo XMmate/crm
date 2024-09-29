@@ -19,8 +19,8 @@ import java.io.InputStream;
 
 /**
  * 腾讯云
- * @author JiaS
- * @date 2020/10/16
+ * @author liujiaming
+ * @date 2024/10/16
  */
 @Slf4j
 public class TencentFileServiceImpl implements FileService {

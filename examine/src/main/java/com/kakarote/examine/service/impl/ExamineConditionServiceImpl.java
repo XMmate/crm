@@ -44,8 +44,8 @@ import java.util.stream.Collectors;
  * 审批条件表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-13
+ * @author liujiaming
+ * @since 2024-11-13
  */
 @Service("conditionService")
 public class ExamineConditionServiceImpl extends BaseServiceImpl<ExamineConditionMapper, ExamineCondition> implements IExamineConditionService, ExamineTypeService {
@@ -190,7 +190,7 @@ public class ExamineConditionServiceImpl extends BaseServiceImpl<ExamineConditio
 
     /**
      * 补充用户部门信息
-     * @date 2020/12/17 13:50
+     * @date 2024/12/17 13:50
      * @param examineGeneralBO
      * @return java.util.Map<java.lang.String,java.lang.Object>
      **/

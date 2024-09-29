@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
  * 客户管理导航栏排序表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-04-27
+ * @author liujiaming
+ * @since 2024-04-27
  */
 @Service
 public class AdminModelSortServiceImpl extends BaseServiceImpl<AdminModelSortMapper, AdminModelSort> implements IAdminModelSortService {

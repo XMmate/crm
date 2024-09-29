@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 import java.util.List;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * bi参数
  */
 @EqualsAndHashCode(callSuper = true)

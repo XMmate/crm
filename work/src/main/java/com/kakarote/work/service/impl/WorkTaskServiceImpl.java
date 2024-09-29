@@ -55,8 +55,8 @@ import java.util.stream.Collectors;
  * 任务表 服务实现类
  * </p>
  *
- * @author wyq
- * @since 2020-05-18
+ * @author liujiaming
+ * @since 2024-05-18
  */
 @Service
 public class WorkTaskServiceImpl extends BaseServiceImpl<WorkTaskMapper, WorkTask> implements IWorkTaskService {
@@ -427,7 +427,7 @@ public class WorkTaskServiceImpl extends BaseServiceImpl<WorkTaskMapper, WorkTas
 
     /**
      * 保存任务日志
-     * @date 2020/11/11 16:15
+     * @date 2024/11/11 16:15
      * @param taskId
      * @param content
      * @return void
@@ -442,7 +442,7 @@ public class WorkTaskServiceImpl extends BaseServiceImpl<WorkTaskMapper, WorkTas
 
     /**
      * 获取优先级描述
-     * @date 2020/11/12 10:22
+     * @date 2024/11/12 10:22
      * @param priority
      * @return java.lang.String
      **/

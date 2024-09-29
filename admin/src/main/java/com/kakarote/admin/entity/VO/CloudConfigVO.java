@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.ToString;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 云平台账号配置
  */
 @ToString

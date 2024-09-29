@@ -48,8 +48,8 @@ import java.util.stream.Collectors;
  * 审核记录表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-19
+ * @author liujiaming
+ * @since 2024-11-19
  */
 @Slf4j
 @Service
@@ -469,7 +469,7 @@ public class ExamineRecordServiceImpl extends BaseServiceImpl<ExamineRecordMappe
      * @param examineLog
      * @param userId
      * @return void
-     * @date 2020/12/21 17:18
+     * @date 2024/12/21 17:18
      **/
     private void addMessage(Examine examine, Integer examineType, ExamineRecordLog examineLog, Long userId){
         this.addMessage(examine,examineType,null,null,examineLog,userId,false);
@@ -597,7 +597,7 @@ public class ExamineRecordServiceImpl extends BaseServiceImpl<ExamineRecordMappe
 
     /**
      * 补充消息详情
-     * @date 2020/9/7 15:22
+     * @date 2024/9/7 15:22
      * @param categoryType
      * @param adminMessageBO
      * @return void
@@ -885,7 +885,7 @@ public class ExamineRecordServiceImpl extends BaseServiceImpl<ExamineRecordMappe
      *
      * @param simpleUser
      * @return com.kakarote.examine.entity.VO.ExamineFlowDataVO
-     * @date 2020/12/22 10:33
+     * @date 2024/12/22 10:33
      **/
     private ExamineFlowDataVO supplementExamineFlowDataVO(SimpleUser simpleUser,Date examineTime) {
         ExamineFlowDataVO examineFlowDataVO = new ExamineFlowDataVO();

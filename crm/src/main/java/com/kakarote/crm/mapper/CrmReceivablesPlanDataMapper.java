@@ -8,8 +8,8 @@ import com.kakarote.crm.entity.PO.CrmReceivablesPlanData;
  * 回款计划自定义字段存值表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-21
+ * @author liujiaming
+ * @since 2024-05-21
  */
 public interface CrmReceivablesPlanDataMapper extends BaseMapper<CrmReceivablesPlanData> {
 

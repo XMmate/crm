@@ -1,7 +1,7 @@
 package com.kakarote.core.feign.admin.entity;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 数据权限枚举
  */
 

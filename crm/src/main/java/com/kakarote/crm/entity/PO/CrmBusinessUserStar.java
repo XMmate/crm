@@ -16,8 +16,8 @@ import java.io.Serializable;
  * 用户商机标星关系表 
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-27
+ * @author liujiaming
+ * @since 2024-05-27
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

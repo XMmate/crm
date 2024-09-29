@@ -8,7 +8,7 @@ import lombok.ToString;
 /**
  * 团队成员查询VO
  *
- * @author zhangzhiwei
+ * @author liujiaming
  */
 @Data
 @ToString

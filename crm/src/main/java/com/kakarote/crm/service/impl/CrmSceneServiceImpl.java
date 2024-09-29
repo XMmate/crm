@@ -36,8 +36,8 @@ import java.util.stream.Collectors;
  * 场景 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-06-06
+ * @author liujiaming
+ * @since 2024-06-06
  */
 @Service
 public class CrmSceneServiceImpl extends BaseServiceImpl<CrmSceneMapper, CrmScene> implements ICrmSceneService {

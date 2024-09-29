@@ -20,8 +20,8 @@ import java.util.Map;
  * 待办事项前端控制器
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-23
+ * @author liujiaming
+ * @since 2024-05-23
  */
 @RestController
 @RequestMapping("/crmBackLog")
@@ -150,7 +150,7 @@ public class CrmBackLogController {
     }
 
     /**
-     * @author wyq
+     * @author liujiaming
      * 待进入客户池提醒
      */
     @PostMapping("/putInPoolRemind")

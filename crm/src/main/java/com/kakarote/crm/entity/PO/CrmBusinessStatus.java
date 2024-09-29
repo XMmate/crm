@@ -16,8 +16,8 @@ import java.io.Serializable;
  * 商机状态
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-27
+ * @author liujiaming
+ * @since 2024-05-27
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

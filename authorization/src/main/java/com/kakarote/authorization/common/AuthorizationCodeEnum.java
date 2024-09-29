@@ -3,7 +3,7 @@ package com.kakarote.authorization.common;
 import com.kakarote.core.common.ResultCode;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 权限后台响应错误代码枚举类
  */
 

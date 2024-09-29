@@ -10,8 +10,8 @@ import java.util.List;
  * 审核自选成员选择成员表 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-12-02
+ * @author liujiaming
+ * @since 2024-12-02
  */
 public interface IExamineRecordOptionalService extends BaseService<ExamineRecordOptional> {
 

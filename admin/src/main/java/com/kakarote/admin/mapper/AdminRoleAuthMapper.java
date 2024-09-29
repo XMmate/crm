@@ -8,7 +8,7 @@ import com.kakarote.core.servlet.BaseMapper;
  * 角色表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
+ * @author liujiaming
  * @since 2021-04-23
  */
 public interface AdminRoleAuthMapper extends BaseMapper<AdminRoleAuth> {

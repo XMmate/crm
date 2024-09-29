@@ -18,8 +18,8 @@ import java.util.List;
  * 自定义字段表 前端控制器
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-06-22
+ * @author liujiaming
+ * @since 2024-06-22
  */
 @RestController
 @RequestMapping("/oaExamineField")
@@ -29,7 +29,7 @@ public class OaExamineFieldController {
     private IOaExamineFieldService examineFieldService;
 
     /**
-     * @author wyq
+     * @author liujiaming
      * 查询新增或编辑字段
      */
     @ApiOperation("查询新增或编辑字段")

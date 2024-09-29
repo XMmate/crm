@@ -33,8 +33,8 @@ import java.util.stream.Collectors;
  * 系统日志 前端控制器
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-11-25
+ * @author liujiaming
+ * @since 2024-11-25
  */
 @RestController
 @RequestMapping("/adminSysLog")

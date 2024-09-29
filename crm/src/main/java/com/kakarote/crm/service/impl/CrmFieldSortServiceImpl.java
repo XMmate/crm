@@ -24,8 +24,8 @@ import java.util.List;
  * 字段排序表 服务实现类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-19
+ * @author liujiaming
+ * @since 2024-05-19
  */
 @Service
 public class CrmFieldSortServiceImpl extends BaseServiceImpl<CrmFieldSortMapper, CrmFieldSort> implements ICrmFieldSortService {

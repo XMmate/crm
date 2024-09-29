@@ -20,8 +20,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 /**
- * @author JiaS
- * @date 2020/10/16
+ * @author liujiaming
+ * @date 2024/10/16
  */
 @Slf4j
 public class QncFileServiceImpl implements FileService {

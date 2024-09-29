@@ -16,8 +16,8 @@ import java.util.List;
  * crm活动表 服务类
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-25
+ * @author liujiaming
+ * @since 2024-05-25
  */
 public interface ICrmActivityService extends BaseService<CrmActivity> {
 

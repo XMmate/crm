@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.*;
  * 薪资组 前端控制器
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-05-26
+ * @author liujiaming
+ * @since 2024-05-26
  */
 @RestController
 @RequestMapping("/hrmSalaryGroup")

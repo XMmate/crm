@@ -100,7 +100,7 @@ public class BiWorkController {
 
     /**
      * 查询审批详情
-     * @author zhangzhiwei
+     * @author liujiaming
      */
     @ApiOperation("查询审批详情")
     @PostMapping("/examineInfo")

@@ -13,8 +13,8 @@ import java.util.List;
  * 营销表 Mapper 接口
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-08-12
+ * @author liujiaming
+ * @since 2024-08-12
  */
 public interface CrmMarketingMapper extends BaseMapper<CrmMarketing> {
 

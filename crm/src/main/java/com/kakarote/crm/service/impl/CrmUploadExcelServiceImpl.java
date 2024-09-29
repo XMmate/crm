@@ -264,7 +264,7 @@ public class CrmUploadExcelServiceImpl implements CrmUploadExcelService {
          * 查询导入顺序
          *
          * @param rowList 行数据
-         * @author zhangzhiwei
+         * @author liujiaming
          */
         protected void queryExcelHead(List<Object> rowList) {
             switch (getUploadExcelBO().getCrmEnum()) {

@@ -11,7 +11,7 @@ import com.kakarote.core.servlet.BaseMapper;
  * </p>
  *
  * @author zmj
- * @since 2020-12-02
+ * @since 2024-12-02
  */
 public interface AdminLanguagePackMapper extends BaseMapper<AdminLanguagePack> {
 

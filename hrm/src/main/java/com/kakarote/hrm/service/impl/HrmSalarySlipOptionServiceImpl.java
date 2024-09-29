@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author hmb
- * @since 2020-11-03
+ * @since 2024-11-03
  */
 @Service
 public class HrmSalarySlipOptionServiceImpl extends BaseServiceImpl<HrmSalarySlipOptionMapper, HrmSalarySlipOption> implements IHrmSalarySlipOptionService {

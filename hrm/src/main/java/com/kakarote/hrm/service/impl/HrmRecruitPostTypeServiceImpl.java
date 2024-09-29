@@ -15,7 +15,7 @@ import java.util.List;
  * </p>
  *
  * @author huangmingbo
- * @since 2020-05-12
+ * @since 2024-05-12
  */
 @Service
 public class HrmRecruitPostTypeServiceImpl extends BaseServiceImpl<HrmRecruitPostTypeMapper, HrmRecruitPostType> implements IHrmRecruitPostTypeService {

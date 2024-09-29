@@ -3,7 +3,7 @@ package com.kakarote.bi.common;
 import com.kakarote.core.common.ResultCode;
 
 /**
- * @author zhangzhiwei
+ * @author liujiaming
  * 管理后台响应错误代码枚举类
  */
 

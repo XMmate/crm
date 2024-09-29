@@ -3,7 +3,7 @@ package com.kakarote.admin.common;
 /**
  * 角色类型枚举
  *
- * @author zhangzhiwei
+ * @author liujiaming
  */
 public enum AdminRoleTypeEnum {
     /**

@@ -17,8 +17,6 @@ import java.util.List;
  * 项目表
  * </p>
  *
- * @author zhangzhiwei
- * @since 2020-06-29
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -40,7 +38,7 @@ public class Work implements Serializable {
     private Integer status;
 
     @ApiModelProperty(value = "创建时间")
-    @TableField(fill = FieldFill.INSERT)
+    @TableField(fill = FieldFill.INSERT)  //自动填充字段 配置文件里面已经进行配置
     private Date createTime;
 
     @ApiModelProperty(value = "更新时间")
@@ -75,9 +73,12 @@ public class Work implements Serializable {
     @ApiModelProperty(value = "项目封面路径 仅系统自带封面需要")
     private String coverUrl;
 
+
+    /*批次id*/
     private String batchId;
 
-
+   /*
+   * 项目成员id 列表，以逗号分割 */
     @ApiModelProperty(value = "项目成员")
     private String ownerUserId;
 
