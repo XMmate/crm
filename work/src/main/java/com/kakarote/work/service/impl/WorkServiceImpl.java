@@ -114,7 +114,7 @@ public class WorkServiceImpl extends BaseServiceImpl<WorkMapper, Work> implement
         work.setOwnerUserId(SeparatorUtil.fromLongSet(ownerUserIds));
         work.setCreateUserId(userId);
         save(work);
-        //创建任务分类表
+        //创建项目任务
         WorkTaskClass workTaskClass = new WorkTaskClass();
         workTaskClass.setClassId(0);
         workTaskClass.setName("要做");
@@ -128,6 +128,7 @@ public class WorkServiceImpl extends BaseServiceImpl<WorkMapper, Work> implement
         workTaskClass.setName("待定");
         workTaskClass.setOrderNum(3);
         workTaskClassService.save(workTaskClass);
+        //给每个项目参与成员发通知
         ownerUserIds.forEach(ownerUserId -> {
             WorkUser workUser = new WorkUser();
             workUser.setWorkId(work.getWorkId());
@@ -140,6 +141,7 @@ public class WorkServiceImpl extends BaseServiceImpl<WorkMapper, Work> implement
                 workUserService.save(workUser);
             }
         });
+
         return work.setWorkOwnerRoleList(queryOwnerRoleList(work.getWorkId()));
     }
 
@@ -288,6 +290,10 @@ public class WorkServiceImpl extends BaseServiceImpl<WorkMapper, Work> implement
         return work.setWorkOwnerRoleList(queryOwnerRoleList(workId));
     }
 
+    /**
+     * 删除任务
+     * @param workId
+     */
     @Override
     public void deleteWork(Integer workId) {
         getBaseMapper().deleteTaskRelationByWorkId(workId);
@@ -508,11 +514,22 @@ public class WorkServiceImpl extends BaseServiceImpl<WorkMapper, Work> implement
         }
     }
 
+    /**
+     * 查询归档项目列表
+     * @param pageEntity
+     * @return
+     */
     @Override
     public BasePage<Work> queryArchiveWorkList(PageEntity pageEntity) {
         return page(pageEntity.parse(), new QueryWrapper<Work>().select("work_id", "archive_time", "name", "color").eq("status", "3"));
     }
 
+
+    /**
+     * workType 为id或者all
+     * @param workType
+     * @return
+     */
     @Override
     public WorkStatsVO workStatistics(String workType) {
         WorkStatsVO workStatsVO = new WorkStatsVO();
@@ -546,6 +563,7 @@ public class WorkServiceImpl extends BaseServiceImpl<WorkMapper, Work> implement
             }
             return workStatsVO.setTaskStatistics(taskStatistics).setMemberTaskStatistics(memberTaskStatistics);
         }
+
         Integer workId = Integer.valueOf(workType);
         WorkTaskStatsVO taskStatistics = getBaseMapper().workStatistics(workId, null, null, null);
         String ownerUserId = getOne(new QueryWrapper<Work>().select("owner_user_id").eq("work_id", workId)).getOwnerUserId();

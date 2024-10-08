@@ -9,6 +9,7 @@ import com.kakarote.core.common.log.SysLog;
 import com.kakarote.core.common.log.SysLogHandler;
 import com.kakarote.work.common.log.WorkTaskLabelLog;
 import com.kakarote.work.entity.PO.WorkTaskLabel;
+import com.kakarote.work.entity.VO.LabelIdsVO;
 import com.kakarote.work.service.IWorkTaskLabelService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -65,7 +66,8 @@ public class WorkTaskLabelController {
 
     @PostMapping("/updateOrder")
     @ApiOperation("修改标签排序")
-    public Result updateOrder(@RequestBody List<Integer> labelIdList){
+    public Result updateOrder(@RequestBody LabelIdsVO labelIdsVo){
+        List<Integer> labelIdList = labelIdsVo.getLabelIds();
         workTaskLabelService.updateOrder(labelIdList);
         return R.ok();
     }

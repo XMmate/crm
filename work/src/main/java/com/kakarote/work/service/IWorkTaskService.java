@@ -27,6 +27,10 @@ public interface IWorkTaskService extends BaseService<WorkTask> {
 
     public void updateTop(UpdateTaskTopBo updateTaskClassBo);
 
+    /**
+     * 在项目下新建项目的任务
+     * @param workTask
+     */
     public void saveWorkTask(WorkTask workTask);
 
     public boolean updateWorkTask(WorkTask task);
@@ -61,10 +65,18 @@ public interface IWorkTaskService extends BaseService<WorkTask> {
 
     public TaskDetailVO queryTrashTaskInfo(Integer taskId);
 
+    /**
+     * 删除任务
+     * @param taskId
+     */
     public void deleteWorkTask(Integer taskId);
 
     public void archiveByTaskId(Integer taskId);
 
+    /**
+     * 查看回收站任务列表
+     * @return
+     */
     public List<TaskInfoVO> queryTrashList();
 
     public void deleteTask(Integer taskId);

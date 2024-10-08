@@ -16,6 +16,10 @@ import java.util.List;
  */
 public interface IWorkTaskLogService extends BaseService<WorkTaskLog> {
 
+    /**
+     * 保存任务日志
+     * @param workTaskLog
+     */
     public void saveWorkTaskLog(WorkTaskLog workTaskLog);
 
     public List<WorkTaskLogVO> queryTaskLog(Integer taskId);

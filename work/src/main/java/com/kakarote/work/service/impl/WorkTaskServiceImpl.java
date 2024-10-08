@@ -135,6 +135,11 @@ public class WorkTaskServiceImpl extends BaseServiceImpl<WorkTaskMapper, WorkTas
         return result;
     }
 
+    /**
+     * 任务列表转移
+     * @param taskList
+     */
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void taskListTransfer(List<TaskInfoVO> taskList) {
@@ -176,6 +181,11 @@ public class WorkTaskServiceImpl extends BaseServiceImpl<WorkTaskMapper, WorkTas
         });
     }
 
+    /**
+     * 工作台移动任务
+     * @param updateTaskClassBo
+     */
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateTop(UpdateTaskTopBo updateTaskClassBo) {
@@ -195,7 +205,7 @@ public class WorkTaskServiceImpl extends BaseServiceImpl<WorkTaskMapper, WorkTas
 
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class)  //出现异常就会回滚
     public void saveWorkTask(WorkTask task) {
         UserInfo user = UserUtil.getUser();
         if (task.getMainUserId() == null) {
@@ -217,6 +227,7 @@ public class WorkTaskServiceImpl extends BaseServiceImpl<WorkTaskMapper, WorkTas
         if (StrUtil.isNotEmpty(labelId)) {
             task.setLabelId(SeparatorUtil.fromString(labelId));
         }
+        //这里已经保存任务了
         boolean isSave = save(task);
         WorkTaskLog workTaskLog = new WorkTaskLog();
         workTaskLog.setUserId(user.getUserId());
@@ -234,8 +245,9 @@ public class WorkTaskServiceImpl extends BaseServiceImpl<WorkTaskMapper, WorkTas
                 ids.add(task.getMainUserId());
             }
             adminMessageBO.setIds(ids);
-            //分配给我的任务
+            //分配给我的任务。添加到消息表
             ApplicationContextHolder.getBean(AdminMessageService.class).sendMessage(adminMessageBO);
+
             adminMessageBO.setMessageType(AdminMessageEnum.OA_TASK_JOIN.getType());
             ids = new ArrayList<>(StrUtil.splitTrim(task.getOwnerUserId(), Const.SEPARATOR).stream().map(Long::valueOf).collect(Collectors.toList()));
             adminMessageBO.setIds(ids);
@@ -863,9 +875,15 @@ public class WorkTaskServiceImpl extends BaseServiceImpl<WorkTaskMapper, WorkTas
         return task;
     }
 
+    /**
+     * 删除任务
+     * @param taskId
+     */
+
     @Override
     public void deleteWorkTask(Integer taskId) {
         WorkTask workTask = getOne(new QueryWrapper<WorkTask>().select("pid").eq("task_id", taskId));
+        //不是顶级任务，直接删除
         if (!Objects.equals(workTask.getPid(), 0)) {
             removeById(taskId);
         } else {
@@ -885,6 +903,10 @@ public class WorkTaskServiceImpl extends BaseServiceImpl<WorkTaskMapper, WorkTas
         updateById(new WorkTask().setTaskId(taskId).setIsArchive(1).setArchiveTime(new Date()));
     }
 
+    /**
+     * 查询回收站任务列表
+     * @return
+     */
     @Override
     public List<TaskInfoVO> queryTrashList() {
         List<TaskInfoVO> taskInfoVOList;
@@ -893,6 +915,7 @@ public class WorkTaskServiceImpl extends BaseServiceImpl<WorkTaskMapper, WorkTas
         } else {
             taskInfoVOList = getBaseMapper().queryTrashList(UserUtil.getUserId());
         }
+        // todo 待验证taskListTransfer（）的作用
         taskListTransfer(taskInfoVOList);
         return taskInfoVOList;
     }
@@ -915,6 +938,11 @@ public class WorkTaskServiceImpl extends BaseServiceImpl<WorkTaskMapper, WorkTas
         lambdaUpdate().eq(WorkTask::getPid,taskId).remove();
 
     }
+
+    /**
+     * 还原任务
+     * @param taskId
+     */
 
     @Override
     public void restore(Integer taskId) {

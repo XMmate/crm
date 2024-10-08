@@ -38,8 +38,8 @@ public class WorkTaskCommentServiceImpl extends BaseServiceImpl<WorkTaskCommentM
     /**
      * 查询评论列表
      *
-     * @param typeId typeId
-     * @param type   type
+     * @param typeId typeId 任务id
+     * @param type   type 类型
      * @return data
      */
     @Override
@@ -47,6 +47,7 @@ public class WorkTaskCommentServiceImpl extends BaseServiceImpl<WorkTaskCommentM
         LambdaQueryChainWrapper<WorkTaskComment> chainWrapper = lambdaQuery();
         chainWrapper.eq(WorkTaskComment::getType, type);
         chainWrapper.eq(WorkTaskComment::getTypeId, typeId);
+        //按时间排序
         chainWrapper.orderByAsc(WorkTaskComment::getCreateTime);
         List<WorkTaskComment> taskCommentList = chainWrapper.list();
         if (taskCommentList == null || taskCommentList.size() == 0) {
@@ -86,6 +87,7 @@ public class WorkTaskCommentServiceImpl extends BaseServiceImpl<WorkTaskCommentM
             comment.setCreateTime(new Date());
             comment.setUserId(UserUtil.getUserId());
             save(comment);
+            //日志评论
             if (comment.getType().equals(2)) {
                 AdminMessageBO adminMessageBO = new AdminMessageBO();
                 JSONObject object = getBaseMapper().queryOaLog(comment.getTypeId());

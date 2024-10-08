@@ -34,6 +34,10 @@ public class WorkOrder implements Serializable {
 
     private Long userId;
 
+
+    /**
+     * 顺序
+     */
     private Integer orderNum;
 
 

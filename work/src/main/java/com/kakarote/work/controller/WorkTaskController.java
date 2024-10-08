@@ -48,6 +48,11 @@ public class WorkTaskController {
         return R.ok(workTaskService.myTask(workTaskNameBO,false));
     }
 
+    /**
+     * 任务框可以随意拖动的
+     * @param updateTaskClassBo
+     * @return
+     */
     @PostMapping("/updateTop")
     @ApiOperation("工作台移动任务")
     public Result updateTop(@RequestBody UpdateTaskTopBo updateTaskClassBo){
@@ -56,7 +61,7 @@ public class WorkTaskController {
     }
 
     @PostMapping("/saveWorkTask")
-    @ApiOperation("新建项目任务")
+    @ApiOperation("在项目下新建项目任务")
     @SysLogHandler(behavior = BehaviorEnum.SAVE,object = "#workTask.name",detail = "'新建了任务:'+#workTask.name")
     public Result saveWorkTask(@RequestBody WorkTask workTask){
         workTaskService.saveWorkTask(workTask);
@@ -119,7 +124,7 @@ public class WorkTaskController {
     }
 
     @PostMapping("/setWorkTaskLabel")
-    @ApiOperation("设置项目任务标签")
+    @ApiOperation("设置任务标签")
     @SysLogHandler(behavior = BehaviorEnum.UPDATE)
     public Result setWorkTaskLabel(@RequestBody WorkTaskLabelsBO workTaskLabelsBO){
         workTaskService.setWorkTaskLabel(workTaskLabelsBO);

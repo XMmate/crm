@@ -65,17 +65,21 @@ public class WorkAuthUtil {
      * @return
      */
     public boolean isTaskAuth(Integer taskId) {
+        if (UserUtil.isAdmin()){
+            return true;
+        }
+        Long userId = UserUtil.getUserId();
         WorkTask workTask = workTaskService.getById(taskId);
+        if (ObjectUtil.equal(workTask.getMainUserId(), userId)){
+        return true;
+        }
         if (ObjectUtil.isNotEmpty(workTask) && ObjectUtil.equal(workTask.getWorkId(), 0)) {
-            if (UserUtil.isAdmin()) {
-                return true;
-            } else {
-                Long userId = UserUtil.getUserId();
+                //该用户下级的用户
                 List<Long> subUserIdList = UserCacheUtil.queryChildUserId(userId);
+                //团队成员
                 Set<Long> ownerUserIdList = TagUtil.toLongSet(workTask.getOwnerUserId());
                 subUserIdList.retainAll(ownerUserIdList);
                 return ObjectUtil.equal(workTask.getMainUserId(), userId) || ownerUserIdList.contains(userId) || subUserIdList.size() > 0;
-            }
         }
         return isWorkAuth(workTask.getWorkId());
     }

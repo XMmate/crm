@@ -30,7 +30,7 @@ public class WorkTask implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @ApiModelProperty(value = "任务表")
+    @ApiModelProperty(value = "任务id")
     @TableId(value = "task_id", type = IdType.AUTO)
     private Integer taskId;
 
@@ -67,7 +67,7 @@ public class WorkTask implements Serializable {
     @ApiModelProperty(value = "描述")
     private String description;
 
-    @ApiModelProperty(value = "上级ID")
+    @ApiModelProperty(value = "上级ID")  //如果是0表示根任务
     private Integer pid;
 
     @ApiModelProperty(value = "开始时间")

@@ -45,7 +45,7 @@ import java.util.*;
 
 /**
  * <p>
- * 项目表 前端控制器
+ * 项目 前端控制器
  * </p>
  *
  * @author liujiaming
@@ -87,7 +87,7 @@ public class WorkController {
     }
 
     @PostMapping("/getWorkById")
-    @ApiOperation("编辑项目")
+    @ApiOperation("获取项目详情")
     public Result<WorkInfoVo> getWorkById(@RequestParam("workId") Integer workId) {
         WorkInfoVo workInfoVo = workService.queryById(workId);
         return R.ok(workInfoVo);
@@ -101,6 +101,12 @@ public class WorkController {
         return R.ok();
     }
 
+
+    /**
+     * workSort 为排序方式
+     * @param workTaskQueryBO
+     * @return
+     */
     @PostMapping("/queryWorkNameList")
     @ApiOperation("查询项目信息列表")
     public Result queryWorkNameList(@RequestBody WorkTaskQueryBO workTaskQueryBO) {
@@ -113,6 +119,11 @@ public class WorkController {
         return R.ok(workService.queryWorkTaskList(workTaskQueryBO));
     }
 
+    /**
+     * 在做，要做，待做，不知道
+     * @param workTaskTemplateBO
+     * @return
+     */
     @PostMapping("/queryTaskByWorkId")
     @ApiOperation("查询项目任务模板")
     public Result queryTaskByWorkId(@RequestBody WorkTaskTemplateBO workTaskTemplateBO) {
@@ -138,6 +149,11 @@ public class WorkController {
         return R.ok(workService.queryArchiveWorkList(pageEntity));
     }
 
+    /**
+     * workId 为id或者all
+     * @param workId
+     * @return
+     */
     @PostMapping("/workStatistics/{workId}")
     @ApiOperation("查询项目任务统计")
     public Result workStatistics(@PathVariable @NotNull String workId) {

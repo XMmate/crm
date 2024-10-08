@@ -23,6 +23,11 @@ public interface AdminMessageService {
     @PostMapping("/adminMessage/getById/{messageId}")
     public Result<AdminMessage> getById(@PathVariable Long messageId);
 
+    /**
+     * 调用发送消息接口
+     * @param adminMessageBO
+     * @return
+     */
     @PostMapping("/adminMessage/sendMessage")
     public Result<AdminMessage> sendMessage(@RequestBody AdminMessageBO adminMessageBO);
 

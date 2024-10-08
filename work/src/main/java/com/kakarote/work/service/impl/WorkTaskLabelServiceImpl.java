@@ -73,6 +73,11 @@ public class WorkTaskLabelServiceImpl extends BaseServiceImpl<WorkTaskLabelMappe
         return labelList.stream().sorted(Comparator.comparingInt(WorkTaskLabelOrderVO::getOrderNum)).collect(Collectors.toList());
     }
 
+
+    /**
+     * 修改标签排序
+     * @param labelIdList
+     */
     @Override
     public void updateOrder(List<Integer> labelIdList) {
         Long userId = UserUtil.getUserId();

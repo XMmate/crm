@@ -70,7 +70,7 @@ public class OaTaskController {
     }
 
     @PostMapping("/setWorkTaskLabel")
-    @ApiOperation("设置项目任务标签")
+    @ApiOperation("标签绑定")
     public Result setWorkTaskLabel(@RequestBody WorkTaskLabelsBO workTaskLabelsBO){
         return oaTaskService.setWorkTaskLabel(workTaskLabelsBO);
     }

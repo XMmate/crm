@@ -21,6 +21,11 @@ import java.util.List;
 @Service
 public class WorkOrderServiceImpl extends BaseServiceImpl<WorkOrderMapper, WorkOrder> implements IWorkOrderService {
 
+
+    /**
+     * 项目排序
+     * @param workIdList
+     */
     @Override
     public void updateWorkOrder(List<Integer> workIdList) {
         Long userId = UserUtil.getUserId();

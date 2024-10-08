@@ -24,6 +24,10 @@ import java.util.List;
  */
 @Service
 public class WorkTaskLogServiceImpl extends BaseServiceImpl<WorkTaskLogMapper, WorkTaskLog> implements IWorkTaskLogService {
+    /**
+     * 保存任务日志
+     * @param workTaskLog
+     */
     @Override
     public void saveWorkTaskLog(WorkTaskLog workTaskLog) {
         workTaskLog.setCreateTime(DateUtil.date());

@@ -31,11 +31,11 @@ public class WorkTaskLabelOrder implements Serializable {
     private Integer orderId;
 
     private Integer labelId;
-
+    /**
+     * 标签是每个用户独有的，每个用户都可以任务打标签
+     */
     private Long userId;
 
     private Integer orderNum;
-
-
 
 }

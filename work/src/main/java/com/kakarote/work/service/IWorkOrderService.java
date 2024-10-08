@@ -14,5 +14,9 @@ import java.util.List;
  * @since 2024-05-15
  */
 public interface IWorkOrderService extends BaseService<WorkOrder> {
+    /**
+     * 项目排序
+     * @param workIdList
+     */
     public void updateWorkOrder(List<Integer> workIdList);
 }

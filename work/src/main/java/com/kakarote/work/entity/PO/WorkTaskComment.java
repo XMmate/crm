@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * <p>
- * 任务评论表
+ * 项目任务任务评论表
  * </p>
  *
  * @author liujiaming
@@ -29,7 +29,7 @@ public class WorkTaskComment implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @ApiModelProperty(value = "评论表")
+    @ApiModelProperty(value = "评论id")
     @TableId(value = "comment_id", type = IdType.AUTO)
     private Integer commentId;
 

@@ -94,7 +94,6 @@ public class WorkCommonServiceImpl implements IWorkCommonService {
      * @date 2024/11/20 15:41
      * @param baseService
      * @param resultColumn
-     * @param queryColumn
      * @param mapper
      * @return void
      **/

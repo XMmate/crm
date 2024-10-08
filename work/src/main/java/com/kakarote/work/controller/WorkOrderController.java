@@ -29,6 +29,12 @@ public class WorkOrderController {
     @Autowired
     private IWorkOrderService workOrderService;
 
+    /**
+     * 前端通过拖动图标触发
+     * 传过来的一个期望排序的项目id数组
+     * @param workIdList
+     * @return
+     */
     @PostMapping("/updateWorkOrder")
     @ApiOperation("修改项目排序")
     public Result updateWorkOrder(@RequestBody List<Integer> workIdList){

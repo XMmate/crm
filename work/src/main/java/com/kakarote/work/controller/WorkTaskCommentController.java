@@ -47,6 +47,13 @@ public class WorkTaskCommentController {
     @Autowired
     private IWorkTaskCommentService workTaskCommentService;
 
+
+    /**
+     *
+     * @param typeId typeId是任务id
+     * @param type   1：任务评论  2：日志评论
+     * @return
+     */
     @ApiOperation("查询评论列表")
     @PostMapping("/queryCommentList")
     public Result<List<WorkTaskComment>> queryCommentList(@ApiParam("类型ID") @RequestParam("typeId") Integer typeId, @ApiParam("类型") @RequestParam("type") Integer type) {

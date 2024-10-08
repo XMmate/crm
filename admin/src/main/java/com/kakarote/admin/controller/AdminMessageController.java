@@ -123,6 +123,7 @@ public class AdminMessageController {
         return Result.ok(adminMessage);
     }
 
+
     @PostMapping("/queryUnreadCount")
     @ApiOperation("查询未读消息")
     public Result<AdminMessageVO> queryUnreadCount() {
@@ -165,6 +166,11 @@ public class AdminMessageController {
         }
     }
 
+    /**
+     * 供远程微服务调用
+     * @param adminMessageBO
+     * @return
+     */
     @PostMapping("/sendMessage")
     @ApiExplain("发送消息")
     public Result sendMessage(@RequestBody AdminMessageBO adminMessageBO) {
