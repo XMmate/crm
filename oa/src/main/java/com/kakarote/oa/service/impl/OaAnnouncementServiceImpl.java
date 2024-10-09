@@ -109,10 +109,12 @@ public class OaAnnouncementServiceImpl extends BaseServiceImpl<OaAnnouncementMap
         if (announcement == null){
             throw new CrmException(OaCodeEnum.ANNOUNCEMENT_ALREADY_DELETE);
         }
-        List<SimpleDept> deptList = adminService.queryDeptByIds(TagUtil.toSet(announcement.getDeptIds())).getData();
-        announcement.setDeptList(deptList);
-        List<SimpleUser> userList = UserCacheUtil.getSimpleUsers(TagUtil.toLongSet(announcement.getOwnerUserIds()));
-        announcement.setOwnerUserList(userList);
+        if (UserUtil.isAdmin()){
+            List<SimpleDept> deptList = adminService.queryDeptByIds(TagUtil.toSet(announcement.getDeptIds())).getData();
+            announcement.setDeptList(deptList);
+            List<SimpleUser> userList = UserCacheUtil.getSimpleUsers(TagUtil.toLongSet(announcement.getOwnerUserIds()));
+            announcement.setOwnerUserList(userList);
+        }
         return announcement;
     }
 
