@@ -12,7 +12,7 @@ public class AdminMessageQueryBO extends PageEntity {
     @ApiModelProperty("是否已读")
     private Integer isRead;
 
-    @ApiModelProperty("label")
+    @ApiModelProperty(value = "label 消息大类 1 任务 2 日志 3 oa审批 4公告 5 日程 6 crm消息")
     private Integer label;
 
     @ApiModelProperty("用户ID")

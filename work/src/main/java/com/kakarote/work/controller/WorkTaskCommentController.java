@@ -50,7 +50,7 @@ public class WorkTaskCommentController {
 
     /**
      *
-     * @param typeId typeId是任务id
+     * @param typeId typeId是任务i
      * @param type   1：任务评论  2：日志评论
      * @return
      */

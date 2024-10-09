@@ -85,6 +85,9 @@ public class AdminUserServiceImpl extends BaseServiceImpl<AdminUserMapper, Admin
     @Autowired
     private CrmService crmService;
 
+    @Autowired
+    private  IAdminDeptService iAdminDeptService;
+
     @CreateCache(name = Const.ADMIN_USER_NAME_CACHE_NAME, expire = 3, timeUnit = TimeUnit.DAYS)
     private Cache<Long, SimpleUser> userCache;
 
@@ -733,7 +736,7 @@ public class AdminUserServiceImpl extends BaseServiceImpl<AdminUserMapper, Admin
 
     /**
      * 根据部门ids查询用户列表
-     *
+     * 2024年10月9日 liujiaming修改了查找算法,先查找子部门再往下面查找
      * @param ids id列表
      * @return data
      */
@@ -742,12 +745,18 @@ public class AdminUserServiceImpl extends BaseServiceImpl<AdminUserMapper, Admin
         if (ids.size() == 0) {
             return new ArrayList<>();
         }
+    List<Integer> newIds=    new ArrayList<>();
+       // 先查询子部门列表
+        for (Integer id : ids) {
+            newIds.addAll(iAdminDeptService.queryChildDept(id) );
+        }
+        newIds.addAll(ids);
         LambdaQueryWrapper<AdminUser> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.select(AdminUser::getUserId);
-        if (ids.size() > 1) {
-            queryWrapper.in(AdminUser::getDeptId, ids);
+        if (newIds.size() > 1) {
+            queryWrapper.in(AdminUser::getDeptId, newIds);
         } else {
-            queryWrapper.eq(AdminUser::getDeptId, ids.get(0));
+            queryWrapper.eq(AdminUser::getDeptId, newIds.get(0));
         }
         return listObjs(queryWrapper, obj -> Long.valueOf(obj.toString()));
     }

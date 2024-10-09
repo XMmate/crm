@@ -55,6 +55,8 @@ public class AdminMessageServiceImpl extends BaseServiceImpl<AdminMessageMapper,
     public BasePage<AdminMessage> queryList(AdminMessageQueryBO adminMessageBO) {
         adminMessageBO.setUserId(UserUtil.getUserId());
         BasePage<AdminMessage> adminMessageBasePage = getBaseMapper().queryList(adminMessageBO.parse(), adminMessageBO);
+
+
         if (Arrays.asList(14, 16, 18, 20).contains(adminMessageBO.getType())) {
             adminMessageBasePage.getList().forEach(data -> {
                 List<String> splitTrim = StrUtil.splitTrim(data.getContent(), Const.SEPARATOR);

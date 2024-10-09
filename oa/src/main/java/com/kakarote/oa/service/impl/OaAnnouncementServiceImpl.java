@@ -44,6 +44,11 @@ public class OaAnnouncementServiceImpl extends BaseServiceImpl<OaAnnouncementMap
     @Autowired
     private AdminService adminService;
 
+
+    /**
+     * 添加公告 发送通知
+     * @param oaAnnouncement
+     */
     @Override
     public void addOaAnnouncement(OaAnnouncement oaAnnouncement) {
         oaAnnouncement.setDeptIds(SeparatorUtil.fromString(oaAnnouncement.getDeptIds()));
@@ -51,14 +56,22 @@ public class OaAnnouncementServiceImpl extends BaseServiceImpl<OaAnnouncementMap
         oaAnnouncement.setCreateTime(DateUtil.date());
         oaAnnouncement.setUpdateTime(DateUtil.date());
         save(oaAnnouncement);
+        System.out.println("标记打印oaAnnouncement.getOwnerUserIds()"+oaAnnouncement.getOwnerUserIds());
+       //ids算法有问题
         List<Long> ids = new ArrayList<>();
         if (StrUtil.isAllEmpty(oaAnnouncement.getOwnerUserIds(), oaAnnouncement.getDeptIds())) {
             ids.addAll(adminService.queryUserList(2).getData());
         } else {
+
+            System.out.println("标记打印ids"+StrUtil.splitTrim(oaAnnouncement.getOwnerUserIds(), Const.SEPARATOR).stream().map(Long::valueOf).collect(Collectors.toList()));
             ids.addAll(StrUtil.splitTrim(oaAnnouncement.getOwnerUserIds(), Const.SEPARATOR).stream().map(Long::valueOf).collect(Collectors.toList()));
             List<Integer> deptIds = StrUtil.splitTrim(oaAnnouncement.getDeptIds(), Const.SEPARATOR).stream().map(Integer::valueOf).collect(Collectors.toList());
             if (deptIds.size() > 0) {
+                System.out.println("deptIds"+deptIds);
+                System.out.println();
                 ids.addAll(adminService.queryUserByDeptIds(deptIds).getData());
+                System.out.println(adminService.queryUserByDeptIds(deptIds).getData());
+                System.out.println(ids);
             }
             ids.add(UserUtil.getUserId());
         }
@@ -84,6 +97,12 @@ public class OaAnnouncementServiceImpl extends BaseServiceImpl<OaAnnouncementMap
         removeById(announcementId);
     }
 
+
+    /**
+     * 查看公告内容
+     * @param announcementId
+     * @return
+     */
     @Override
     public OaAnnouncement queryById(Integer announcementId) {
         OaAnnouncement announcement = getById(announcementId);

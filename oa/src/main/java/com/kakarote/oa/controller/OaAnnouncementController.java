@@ -52,7 +52,7 @@ public class OaAnnouncementController {
     }
 
     @PostMapping("/queryById/{announcementId}")
-    @ApiOperation("查询公告")
+    @ApiOperation("查看公告详细信息")
     public Result queryById(@PathVariable @NotNull Integer announcementId){
         return R.ok(oaAnnouncementService.queryById(announcementId));
     }
