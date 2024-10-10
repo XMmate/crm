@@ -1,4 +1,4 @@
-package com.kakarote.job.oa;
+package com.kakarote.job.service.oa;
 
 import com.kakarote.core.common.cache.OaCacheKey;
 import com.kakarote.core.feign.oa.service.OaService;
@@ -21,7 +21,6 @@ public class EventNoticeJob {
     /**
      * 定时器日程提醒
      */
-
     @XxlJob("EventNoticeJob")
     public ReturnT<String> EventNoticeJobHandler(String param) {
         try {

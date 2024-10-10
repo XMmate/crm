@@ -22,9 +22,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.xml.crypto.Data;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static org.xnio._private.Messages.msg;
 
 /**
  * @author liujiaming
@@ -96,9 +99,10 @@ public class OaCommonServiceImpl implements IOaCommonService {
                 throw new CrmException(SystemCodeEnum.SYSTEM_NO_AUTH);
             }
         }
-        log.info("日志模块数据初始化完成！");
+        log.info("日志模块数据初始化开始！");
+        //初始化公告
         oaAnnouncementService.lambdaUpdate().remove();
-
+        //删除附件
         this.deleteFile(oaLogService,OaLog::getBatchId,OaLog::getBatchId);
         oaLogService.lambdaUpdate().remove();
         oaLogBulletinService.lambdaUpdate().remove();
@@ -117,7 +121,7 @@ public class OaCommonServiceImpl implements IOaCommonService {
                 throw new CrmException(SystemCodeEnum.SYSTEM_NO_AUTH);
             }
         }
-        log.info("开始初始化日历模块数据！");
+        log.info("开始初始化日程模块数据！");
         LambdaQueryWrapper<OaCalendarType> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.select(OaCalendarType::getTypeId);
         lambdaQueryWrapper.eq(OaCalendarType::getType,2);
@@ -134,7 +138,7 @@ public class OaCommonServiceImpl implements IOaCommonService {
         oaEventUpdateRecordService.lambdaUpdate().remove();
 
         adminMessageService.deleteByLabel(5);
-        log.info("日历模块数据初始化完成！");
+        log.info("日程模块数据初始化完成！");
         return true;
     }
 

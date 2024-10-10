@@ -229,10 +229,10 @@ public class ExamineRecordServiceImpl extends BaseServiceImpl<ExamineRecordMappe
         UserInfo userInfo = UserUtil.getUser();
         examineBO.setExamineUserId(userInfo.getUserId());
         BaseUtil.getRedis().del(CrmCacheKey.CRM_BACKLOG_NUM_CACHE_KEY + userInfo.getUserId().toString());
-        //查询当前审批日志
+
         ExamineRecordLog recordLog;
         if (ExamineStatusEnum.RECHECK.getStatus().equals(examineBO.getStatus())) {
-            //撤回
+            //撤回审核
             recordLog = examineRecordLogService.lambdaQuery()
                     .eq(ExamineRecordLog::getExamineStatus, ExamineStatusEnum.UNDERWAY.getStatus())
                     .eq(ExamineRecordLog::getRecordId, examineBO.getRecordId())

@@ -1,4 +1,4 @@
-package com.kakarote.job.work;
+package com.kakarote.job.service.work;
 
 import com.kakarote.core.feign.work.service.WorkService;
 import com.xxl.job.core.biz.model.ReturnT;

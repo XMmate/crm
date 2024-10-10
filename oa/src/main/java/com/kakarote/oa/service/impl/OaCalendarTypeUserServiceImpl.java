@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * <p>
- * 用户关联日历类型 服务实现类
+ * 用户关联日程类型 服务实现类
  * </p>
  *
  * @author liujiaming

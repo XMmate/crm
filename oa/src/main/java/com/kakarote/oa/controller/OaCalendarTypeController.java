@@ -24,7 +24,7 @@ import java.util.Map;
 
 /**
  * <p>
- * 日历类型 前端控制器
+ * 日程类型 前端控制器
  * </p>
  *
  * @author liujiaming
@@ -32,17 +32,21 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/oaCalendar")
-@Api(tags = "日历")
+@Api(tags = "日程")
 public class OaCalendarTypeController {
 
     @Autowired
     private IOaCalendarTypeService calendarTypeService;
 
 
-
+    /**
+     * 这个接口在企业后台那里
+     * @param oaCalendarType
+     * @return
+     */
     @PostMapping("/addOrUpdate")
     @ApiOperation("添加/更新日程类型")
-    @SysLogHandler(applicationName = "admin",subModel = SubModelType.ADMIN_OTHER_SETTINGS,behavior = BehaviorEnum.UPDATE,object = "日历类型设置",detail = "日历类型设置")
+    @SysLogHandler(applicationName = "admin",subModel = SubModelType.ADMIN_OTHER_SETTINGS,behavior = BehaviorEnum.UPDATE,object = "日程类型设置",detail = "日程类型设置")
     public Result addOrUpdate(@RequestBody OaCalendarType oaCalendarType) {
         calendarTypeService.addOrUpdateType(oaCalendarType);
         return Result.ok();
@@ -64,10 +68,10 @@ public class OaCalendarTypeController {
     }
 
     /**
-     * 根据查询个人日历类型列表
+     * 根据查询个人日程类型列表
      */
     @PostMapping("/queryTypeListByUser")
-    @ApiOperation("根据查询后台日历类型列表")
+    @ApiOperation("根据查询后台日程类型列表")
     public Result<List<OaCalendarType>> queryTypeListByUser(Long userId) {
         if (userId == null) {
             userId = UserUtil.getUserId();
@@ -76,8 +80,9 @@ public class OaCalendarTypeController {
         return Result.ok(calendarTypeList);
     }
 
+    //todo 没搞明白
     @PostMapping("/updateTypeUser")
-    @ApiOperation("修改用户展示的日历类型")
+    @ApiOperation("修改用户展示的日程类型")
     public Result updateTypeUser(@RequestBody UpdateTypeUserBO updateTypeUserBO) {
         calendarTypeService.updateTypeUser(updateTypeUserBO);
         return Result.ok();
@@ -92,7 +97,7 @@ public class OaCalendarTypeController {
     }
 
     /**
-     * crm统计--前端展示日历使用
+     * crm统计--前端展示日程使用
      */
     @PostMapping("/eventCrm")
     @ApiOperation("日程任务")

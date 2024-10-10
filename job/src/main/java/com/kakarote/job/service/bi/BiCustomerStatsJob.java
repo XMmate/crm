@@ -1,4 +1,4 @@
-package com.kakarote.job.bi;
+package com.kakarote.job.service.bi;
 
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.annotation.XxlJob;

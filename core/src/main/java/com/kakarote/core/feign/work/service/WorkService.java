@@ -12,12 +12,13 @@ public interface WorkService {
      * 更新任务
      * @return
      */
-
     @PostMapping("/workTask/updateTaskJob")
     Result updateTaskJob();
 
-
+    /**
+     * 初始化项目模块
+     * @return
+     */
     @PostMapping("/work/initWorkData")
     Result<Boolean> initWorkData();
-
 }

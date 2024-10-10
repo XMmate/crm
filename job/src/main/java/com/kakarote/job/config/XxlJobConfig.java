@@ -4,6 +4,7 @@ import com.xxl.job.core.executor.impl.XxlJobSpringExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.commons.util.InetUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -70,6 +71,14 @@ public class XxlJobConfig {
      *      3、获取IP
      *          String ip_ = inetUtils.findFirstNonLoopbackHostInfo().getIpAddress();
      */
+
+    @Bean
+    public String xxlJobIp(InetUtils inetUtils) {
+        // 获取当前合适的 IP 地址（可以根据网卡名称来定制）
+//        String ip = inetUtils.findFirstNonLoopbackAddress().getHostAddress();
+        // 设置 XXL-Job 使用的 IP 地址
+        return "100.75.176.55";
+    }
 
 
 }

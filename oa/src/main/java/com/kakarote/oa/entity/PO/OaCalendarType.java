@@ -12,7 +12,7 @@ import java.util.Date;
 
 /**
  * <p>
- * 日历类型
+ * 日程类型
  * </p>
  *
  * @author liujiaming
@@ -22,12 +22,12 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("wk_oa_calendar_type")
-@ApiModel(value="OaCalendarType对象", description="日历类型")
+@ApiModel(value="OaCalendarType对象", description="日程类型")
 public class OaCalendarType implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @ApiModelProperty(value = "日历类型id")
+    @ApiModelProperty(value = "日程类型id")
     @TableId(value = "type_id", type = IdType.AUTO)
     private Integer typeId;
 

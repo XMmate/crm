@@ -59,13 +59,13 @@ public class OaLogController {
     private IOaLogUserFavourService oaLogUserFavourService;
 
     @PostMapping("/initOaData")
-    @ApiExplain("初始化日志数据")
+    @ApiExplain("初始化oa数据")
     public Result<Boolean> initOaData() {
         return R.ok(oaCommonService.initOaData());
     }
 
     @PostMapping("/initCalendarData")
-    @ApiExplain("初始化日历数据")
+    @ApiExplain("初始化日程数据")
     public Result<Boolean> initCalendarData() {
         return R.ok(oaCommonService.initCalendarData());
     }
@@ -93,7 +93,7 @@ public class OaLogController {
      * 获取日志欢迎语
      */
     @PostMapping("/getLogWelcomeSpeech")
-    @ApiOperation("获取日志欢迎语")
+    @ApiOperation("获取系统欢迎语")
     public Result<String> getLogWelcomeSpeech() {
         String value = oaLogService.getLogWelcomeSpeech();
         return R.ok(value);

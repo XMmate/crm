@@ -41,10 +41,8 @@ public class ExamineRecordController {
         ExamineRecordReturnVO examineRecordVO = examineRecordService.addExamineRecord(examineRecordSaveBO);
         return Result.ok(examineRecordVO);
     }
-
-
     /**
-     * 通过或拒绝
+     * 通过 或 拒绝 撤回
      * @param examineBO
      * @return
      */

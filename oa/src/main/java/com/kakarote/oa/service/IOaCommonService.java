@@ -13,7 +13,7 @@ public interface IOaCommonService {
     boolean initOaData();
 
     /**
-     * 初始化日历数据
+     * 初始化日程数据
      * @return boolean
      */
     boolean initCalendarData();

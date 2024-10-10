@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 用户关联日历类型
+ * 用户关联日程类型
  * </p>
  *
  * @author liujiaming
@@ -23,7 +23,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("wk_oa_calendar_type_user")
-@ApiModel(value="OaCalendarTypeUser对象", description="用户关联日历类型")
+@ApiModel(value="OaCalendarTypeUser对象", description="用户关联日程类型")
 public class OaCalendarTypeUser implements Serializable {
 
     private static final long serialVersionUID=1L;
@@ -34,7 +34,7 @@ public class OaCalendarTypeUser implements Serializable {
     @ApiModelProperty(value = "用户id")
     private Long userId;
 
-    @ApiModelProperty(value = "日历类型id")
+    @ApiModelProperty(value = "日程类型id")
     private Integer typeId;
 
 

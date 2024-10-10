@@ -31,7 +31,7 @@ import java.util.Set;
  */
 @RestController
 @RequestMapping("/oaEvent")
-@Api(tags = "日历-日程")
+@Api(tags = "日程-日程")
 @SysLog(subModel = SubModelType.OA_CALENDAR,logClass = OaEventLog.class)
 public class OaEventController {
 
@@ -39,7 +39,7 @@ public class OaEventController {
     private IOaEventService oaEventService;
 
     @PostMapping("/save")
-    @ApiOperation("保存日程")
+    @ApiOperation("新建日程")
     @SysLogHandler(behavior = BehaviorEnum.SAVE,object = "#setEventBO.event.title",detail = "'新建了日程:'+#setEventBO.event.title")
     public Result save(@RequestBody SetEventBO setEventBO){
         oaEventService.saveEvent(setEventBO);
@@ -73,7 +73,7 @@ public class OaEventController {
     }
 
     @PostMapping("/queryListStatus")
-    @ApiOperation("查询小日历")
+    @ApiOperation("查询小日程")
     public Result<Set<String>> queryListStatus(@RequestBody QueryEventListBO queryEventListBO){
         Set<String> dateList = oaEventService.queryListStatus(queryEventListBO);
         return Result.ok(dateList);

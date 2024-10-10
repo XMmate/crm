@@ -28,6 +28,7 @@ public class OaTaskController {
     private IOaTaskService oaTaskService;
 
     @PostMapping("/saveWorkTask")
+    @ApiOperation("新建项目任务")
     public Result saveWorkTask(@RequestBody WorkTask workTask){
         return oaTaskService.saveWorkTask(workTask);
     }
@@ -117,6 +118,12 @@ public class OaTaskController {
         return oaTaskService.deleteWorkChildTask(taskId);
     }
 
+
+    /**
+     * 我的任务 下属任务
+     * @param oaTaskListBO
+     * @return
+     */
     @PostMapping("/queryTaskList")
     @ApiOperation("查看oa任务列表")
     public Result<OaTaskListVO> queryTaskList(@RequestBody OaTaskListBO oaTaskListBO){

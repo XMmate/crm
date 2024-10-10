@@ -5,7 +5,7 @@ import com.kakarote.oa.entity.PO.OaCalendarTypeUser;
 
 /**
  * <p>
- * 用户关联日历类型 Mapper 接口
+ * 用户关联日程类型 Mapper 接口
  * </p>
  *
  * @author liujiaming

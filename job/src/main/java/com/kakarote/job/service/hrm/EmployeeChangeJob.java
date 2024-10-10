@@ -1,4 +1,4 @@
-package com.kakarote.job.hrm;
+package com.kakarote.job.service.hrm;
 
 import com.kakarote.core.feign.admin.service.AdminService;
 import com.kakarote.core.feign.hrm.service.HrmService;

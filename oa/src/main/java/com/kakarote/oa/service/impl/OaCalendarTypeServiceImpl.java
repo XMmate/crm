@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 
 /**
  * <p>
- * 日历类型 服务实现类
+ * 日程类型 服务实现类
  * </p>
  *
  * @author liujiaming

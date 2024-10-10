@@ -30,7 +30,7 @@ public class OaExamineFieldController {
 
     /**
      * @author liujiaming
-     * 查询新增或编辑字段
+     * 根据categoryId查询新增或编辑字段
      */
     @ApiOperation("查询新增或编辑字段")
     @PostMapping("/queryField/{categoryId}")

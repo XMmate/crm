@@ -119,7 +119,6 @@ public class OaEventServiceImpl extends BaseServiceImpl<OaEventMapper, OaEvent> 
      * 活动通知
      * @param oaEventList
      */
-
     @Override
     public void eventNotice(List<OaEvent> oaEventList) {
         DateTime nowDate = DateUtil.date();

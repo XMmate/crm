@@ -73,7 +73,7 @@ public class OaExamineCategoryController {
     /**
      * 启用/禁用
      */
-    @ApiOperation("删除审批类型")
+    @ApiOperation("启用/禁用审批类型")
     @PostMapping("/updateStatus")
     public Result updateStatus(@RequestBody UpdateCategoryStatus updateCategoryStatus) {
         examineCategoryService.updateStatus(updateCategoryStatus);

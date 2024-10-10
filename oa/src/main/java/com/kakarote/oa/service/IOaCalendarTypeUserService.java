@@ -5,7 +5,7 @@ import com.kakarote.oa.entity.PO.OaCalendarTypeUser;
 
 /**
  * <p>
- * 用户关联日历类型 服务类
+ * 用户关联日程类型 服务类
  * </p>
  *
  * @author liujiaming

@@ -84,9 +84,8 @@ public class ExamineServiceImpl extends BaseServiceImpl<ExamineMapper, Examine> 
 
 
     /**
-     * 查询可供设置的自定义字段列表
-     *
-     * @param label      字段类型
+     * 查询可供设置的审批类型
+     * @param label      字段类型 0 OA 1 合同 2 回款 3发票 4薪资 5 采购审核 6采购退货审核 7销售审核 8 销售退货审核 9付款单审核10 回款单审核11盘点审核12调拨审核
      * @param categoryId 审批分类，只有OA审批需要
      * @return data
      */
@@ -98,7 +97,6 @@ public class ExamineServiceImpl extends BaseServiceImpl<ExamineMapper, Examine> 
 
     /**
      * 查询审批列表
-     *
      * @param examinePageBo 分页对象
      * @return data
      */

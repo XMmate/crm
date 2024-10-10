@@ -384,7 +384,7 @@ public class OaExamineServiceImpl extends BaseServiceImpl<OaExamineMapper, OaExa
         UserInfo user = UserUtil.getUser();
         OaExamine oaExamine = jsonObject.getObject("oaExamine", OaExamine.class);
         JSONArray oaExamineTravelList = jsonObject.getJSONArray("oaExamineTravelList");
-        //报销总金额
+        //报销总金额或者借款申请，钱不能为负数
         if(oaExamine.getMoney() != null && oaExamine.getMoney().doubleValue() <= 0){
             throw new CrmException(OaCodeEnum.TOTAL_REIMBURSEMENT_ERROR);
         }

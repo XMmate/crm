@@ -22,7 +22,10 @@ public class CrmAnalysisController {
     private ICrmCommonService crmCommonService;
 
 
-    //初始化数据todo 还没搞明白
+    /**
+     * 初始化crm数据，就是把原来的数据全删了
+     * @return
+     */
     @PostMapping("/initCrmData")
     @ApiExplain("初始化crm数据")
     public Result<Boolean> initCrmData() {

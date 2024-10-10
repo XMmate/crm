@@ -35,6 +35,12 @@ public class ExamineController {
     @Autowired
     private IExamineService examineService;
 
+    /**
+     *查询审批需要设置的字段 例如请假审批需要什么字段
+     * @param label "暂时不知道这是什么"
+     * @param categoryId 类型id
+     * @return
+     */
     @PostMapping("/queryField")
     @ApiOperation("查询审批可供设置的字段")
     public Result<List<ExamineField>> queryField(@RequestParam("label") Integer label, @RequestParam(value = "categoryId", required = false) Integer categoryId) {
@@ -43,17 +49,18 @@ public class ExamineController {
     }
 
     @PostMapping("/queryExamineById")
-    @ApiOperation("查询审批详情")
+    @ApiOperation("查询审批类型详情")
     public Result<Examine> queryExamineById(@RequestParam("examineId") Long examineId) {
         return Result.ok(examineService.getById(examineId));
     }
 
     /**
-     * todo 缺少权限控制，
+     * 企业后台调用这个接口
+     * lable=0 办公
+     * lable为空就是业务
      * @param examinePageBo
      * @return
      */
-
     @PostMapping("/queryList")
     @ApiOperation("查询全部审批流列表")
     public Result<BasePage<ExamineVO>> queryList(@RequestBody ExaminePageBO examinePageBo) {
@@ -63,7 +70,7 @@ public class ExamineController {
     }
 
     @PostMapping("/queryPartList")
-    @ApiOperation("查询正常审批流列表")
+    @ApiOperation("查询正常审批审批类型列表")
     public Result<BasePage<ExamineVO>> queryPartList(@RequestBody ExaminePageBO examinePageBo) {
         examinePageBo.setIsPart(true);
         BasePage<ExamineVO> voBasePage = examineService.queryList(examinePageBo);
@@ -98,7 +105,11 @@ public class ExamineController {
         return Result.ok(examineFlowVOList);
     }
 
-
+    /**
+     *
+     * @param examinePreviewBO
+     * @return
+     */
     @PostMapping("/previewFiledName")
     @ApiOperation("获取审批流程条件，字段")
     public Result<List<ExamineFlowConditionDataVO>> previewFiledName(@RequestBody ExaminePreviewBO examinePreviewBO){
@@ -106,11 +117,12 @@ public class ExamineController {
         return Result.ok(filedNameList);
     }
 
-
-
-
+    /**填写审批流程需要的字段 一级审批 二级审批
+     * @param examinePreviewBO
+     * @return
+     */
     @PostMapping("/previewExamineFlow")
-    @ApiOperation("填写审批需要的字段")
+    @ApiOperation("填写审批流程需要的字段")
     public Result<ExaminePreviewVO> previewExamineFlow(@RequestBody ExaminePreviewBO examinePreviewBO){
         ExaminePreviewVO examineFlowVO = examineService.previewExamineFlow(examinePreviewBO);
         return Result.ok(examineFlowVO);

@@ -36,6 +36,7 @@ import java.util.Objects;
 /**
  * <p>
  * 审批表 前端控制器
+ * 在前端任务审批模块
  * </p>
  *
  * @author liujiaming
@@ -54,6 +55,7 @@ public class OaExamineController {
 
     @Autowired
     private ExamineService examineService;
+
 
     @ApiOperation("我发起的审批")
     @PostMapping("/myInitiate")
@@ -97,7 +99,7 @@ public class OaExamineController {
 
 
     @PostMapping("/auditExamine")
-    @ApiOperation("审批")
+    @ApiOperation("通过/拒绝审批")
     public Result auditExamine(@RequestBody AuditExamineBO auditExamineBO){
         oaExamineService.oaExamine(auditExamineBO);
         return Result.ok();
@@ -271,7 +273,13 @@ public class OaExamineController {
         return Result.ok(oaExamineService.getDataMapForNewExamine(examineConditionDataBO));
     }
 
+    /**
+     * 通过 NewExamine 更新检查状态
+     * @param examineConditionDataBO
+     * @return
+     */
     @PostMapping("/updateCheckStatusByNewExamine")
+    @ApiOperation("通过 NewExamine 更新检查状态")
     public Result<Boolean> updateCheckStatusByNewExamine(@RequestBody ExamineConditionDataBO examineConditionDataBO){
         return Result.ok(oaExamineService.updateCheckStatusByNewExamine(examineConditionDataBO));
     }

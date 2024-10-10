@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * <p>
- * 日历类型 Mapper 接口
+ * 日程类型 Mapper 接口
  * </p>
  *
  * @author liujiaming

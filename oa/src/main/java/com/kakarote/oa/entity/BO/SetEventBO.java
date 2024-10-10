@@ -19,7 +19,7 @@ public class SetEventBO {
     @ApiModelProperty("关联业务")
     private OaEventRelation relation;
 
-    @ApiModelProperty("日程通知")
+    @ApiModelProperty("日程通知 多久通知一次")
     private List<OaEventNotice> notice;
 
     private Integer type;

@@ -15,7 +15,7 @@ import java.util.Map;
 
 /**
  * <p>
- * 日历类型 服务类
+ * 日程类型 服务类
  * </p>
  *
  * @author liujiaming

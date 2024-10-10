@@ -30,9 +30,13 @@ public class MyExamineController {
         return Result.ok(voBasePage);
     }
 
-
+    /**
+     * 待我审批（办公 合同 回款 发票）等
+     * @param examinePageBo
+     * @return
+     */
     @PostMapping("/queryCrmExamineList")
-    @ApiOperation("查询CRM审批流列表")
+    @ApiOperation("查询CRM待审批流列表")
     public Result<BasePage<ExamineRecordInfoVO>> queryCrmExamineList(@RequestBody ExaminePageBO examinePageBo) {
         BasePage<ExamineRecordInfoVO> voBasePage = examineService.queryCrmExamineList(examinePageBo);
         return Result.ok(voBasePage);

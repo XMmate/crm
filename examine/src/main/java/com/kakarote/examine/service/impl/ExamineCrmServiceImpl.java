@@ -31,18 +31,22 @@ public class ExamineCrmServiceImpl implements ExamineModuleService {
     private CrmExamineService crmExamineService;
 
     /**
-     * 查询审批可用的字段
-     * @param label label
+     * 查询审批类型
+     * @param label label 0 OA 1 合同 2 回款 3发票 4薪资 5 采购审核
+     *             6采购退货审核 7销售审核 8 销售退货审核 9付款单审核10 回款单审核11盘点审核12调拨审核
      * @param categoryId categoryId
      * @return data
      */
     @Override
     public List<ExamineField> queryExamineField(Integer label, Integer categoryId) {
+
         if (label != 3) {
+            //不是发票审核
             List<ExamineField> examineFields = crmService.queryExamineField(label).getData();
             examineFields.forEach(examineField -> examineField.setFieldName(StrUtil.toCamelCase(examineField.getFieldName())));
             return examineFields;
         }else {
+            //发票审核
             //发票条件字段由前端处理【开票金额】、【开票类型】
             List<ExamineField> examineFields = new ArrayList<>();
             examineFields.add(new ExamineField(-1,"开票金额","invoiceMoney",6,1));

@@ -13,7 +13,7 @@ wk_crm
 ├── examine       -- 审批模块
 ├── gateway       -- 网关模块
 ├── job           -- 定时任务模块
-├── oa            -- 日程模块
+├── oa            -- 办公自动化
 └── work          -- 项目管理模块
 └── hrm           -- 人力资源管理模块
 
@@ -217,4 +217,10 @@ crm.upload.local.uploadPath      需要配置两个地址0为登录才可访问�
 ```
 
 ### 四、长情CRM功能模块预览
+
+禁用 only_full_group_by
+你可以通过禁用 MySQL 的 only_full_group_by 模式来避免此限制。你可以通过以下方式禁用：
+
+在 MySQL 会话中运行以下 SQL 语句禁用当前会话的 only_full_group_by：
+SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
 

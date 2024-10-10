@@ -138,6 +138,12 @@ public class CrmFieldController {
         return R.ok();
     }
 
+
+    /**
+     * 给审批模块远程调用
+     * @param label
+     * @return
+     */
     @PostMapping("/queryExamineField")
     @ApiExplain("查询审批模块可设置字段")
     public Result<List<ExamineField>> queryExamineField(@RequestParam("label") Integer label) {

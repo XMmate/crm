@@ -1,4 +1,4 @@
-package com.kakarote.job.crm;
+package com.kakarote.job.service.crm;
 
 import com.kakarote.core.common.Const;
 import com.kakarote.core.common.Result;

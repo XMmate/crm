@@ -21,7 +21,6 @@ public interface CrmService {
 
     /**
      * 查询客户信息
-     *
      * @param ids ids
      * @return entity
      */
@@ -116,6 +115,12 @@ public interface CrmService {
     @PostMapping("/crmCustomerPool/queryPoolNameListByAuth")
     Result<List> queryPoolNameListByAuth() ;
 
+
+    /**
+     * 查询审批类型
+     * @param label
+     * @return
+     */
     @PostMapping("/crmField/queryExamineField")
     public Result<List<ExamineField>> queryExamineField(@RequestParam("label") Integer label);
 
