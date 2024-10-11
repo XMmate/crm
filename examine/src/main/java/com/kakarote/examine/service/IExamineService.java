@@ -30,7 +30,7 @@ public interface IExamineService extends BaseService<Examine> {
     public List<ExamineField> queryField(Integer label, Integer categoryId);
 
     /**
-     * 查询审批列表
+     * 按条件查询审批列表
      * @param examinePageBo 分页对象
      * @return data
      */

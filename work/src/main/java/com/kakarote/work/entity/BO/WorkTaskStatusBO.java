@@ -14,6 +14,6 @@ public class WorkTaskStatusBO {
     @ApiModelProperty("任务id")
     private Integer taskId;
 
-    @ApiModelProperty("状态")
+    @ApiModelProperty("状态1未完成 5完成  ")
     private Integer status;
 }

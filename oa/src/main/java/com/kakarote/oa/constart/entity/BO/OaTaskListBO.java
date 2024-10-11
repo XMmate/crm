@@ -43,6 +43,6 @@ public class OaTaskListBO extends PageEntity {
     @ApiModelProperty("任务名称关键字")
     private String search;
 
-
+    @ApiModelProperty("是否导出")
     private Boolean isExport;
 }

@@ -1,9 +1,10 @@
-package com.kakarote.oa.service;
+package com.kakarote.oa.feign.service;
 
 import com.kakarote.core.common.Result;
 import com.kakarote.oa.constart.entity.BO.*;
 import com.kakarote.oa.constart.entity.PO.WorkTask;
 import com.kakarote.oa.constart.entity.VO.OaTaskListVO;
+import com.kakarote.oa.feign.fallback.IOaTaskServiceFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,11 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author liujiaming
  */
 @Component
-@FeignClient(name = "work")
+@FeignClient(name = "work",fallbackFactory = IOaTaskServiceFallback.class)
 public interface IOaTaskService {
 
-    @PostMapping("/workTask/saveWorkTask")
-    public Result saveWorkTask(@RequestBody WorkTask workTask);
+
 
     @PostMapping("/workTask/setWorkTaskStatus")
     public Result setWorkTaskStatus(@RequestBody WorkTaskStatusBO workTaskStatusBO);

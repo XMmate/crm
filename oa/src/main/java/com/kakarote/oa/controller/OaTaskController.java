@@ -5,7 +5,7 @@ import com.kakarote.core.utils.ExcelParseUtil;
 import com.kakarote.oa.constart.entity.BO.*;
 import com.kakarote.oa.constart.entity.PO.WorkTask;
 import com.kakarote.oa.constart.entity.VO.OaTaskListVO;
-import com.kakarote.oa.service.IOaTaskService;
+import com.kakarote.oa.feign.service.IOaTaskService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +27,7 @@ public class OaTaskController {
     @Autowired
     private IOaTaskService oaTaskService;
 
-    @PostMapping("/saveWorkTask")
-    @ApiOperation("新建项目任务")
-    public Result saveWorkTask(@RequestBody WorkTask workTask){
-        return oaTaskService.saveWorkTask(workTask);
-    }
+
 
     @PostMapping("/setWorkTaskStatus")
     @ApiOperation("设置项目任务状态")
@@ -119,9 +115,9 @@ public class OaTaskController {
     }
 
 
-    /**
+    /**（任务审批模块）
      * 我的任务 下属任务
-     * @param oaTaskListBO
+     * @param oaTaskListBO 这里有详细的注释
      * @return
      */
     @PostMapping("/queryTaskList")
@@ -131,6 +127,11 @@ public class OaTaskController {
         return listVO;
     }
 
+    /**（任务审批模块）
+     * 导出（我的任务）（下属任务）
+     * @param oaTaskListBO 有参数说明
+     * @param response
+     */
     @PostMapping("/oaTaskExport")
     @ApiOperation("任务导出")
     public void oaTaskExport(@RequestBody OaTaskListBO oaTaskListBO,HttpServletResponse response) {

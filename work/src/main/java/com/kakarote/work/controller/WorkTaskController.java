@@ -123,8 +123,14 @@ public class WorkTaskController {
         return R.ok();
     }
 
+
+    /**
+     * 给任务设置标签
+     * @param workTaskLabelsBO
+     * @return
+     */
     @PostMapping("/setWorkTaskLabel")
-    @ApiOperation("设置任务标签")
+    @ApiOperation("给任务设置标签")
     @SysLogHandler(behavior = BehaviorEnum.UPDATE)
     public Result setWorkTaskLabel(@RequestBody WorkTaskLabelsBO workTaskLabelsBO){
         workTaskService.setWorkTaskLabel(workTaskLabelsBO);
@@ -140,7 +146,7 @@ public class WorkTaskController {
     }
 
     @PostMapping("/addWorkChildTask")
-    @ApiOperation("新建项目子任务")
+    @ApiOperation("添加项目子任务")
     @SysLogHandler(behavior = BehaviorEnum.SAVE)
     public Result<WorkTask> addWorkChildTask(@RequestBody WorkTask workTask){
         WorkTask task = workTaskService.addWorkChildTask(workTask);
@@ -176,8 +182,13 @@ public class WorkTaskController {
         return R.ok();
     }
 
+    /**（任务审批模块）
+     * 根据任务id查询任务详情
+     * @param taskId
+     * @return
+     */
     @PostMapping("/queryTaskInfo/{taskId}")
-    @ApiOperation("查询任务详情")
+    @ApiOperation("根据任务id查询任务详情")
     public Result queryTaskInfo(@PathVariable Integer taskId){
         return R.ok(workTaskService.queryTaskInfo(taskId));
     }

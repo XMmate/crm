@@ -36,7 +36,7 @@ public class ExamineController {
     private IExamineService examineService;
 
     /**
-     *查询审批需要设置的字段 例如请假审批需要什么字段
+     *根据审批类型查询审批需要设置的字段 例如请假审批需要什么字段
      * @param label "暂时不知道这是什么"
      * @param categoryId 类型id
      * @return
@@ -55,20 +55,25 @@ public class ExamineController {
     }
 
     /**
-     * 企业后台调用这个接口
+     * (企业后台)调用这个接口
      * lable=0 办公
      * lable为空就是业务
      * @param examinePageBo
      * @return
      */
     @PostMapping("/queryList")
-    @ApiOperation("查询全部审批流列表")
+    @ApiOperation("按条件查询(办公)(业务)审批流列表")
     public Result<BasePage<ExamineVO>> queryList(@RequestBody ExaminePageBO examinePageBo) {
         examinePageBo.setIsPart(false);
         BasePage<ExamineVO> voBasePage = examineService.queryList(examinePageBo);
         return Result.ok(voBasePage);
     }
 
+    /**（任务审批模块）
+     * 新建审批时弹出的审批类型表
+     * @param examinePageBo
+     * @return
+     */
     @PostMapping("/queryPartList")
     @ApiOperation("查询正常审批审批类型列表")
     public Result<BasePage<ExamineVO>> queryPartList(@RequestBody ExaminePageBO examinePageBo) {
@@ -85,28 +90,47 @@ public class ExamineController {
         return Result.ok(examineList);
     }
 
+    /**
+     * 根据examineId启用/停用/删除审批流 系统限制只能有一个在启用
+     * （企业后台）
+     * @param status 1是启用 2是停用 3是删除
+     * @param examineId 审批流id
+     * @return
+     */
     @PostMapping("/updateStatus")
-    @ApiOperation("修改审批状态")
+    @ApiOperation("根据examineId启用/停用/删除审批流")
     public Result updateStatus(@RequestParam("status") Integer status, @RequestParam("examineId") Long examineId) {
         examineService.updateStatus(examineId,status,true);
         return Result.ok();
     }
 
+    /**
+     * 新建审批流数据
+     * 创建审批流（企业后台）
+     * @param examineSaveBO
+     * @return
+     */
     @PostMapping("/addExamine")
-    @ApiOperation("保存审批数据")
+    @ApiOperation("保存新建审批流数据")
     public Result<Examine> addExamine(@RequestBody ExamineSaveBO examineSaveBO) {
         return Result.ok(examineService.addExamine(examineSaveBO));
     }
 
+    /**
+     * 根据examineId获取单条审批流的详情信息
+     * 使用地方（企业后台）
+     * @param examineId
+     * @return
+     */
     @PostMapping("/queryExamineFlow")
-    @ApiOperation("获取审批详情")
+    @ApiOperation("获取审批流详情")
     public Result<List<ExamineFlowVO>> queryExamineFlow(@RequestParam("examineId") Long examineId){
         List<ExamineFlowVO> examineFlowVOList = examineService.queryExamineFlow(examineId);
         return Result.ok(examineFlowVOList);
     }
 
     /**
-     *
+     *todo 不清楚干什么的
      * @param examinePreviewBO
      * @return
      */
@@ -122,7 +146,7 @@ public class ExamineController {
      * @return
      */
     @PostMapping("/previewExamineFlow")
-    @ApiOperation("填写审批流程需要的字段")
+    @ApiOperation("获取填写审批流程需要的字段")
     public Result<ExaminePreviewVO> previewExamineFlow(@RequestBody ExaminePreviewBO examinePreviewBO){
         ExaminePreviewVO examineFlowVO = examineService.previewExamineFlow(examinePreviewBO);
         return Result.ok(examineFlowVO);

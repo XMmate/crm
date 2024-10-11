@@ -56,8 +56,12 @@ public class OaExamineController {
     @Autowired
     private ExamineService examineService;
 
-
-    @ApiOperation("我发起的审批")
+    /**（任务吧审批模块）
+     * 我发出去的审批（status=“”全部，status=0待审批 ，status=1审批通过，status=2审批拒绝）
+     * @param examinePageBO
+     * @return
+     */
+    @ApiOperation("我发出去的审批")
     @PostMapping("/myInitiate")
     public Result<BasePage<ExamineVO>> myInitiate(@RequestBody ExaminePageBO examinePageBO) {
         BasePage<ExamineVO> page = oaExamineService.myInitiate(examinePageBO);
