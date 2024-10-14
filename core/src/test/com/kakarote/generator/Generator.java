@@ -1,4 +1,4 @@
-package com.kakarote.generator;
+package com.liujiaming.generator;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.core.enums.SqlLike;
@@ -68,14 +68,14 @@ public class Generator {
         tableFillList.add(new TableFill("update_time", FieldFill.UPDATE));
         tableFillList.add(new TableFill("create_user_id", FieldFill.INSERT));
         strategyConfig.setTableFillList(tableFillList);
-        strategyConfig.setSuperMapperClass("com.kakarote.core.servlet.BaseMapper");
-        strategyConfig.setSuperServiceClass("com.kakarote.core.servlet.BaseService");
-        strategyConfig.setSuperServiceImplClass("com.kakarote.core.servlet.BaseServiceImpl");
+        strategyConfig.setSuperMapperClass("com.liujiaming.core.servlet.BaseMapper");
+        strategyConfig.setSuperServiceClass("com.liujiaming.core.servlet.BaseService");
+        strategyConfig.setSuperServiceImplClass("com.liujiaming.core.servlet.BaseServiceImpl");
         return strategyConfig;
     }
     private static PackageConfig getPackageConfig(String modelName){
         PackageConfig packageConfig=new PackageConfig();
-        packageConfig.setParent("com.kakarote."+modelName);
+        packageConfig.setParent("com.liujiaming."+modelName);
         packageConfig.setEntity("entity.PO");
         return packageConfig;
     }

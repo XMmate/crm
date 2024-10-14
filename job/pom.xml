@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
     <parent>
-        <groupId>com.kakarote</groupId>
+        <groupId>com.liujiaming</groupId>
         <artifactId>wkcrm</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
@@ -14,7 +14,7 @@
     <description>任务调度中心</description>
     <dependencies>
         <dependency>
-            <groupId>com.kakarote</groupId>
+            <groupId>com.liujiaming</groupId>
             <artifactId>core</artifactId>
             <version>${core.version}</version>
         </dependency>
@@ -62,7 +62,7 @@
                             <!--jar包不包含唯一版本标识-->
                             <useUniqueVersions>false</useUniqueVersions>
                             <!--指定入口类-->
-                            <mainClass>com.kakarote.job.JobApplication</mainClass>
+                            <mainClass>com.liujiaming.job.JobApplication</mainClass>
                         </manifest>
                         <manifestEntries>
                             <!--MANIFEST.MF 中 Class-Path 加入资源文件目录-->
