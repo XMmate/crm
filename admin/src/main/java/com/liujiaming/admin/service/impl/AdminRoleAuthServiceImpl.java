@@ -85,6 +85,7 @@ public class AdminRoleAuthServiceImpl extends BaseServiceImpl<AdminRoleAuthMappe
      */
     @Override
     public boolean isQueryAllRole() {
+        //175 角色权限设置权限
         IAdminRoleMenuService roleMenuService = ApplicationContextHolder.getBean(IAdminRoleMenuService.class);
         LambdaQueryWrapper<AdminRoleMenu> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(AdminRoleMenu::getMenuId,175).in(AdminRoleMenu::getRoleId,UserUtil.getUser().getRoles());

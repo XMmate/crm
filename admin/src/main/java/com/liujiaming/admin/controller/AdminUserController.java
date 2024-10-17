@@ -5,12 +5,14 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.ReUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.util.TypeUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.liujiaming.admin.common.AdminCodeEnum;
+import com.liujiaming.admin.common.AdminConst;
 import com.liujiaming.admin.common.log.AdminUserLog;
 import com.liujiaming.admin.entity.BO.*;
 import com.liujiaming.admin.entity.BO.*;
@@ -27,6 +29,7 @@ import com.liujiaming.core.common.log.SysLog;
 import com.liujiaming.core.common.log.SysLogHandler;
 import com.liujiaming.core.entity.BasePage;
 import com.liujiaming.core.entity.UserInfo;
+import com.liujiaming.core.exception.CrmException;
 import com.liujiaming.core.exception.NoLoginException;
 import com.liujiaming.core.feign.admin.entity.SimpleUser;
 import com.liujiaming.core.feign.email.service.EmailService;
@@ -76,6 +79,9 @@ public class AdminUserController {
     @Autowired
     private IAdminFileService adminFileService;
 
+    @Autowired
+    private IAdminDeptService deptService;
+
     @RequestMapping("/findByUsername")
     @ApiOperation(value = "通过name查询用户", httpMethod = "POST")
     public Result<List<Map<String, Object>>> findByUsername(String username) {
@@ -89,6 +95,10 @@ public class AdminUserController {
         return R.ok(adminUserService.queryUserList(adminUserBO));
     }
 
+    /**
+     * 企业后台-->员工与部门管理
+     * @return
+     */
     @ApiOperation("查询员工状态人数")
     @PostMapping("/countNumOfUser")
     public Result<JSONObject> countUserByLabel() {
@@ -98,13 +108,9 @@ public class AdminUserController {
     @ApiExplain("通过条件分页查询员工列表")
     @PostMapping("/queryAllUserList")
     public Result<List<Long>> queryAllUserList(@RequestParam(value = "type",required = false) Integer type) {
-        LambdaQueryWrapper<AdminUser> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.select(AdminUser::getUserId);
-        /* type=2代表不查询禁用员工 */
-        if (Objects.equals(2,type)) {
-            queryWrapper.ne(AdminUser::getStatus,0);
-        }
-        return R.ok(adminUserService.listObjs(queryWrapper, TypeUtils::castToLong));
+        List<Long> list = adminUserService.queryAllUserList(type);
+
+        return R.ok(list);
     }
 
     @ApiExplain("通过条件分页查询员工列表")
@@ -122,7 +128,7 @@ public class AdminUserController {
     }
 
     @PostMapping("/setUserDept")
-    @ApiOperation("批量修改用户部门")
+    @ApiOperation("修改用户部门")
     public Result setUserDept(@RequestBody AdminUserBO adminUserBO) {
         adminUserService.setUserDept(adminUserBO);
         return R.ok();
@@ -185,7 +191,7 @@ public class AdminUserController {
     }
 
     @PostMapping("/setUserStatus")
-    @ApiOperation("禁用启用")
+    @ApiOperation("批量禁用启用员工")
     @SysLogHandler(behavior = BehaviorEnum.UPDATE)
     public Result setUserStatus(@RequestBody AdminUserStatusBO adminUserStatusBO) {
         adminUserService.setUserStatus(adminUserStatusBO);
@@ -201,7 +207,7 @@ public class AdminUserController {
     }
 
     @PostMapping("/resetPassword")
-    @ApiOperation("重置密码")
+    @ApiOperation("批量重置密码")
     @SysLogHandler(behavior = BehaviorEnum.UPDATE)
     public Result resetPassword(@RequestBody AdminUserStatusBO adminUserStatusBO) {
         adminUserService.resetPassword(adminUserStatusBO);
@@ -209,7 +215,7 @@ public class AdminUserController {
     }
 
     @PostMapping("/updateImg")
-    @ApiOperation("修改头像")
+    @ApiOperation("修改用户头像")
     @SysLogHandler(behavior = BehaviorEnum.UPDATE,object = "修改头像",detail = "修改头像")
     public Result updateImg(@RequestParam("file") MultipartFile file) throws IOException {
         UploadEntity img = adminFileService.upload(file, null, "img", "0");
@@ -223,6 +229,9 @@ public class AdminUserController {
     @ApiOperation("修改登录密码")
     @SysLogHandler(behavior = BehaviorEnum.UPDATE,object = "修改登录密码",detail = "修改登录密码")
     public Result updatePassword(@RequestParam("oldPwd") String oldPass, @RequestParam("newPwd") String newPass) {
+        if (!ReUtil.isMatch(AdminConst.DEFAULT_PASSWORD_INTENSITY, newPass)) {
+            throw new CrmException(AdminCodeEnum.ADMIN_PASSWORD_INTENSITY_ERROR);
+        }
         AdminUser adminUser = adminUserService.getById(UserUtil.getUserId());
         if (!UserUtil.verify(adminUser.getUsername() + oldPass, adminUser.getSalt(), adminUser.getPassword())) {
             return R.error(AdminCodeEnum.ADMIN_PASSWORD_ERROR);
@@ -238,8 +247,7 @@ public class AdminUserController {
         return R.ok();
     }
 
-    @Autowired
-    private IAdminDeptService deptService;
+
 
     /**
      * 完成密码认证后走到这一步
@@ -250,29 +258,8 @@ public class AdminUserController {
     @PostMapping("/queryLoginUser")
     @ApiOperation("查询当前登录用户的基本信息")
     public Result<AdminUserVO> queryLoginUser(HttpServletRequest request, HttpServletResponse response) {
-        String name = "readNotice";
-        AdminUser user = adminUserService.getById(UserUtil.getUserId());
-        if (user == null) {
-            throw new NoLoginException();
-        }
-        AdminSuperUserVo adminUser = BeanUtil.copyProperties(user, AdminSuperUserVo.class);
-        adminUser.setIsAdmin(UserUtil.isAdmin());
-        AdminUserConfig userConfig = adminUserConfigService.queryUserConfigByName(name);
-        adminUser.setIsReadNotice(userConfig != null ? userConfig.getStatus() : 0);
-        adminUser.setPassword(null);
-        String deptName = deptService.getNameByDeptId(adminUser.getDeptId());
-        adminUser.setDeptName(deptName);
-        adminUser.setParentName(UserCacheUtil.getUserName(adminUser.getParentId()));
-        AdminConfig config = ApplicationContextHolder.getBean(IAdminConfigService.class).queryConfigByName("email");
-        if (config != null && config.getStatus() == 1) {
-            Integer data = ApplicationContextHolder.getBean(EmailService.class).getEmailId(adminUser.getUserId()).getData();
-            adminUser.setEmailId(data);
-        }
-        AdminUserConfig userConfigByName = adminUserConfigService.queryUserConfigByName("InitUserConfig");
-        if(userConfigByName != null){
-            adminUser.setServerUserInfo(JSON.parseObject(userConfigByName.getValue()));
-        }
-        return R.ok(adminUser);
+        AdminUserVO adminUserVO = adminUserService.queryLoginUser(request,response);
+       return Result.ok(adminUserVO);
     }
 
     @RequestMapping("/queryUserRoleIds")

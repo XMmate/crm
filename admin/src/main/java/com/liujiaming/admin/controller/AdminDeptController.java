@@ -49,7 +49,6 @@ public class AdminDeptController {
 
     @PostMapping("/addDept")
     @ApiOperation("新增部门")
-  
     @SysLogHandler(behavior = BehaviorEnum.SAVE,object = "#adminDept.name",detail = "'添加了部门:'+#adminDept.name")
     public Result addDept(@RequestBody @Valid AdminDeptBO adminDept) {
         adminDeptService.addDept(adminDept);
@@ -58,7 +57,6 @@ public class AdminDeptController {
 
     @PostMapping("/setDept")
     @ApiOperation("修改部门")
-  
     @SysLogHandler(behavior = BehaviorEnum.SAVE,object = "#adminDept.name",detail = "'修改了部门:'+#adminDept.name")
     public Result setDept(@RequestBody @Valid AdminDeptBO adminDept) {
         adminDeptService.setDept(adminDept);
@@ -67,7 +65,6 @@ public class AdminDeptController {
 
     @PostMapping("/deleteDept/{deptId}")
     @ApiOperation("删除部门")
-  
     @SysLogHandler(behavior = BehaviorEnum.DELETE)
     public Result deleteDept(@PathVariable("deptId") Integer deptId) {
         adminDeptService.deleteDept(deptId);
@@ -76,7 +73,6 @@ public class AdminDeptController {
 
     @RequestMapping("/getNameByDeptId")
     @ApiExplain("根据部门ID获取部门名称")
-  
     public Result getNameByDeptId(Integer deptId) {
         return R.ok(adminDeptService.getNameByDeptId(deptId));
     }
@@ -88,7 +84,7 @@ public class AdminDeptController {
     }
 
     @PostMapping("/queryDeptByIds")
-    @ApiExplain("根据部门ID获取用户")
+    @ApiExplain("根据部门ID集获取部门列表")
     public Result<List<SimpleDept>> queryDeptByIds(@RequestBody List<Integer> ids) {
         List<SimpleDept> simpleDepts = adminDeptService.queryDeptByIds(ids);
         return R.ok(simpleDepts);

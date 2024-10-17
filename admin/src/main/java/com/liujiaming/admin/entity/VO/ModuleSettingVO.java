@@ -17,7 +17,7 @@ public class ModuleSettingVO {
     @ApiModelProperty(value = "设置ID", required = true)
     private Integer settingId;
 
-    @ApiModelProperty(value = "模块", required = true)
+    @ApiModelProperty(value = "模块名字", required = true)
     private String module;
 
     @ApiModelProperty(value = "状态 1:启用 0:停用", required = true,allowableValues = "0,1")

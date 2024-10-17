@@ -3,6 +3,7 @@ package com.liujiaming.admin.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.extension.conditions.update.LambdaUpdateChainWrapper;
 import com.liujiaming.admin.entity.BO.AdminMessageQueryBO;
 import com.liujiaming.admin.entity.PO.AdminMessage;
 import com.liujiaming.admin.entity.VO.AdminMessageVO;
@@ -55,8 +56,6 @@ public class AdminMessageServiceImpl extends BaseServiceImpl<AdminMessageMapper,
     public BasePage<AdminMessage> queryList(AdminMessageQueryBO adminMessageBO) {
         adminMessageBO.setUserId(UserUtil.getUserId());
         BasePage<AdminMessage> adminMessageBasePage = getBaseMapper().queryList(adminMessageBO.parse(), adminMessageBO);
-
-
         if (Arrays.asList(14, 16, 18, 20).contains(adminMessageBO.getType())) {
             adminMessageBasePage.getList().forEach(data -> {
                 List<String> splitTrim = StrUtil.splitTrim(data.getContent(), Const.SEPARATOR);
@@ -399,7 +398,7 @@ public class AdminMessageServiceImpl extends BaseServiceImpl<AdminMessageMapper,
     public void deleteEventMessage(Integer eventId) {
         lambdaUpdate().eq(AdminMessage::getLabel,AdminMessageEnum.OA_EVENT_MESSAGE.getLabel())
                 .eq(AdminMessage::getType,AdminMessageEnum.OA_EVENT_MESSAGE.getType())
-                .apply("create_time > now()").eq(AdminMessage::getTypeId,eventId).remove();
+                .apply("create_time < now()").eq(AdminMessage::getTypeId,eventId).remove();
     }
 
     @Override
@@ -410,5 +409,29 @@ public class AdminMessageServiceImpl extends BaseServiceImpl<AdminMessageMapper,
     @Override
     public void deleteByLabel(Integer label) {
         lambdaUpdate().eq(AdminMessage::getLabel,label).remove();
+    }
+
+
+    @Override
+    public void readAllMessage(Integer label) {
+
+        LambdaUpdateChainWrapper<AdminMessage> wrapper = lambdaUpdate();
+        wrapper.set(AdminMessage::getIsRead, 1);
+        wrapper.eq(AdminMessage::getRecipientUser, UserUtil.getUserId());
+        if (label != null) {
+            wrapper.eq(AdminMessage::getLabel, label);
+        }
+        wrapper.update();
+    }
+
+    @Override
+    public void clear(Integer label) {
+        LambdaUpdateChainWrapper<AdminMessage> wrapper =lambdaUpdate();
+        wrapper.eq(AdminMessage::getIsRead, 1);
+        wrapper.eq(AdminMessage::getRecipientUser, UserUtil.getUserId());
+        if (label != null) {
+            wrapper.eq(AdminMessage::getLabel, label);
+        }
+        wrapper.remove();
     }
 }

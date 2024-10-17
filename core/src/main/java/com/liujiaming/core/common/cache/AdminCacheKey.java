@@ -1,5 +1,7 @@
 package com.liujiaming.core.common.cache;
 
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * admin缓存key
  * @author hmb
@@ -22,5 +24,6 @@ public interface AdminCacheKey {
 
     String PASSWORD_ERROR_CACHE_KEY = "password:error:";
 
+    @ApiModelProperty(value = "临时码")
     String TEMPORARY_ACCESS_CODE_CACHE_KEY  = "temporary:access:code:";
 }

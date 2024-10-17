@@ -39,7 +39,7 @@ public interface IAdminConfigService extends BaseService<AdminConfig> {
     public AdminCompanyBO queryAdminConfig();
 
     /**
-     * 查询模块设置
+     * 查询模块设置（应用模块）
      * @return data
      */
     public List<ModuleSettingVO> queryModuleSetting();
@@ -84,7 +84,15 @@ public interface IAdminConfigService extends BaseService<AdminConfig> {
 
     Integer queryMarketing();
 
+
+    /**
+     * 验证密码
+     * @param adminInitDataBO
+     * @return
+     */
     String verifyPassword(AdminInitDataBO adminInitDataBO);
 
     boolean moduleInitData(AdminInitDataBO adminInitDataBO);
+
+    void setRecordOptions(List<String> stringList);
 }

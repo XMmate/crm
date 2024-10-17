@@ -107,6 +107,11 @@ public class UserUtil {
         BaseUtil.getResponse().addCookie(cookie);
     }
 
+
+    /**
+     * 超级管理员的用户ID
+     * @return
+     */
     public static Long getSuperUser() {
         return 14773L;
     }

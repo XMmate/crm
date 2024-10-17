@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AdminDeleteByBatchIdBO {
-
+  @ApiModelProperty("批次ID")
     private String batchId;
 
     @ApiModelProperty("1 附件 2 图片")

@@ -32,7 +32,7 @@ public interface IAdminMessageService extends BaseService<AdminMessage> {
     public BasePage<AdminMessage> queryList(AdminMessageQueryBO adminMessageBO);
 
     /**
-     * 查询未读消息数量
+     * 查询每个类型未读消息数量
      * @return data
      */
     public AdminMessageVO queryUnreadCount();
@@ -49,4 +49,8 @@ public interface IAdminMessageService extends BaseService<AdminMessage> {
     void deleteById(Integer messageId);
 
     void deleteByLabel(Integer label);
+
+    void readAllMessage(Integer label);
+
+    void clear(Integer label);
 }

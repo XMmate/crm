@@ -73,7 +73,7 @@ public class RecursionUtil {
      * 递归查询列表树
      *
      * @param allList    总数据
-     * @param parentName 上级的key
+     * @param parentName 上级的名字
      * @param parentId   上级的值
      * @param idName     本级ID的key
      * @param treeName   子级树名称

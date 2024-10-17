@@ -50,23 +50,18 @@ public class AdminFileController {
                                        @ApiParam("batchId") String batchId,
                                        @ApiParam("文件类型") String type,
                                        @RequestParam(value = "isPublic",required = false)String isPublic) throws IOException {
-        if (StrUtil.isEmpty(isPublic)){
-            isPublic = "0";
-        }
         UploadEntity entity = adminFileService.upload(file,batchId, type,isPublic);
         return Result.ok(entity);
     }
 
     @PostMapping("/uploadBySingle")
-    @ApiOperation("上传文件")
+    @ApiOperation("上传单个文件")
     public Result<UploadEntity> uploadBySingle(@RequestParam("file")
                                        @ApiParam("文件") MultipartFile file,
                                        @ApiParam("batchId") String batchId,
                                        @ApiParam("文件类型") String type,
                                        @RequestParam(value = "isPublic",required = false)String isPublic) throws IOException {
-        if (StrUtil.isEmpty(isPublic)){
-            isPublic = "0";
-        }
+
         UploadEntity entity = adminFileService.uploadBySingle(file,batchId, type,isPublic);
         return Result.ok(entity);
     }
@@ -100,7 +95,7 @@ public class AdminFileController {
     }
 
     @RequestMapping(value = "/deleteById/{fileId}", method = RequestMethod.POST)
-    @ApiOperation(value = "通过ID删除文件", httpMethod = "POST")
+    @ApiOperation(value = "通过ID/批次ID删除文件", httpMethod = "POST")
     public Result deleteById(@NotNull @PathVariable @ApiParam("文件ID") String fileId) {
         if (NumberUtil.isLong(fileId)) {
             adminFileService.deleteById(Long.parseLong(fileId));
@@ -109,7 +104,6 @@ public class AdminFileController {
             bo.setBatchId(fileId);
             adminFileService.deleteByBatchId(bo);
         }
-
         return Result.ok();
     }
 
@@ -131,28 +125,25 @@ public class AdminFileController {
     @ApiOperation(value = "下载文件接口", httpMethod = "POST")
     @LoginFromCookie
     public void down(@PathVariable("fileId") @ApiParam("文件ID") Long fileId, HttpServletResponse response) {
-        if (UserUtil.getUser() == null) {
-            throw new CrmException(SystemCodeEnum.SYSTEM_NO_AUTH);
-        }
         adminFileService.down(response, fileId);
     }
 
     @PostMapping(value = "/renameFileById")
-    @ApiOperation(value = "修改附件名称", httpMethod = "POST")
+    @ApiOperation(value = "根据ID修改附件名称", httpMethod = "POST")
     public Result renameFileById(@RequestBody RenameFileBO renameFileBO) {
         adminFileService.renameFileById(renameFileBO);
         return Result.ok();
     }
 
     @PostMapping(value = "/queryNum")
-    @ApiExplain("查询文件数量")
+    @ApiExplain("根据批次ID查询文件数量")
     public Result<Integer> queryNum(@RequestBody List<String> batchId) {
         Integer num = adminFileService.queryNum(batchId);
         return Result.ok(num);
     }
 
     @PostMapping(value = "/queryFileList")
-    @ApiExplain("查询文件")
+    @ApiExplain("根据batchId查询文件信息")
     public Result<List<FileEntity>> queryFileList(@RequestBody List<String> batchIdList) {
         List<FileEntity> fileEntities = adminFileService.queryFileList(batchIdList);
         return Result.ok(fileEntities);

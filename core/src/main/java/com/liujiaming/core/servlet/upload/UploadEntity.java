@@ -50,8 +50,15 @@ public class UploadEntity {
      */
     private String path;
 
+
+    /**
+     * 文件URL
+     */
     private String url;
 
+    /**
+     * 是否公开
+     */
     private String isPublic;
 
     public String getUrl() {

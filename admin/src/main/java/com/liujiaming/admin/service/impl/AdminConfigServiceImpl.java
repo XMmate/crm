@@ -5,6 +5,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.liujiaming.admin.common.AdminCodeEnum;
 import com.liujiaming.admin.common.AdminConst;
@@ -36,6 +37,7 @@ import com.liujiaming.admin.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -123,7 +125,7 @@ public class AdminConfigServiceImpl extends BaseServiceImpl<AdminConfigMapper, A
     }
 
     /**
-     * 查询模块设置
+     * 查询应用模块设置
      *
      * @return data
      */
@@ -348,6 +350,29 @@ public class AdminConfigServiceImpl extends BaseServiceImpl<AdminConfigMapper, A
             }
         }
         return true;
+    }
+
+
+    /**
+     * 设置跟进记录类型
+     * @param stringList
+     */
+    @Override
+    @Transactional //添加事务控制
+    public void setRecordOptions(List<String> stringList) {
+        String name = "followRecordOption";
+        String description = "跟进记录选项";
+      removeByMap(new JSONObject().fluentPut("name", name));
+        List<AdminConfig> adminUserConfigList = new ArrayList<>(stringList.size());
+        stringList.forEach(str -> {
+            AdminConfig userConfig = new AdminConfig();
+            userConfig.setStatus(1);
+            userConfig.setName(name);
+            userConfig.setValue(str);
+            userConfig.setDescription(description);
+            adminUserConfigList.add(userConfig);
+        });
+        saveBatch(adminUserConfigList, AdminConst.BATCH_SAVE_SIZE);
     }
 
 

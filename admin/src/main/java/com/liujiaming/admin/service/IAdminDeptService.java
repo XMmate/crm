@@ -61,7 +61,7 @@ public interface IAdminDeptService extends BaseService<AdminDept> {
     public String getNameByDeptId(Integer deptId);
 
     /**
-     * 根据ids查询用户信息
+     * 根据ids查询部门信息
      *
      * @param ids id列表
      * @return data

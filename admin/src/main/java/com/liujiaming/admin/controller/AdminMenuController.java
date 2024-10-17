@@ -30,7 +30,7 @@ public class AdminMenuController {
     private IAdminMenuService adminMenuService;
 
     @RequestMapping("/getMenuListByType/{type}")
-    @ApiOperation("根据类型查询菜单")
+    @ApiOperation("根据角色类型查询菜单")
     public Result<JSONObject> getMenuListByType(@PathVariable("type") Integer type) {
         AdminRoleTypeEnum typeEnum = AdminRoleTypeEnum.parse(type);
         JSONObject byType = adminMenuService.getMenuListByType(typeEnum);

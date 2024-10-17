@@ -9,7 +9,9 @@ import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.BigExcelWriter;
 import cn.hutool.poi.excel.ExcelUtil;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.util.TypeUtils;
 import com.alibaba.nacos.api.NacosFactory;
 import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.api.exception.NacosException;
@@ -23,6 +25,7 @@ import com.liujiaming.admin.entity.BO.*;
 import com.liujiaming.admin.entity.PO.*;
 import com.liujiaming.admin.entity.BO.*;
 import com.liujiaming.admin.entity.PO.*;
+import com.liujiaming.admin.entity.VO.AdminSuperUserVo;
 import com.liujiaming.admin.entity.VO.AdminUserVO;
 import com.liujiaming.admin.entity.VO.HrmSimpleUserVO;
 import com.liujiaming.admin.entity.VO.UserBookVO;
@@ -32,8 +35,10 @@ import com.liujiaming.core.common.*;
 import com.liujiaming.core.entity.BasePage;
 import com.liujiaming.core.entity.UserInfo;
 import com.liujiaming.core.exception.CrmException;
+import com.liujiaming.core.exception.NoLoginException;
 import com.liujiaming.core.feign.admin.entity.SimpleUser;
 import com.liujiaming.core.feign.crm.service.CrmService;
+import com.liujiaming.core.feign.email.service.EmailService;
 import com.liujiaming.core.feign.hrm.entity.HrmEmployee;
 import com.liujiaming.core.feign.hrm.service.HrmService;
 import com.liujiaming.core.servlet.ApplicationContextHolder;
@@ -49,6 +54,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
@@ -87,6 +93,9 @@ public class AdminUserServiceImpl extends BaseServiceImpl<AdminUserMapper, Admin
     @Autowired
     private  IAdminDeptService iAdminDeptService;
 
+    @Autowired
+    private IAdminDeptService deptService;
+
     @CreateCache(name = Const.ADMIN_USER_NAME_CACHE_NAME, expire = 3, timeUnit = TimeUnit.DAYS)
     private Cache<Long, SimpleUser> userCache;
 
@@ -99,7 +108,6 @@ public class AdminUserServiceImpl extends BaseServiceImpl<AdminUserMapper, Admin
     @Override
     public List<Map<String, Object>> findByUsername(String username) {
        List<Map<String, Object>> userInfoList = getBaseMapper().findByUsername(username);
-
         return userInfoList;
     }
 
@@ -182,10 +190,15 @@ public class AdminUserServiceImpl extends BaseServiceImpl<AdminUserMapper, Admin
     public JSONObject countUserByLabel() {
         JSONObject jsonObject = new JSONObject();
         jsonObject
+                //所有员工
                 .fluentPut("allUserCount", getBaseMapper().countUserByLabel(0, null))
+                //新加入的员工
                 .fluentPut("addNewlyCount", getBaseMapper().countUserByLabel(1, null))
+                //激活员工
                 .fluentPut("activateCount", getBaseMapper().countUserByLabel(null, 1))
+                //不活跃员工
                 .fluentPut("inactiveCount", getBaseMapper().countUserByLabel(2, null))
+                //禁用
                 .fluentPut("disableCount", getBaseMapper().countUserByLabel(3, null));
         return jsonObject;
     }
@@ -588,7 +601,7 @@ public class AdminUserServiceImpl extends BaseServiceImpl<AdminUserMapper, Admin
         }
     }
     /**
-     * 设置状态
+     * 激活账号
      *
      * @param adminUserStatusBO status
      */
@@ -999,6 +1012,50 @@ public class AdminUserServiceImpl extends BaseServiceImpl<AdminUserMapper, Admin
                 return "员工";
             }
         }, list, response,"user");
+    }
+
+    @Override
+    public List<Long> queryAllUserList(Integer type) {
+        LambdaQueryWrapper<AdminUser> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.select(AdminUser::getUserId);
+        /* type=2代表不查询禁用员工 */
+        if (Objects.equals(2,type)) {
+            queryWrapper.ne(AdminUser::getStatus,0);
+        }
+        return this.listObjs(queryWrapper, TypeUtils::castToLong);
+    }
+
+    /**
+     * 查询当前登录用户的基本信息
+     * @param request
+     * @param response
+     * @return
+     */
+    @Override
+    public AdminUserVO queryLoginUser(HttpServletRequest request, HttpServletResponse response) {
+        String name = "readNotice";
+        AdminUser user =this.getById(UserUtil.getUserId());
+        if (user == null) {
+            throw new NoLoginException();
+        }
+        AdminSuperUserVo adminUser = BeanUtil.copyProperties(user, AdminSuperUserVo.class);
+        adminUser.setIsAdmin(UserUtil.isAdmin());
+        AdminUserConfig userConfig = adminUserConfigService.queryUserConfigByName(name);
+        adminUser.setIsReadNotice(userConfig != null ? userConfig.getStatus() : 0);
+        adminUser.setPassword(null);
+        String deptName = deptService.getNameByDeptId(adminUser.getDeptId());
+        adminUser.setDeptName(deptName);
+        adminUser.setParentName(UserCacheUtil.getUserName(adminUser.getParentId()));
+        AdminConfig config = ApplicationContextHolder.getBean(IAdminConfigService.class).queryConfigByName("email");
+        if (config != null && config.getStatus() == 1) {
+            Integer data = ApplicationContextHolder.getBean(EmailService.class).getEmailId(adminUser.getUserId()).getData();
+            adminUser.setEmailId(data);
+        }
+        AdminUserConfig userConfigByName = adminUserConfigService.queryUserConfigByName("InitUserConfig");
+        if(userConfigByName != null){
+            adminUser.setServerUserInfo(JSON.parseObject(userConfigByName.getValue()));
+        }
+        return adminUser;
     }
 
     private List<JSONObject> queryField(){

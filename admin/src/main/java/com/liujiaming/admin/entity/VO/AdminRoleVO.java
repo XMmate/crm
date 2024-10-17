@@ -17,7 +17,7 @@ import java.util.List;
 @ApiModel("查询角色功能")
 public class AdminRoleVO {
 
-    @ApiModelProperty("pid")
+    @ApiModelProperty("父级id")
     private Integer pid;
 
     @ApiModelProperty("名称")

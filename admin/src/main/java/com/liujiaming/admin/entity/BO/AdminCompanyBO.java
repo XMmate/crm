@@ -23,7 +23,7 @@ public class AdminCompanyBO {
     @ApiModelProperty(value = "企业LOGO", example = "/logo")
     private String companyLogo;
 
-    private String endTime;
-
-    private Integer endDay;
+//    private String endTime;
+//
+//    private Integer endDay;
 }

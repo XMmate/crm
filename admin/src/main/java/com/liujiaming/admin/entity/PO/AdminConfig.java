@@ -37,7 +37,7 @@ public class AdminConfig implements Serializable {
     @ApiModelProperty(value = "设置名称")
     private String name;
 
-    @ApiModelProperty(value = "值")
+    @ApiModelProperty(value = "名称对应的值")
     private String value;
 
     @ApiModelProperty(value = "描述")

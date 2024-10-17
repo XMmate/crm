@@ -1,6 +1,7 @@
 package com.liujiaming.admin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.liujiaming.admin.common.AdminConst;
 import com.liujiaming.admin.entity.PO.AdminUserConfig;
 import com.liujiaming.admin.mapper.AdminUserConfigMapper;
 import com.liujiaming.admin.service.IAdminUserConfigService;
@@ -8,6 +9,7 @@ import com.liujiaming.core.common.Const;
 import com.liujiaming.core.servlet.BaseServiceImpl;
 import com.liujiaming.core.utils.UserUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +89,31 @@ public class AdminUserConfigServiceImpl extends BaseServiceImpl<AdminUserConfigM
         QueryWrapper<AdminUserConfig> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("name", name).eq("value", value);
         return list(queryWrapper);
+    }
+
+
+    /**
+     * 设置跟进类型常用语
+     * @param stringList
+     */
+    @Override
+    @Transactional
+    public void setActivityPhrase(List<String> stringList) {
+        String name = "ActivityPhrase";
+        Long userId = UserUtil.getUserId();
+        String description = "跟进记录常用语";
+        deleteUserConfigByName(name);
+        List<AdminUserConfig> adminUserConfigList = new ArrayList<>(stringList.size());
+        stringList.forEach(str -> {
+            AdminUserConfig userConfig = new AdminUserConfig();
+            userConfig.setStatus(1);
+            userConfig.setName(name);
+            userConfig.setValue(str);
+            userConfig.setUserId(userId);
+            userConfig.setDescription(description);
+            adminUserConfigList.add(userConfig);
+        });
+      saveBatch(adminUserConfigList, AdminConst.BATCH_SAVE_SIZE);
     }
 
 }

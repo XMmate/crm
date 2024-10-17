@@ -69,6 +69,11 @@ public class CrmCustomerPoolController {
         return Result.ok(basePage);
     }
 
+    /**
+     * 企业后台-客户管理-客户公海规则设置
+     * @param entity
+     * @return
+     */
     @ApiOperation("查询公海列表配置")
     @PostMapping("/queryPoolSettingList")
     public Result<BasePage<CrmCustomerPoolVO>> queryPoolSettingList(@RequestBody PageEntity entity) {
@@ -90,6 +95,8 @@ public class CrmCustomerPoolController {
         crmCustomerPoolService.changeStatus(poolId, status);
         return Result.ok();
     }
+
+
 
     @ApiOperation("根据ID查询公海信息")
     @PostMapping("/queryPoolById")

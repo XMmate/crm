@@ -56,7 +56,7 @@ public class AdminMenuServiceImpl extends BaseServiceImpl<AdminMenuMapper, Admin
     }
 
     /**
-     * 根据类型查询菜单
+     * 根据角色类型查询菜单
      * @param typeEnum type
      * @return data
      */

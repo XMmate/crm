@@ -32,10 +32,11 @@ public class AdminRole implements Serializable {
 
     private static final long serialVersionUID=1L;
 
+    @ApiModelProperty("角色ID")
     @TableId(value = "role_id", type = IdType.AUTO)
     private Integer roleId;
 
-    @ApiModelProperty(value = "名称")
+    @ApiModelProperty(value = "角色名称")
     private String roleName;
 
     @ApiModelProperty(value = "0、自定义角色1、管理角色 2、客户管理角色 3、人事角色 4、财务角色 5、项目角色 8、项目自定义角色")

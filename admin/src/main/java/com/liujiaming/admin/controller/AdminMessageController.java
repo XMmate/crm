@@ -19,6 +19,7 @@ import com.liujiaming.core.feign.admin.entity.AdminMessageBO;
 import com.liujiaming.core.redis.service.Redis;
 import com.liujiaming.core.utils.UserUtil;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class AdminMessageController {
 
     @Autowired
     private Redis redis;
-
+    @ApiModelProperty("保存消息")
     @PostMapping("/save")
     public Result<AdminMessage> save(@RequestBody com.liujiaming.core.feign.admin.entity.AdminMessage adminMessage) {
         AdminMessage adminMessage1 = BeanUtil.copyProperties(adminMessage, AdminMessage.class);
@@ -56,7 +57,7 @@ public class AdminMessageController {
         messageService.save(adminMessage1);
         return Result.ok(adminMessage1);
     }
-
+     @ApiModelProperty("更新消息")
     @PostMapping("/update")
     public Result<AdminMessage> update(@RequestBody com.liujiaming.core.feign.admin.entity.AdminMessage adminMessage) {
         AdminMessage adminMessage1 = BeanUtil.copyProperties(adminMessage, AdminMessage.class);
@@ -67,6 +68,8 @@ public class AdminMessageController {
         return Result.ok(adminMessage1);
     }
 
+
+    @ApiModelProperty("保存或更新消息")
     @PostMapping("/saveOrUpdateMessage")
     public Result<Long> saveOrUpdateMessage(@RequestBody com.liujiaming.core.feign.admin.entity.AdminMessage message) {
         Long messageId = messageService.saveOrUpdateMessage(message);
@@ -81,7 +84,7 @@ public class AdminMessageController {
     }
 
     @PostMapping("/readMessage")
-    @ApiOperation("单个标记为已读")
+    @ApiOperation("根据消息ID单个标记为已读")
     public Result readMessage(@RequestParam("messageId") Long messageId) {
         AdminMessage byId = messageService.getById(messageId);
         if (byId != null) {
@@ -91,32 +94,32 @@ public class AdminMessageController {
         return Result.ok();
     }
 
+
+    /**
+     * "消息大类 1 任务 2 日志 3 oa审批 4公告 5 日程 6 crm消息"
+     * @param label
+     * @return
+     */
     @PostMapping("/readAllMessage")
-    @ApiOperation("全部标记为已读")
+    @ApiOperation("根据消息类型，全部标记该类型为已读")
     public Result readAllMessage(Integer label) {
-        LambdaUpdateChainWrapper<AdminMessage> wrapper = messageService.lambdaUpdate();
-        wrapper.set(AdminMessage::getIsRead, 1);
-        wrapper.eq(AdminMessage::getRecipientUser, UserUtil.getUserId());
-        if (label != null) {
-            wrapper.eq(AdminMessage::getLabel, label);
-        }
-        wrapper.update();
+        messageService.readAllMessage(label);
         return Result.ok();
     }
 
+    /**
+     * "消息大类 1 任务 2 日志 3 oa审批 4公告 5 日程 6 crm消息"
+     * @param label
+     * @return
+     */
     @PostMapping("/clear")
-    @ApiOperation("删除已读消息")
+    @ApiOperation("根据消息类型，删除该类型已读消息")
     public Result clear(Integer label) {
-        LambdaUpdateChainWrapper<AdminMessage> wrapper = messageService.lambdaUpdate();
-        wrapper.eq(AdminMessage::getIsRead, 1);
-        wrapper.eq(AdminMessage::getRecipientUser, UserUtil.getUserId());
-        if (label != null) {
-            wrapper.eq(AdminMessage::getLabel, label);
-        }
-        wrapper.remove();
+        messageService.clear(label);
         return Result.ok();
     }
 
+    @ApiModelProperty("根据消息ID查询消息")
     @PostMapping("/getById/{messageId}")
     public Result<AdminMessage> getById(@PathVariable Long messageId) {
         AdminMessage adminMessage = messageService.getById(messageId);
@@ -125,7 +128,7 @@ public class AdminMessageController {
 
 
     @PostMapping("/queryUnreadCount")
-    @ApiOperation("查询未读消息")
+    @ApiOperation("查询每个类型未读消息数量")
     public Result<AdminMessageVO> queryUnreadCount() {
         AdminMessageVO messageVO = messageService.queryUnreadCount();
         return Result.ok(messageVO);
@@ -166,7 +169,7 @@ public class AdminMessageController {
         }
     }
 
-    /**
+    /**发送消息
      * 供远程微服务调用
      * @param adminMessageBO
      * @return
@@ -179,19 +182,26 @@ public class AdminMessageController {
     }
 
     @PostMapping("/deleteEventMessage")
-    @ApiExplain("删除日程消息")
+    @ApiExplain("根据日程ID删除日程通知消息")
     public Result deleteEventMessage(@RequestParam("eventId")Integer eventId){
         messageService.deleteEventMessage(eventId);
         return Result.ok();
     }
 
     @PostMapping("/deleteById/{messageId}")
-    @ApiOperation("删除通知")
+    @ApiOperation("根据消息ID删除消息")
     public Result deleteById(@PathVariable("messageId") Integer messageId) {
         messageService.deleteById(messageId);
         return Result.ok();
     }
 
+
+    /**
+     * "消息大类 1 任务 2 日志 3 oa审批 4公告 5 日程 6 crm消息"
+     * @param label
+     * @return
+     */
+    @ApiModelProperty("根据消息类型删除消息")
     @PostMapping("/deleteByLabel")
     public Result deleteByLabel(@RequestParam("label") Integer label){
         messageService.deleteByLabel(label);

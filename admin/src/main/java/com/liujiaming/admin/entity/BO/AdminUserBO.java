@@ -26,7 +26,7 @@ public class AdminUserBO extends PageEntity {
     @ApiModelProperty("昵称")
     private String realname;
 
-    @ApiModelProperty("昵称")
+    @ApiModelProperty("状态")
     private Integer status;
 
     @ApiModelProperty("角色ID")
@@ -42,8 +42,11 @@ public class AdminUserBO extends PageEntity {
     @ApiModelProperty(value = "用户列表")
     private List<Long> userIdList;
 
+
+    @ApiModelProperty("部门负责人ID")
     private Long deptOwnerUserId;
 
+    @ApiModelProperty("用户ID")
     private Long userId;
 
     @ApiModelProperty(value = "是否展示子级部门 0不需要 1 需要")

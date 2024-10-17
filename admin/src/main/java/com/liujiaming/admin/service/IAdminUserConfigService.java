@@ -53,4 +53,10 @@ public interface IAdminUserConfigService extends BaseService<AdminUserConfig> {
      */
     public List<AdminUserConfig> queryUserConfigByNameAndValue(String name, String value);
 
+
+    /**
+     * 设置跟进记录常用语
+     * @param stringList
+     */
+    void setActivityPhrase(List<String> stringList);
 }

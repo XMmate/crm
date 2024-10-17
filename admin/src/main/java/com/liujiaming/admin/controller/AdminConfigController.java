@@ -39,10 +39,7 @@ import java.util.stream.Collectors;
 
 
 /**
- * <p>
- * 客户规则 前端控制器
- * </p>
- *
+ *企业配置
  * @author liujiaming
  * @since 2024-04-27
  */
@@ -60,17 +57,7 @@ public class AdminConfigController {
 
     @Autowired
     private IAdminModelSortService adminModelSortService;
-    /**
-     * 设置系统配置
-     */
-    @ApiOperation(value = "设置企业配置")
-    @PostMapping("/setAdminConfig")
-  
-    @SysLogHandler(subModel = SubModelType.ADMIN_COMPANY_HOME,behavior = BehaviorEnum.UPDATE,object = "企业首页配置",detail = "'企业首页配置:'+#adminCompanyBO.companyName")
-    public Result setAdminConfig(@RequestBody AdminCompanyBO adminCompanyBO) {
-        adminConfigService.setAdminConfig(adminCompanyBO);
-        return Result.ok();
-    }
+
 
     /**
      * 查询企业配置
@@ -87,6 +74,23 @@ public class AdminConfigController {
 
 
 
+    /**
+     * 设置企业基本信息
+     * (企业后台-->企业首页)
+     */
+    @ApiOperation(value = "基本企业信息设置")
+    @PostMapping("/setAdminConfig")
+    @SysLogHandler(subModel = SubModelType.ADMIN_COMPANY_HOME,behavior = BehaviorEnum.UPDATE,object = "企业首页配置",detail = "'企业首页配置:'+#adminCompanyBO.companyName")
+    public Result setAdminConfig(@RequestBody AdminCompanyBO adminCompanyBO) {
+        adminConfigService.setAdminConfig(adminCompanyBO);
+        return Result.ok();
+    }
+
+
+    /**
+     * 首页那里查询头部的一排
+     * @return
+     */
     @ApiOperation(value = "查询头部设置")
     @PostMapping("/queryHeaderModelSort")
     public Result<List<String>> queryHeaderModelSort() {
@@ -97,9 +101,8 @@ public class AdminConfigController {
         return Result.ok(list.stream().map(AdminModelSort::getModel).collect(Collectors.toList()));
     }
 
-    @ApiOperation(value = "头部设置")
+    @ApiOperation(value = "设置头部")
     @PostMapping("/setHeaderModelSort")
-  
     public Result setHeaderModelSort(@RequestBody List<String> list) {
         List<AdminModelSort> modelSortList = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
@@ -130,13 +133,12 @@ public class AdminConfigController {
     }
 
     /**
-     * 查询企业模块配置
-     *“应用管理”
+     * 查询应用模块配置(应用列表)
+     *应用管理，首页那里都用
      * @author liujiaming
      */
-    @ApiOperation(value = "查询企业模块配置")
+    @ApiOperation(value = "查询应用模块配置(应用列表)")
     @PostMapping("/queryModuleSetting")
-  
     public Result<List<ModuleSettingVO>> queryModuleSetting() {
         return R.ok(adminConfigService.queryModuleSetting());
     }
@@ -146,11 +148,11 @@ public class AdminConfigController {
      *
      * @param moduleSetting data
      */
-    @ApiOperation(value = "设置企业模块")
+    @ApiOperation(value = "设置企业模块 停用或者启用")
     @PostMapping("/setModuleSetting")
-  
     @SysLogHandler(subModel = SubModelType.ADMIN_OTHER_SETTINGS,behavior = BehaviorEnum.UPDATE)
     public Result setModuleSetting(@Valid @RequestBody ModuleSettingBO moduleSetting) {
+
         AdminConfig adminConfig = adminConfigService.getById(moduleSetting.getSettingId());
         if (AdminModuleEnum.CRM.getValue().equals(adminConfig.getName())) {
             return R.error(AdminCodeEnum.ADMIN_MODULE_CLOSE_ERROR);
@@ -162,7 +164,6 @@ public class AdminConfigController {
 
     @ApiOperation(value = "设置日志欢迎语")
     @PostMapping("/setLogWelcomeSpeech")
-  
     @SysLogHandler(subModel = SubModelType.ADMIN_OTHER_SETTINGS,behavior = BehaviorEnum.UPDATE,object = "设置日志欢迎语",detail = "设置日志欢迎语")
     public Result setLogWelcomeSpeech(@Valid @RequestBody List<String> stringList) {
         adminConfigService.setLogWelcomeSpeech(stringList);
@@ -170,9 +171,10 @@ public class AdminConfigController {
     }
 
     /**
-     * 获取日志欢迎语列表
+     * 查询获取日志欢迎语列表
+     *
      */
-    @ApiOperation(value = "获取日志欢迎语")
+    @ApiOperation(value = "查询日志欢迎语列表")
     @PostMapping("/getLogWelcomeSpeechList")
     public Result<List<LogWelcomeSpeechBO>> getLogWelcomeSpeechList() {
         List<LogWelcomeSpeechBO> adminConfigs = adminConfigService.getLogWelcomeSpeechList();
@@ -181,6 +183,7 @@ public class AdminConfigController {
 
     /**
      * 删除配置数据
+     * （前端尚未开发）
      */
     @ApiOperation(value = "删除配置数据")
     @PostMapping("/deleteConfigById")
@@ -238,47 +241,27 @@ public class AdminConfigController {
     @ApiOperation(value = "设置跟进记录常用语")
     @PostMapping("/setActivityPhrase")
     public Result setActivityPhrase(@RequestBody List<String> stringList) {
-        String name = "ActivityPhrase";
-        Long userId = UserUtil.getUserId();
-        String description = "跟进记录常用语";
-        adminUserConfigService.deleteUserConfigByName(name);
-        List<AdminUserConfig> adminUserConfigList = new ArrayList<>(stringList.size());
-        stringList.forEach(str -> {
-            AdminUserConfig userConfig = new AdminUserConfig();
-            userConfig.setStatus(1);
-            userConfig.setName(name);
-            userConfig.setValue(str);
-            userConfig.setUserId(userId);
-            userConfig.setDescription(description);
-            adminUserConfigList.add(userConfig);
-        });
-        adminUserConfigService.saveBatch(adminUserConfigList, AdminConst.BATCH_SAVE_SIZE);
+        adminUserConfigService.setActivityPhrase(stringList);
+
         return R.ok();
     }
 
+    /**
+     * 企业后台-->客户管理-->业务参数->设置跟进记录类型
+     * @param stringList
+     * @return
+     */
     @ApiOperation(value = "设置跟进记录类型")
     @PostMapping("/setRecordOptions")
     @SysLogHandler(subModel = SubModelType.ADMIN_OTHER_SETTINGS,behavior = BehaviorEnum.UPDATE,object = "设置跟进记录类型",detail = "设置跟进记录类型")
     public Result setRecordOptions(@RequestBody List<String> stringList) {
-        String name = "followRecordOption";
-        String description = "跟进记录选项";
-        adminConfigService.removeByMap(new JSONObject().fluentPut("name", name));
-        List<AdminConfig> adminUserConfigList = new ArrayList<>(stringList.size());
-        stringList.forEach(str -> {
-            AdminConfig userConfig = new AdminConfig();
-            userConfig.setStatus(1);
-            userConfig.setName(name);
-            userConfig.setValue(str);
-            userConfig.setDescription(description);
-            adminUserConfigList.add(userConfig);
-        });
-        adminConfigService.saveBatch(adminUserConfigList, AdminConst.BATCH_SAVE_SIZE);
+        adminConfigService.setRecordOptions(stringList);
         return R.ok();
     }
 
 
     /**
-     * 查询跟进记录常用语
+     * 企业后台-->客户管理-->业务参数->查询跟进记录常用语
      */
     @ApiOperation(value = "查询跟进记录常用语")
     @PostMapping("/queryActivityPhrase")
@@ -317,7 +300,7 @@ public class AdminConfigController {
     }
 
     /**
-     * 查询跟进记录常用语
+     * 验证密码，初始化模块前需要验证密码
      */
     @ApiOperation(value = "验证密码")
     @PostMapping("/verifyPassword")
@@ -326,9 +309,7 @@ public class AdminConfigController {
     }
 
 
-    /**
-     * 查询跟进记录常用语
-     */
+
     @ApiOperation(value = "模块初始化")
     @PostMapping("/moduleInitData")
     public Result<Boolean> moduleInitData(@RequestBody AdminInitDataBO adminInitDataBO) {

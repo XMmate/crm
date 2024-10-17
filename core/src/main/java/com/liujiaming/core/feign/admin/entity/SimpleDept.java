@@ -11,7 +11,7 @@ import java.io.Serializable;
  * 简单的部门对象
  */
 @Data
-@ApiModel("部门对象")
+@ApiModel("简单部门对象")
 public class SimpleDept implements Serializable {
 
     private static final long serialVersionUID=1L;

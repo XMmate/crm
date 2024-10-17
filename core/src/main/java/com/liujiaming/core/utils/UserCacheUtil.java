@@ -105,6 +105,11 @@ public class UserCacheUtil {
         return simpleUser;
     }
 
+    /**
+     * 根据用户id集，获取用户简单信息集
+     * @param ids
+     * @return
+     */
     public static List<SimpleUser> getSimpleUsers(Collection<Long> ids) {
         if(ids == null || ids.isEmpty()){
             return Collections.emptyList();

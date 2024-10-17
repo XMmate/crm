@@ -13,6 +13,7 @@ import com.liujiaming.core.feign.admin.entity.SimpleUser;
 import com.liujiaming.core.servlet.BaseService;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
@@ -99,7 +100,7 @@ public interface IAdminUserService extends BaseService<AdminUser> {
     public void setUserStatus(AdminUserStatusBO adminUserStatusBO);
 
     /**
-     * 设置状态
+     * 激活账号
      * @param adminUserStatusBO status
      */
     public void activateUser(AdminUserStatusBO adminUserStatusBO);
@@ -180,4 +181,14 @@ public interface IAdminUserService extends BaseService<AdminUser> {
      * 下载员工导入模板
      */
     public void downloadExcel(HttpServletResponse response) throws IOException;
+
+    List<Long> queryAllUserList(Integer type);
+
+    /**
+     * 查询当前登录用户的基本信息
+     * @param request
+     * @param response
+     * @return
+     */
+    AdminUserVO queryLoginUser(HttpServletRequest request, HttpServletResponse response);
 }

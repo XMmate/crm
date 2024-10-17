@@ -55,12 +55,12 @@ public class AdminRoleController {
 
 
     /**
-     * 查询角色权限，进入首页前查询，然后让首页选择性渲染？
-     * todo 没搞明白里面的算法
+     * 查询角色权限，进入首页前查询，然后让首页选择性渲染
+     *
      * @return
      */
     @PostMapping("/auth")
-    @ApiOperation("角色权限")
+    @ApiOperation("角色权限列表")
     public Result<JSONObject> auth() {
         JSONObject object = adminRoleService.auth(UserUtil.getUserId());
         AdminModelSort one = adminModelSortService.lambdaQuery().select(AdminModelSort::getModel).eq(AdminModelSort::getType, 1).eq(AdminModelSort::getUserId, UserUtil.getUserId()).orderByAsc(AdminModelSort::getSort).last(" limit 1").one();
@@ -68,20 +68,16 @@ public class AdminRoleController {
         return R.ok(object);
     }
 
-    @PostMapping("/queryNoAuthMenu")
-    @ApiOperation("获取未授权的菜单")
-    public Result<List<String>> queryNoAuthMenu(@RequestParam("userId") @NotNull Long userId) {
-        return R.ok(adminRoleService.queryNoAuthMenu(userId));
-    }
+
 
     @PostMapping("/getRoleList")
-    @ApiOperation("查询新增员工时的可查询角色")
+    @ApiOperation("查询新增员工时的可设置的角色")
     public Result<List<AdminRoleVO>> getRoleList(){
         return R.ok(adminRoleService.getRoleList());
     }
 
     @PostMapping("/getAllRoleList")
-    @ApiOperation("全局角色查询")
+    @ApiOperation("查询全部角色列表")
     public Result<List<AdminRoleVO>> getAllRoleList() {
         List<AdminRoleVO> allRoleList = adminRoleService.getAllRoleList();
         return R.ok(allRoleList);
@@ -258,7 +254,7 @@ public class AdminRoleController {
     }
 
     @PostMapping("/adminRole/queryUserIdByRoleId")
-    @ApiExplain("根据角色ID查询用户列表")
+    @ApiExplain("根据角色ID查询用户ID列表")
     public Result<List<Long>> queryUserIdByRoleId(@RequestParam("roleId") Integer roleId){
         List<Long> userIds = adminRoleService.queryUserIdByRoleId(roleId);
         return R.ok(userIds);
