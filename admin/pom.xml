@@ -8,13 +8,10 @@
 		<artifactId>wkcrm</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-
 	<artifactId>wk_admin</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>admin</name>
 	<description>系统管理</description>
-
-
 	<dependencies>
 		<dependency>
 			<groupId>com.liujiaming</groupId>
@@ -58,9 +55,6 @@
 			<artifactId>ip2region</artifactId>
 			<version>1.7.2</version>
 		</dependency>
-
-
-
 	</dependencies>
 
 	<build>

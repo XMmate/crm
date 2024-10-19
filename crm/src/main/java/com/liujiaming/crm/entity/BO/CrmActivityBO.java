@@ -20,11 +20,16 @@ public class CrmActivityBO extends PageEntity {
     @ApiModelProperty("活动类型ID")
     private Integer activityTypeId;
 
+
+    @ApiModelProperty("搜索关键字")
     private String search;
 
+    @ApiModelProperty("间隔日")
     private Integer intervalDay;
 
+   @ApiModelProperty("开始时间")
     private String startDate;
 
+    @ApiModelProperty("结束时间")
     private String endDate;
 }

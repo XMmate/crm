@@ -109,7 +109,6 @@ public class AdminUserController {
     @PostMapping("/queryAllUserList")
     public Result<List<Long>> queryAllUserList(@RequestParam(value = "type",required = false) Integer type) {
         List<Long> list = adminUserService.queryAllUserList(type);
-
         return R.ok(list);
     }
 
@@ -417,7 +416,7 @@ public class AdminUserController {
     }
 
     /**
-     * 初始化系统
+     * 初始化系统用户
      * @param systemUserBO
      * @return
      */
@@ -431,7 +430,7 @@ public class AdminUserController {
 
 
     @PostMapping("/queryUserIdByUserName")
-    @ApiExplain("查询用户id通过用户名")
+    @ApiExplain("通过用户名查询用户id")
     public Result<Long> queryUserIdByUserName(@RequestParam("userName")String userName){
         Long userId = adminUserService.lambdaQuery().select(AdminUser::getUserId).eq(AdminUser::getUsername, userName).oneOpt().map(AdminUser::getUserId).orElse(0L);
         return Result.ok(userId);

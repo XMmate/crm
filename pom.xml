@@ -22,7 +22,7 @@
         <module>job</module>
         <module>examine</module>
         <module>hrm</module>
-        <module>test</module>
+
 
     </modules>
     <properties>

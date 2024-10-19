@@ -6,6 +6,7 @@
       from wk_crm_action_record a join wk_admin_user b on a.create_user_id = b.user_id
       where action_id = #{actionId} and types = #{types} and content is not null and content != '' order by create_time desc
     </select>
+
     <select id="queryFieldValue" resultType="com.liujiaming.crm.entity.VO.CrmModelFiledVO">
         select a.field_id, a.value,b.field_name,b.name,b.type from ${data.dataTableName} as a
         join wk_crm_field b on a.field_id = b.field_id

@@ -15,7 +15,7 @@ public interface BiEsStatisticsService {
      * 获取统计客户信息
      * @date 2024/12/1 10:58
      * @param timeEntity
-     * @param isNeedDealNum
+     * @param isNeedDealNum 是否交易成功
      * @return java.util.List<com.alibaba.fastjson.JSONObject>
      **/
     List<JSONObject> getStatisticsCustomerInfo(BiTimeUtil.BiTimeEntity timeEntity,boolean isNeedDealNum);

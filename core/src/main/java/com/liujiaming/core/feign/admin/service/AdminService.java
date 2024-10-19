@@ -67,7 +67,7 @@ public interface AdminService {
 
     /**
      * 根据名称查询系统配置
-     *
+     *在AdminConfig表里面
      * @param name 名称
      * @return data
      */

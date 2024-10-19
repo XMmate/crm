@@ -55,6 +55,7 @@ public class BiCustomerServiceImpl implements BiCustomerService {
             beginTime = BiTimeUtil.estimateTime(beginTime);
         }
         List<JSONObject> customerNumObjectList = biEsStatisticsService.getStatisticsCustomerInfo(timeEntity,false);
+
         if(customerNumObjectList.size() == 0){
             for (Integer type : timeList) {
                 customerNumObjectList.add(new JSONObject().fluentPut("type", type).fluentPut("customerNum", 0));
@@ -87,7 +88,7 @@ public class BiCustomerServiceImpl implements BiCustomerService {
         tableNameList.removeIf(t -> !tableNames.contains(t));
     }
     /**
-     * 查询客户总量分析图
+     * 查询客户总量分析表
      *
      * @param biParams params
      * @return data
@@ -103,9 +104,13 @@ public class BiCustomerServiceImpl implements BiCustomerService {
         }
         List<JSONObject> recordList = biCustomerMapper.totalCustomerTable(timeEntity);
         JSONObject total = new JSONObject();
+        //总数
         total.put("customerNum", new BigDecimal("0"));
+        //成交
         total.put("dealCustomerNum", new BigDecimal("0"));
+        //合同总金额
         total.put("contractMoney", new BigDecimal("0"));
+        //回款金额
         total.put("receivablesMoney", new BigDecimal("0"));
         recordList.forEach(r -> {
             total.put("realname", "总计");
@@ -119,7 +124,7 @@ public class BiCustomerServiceImpl implements BiCustomerService {
     }
 
     /**
-     * 客户跟进次数分析
+     * 客户跟进次数分析图
      *
      * @param biParams params
      * @return data

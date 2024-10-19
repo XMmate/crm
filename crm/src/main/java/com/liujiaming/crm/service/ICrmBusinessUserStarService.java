@@ -22,5 +22,11 @@ public interface ICrmBusinessUserStarService extends BaseService<CrmBusinessUser
      */
     public Integer isStar(Object businessId, Long userId);
 
+
+    /**
+     * 关注列表
+     * @param userId
+     * @return
+     */
     List<Integer> starList(Long userId);
 }

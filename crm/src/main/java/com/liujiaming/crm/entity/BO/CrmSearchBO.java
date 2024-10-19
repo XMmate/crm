@@ -62,7 +62,7 @@ public class CrmSearchBO extends PageEntity implements Serializable {
         @JsonProperty("type")
         private FieldSearchEnum searchEnum;
 
-        @ApiModelProperty(value = "脚本查询需要")
+        @ApiModelProperty(value = "es查询需要")
         private transient Script script;
 
         @ApiModelProperty(value = "值列表")

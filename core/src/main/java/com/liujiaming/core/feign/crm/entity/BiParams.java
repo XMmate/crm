@@ -26,9 +26,11 @@ public class BiParams extends PageEntity {
     @ApiModelProperty("用户组ids")
     private List<Long> userIds;
 
-    //按年或月或日
-    @ApiModelProperty("类型")
+
+    @ApiModelProperty("类型 今天,昨天,本年，去年，本季等")
     private String type;
+
+
 
     @ApiModelProperty("开始时间")
     private String startTime;
@@ -67,10 +69,13 @@ public class BiParams extends PageEntity {
     @ApiModelProperty("排序字段")
     private String sortField;
 
+    @ApiModelProperty("检查状态")
     private Integer checkStatus;
 
+  @ApiModelProperty("子用户")
     private Integer subUser;
 
+    @ApiModelProperty("搜索关键字")
     private String search;
 
     private Integer day;

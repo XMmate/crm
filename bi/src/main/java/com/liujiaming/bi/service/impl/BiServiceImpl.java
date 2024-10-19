@@ -43,6 +43,7 @@ public class BiServiceImpl implements BiService {
     /**
      * 产品销售情况统计
      * startTime 开始时间 endTime 结束时间 userId用户ID deptId部门ID
+     * menuId = 118是(产品分析-->查看)
      */
     @Override
     public BasePage<ProductStatisticsVO> queryProductSell(BiParams biParams) {
@@ -51,7 +52,6 @@ public class BiServiceImpl implements BiService {
         BiTimeUtil.BiTimeEntity timeEntity = BiTimeUtil.analyzeType(biParams);
         Integer page = biParams.getPage() > 0 ? (biParams.getPage() - 1) * biParams.getLimit() : 0;
         timeEntity.setPage(page).setLimit(biParams.getLimit());
-
         JSONObject object = biMapper.queryProductSellCount(timeEntity);
         Integer count = object.getInteger("count");
         if(count == 0){

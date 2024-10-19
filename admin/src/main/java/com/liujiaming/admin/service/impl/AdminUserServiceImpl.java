@@ -23,8 +23,6 @@ import com.liujiaming.admin.common.AdminCodeEnum;
 import com.liujiaming.admin.common.AdminConst;
 import com.liujiaming.admin.entity.BO.*;
 import com.liujiaming.admin.entity.PO.*;
-import com.liujiaming.admin.entity.BO.*;
-import com.liujiaming.admin.entity.PO.*;
 import com.liujiaming.admin.entity.VO.AdminSuperUserVo;
 import com.liujiaming.admin.entity.VO.AdminUserVO;
 import com.liujiaming.admin.entity.VO.HrmSimpleUserVO;
@@ -43,7 +41,6 @@ import com.liujiaming.core.feign.hrm.entity.HrmEmployee;
 import com.liujiaming.core.feign.hrm.service.HrmService;
 import com.liujiaming.core.servlet.ApplicationContextHolder;
 import com.liujiaming.core.servlet.BaseServiceImpl;
-import com.liujiaming.admin.service.*;
 import com.liujiaming.core.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
@@ -905,17 +902,6 @@ public class AdminUserServiceImpl extends BaseServiceImpl<AdminUserMapper, Admin
             return;
         }
         JSONObject jsonObject = null;
-//        try {
-//            RSA rsa = SecureUtil.rsa((String) null, AdminConst.userPublicKey);
-//            String fromBcd = rsa.decryptStrFromBcd(systemUserBO.getCode(), KeyType.PublicKey);
-//            jsonObject = JSON.parseObject(fromBcd);
-//        } catch (Exception e) {
-//            throw new CrmException(AdminCodeEnum.ADMIN_PHONE_VERIFY_ERROR);
-//        }
-//        if (jsonObject == null) {
-//            throw new CrmException(AdminCodeEnum.ADMIN_PHONE_VERIFY_ERROR);
-//        }
-
         AdminUser adminUser = new AdminUser();
         adminUser.setUsername(systemUserBO.getUsername());
         adminUser.setSalt(IdUtil.simpleUUID());

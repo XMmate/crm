@@ -227,7 +227,7 @@ public interface CrmPageService {
 
     /**
      * 查询的字段，以及排序
-     *
+     *查询构建器
      * @param crmSearchBO data
      * @return data
      */
@@ -482,7 +482,7 @@ public interface CrmPageService {
         boolQueryBuilder.must(authBoolQuery);
     }
 
-    /**
+    /**  //排序以及查询字段
      * @param crmSearchBO   data
      * @param sourceBuilder data
      */

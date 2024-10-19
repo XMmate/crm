@@ -63,17 +63,22 @@ public class CrmBusinessController {
     @Autowired
     private ICrmTeamMembersService teamMembersService;
 
+
+    /**
+     * 查es
+     * @param crmSearchBO
+     * @return
+     */
     @PostMapping("/queryPageList")
-    @ApiOperation("查询列表页数据")
-    public Result<BasePage<Map<String, Object>>> queryPageList(@RequestBody CrmSearchBO search) {
-        search.setPageType(1);
-        BasePage<Map<String, Object>> mapBasePage = crmBusinessService.queryPageList(search);
+    @ApiOperation("查询商机列表页数据")
+    public Result<BasePage<Map<String, Object>>> queryPageList(@RequestBody CrmSearchBO crmSearchBO) {
+        BasePage<Map<String, Object>> mapBasePage = crmBusinessService.queryPageList(crmSearchBO);
         return R.ok(mapBasePage);
     }
 
     @PostMapping("/add")
-    @ApiOperation("保存商机数据")
-    @SysLogHandler(behavior = BehaviorEnum.SAVE,object = "#crmModel.entity[businessName]",detail = "'新增了线索:' + #crmModel.entity[businessName]")
+    @ApiOperation("新建商机")
+    @SysLogHandler(behavior = BehaviorEnum.SAVE,object = "#crmModel.entity[businessName]",detail = "'新增了商机:' + #crmModel.entity[businessName]")
     public Result add(@RequestBody CrmBusinessSaveBO crmModel) {
         crmBusinessService.addOrUpdate(crmModel);
         return R.ok();
@@ -98,7 +103,7 @@ public class CrmBusinessController {
     }
 
     @PostMapping("/queryById/{businessId}")
-    @ApiOperation("根据ID查询")
+    @ApiOperation("根据ID查询商机")
     public Result<CrmModel> queryById(@PathVariable("businessId") @ApiParam(name = "id", value = "id") Integer businessId) {
         Integer number = crmBusinessService.lambdaQuery().eq(CrmBusiness::getBusinessId, businessId).count();
         if (number == 0) {
@@ -156,7 +161,7 @@ public class CrmBusinessController {
     }
 
     @PostMapping("/deleteByIds")
-    @ApiOperation("根据ID删除数据")
+    @ApiOperation("根据ID列表删除数据")
     @SysLogHandler(behavior = BehaviorEnum.DELETE)
     public Result deleteByIds(@ApiParam(name = "ids", value = "id列表") @RequestBody List<Integer> ids) {
         crmBusinessService.deleteByIds(ids);

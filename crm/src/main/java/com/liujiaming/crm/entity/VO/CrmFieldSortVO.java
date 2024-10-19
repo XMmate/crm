@@ -17,7 +17,7 @@ import java.io.Serializable;
  */
 @Data
 @Accessors(chain = true)
-@ApiModel(value="CrmFieldSort列表对象", description="字段排序表")
+@ApiModel(value="CrmFieldSort列表对象", description="字段排序")
 public class CrmFieldSortVO implements Serializable {
 
     private static final long serialVersionUID=1L;

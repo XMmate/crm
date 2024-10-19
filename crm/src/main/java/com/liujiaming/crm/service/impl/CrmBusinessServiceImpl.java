@@ -248,15 +248,15 @@ public class CrmBusinessServiceImpl extends BaseServiceImpl<CrmBusinessMapper, C
     private ICrmBusinessTypeService businessTypeService;
 
     /**
-     * 分页查询
+     * 查询商机列表页数据
      *
-     * @param search
+     * @param crmSearchBO
      * @return
      */
     @Override
-    public BasePage<Map<String, Object>> queryPageList(CrmSearchBO search) {
-        CrmSearchBO search1 = ObjectUtil.cloneByStream(search);
-        BasePage<Map<String, Object>> basePage = queryList(search,false);
+    public BasePage<Map<String, Object>> queryPageList(CrmSearchBO crmSearchBO) {
+        CrmSearchBO search = ObjectUtil.cloneByStream(crmSearchBO);
+        BasePage<Map<String, Object>> basePage = queryList(crmSearchBO,false);
         Long userId = UserUtil.getUserId();
         List<Integer> starIds = crmBusinessUserStarService.starList(userId);
         basePage.getList().forEach(map -> {
@@ -275,8 +275,7 @@ public class CrmBusinessServiceImpl extends BaseServiceImpl<CrmBusinessMapper, C
         SearchRequest searchRequest = new SearchRequest(getIndex());
         searchRequest.types(getDocType());
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-        BoolQueryBuilder queryBuilder = createQueryBuilder(search1);
-        log.info("看下商机搜索条件"+search1.toString());
+        BoolQueryBuilder queryBuilder = createQueryBuilder(search);
         sourceBuilder.query(queryBuilder);
         sourceBuilder.aggregation(AggregationBuilders.sum("businessSumMoney").field("money"));
         searchRequest.source(sourceBuilder);
@@ -318,7 +317,7 @@ public class CrmBusinessServiceImpl extends BaseServiceImpl<CrmBusinessMapper, C
 
 
     /**
-     * 保存或新增信息
+     * 保存或新增商机信息
      *
      * @param crmModel model
      */

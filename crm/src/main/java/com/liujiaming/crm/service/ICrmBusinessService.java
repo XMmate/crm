@@ -38,12 +38,12 @@ public interface ICrmBusinessService extends BaseService<CrmBusiness> {
     public List<CrmModelFiledVO> queryField(Integer id);
     public List<List<CrmModelFiledVO>> queryFormPositionField(Integer id);
     /**
-     * 查询所有数据
+     * 查询商机列表页数据
      *
-     * @param search 搜索对象
+     * @param crmSearchBO 搜索对象
      * @return data
      */
-    public BasePage<Map<String, Object>> queryPageList(CrmSearchBO search);
+    public BasePage<Map<String, Object>> queryPageList(CrmSearchBO crmSearchBO);
 
     /**
      * 查询字段配置
@@ -54,7 +54,7 @@ public interface ICrmBusinessService extends BaseService<CrmBusiness> {
     public CrmModel queryById(Integer id);
 
     /**
-     * 保存或新增信息
+     * 保存或新增商机数据
      *
      * @param crmModel model
      */

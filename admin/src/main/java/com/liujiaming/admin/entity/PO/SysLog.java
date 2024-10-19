@@ -23,8 +23,8 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("wk_sys_log")
-@ApiModel(value="SysLog对象", description="系统日志")
+@TableName("wk_admin_system_log")
+@ApiModel(value="SysLog对象", description="系统日志表")
 public class SysLog implements Serializable {
 
     private static final long serialVersionUID=1L;
@@ -63,11 +63,14 @@ public class SysLog implements Serializable {
     @ApiModelProperty(value = "ip地址")
     private String ipAddress;
 
+    @ApiModelProperty(value = "操作用户ID")
     private Long userId;
 
     @ApiModelProperty(value = "操作人名称")
     private String realname;
 
+
+    @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;

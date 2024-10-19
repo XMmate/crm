@@ -28,7 +28,7 @@ public interface ICrmActionRecordService extends BaseService<CrmActionRecord> {
     public void deleteActionRecord(CrmEnum crmEnum, List<Integer> ids);
 
     /**
-     * 查询自定义欢迎语
+     * 查询跟进方式列表
      *
      * @return data
      */

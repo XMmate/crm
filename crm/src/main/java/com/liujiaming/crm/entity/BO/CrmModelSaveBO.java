@@ -18,8 +18,11 @@ import java.util.Map;
 @ToString
 @ApiModel("crm保存对象")
 public class CrmModelSaveBO {
+
     @ApiModelProperty(value = "实体类对象")
     private Map<String, Object> entity;
+
+
     @ApiModelProperty(value = "自定义字段对象")
     private List<CrmModelFiledVO> field;
 }

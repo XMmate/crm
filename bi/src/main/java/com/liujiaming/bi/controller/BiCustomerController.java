@@ -26,14 +26,14 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("biCustomer")
-@Api(tags = "客户商业智能模块")
+@Api(tags = "员工客户分析")
 @Slf4j
 public class BiCustomerController {
 
     @Autowired
     private BiCustomerService biCustomerService;
 
-    @ApiOperation("客户总量分析")
+    @ApiOperation("客户总量分析图")
     @PostMapping("/totalCustomerStats")
     public Result<List<JSONObject>> totalCustomerStats(@RequestBody BiParams biParams) {
         List<JSONObject> objectList = biCustomerService.totalCustomerStats(biParams);

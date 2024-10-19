@@ -53,7 +53,7 @@ public interface ICrmActivityService extends BaseService<CrmActivity> {
     public CrmActivityVO getCrmActivityPageList(CrmActivityBO crmActivity);
 
     /**
-     * 添加活动记录
+     * 添加跟进记录
      * @param crmActivity crmActivity
      */
     public void addCrmActivityRecord(CrmActivity crmActivity);

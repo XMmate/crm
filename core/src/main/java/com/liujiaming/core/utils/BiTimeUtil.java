@@ -50,28 +50,34 @@ public class BiTimeUtil {
 
     /**
      * 分析类型 这里负责处理时间问题，开始时间到结束时间，计算这段时间封装到返回对象里面
-     * 再去数据库查找
+     * 再拿着biParams构建SQL去数据库查找
      * @param biParams
      * @return
      */
     public static BiTimeEntity analyzeType(BiParams biParams) {
         BiTimeEntity biTimeEntity;
         if (biParams.getYear() != null){
-            //按年分析
+           //传了年份
             biTimeEntity = analyzeTimeByYear(biParams);
         }else {
-            //不是按年分享，其他类型分享
+           //没有传年份
             biTimeEntity = analyzeTime(biParams);
         }
         biTimeEntity.setUserIds(analyzeAuth(biParams));
         return biTimeEntity;
     }
 
+    /**
+     * 分析授权
+     * @param biParams
+     * @return
+     */
     public static List<Long> analyzeAuth(BiParams biParams) {
         List<Long> userIdList = new ArrayList<>();
         Integer deptId = biParams.getDeptId();
         Long userId = biParams.getUserId();
         Integer isUser = biParams.getIsUser();
+        //按部门
         if (isUser == 0) {
             if (deptId == null) {
                 deptId = UserUtil.getUser().getDeptId();
@@ -80,7 +86,8 @@ public class BiTimeUtil {
             List<Integer> deptIdList = adminService.queryChildDeptId(deptId).getData();
             deptIdList.add(deptId);
             userIdList.addAll(adminService.queryUserByDeptIds(deptIdList).getData());
-        } else {
+        } //按用户
+        else {
             if (userId == null) {
                 userIdList.addAll(ApplicationContextHolder.getBean(AdminService.class).queryChildUserId(UserUtil.getUserId()).getData());
                 userIdList.add(UserUtil.getUserId());
@@ -142,13 +149,15 @@ public class BiTimeUtil {
         }
     }
 
+
+
     public String dataFilter(Integer menuId, String userIds) {
         List<Long> userIdList = Arrays.stream(userIds.split(",")).map(Long::parseLong).collect(Collectors.toList());
         dataFilter(menuId, userIdList);
         return CollectionUtil.join(userIdList, ",");
     }
 
-    //日期分享， yealr参数为空
+    //日期分析， yealr参数为空
     public static BiTimeEntity analyzeTime(BiParams biParams) {
         Date beginDate = DateUtil.date();
         Date endDate = DateUtil.date();
@@ -164,24 +173,29 @@ public class BiTimeUtil {
                 dateFormat = "yyyyMMdd";
             }
             switch (type) {
+                //年
                 case "year":
                     beginDate = DateUtil.beginOfYear(DateUtil.date());
                     endDate = DateUtil.endOfYear(DateUtil.date());
                     break;
+                    //去年
                 case "lastYear":
                     beginDate = DateUtil.beginOfYear(DateUtil.offsetMonth(DateUtil.date(), -12));
                     endDate = DateUtil.endOfYear(DateUtil.offsetMonth(DateUtil.date(), -12));
                     break;
+                    //季
                 case "quarter":
                     beginDate = DateUtil.beginOfQuarter(DateUtil.date());
                     endDate = DateUtil.endOfQuarter(DateUtil.date());
                     cycleNum = 3;
                     break;
+                    //上一季
                 case "lastQuarter":
                     beginDate = DateUtil.beginOfQuarter(DateUtil.offsetMonth(DateUtil.date(), -3));
                     endDate = DateUtil.endOfQuarter(DateUtil.offsetMonth(DateUtil.date(), -3));
                     cycleNum = 3;
                     break;
+                    //月
                 case "month":
                     beginDate = DateUtil.beginOfMonth(DateUtil.date());
                     endDate = DateUtil.endOfMonth(DateUtil.date());
@@ -189,6 +203,7 @@ public class BiTimeUtil {
                     dateFormat = "yyyyMMdd";
                     cycleNum = (int) DateUtil.between(beginDate, endDate, DateUnit.DAY) + 1;
                     break;
+                    //上一月
                 case "lastMonth":
                     beginDate = DateUtil.beginOfMonth(DateUtil.offsetMonth(DateUtil.date(), -1));
                     endDate = DateUtil.endOfMonth(DateUtil.offsetMonth(DateUtil.date(), -1));
@@ -196,6 +211,7 @@ public class BiTimeUtil {
                     dateFormat = "yyyyMMdd";
                     cycleNum = (int) DateUtil.between(beginDate, endDate, DateUnit.DAY) + 1;
                     break;
+                    //周
                 case "week":
                     beginDate = DateUtil.beginOfWeek(DateUtil.date());
                     endDate = DateUtil.endOfWeek(DateUtil.date());
@@ -203,6 +219,7 @@ public class BiTimeUtil {
                     dateFormat = "yyyyMMdd";
                     cycleNum = 7;
                     break;
+                    //上周
                 case "lastWeek":
                     beginDate = DateUtil.beginOfWeek(DateUtil.offsetWeek(DateUtil.date(), -1));
                     endDate = DateUtil.endOfWeek(DateUtil.offsetWeek(DateUtil.date(), -1));
@@ -210,6 +227,7 @@ public class BiTimeUtil {
                     dateFormat = "yyyyMMdd";
                     cycleNum = 7;
                     break;
+                    //今天
                 case "today":
                     beginDate = DateUtil.beginOfDay(DateUtil.date());
                     endDate = DateUtil.endOfDay(DateUtil.date());
@@ -217,6 +235,7 @@ public class BiTimeUtil {
                     dateFormat = "yyyyMMdd";
                     cycleNum = 1;
                     break;
+                    //昨天
                 case "yesterday":
                     beginDate = DateUtil.beginOfDay(new Date(System.currentTimeMillis() - 86400000));
                     endDate = DateUtil.endOfDay(new Date(System.currentTimeMillis() - 86400000));
@@ -224,6 +243,7 @@ public class BiTimeUtil {
                     dateFormat = "yyyyMMdd";
                     cycleNum = 1;
                     break;
+
                 case "nextYear":
                     beginDate = DateUtil.beginOfYear(DateUtil.date());
                     beginDate =  DateUtil.offset(beginDate, DateField.YEAR,1);
@@ -300,6 +320,7 @@ public class BiTimeUtil {
             beginDate = start;
             endDate = end;
         }
+
         Integer beginTime = Integer.valueOf(DateUtil.format(beginDate, dateFormat));
         Integer finalTime = Integer.valueOf(DateUtil.format(endDate, dateFormat));
         return new BiTimeEntity(sqlDateFormat, dateFormat, beginDate, endDate, cycleNum, beginTime, finalTime, new ArrayList<>());
@@ -481,10 +502,12 @@ public class BiTimeUtil {
 
     /**
      * 对给定的日期进行某种形式的调整
-     * @param beginTime  todo 看不懂这里的日期算法
+     * @param beginTime 计算出下一个日期
+     *                  如果精确到天就是下一天的日期值
+     *                  如果精确到月，就是下一个月的日期值
+     *
      * @return
      */
-
     public static Integer estimateTime(Integer beginTime) {
         if (beginTime < 1000000 && beginTime % 100 == 12) {
             beginTime = beginTime + 89;

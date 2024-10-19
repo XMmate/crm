@@ -25,21 +25,20 @@ import com.liujiaming.crm.entity.PO.CrmCustomer;
 import com.liujiaming.crm.entity.PO.CrmMarketing;
 import com.liujiaming.crm.entity.VO.CrmModelFiledVO;
 import com.liujiaming.crm.service.*;
-import com.liujiaming.crm.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 @Component
 public class ActionRecordUtil {
 
+
+    /**
+     * 定义了一个静态的线程池
+     */
     static final ExecutorService THREAD_POOL = new ThreadPoolExecutor(10, 20, 5L, TimeUnit.SECONDS, new LinkedBlockingDeque<>(2048), new ThreadPoolExecutor.AbortPolicy());
 
     @SuppressWarnings("unchecked")
@@ -178,7 +177,11 @@ public class ActionRecordUtil {
     }
 
 
-    private List<String> textList = new ArrayList<>();
+    /**
+     * 使用线程安全的List
+     */
+    private List<String> textList = new CopyOnWriteArrayList<>();
+
 
     /**
      * 更新记录
@@ -228,6 +231,12 @@ public class ActionRecordUtil {
         THREAD_POOL.execute(actionRecordTask);
     }
 
+
+    /**
+     * 字段更新记录
+     * @param newFieldList
+     * @param kv
+     */
     @SuppressWarnings("unchecked")
     public void updateRecord(List<CrmModelFiledVO> newFieldList, Dict kv) {
         textList.clear();

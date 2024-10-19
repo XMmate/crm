@@ -167,7 +167,7 @@ public class CrmActivityServiceImpl extends BaseServiceImpl<CrmActivityMapper, C
     }
 
     /**
-     * 添加活动记录
+     * 添加跟进记录
      *
      * @param crmActivity crmActivity
      */

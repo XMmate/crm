@@ -11,6 +11,7 @@ import com.liujiaming.core.common.Result;
 import com.liujiaming.core.entity.BasePage;
 import com.liujiaming.core.utils.ExcelParseUtil;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,12 +45,7 @@ public class SysLogController {
     @Autowired
     private ISysLogService sysLogService;
 
-
-    /**
-     * 保存登陆日志
-     * @param sysLog
-     * @return
-     */
+    @ApiModelProperty("保存系统日志")
     @PostMapping("/saveSysLog")
     public Result saveSysLog(@RequestBody SysLog sysLog){
         sysLogService.saveSysLog(sysLog);
@@ -66,7 +62,6 @@ public class SysLogController {
 
     @PostMapping("/querySysLogPageList")
     @ApiOperation("查询系统日志列表")
-  
     public Result<BasePage<SysLog>> querySysLogPageList(@RequestBody QuerySysLogBO querySysLogBO){
         BasePage<SysLog> page = sysLogService.querySysLogPageList(querySysLogBO);
         return Result.ok(page);
@@ -74,7 +69,6 @@ public class SysLogController {
 
     @PostMapping("/exportSysLog")
     @ApiOperation("导出系统日志")
-  
     public void exportSysLog(@RequestBody QuerySysLogBO querySysLogBO, HttpServletResponse response){
         querySysLogBO.setPageType(0);
         BasePage<SysLog> page = sysLogService.querySysLogPageList(querySysLogBO);
@@ -120,14 +114,8 @@ public class SysLogController {
     }
 
 
-    /**
-     * todo 缺少权限校验
-     * @param querySysLogBO
-     * @return
-     */
     @PostMapping("/queryLoginLogPageList")
     @ApiOperation("查询登录日志列表")
-  
     public Result<BasePage<LoginLog>> queryLoginLogPageList(@RequestBody QuerySysLogBO querySysLogBO){
         BasePage<LoginLog> page = sysLogService.queryLoginLogPageList(querySysLogBO);
         return Result.ok(page);
@@ -136,7 +124,6 @@ public class SysLogController {
 
     @PostMapping("/exportLoginLog")
     @ApiOperation("导出登陆日志")
-  
     public void exportLoginLog(@RequestBody QuerySysLogBO querySysLogBO, HttpServletResponse response){
         querySysLogBO.setPageType(0);
         BasePage<LoginLog> page = sysLogService.queryLoginLogPageList(querySysLogBO);

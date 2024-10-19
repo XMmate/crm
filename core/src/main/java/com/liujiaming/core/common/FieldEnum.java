@@ -1,11 +1,13 @@
 package com.liujiaming.core.common;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 
 /**
  * @author liujiaming
  * @date 2021/1/11
  */
+@ApiModel("字段枚举类")
 public enum FieldEnum {
 
     /**

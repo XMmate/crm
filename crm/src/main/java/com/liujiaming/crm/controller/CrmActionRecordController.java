@@ -24,7 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/crmActionRecord")
-@Api(tags = "CRM字段操作记录")
+@Api(tags = "")
 public class CrmActionRecordController {
 
     @Autowired

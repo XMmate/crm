@@ -45,7 +45,7 @@ public class CrmActionRecordServiceImpl extends BaseServiceImpl<CrmActionRecordM
     }
 
     /**
-     * 查询自定义欢迎语
+     * 查询跟进方式列表
      *
      * @return data
      */
