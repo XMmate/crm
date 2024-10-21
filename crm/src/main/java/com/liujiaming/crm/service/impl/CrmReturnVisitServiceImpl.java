@@ -26,7 +26,7 @@ import com.liujiaming.core.utils.UserUtil;
 import com.liujiaming.crm.common.ActionRecordUtil;
 import com.liujiaming.crm.common.CrmModel;
 import com.liujiaming.crm.constant.CrmCodeEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmBusinessSaveBO;
 import com.liujiaming.crm.entity.BO.CrmSearchBO;
 import com.liujiaming.crm.entity.BO.CrmUpdateInformationBO;
@@ -124,7 +124,7 @@ public class CrmReturnVisitServiceImpl extends BaseServiceImpl<CrmReturnVisitMap
         actionRecordUtil.updateRecord(crmModel.getField(), Dict.create().set("batchId", batchId).set("dataTableName", "wk_crm_return_visit_data"));
         crmReturnVisitDataService.saveData(crmModel.getField(), batchId);
         if (ObjectUtil.isNotEmpty(crmReturnVisit.getVisitId())) {
-            actionRecordUtil.updateRecord(BeanUtil.beanToMap(getById(crmReturnVisit.getVisitId())), BeanUtil.beanToMap(crmReturnVisit), CrmEnum.RETURN_VISIT, crmReturnVisit.getVisitNumber(), crmReturnVisit.getVisitId());
+            actionRecordUtil.updateRecord(BeanUtil.beanToMap(getById(crmReturnVisit.getVisitId())), BeanUtil.beanToMap(crmReturnVisit), CrmTypeEnum.RETURN_VISIT, crmReturnVisit.getVisitNumber(), crmReturnVisit.getVisitId());
             crmReturnVisit.setUpdateTime(DateUtil.date());
             updateById(crmReturnVisit);
             crmReturnVisit = getById(crmReturnVisit.getVisitId());
@@ -145,7 +145,7 @@ public class CrmReturnVisitServiceImpl extends BaseServiceImpl<CrmReturnVisitMap
                 crmReturnVisit.setOwnerUserId(UserUtil.getUserId());
             }
             save(crmReturnVisit);
-            actionRecordUtil.addRecord(crmReturnVisit.getVisitId(), CrmEnum.RETURN_VISIT, crmReturnVisit.getVisitNumber());
+            actionRecordUtil.addRecord(crmReturnVisit.getVisitId(), CrmTypeEnum.RETURN_VISIT, crmReturnVisit.getVisitNumber());
         }
         crmModel.setEntity(BeanUtil.beanToMap(crmReturnVisit));
         savePage(crmModel, crmReturnVisit.getVisitId(), false);
@@ -181,13 +181,13 @@ public class CrmReturnVisitServiceImpl extends BaseServiceImpl<CrmReturnVisitMap
         CrmModel crmModel;
         if (id != null) {
             crmModel = getBaseMapper().queryById(id);
-            crmModel.setLabel(CrmEnum.RETURN_VISIT.getType());
+            crmModel.setLabel(CrmTypeEnum.RETURN_VISIT.getType());
             crmModel.setOwnerUserName(UserCacheUtil.getUserName(crmModel.getOwnerUserId()));
             crmReturnVisitDataService.setDataByBatchId(crmModel);
             List<String> stringList = ApplicationContextHolder.getBean(ICrmRoleFieldService.class).queryNoAuthField(crmModel.getLabel());
             stringList.forEach(crmModel::remove);
         } else {
-            crmModel = new CrmModel(CrmEnum.RETURN_VISIT.getType());
+            crmModel = new CrmModel(CrmTypeEnum.RETURN_VISIT.getType());
         }
         return crmModel;
     }
@@ -345,8 +345,8 @@ public class CrmReturnVisitServiceImpl extends BaseServiceImpl<CrmReturnVisitMap
      * @return data
      */
     @Override
-    public CrmEnum getLabel() {
-        return CrmEnum.RETURN_VISIT;
+    public CrmTypeEnum getLabel() {
+        return CrmTypeEnum.RETURN_VISIT;
     }
 
     @Override
@@ -372,13 +372,13 @@ public class CrmReturnVisitServiceImpl extends BaseServiceImpl<CrmReturnVisitMap
                 Map<String, Object> crmRetuenVisitMap = new HashMap<>(oldReturnVisitMap);
                 crmRetuenVisitMap.put(record.getString("fieldName"), record.get("value"));
                 CrmReturnVisit crmReturnVisit = BeanUtil.mapToBean(crmRetuenVisitMap, CrmReturnVisit.class, true);
-                actionRecordUtil.updateRecord(oldReturnVisitMap, crmRetuenVisitMap, CrmEnum.RETURN_VISIT, crmReturnVisit.getVisitNumber(), crmReturnVisit.getVisitId());
+                actionRecordUtil.updateRecord(oldReturnVisitMap, crmRetuenVisitMap, CrmTypeEnum.RETURN_VISIT, crmReturnVisit.getVisitNumber(), crmReturnVisit.getVisitId());
                 update().set(StrUtil.toUnderlineCase(record.getString("fieldName")), record.get("value")).eq("visit_id", updateInformationBO.getId()).update();
             } else if (record.getInteger("fieldType") == 0 || record.getInteger("fieldType") == 2) {
                 CrmReturnVisitData returnVisitData = crmReturnVisitDataService.lambdaQuery().select(CrmReturnVisitData::getValue,CrmReturnVisitData::getId).eq(CrmReturnVisitData::getFieldId, record.getInteger("fieldId"))
                         .eq(CrmReturnVisitData::getBatchId, batchId).one();
                 String value = returnVisitData != null ? returnVisitData.getValue() : null;
-                actionRecordUtil.publicContentRecord(CrmEnum.RETURN_VISIT, BehaviorEnum.UPDATE, visitId, oldReturnVisit.getVisitNumber(), record,value);
+                actionRecordUtil.publicContentRecord(CrmTypeEnum.RETURN_VISIT, BehaviorEnum.UPDATE, visitId, oldReturnVisit.getVisitNumber(), record,value);
                 String newValue = fieldService.convertObjectValueToString(record.getInteger("type"),record.get("value"),record.getString("value"));
                 CrmReturnVisitData crmReturnVisitData = new CrmReturnVisitData();
                 crmReturnVisitData.setId(returnVisitData != null ? returnVisitData.getId() : null);

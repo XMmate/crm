@@ -10,7 +10,7 @@ import com.liujiaming.core.common.log.SysLogHandler;
 import com.liujiaming.core.entity.BasePage;
 import com.liujiaming.core.servlet.upload.FileEntity;
 import com.liujiaming.crm.common.CrmModel;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmBusinessSaveBO;
 import com.liujiaming.crm.entity.BO.CrmReceivablesPlanBO;
 import com.liujiaming.crm.entity.BO.CrmSearchBO;
@@ -124,7 +124,7 @@ public class CrmReceivablesPlanController {
     public void batchExportExcel(@RequestBody @ApiParam(name = "ids", value = "id列表") List<Integer> ids, HttpServletResponse response) {
         CrmSearchBO search = new CrmSearchBO();
         search.setPageType(0);
-        search.setLabel(CrmEnum.RECEIVABLES.getType());
+        search.setLabel(CrmTypeEnum.RECEIVABLES.getType());
         CrmSearchBO.Search entity = new CrmSearchBO.Search();
         entity.setFormType(FieldEnum.TEXT.getFormType());
         entity.setSearchEnum(CrmSearchBO.FieldSearchEnum.ID);

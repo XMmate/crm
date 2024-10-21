@@ -16,7 +16,7 @@ import com.liujiaming.core.utils.TagUtil;
 import com.liujiaming.core.utils.UserCacheUtil;
 import com.liujiaming.core.utils.UserUtil;
 import com.liujiaming.crm.common.ActionRecordUtil;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.PO.CrmActionRecord;
 import com.liujiaming.crm.entity.PO.CrmCustomer;
 import com.liujiaming.crm.entity.VO.CrmModelFiledVO;
@@ -74,12 +74,12 @@ public class SysLogUtil {
      *
      * @param oldObj  之前对象
      * @param newObj  新对象
-     * @param crmEnum 类型
+     * @param crmTypeEnum 类型
      */
     @SuppressWarnings("unchecked")
-    public Content updateRecord(Map<String, Object> oldObj, Map<String, Object> newObj, CrmEnum crmEnum, String name) {
+    public Content updateRecord(Map<String, Object> oldObj, Map<String, Object> newObj, CrmTypeEnum crmTypeEnum, String name) {
         try {
-            searchChange(textList, oldObj, newObj, crmEnum.getType());
+            searchChange(textList, oldObj, newObj, crmTypeEnum.getType());
             return new Content(name,StrUtil.join("", textList),BehaviorEnum.UPDATE);
         } finally {
             textList.clear();
@@ -87,8 +87,8 @@ public class SysLogUtil {
 
     }
 
-    public Content addRecord(CrmEnum crmEnum, String name) {
-        return new Content(name,"新建了" + crmEnum.getRemarks() + "：" + name,BehaviorEnum.SAVE);
+    public Content addRecord(CrmTypeEnum crmTypeEnum, String name) {
+        return new Content(name,"新建了" + crmTypeEnum.getRemarks() + "：" + name,BehaviorEnum.SAVE);
     }
 
     @SuppressWarnings("unchecked")
@@ -253,9 +253,9 @@ public class SysLogUtil {
      * 添加转移记录
      *
      */
-    public Content addConversionRecord(CrmEnum crmEnum, Long userId, String name) {
+    public Content addConversionRecord(CrmTypeEnum crmTypeEnum, Long userId, String name) {
         String userName = UserCacheUtil.getUserName(userId);
-        return new Content(name,"将" + crmEnum.getRemarks() + "：" + name + "转移给：" + userName,BehaviorEnum.CHANGE_OWNER);
+        return new Content(name,"将" + crmTypeEnum.getRemarks() + "：" + name + "转移给：" + userName,BehaviorEnum.CHANGE_OWNER);
     }
 
     @Autowired
@@ -282,44 +282,44 @@ public class SysLogUtil {
 
 
 
-    public Content addDeleteActionRecord(CrmEnum crmEnum, String name) {
-        return new Content(name,"删除了" + crmEnum.getRemarks() + "：" + name,BehaviorEnum.DELETE);
+    public Content addDeleteActionRecord(CrmTypeEnum crmTypeEnum, String name) {
+        return new Content(name,"删除了" + crmTypeEnum.getRemarks() + "：" + name,BehaviorEnum.DELETE);
     }
 
-    public Content addMemberActionRecord(CrmEnum crmEnum, Integer actionId, Long userId, String name) {
+    public Content addMemberActionRecord(CrmTypeEnum crmTypeEnum, Integer actionId, Long userId, String name) {
         String userName = UserCacheUtil.getUserName(userId);
-        return new Content(name,"给" + crmEnum.getRemarks() + "：" + name + "添加了团队成员：" + userName);
+        return new Content(name,"给" + crmTypeEnum.getRemarks() + "：" + name + "添加了团队成员：" + userName);
     }
 
-    public Content addDeleteMemberActionRecord(CrmEnum crmEnum, Long userId, boolean isSelf, String name) {
+    public Content addDeleteMemberActionRecord(CrmTypeEnum crmTypeEnum, Long userId, boolean isSelf, String name) {
         if (isSelf) {
-            return new Content(name,"退出了" + crmEnum.getRemarks() + "：" + name + "的团队成员",BehaviorEnum.EXIT_MEMBER);
+            return new Content(name,"退出了" + crmTypeEnum.getRemarks() + "：" + name + "的团队成员",BehaviorEnum.EXIT_MEMBER);
         } else {
             String userName = UserCacheUtil.getUserName(userId);
-            return new Content(name,"移除了" + crmEnum.getRemarks() + "：" + name + "的团队成员：" + userName,BehaviorEnum.REMOVE_MEMBER);
+            return new Content(name,"移除了" + crmTypeEnum.getRemarks() + "：" + name + "的团队成员：" + userName,BehaviorEnum.REMOVE_MEMBER);
         }
     }
 
-    public void addOaLogSaveRecord(CrmEnum crmEnum, Integer actionId) {
+    public void addOaLogSaveRecord(CrmTypeEnum crmTypeEnum, Integer actionId) {
         CrmActionRecord actionRecord = new CrmActionRecord();
         actionRecord.setCreateUserId(UserUtil.getUserId());
         actionRecord.setCreateTime(new Date());
         actionRecord.setIpAddress(BaseUtil.getIp());
-        actionRecord.setTypes(crmEnum.getType());
+        actionRecord.setTypes(crmTypeEnum.getType());
         actionRecord.setBehavior(BehaviorEnum.SAVE.getType());
         actionRecord.setActionId(actionId);
-        actionRecord.setDetail("新建了" + crmEnum.getRemarks() + "：" + DateUtil.formatDate(new Date()));
+        actionRecord.setDetail("新建了" + crmTypeEnum.getRemarks() + "：" + DateUtil.formatDate(new Date()));
         actionRecord.setObject(DateUtil.formatDate(new Date()));
         ActionRecordTask actionRecordTask = new ActionRecordTask(actionRecord);
         THREAD_POOL.execute(actionRecordTask);
     }
 
-    public void addCrmExamineActionRecord(CrmEnum crmEnum, Integer actionId, BehaviorEnum behaviorEnum, String number) {
+    public void addCrmExamineActionRecord(CrmTypeEnum crmTypeEnum, Integer actionId, BehaviorEnum behaviorEnum, String number) {
         CrmActionRecord actionRecord = new CrmActionRecord();
         actionRecord.setCreateUserId(UserUtil.getUserId());
         actionRecord.setCreateTime(new Date());
         actionRecord.setIpAddress(BaseUtil.getIp());
-        actionRecord.setTypes(crmEnum.getType());
+        actionRecord.setTypes(crmTypeEnum.getType());
         actionRecord.setBehavior(behaviorEnum.getType());
         actionRecord.setActionId(actionId);
         String prefix = "";
@@ -339,7 +339,7 @@ public class SysLogUtil {
             default:
                 break;
         }
-        actionRecord.setDetail(prefix + crmEnum.getRemarks() + "：" + number);
+        actionRecord.setDetail(prefix + crmTypeEnum.getRemarks() + "：" + number);
         actionRecord.setObject(number);
         ActionRecordTask actionRecordTask = new ActionRecordTask(actionRecord);
         THREAD_POOL.execute(actionRecordTask);
@@ -348,28 +348,28 @@ public class SysLogUtil {
     /**
      * 通用模板，无需特殊处理的操作记录适用
      *
-     * @param crmEnum
+     * @param crmTypeEnum
      * @param actionId
      * @param behaviorEnum
      */
-    public void addObjectActionRecord(CrmEnum crmEnum, Integer actionId, BehaviorEnum behaviorEnum, String name) {
+    public void addObjectActionRecord(CrmTypeEnum crmTypeEnum, Integer actionId, BehaviorEnum behaviorEnum, String name) {
         CrmActionRecord actionRecord = new CrmActionRecord();
         actionRecord.setCreateUserId(UserUtil.getUserId());
         actionRecord.setCreateTime(new Date());
         actionRecord.setIpAddress(BaseUtil.getIp());
-        actionRecord.setTypes(crmEnum.getType());
+        actionRecord.setTypes(crmTypeEnum.getType());
         actionRecord.setBehavior(behaviorEnum.getType());
         actionRecord.setActionId(actionId);
         String detail;
         switch (behaviorEnum) {
             case CANCEL_EXAMINE:
-                detail = "将" + crmEnum.getRemarks() + "：" + name + "作废";
+                detail = "将" + crmTypeEnum.getRemarks() + "：" + name + "作废";
                 break;
             case FOLLOW_UP:
-                detail = "给" + crmEnum.getRemarks() + "：" + name + "新建了跟进记录";
+                detail = "给" + crmTypeEnum.getRemarks() + "：" + name + "新建了跟进记录";
                 break;
             default:
-                detail = behaviorEnum.getName() + "了" + crmEnum.getRemarks() + "：" + name;
+                detail = behaviorEnum.getName() + "了" + crmTypeEnum.getRemarks() + "：" + name;
                 break;
         }
         actionRecord.setDetail(detail);

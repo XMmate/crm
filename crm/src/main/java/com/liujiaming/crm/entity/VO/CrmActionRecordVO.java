@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="CrmActionRecordVO对象", description="字段操作记录表")
+@ApiModel(value="CrmActionRecordVO对象", description="字段操作记录VO")
 public class CrmActionRecordVO {
     private static final long serialVersionUID=1L;
 

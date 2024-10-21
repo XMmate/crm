@@ -14,7 +14,7 @@ import com.liujiaming.core.servlet.ApplicationContextHolder;
 import com.liujiaming.core.servlet.upload.FileEntity;
 import com.liujiaming.core.utils.TagUtil;
 import com.liujiaming.core.utils.UserCacheUtil;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmChangeOwnerUserBO;
 import com.liujiaming.crm.entity.BO.CrmContractSaveBO;
 import com.liujiaming.crm.entity.BO.CrmUpdateInformationBO;
@@ -46,7 +46,7 @@ public class CrmReceivablesLog {
         CrmReceivables crmReceivables = BeanUtil.copyProperties(crmModel.getEntity(), CrmReceivables.class);
         sysLogUtil.updateRecord(crmModel.getField(), Dict.create().set("batchId", crmReceivables.getBatchId()).set("dataTableName", "wk_crm_contract_data"));
         CrmReceivables receivables = crmReceivablesService.getById(crmReceivables.getReceivablesId());
-        return sysLogUtil.updateRecord(BeanUtil.beanToMap(receivables), BeanUtil.beanToMap(crmReceivables), CrmEnum.RECEIVABLES, crmReceivables.getNumber());
+        return sysLogUtil.updateRecord(BeanUtil.beanToMap(receivables), BeanUtil.beanToMap(crmReceivables), CrmTypeEnum.RECEIVABLES, crmReceivables.getNumber());
     }
 
     public List<Content> deleteByIds(List<Integer> ids) {
@@ -54,7 +54,7 @@ public class CrmReceivablesLog {
         for (Integer id : ids) {
             CrmReceivables receivables = crmReceivablesService.getById(id);
             if (receivables != null) {
-                contentList.add(sysLogUtil.addDeleteActionRecord(CrmEnum.RECEIVABLES, receivables.getNumber()));
+                contentList.add(sysLogUtil.addDeleteActionRecord(CrmTypeEnum.RECEIVABLES, receivables.getNumber()));
             }
         }
         return contentList;
@@ -63,7 +63,7 @@ public class CrmReceivablesLog {
     public List<Content> changeOwnerUser(CrmChangeOwnerUserBO crmChangeOwnerUserBO) {
         return crmChangeOwnerUserBO.getIds().stream().map(id -> {
             CrmReceivables receivables = crmReceivablesService.getById(id);
-            return sysLogUtil.addConversionRecord(CrmEnum.RECEIVABLES, crmChangeOwnerUserBO.getOwnerUserId(), receivables.getNumber());
+            return sysLogUtil.addConversionRecord(CrmTypeEnum.RECEIVABLES, crmChangeOwnerUserBO.getOwnerUserId(), receivables.getNumber());
         }).collect(Collectors.toList());
     }
 
@@ -77,7 +77,7 @@ public class CrmReceivablesLog {
                 Map<String, Object> crmReceivablesMap = new HashMap<>(oldReceivablesMap);
                 crmReceivablesMap.put(record.getString("fieldName"), record.get("value"));
                 CrmReceivables crmReceivables = BeanUtil.mapToBean(crmReceivablesMap, CrmReceivables.class, true);
-                contentList.add(sysLogUtil.updateRecord(oldReceivablesMap, crmReceivablesMap, CrmEnum.RECEIVABLES, crmReceivables.getNumber()));
+                contentList.add(sysLogUtil.updateRecord(oldReceivablesMap, crmReceivablesMap, CrmTypeEnum.RECEIVABLES, crmReceivables.getNumber()));
             } else if (record.getInteger("fieldType") == 0 || record.getInteger("fieldType") == 2) {
                 String formType = record.getString("formType");
                 if(formType == null){

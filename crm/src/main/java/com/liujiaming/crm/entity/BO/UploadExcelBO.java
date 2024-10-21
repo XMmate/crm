@@ -1,7 +1,7 @@
 package com.liujiaming.crm.entity.BO;
 
 import com.liujiaming.core.entity.UserInfo;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -11,7 +11,7 @@ import lombok.Data;
 public class UploadExcelBO {
 
     @ApiModelProperty("crm类型")
-    private CrmEnum crmEnum;
+    private CrmTypeEnum crmTypeEnum;
 
     @ApiModelProperty("文件路径")
     private String filePath;

@@ -2,7 +2,7 @@ package com.liujiaming.crm.service;
 
 import com.liujiaming.core.servlet.BaseService;
 import com.liujiaming.crm.constant.CrmBackLogEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.PO.CrmBackLogDeal;
 
 import java.util.List;
@@ -20,21 +20,21 @@ public interface ICrmBackLogDealService extends BaseService<CrmBackLogDeal> {
      * 更新对应的待办事项提醒
      *
      * @param userId         用户ID
-     * @param crmEnum        类型
+     * @param crmTypeEnum        类型
      * @param crmBackLogEnum 模块
      * @param typeId         类型ID
      */
-    public void deleteByType(Long userId, CrmEnum crmEnum, CrmBackLogEnum crmBackLogEnum, Integer typeId);
+    public void deleteByType(Long userId, CrmTypeEnum crmTypeEnum, CrmBackLogEnum crmBackLogEnum, Integer typeId);
 
     /**
      * 更新对应的待办事项提醒
      *
      * @param userId         用户ID
-     * @param crmEnum        类型
+     * @param crmTypeEnum        类型
      * @param crmBackLogEnum 模块
      * @param typeId         类型ID
      */
-    public void deleteByTypes(Long userId, CrmEnum crmEnum,Integer typeId, CrmBackLogEnum... crmBackLogEnum);
+    public void deleteByTypes(Long userId, CrmTypeEnum crmTypeEnum,Integer typeId, CrmBackLogEnum... crmBackLogEnum);
 
     /**
      * 查询对应的主键ID

@@ -55,14 +55,14 @@ public enum CrmAuthEnum {
      * 442 新建 443 修改 441 列表 441 详情 444 删除
      * 936 跟进记录
      * 937 新建 938 修改 939 列表 940 详情 941 删除
-     * @param crmEnum label
+     * @param crmTypeEnum label
      * @return menuId
      */
-    public Integer getMenuId(CrmEnum crmEnum) {
+    public Integer getMenuId(CrmTypeEnum crmTypeEnum) {
         /*
             跟进记录
          */
-        if(crmEnum == null){
+        if(crmTypeEnum == null){
             switch (this){
                 case ADD: return  442;
                 case EDIT: return  443;
@@ -72,11 +72,11 @@ public enum CrmAuthEnum {
             }
         }
         int start = 0;
-        switch (crmEnum) {
+        switch (crmTypeEnum) {
             case LEADS:
                 start = 16;
             case CUSTOMER: {
-                if (crmEnum == CrmEnum.CUSTOMER) {
+                if (crmTypeEnum == CrmTypeEnum.CUSTOMER) {
                     start = 25;
                 }
                 if (this == DELETE) {
@@ -88,30 +88,30 @@ public enum CrmAuthEnum {
             case CONTACTS:
                     start = 39;
             case PRODUCT:
-                if (CrmEnum.PRODUCT == crmEnum) {
+                if (CrmTypeEnum.PRODUCT == crmTypeEnum) {
                     start = 64;
                 }
             case BUSINESS:
-                if (CrmEnum.BUSINESS == crmEnum) {
+                if (CrmTypeEnum.BUSINESS == crmTypeEnum) {
                     start = 45;
                 }
             case CONTRACT:
-                if (CrmEnum.CONTRACT == crmEnum) {
+                if (CrmTypeEnum.CONTRACT == crmTypeEnum) {
                     start = 52;
                 }
             case RECEIVABLES:
-                if (CrmEnum.RECEIVABLES == crmEnum) {
+                if (CrmTypeEnum.RECEIVABLES == crmTypeEnum) {
                     start = 59;
                 }
-                if(CrmEnum.PRODUCT == crmEnum && this == DELETE){
+                if(CrmTypeEnum.PRODUCT == crmTypeEnum && this == DELETE){
                     return 211;
                 }
             case INVOICE:
-                if (CrmEnum.INVOICE == crmEnum) {
+                if (CrmTypeEnum.INVOICE == crmTypeEnum) {
                     start = 420;
                 }
             case RECEIVABLES_PLAN:
-                if (CrmEnum.RECEIVABLES_PLAN == crmEnum) {
+                if (CrmTypeEnum.RECEIVABLES_PLAN == crmTypeEnum) {
                     start = 936;
                 }
                 return start + value;

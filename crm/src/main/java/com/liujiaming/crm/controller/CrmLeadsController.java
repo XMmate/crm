@@ -14,7 +14,7 @@ import com.liujiaming.core.utils.UserUtil;
 import com.liujiaming.crm.common.CrmModel;
 import com.liujiaming.crm.common.log.CrmLeadsLog;
 import com.liujiaming.crm.constant.CrmCodeEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.*;
 import com.liujiaming.crm.entity.PO.CrmLeads;
 import com.liujiaming.crm.entity.VO.CrmInfoNumVO;
@@ -105,7 +105,7 @@ public class CrmLeadsController {
     public void batchExportExcel(@RequestBody @ApiParam(name = "ids", value = "id列表") List<Integer> ids, HttpServletResponse response) {
         CrmSearchBO search = new CrmSearchBO();
         search.setPageType(0);
-        search.setLabel(CrmEnum.LEADS.getType());
+        search.setLabel(CrmTypeEnum.LEADS.getType());
         CrmSearchBO.Search entity = new CrmSearchBO.Search();
         entity.setFormType(FieldEnum.TEXT.getFormType());
         entity.setSearchEnum(CrmSearchBO.FieldSearchEnum.ID);
@@ -202,7 +202,7 @@ public class CrmLeadsController {
     public Result<Long> uploadExcel(@RequestParam("file") MultipartFile file, @RequestParam("repeatHandling") Integer repeatHandling) {
         UploadExcelBO uploadExcelBO = new UploadExcelBO();
         uploadExcelBO.setUserInfo(UserUtil.getUser());
-        uploadExcelBO.setCrmEnum(CrmEnum.LEADS);
+        uploadExcelBO.setCrmTypeEnum(CrmTypeEnum.LEADS);
         uploadExcelBO.setPoolId(null);
         uploadExcelBO.setRepeatHandling(repeatHandling);
         Long messageId = uploadExcelService.uploadExcel(file, uploadExcelBO);

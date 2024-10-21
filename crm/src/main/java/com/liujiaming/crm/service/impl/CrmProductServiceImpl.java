@@ -24,7 +24,7 @@ import com.liujiaming.core.utils.*;
 import com.liujiaming.crm.common.ActionRecordUtil;
 import com.liujiaming.crm.common.CrmModel;
 import com.liujiaming.crm.constant.CrmCodeEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmModelSaveBO;
 import com.liujiaming.crm.entity.BO.CrmProductStatusBO;
 import com.liujiaming.crm.entity.BO.CrmSearchBO;
@@ -214,7 +214,7 @@ public class CrmProductServiceImpl extends BaseServiceImpl<CrmProductMapper, Crm
                 throw new CrmException(CrmCodeEnum.CRM_DATE_REMOVE_ERROR);
             }
             crmModel = getBaseMapper().queryById(id, UserUtil.getUserId());
-            crmModel.setLabel(CrmEnum.PRODUCT.getType());
+            crmModel.setLabel(CrmTypeEnum.PRODUCT.getType());
             crmModel.setOwnerUserName(UserCacheUtil.getUserName(crmModel.getOwnerUserId()));
             crmProductDataService.setDataByBatchId(crmModel);
             List<String> stringList = ApplicationContextHolder.getBean(ICrmRoleFieldService.class).queryNoAuthField(crmModel.getLabel());
@@ -239,7 +239,7 @@ public class CrmProductServiceImpl extends BaseServiceImpl<CrmProductMapper, Crm
                 crmModel.put("detailFileList", new ArrayList<>());
             }
         } else {
-            crmModel = new CrmModel(CrmEnum.PRODUCT.getType());
+            crmModel = new CrmModel(CrmTypeEnum.PRODUCT.getType());
         }
         return crmModel;
     }
@@ -265,9 +265,9 @@ public class CrmProductServiceImpl extends BaseServiceImpl<CrmProductMapper, Crm
             }
             crmProduct.setBatchId(batchId);
             save(crmProduct);
-            actionRecordUtil.addRecord(crmProduct.getProductId(), CrmEnum.PRODUCT, crmProduct.getName());
+            actionRecordUtil.addRecord(crmProduct.getProductId(), CrmTypeEnum.PRODUCT, crmProduct.getName());
         } else {
-            actionRecordUtil.updateRecord(BeanUtil.beanToMap(getById(crmProduct.getProductId())), BeanUtil.beanToMap(crmProduct), CrmEnum.PRODUCT, crmProduct.getName(), crmProduct.getProductId());
+            actionRecordUtil.updateRecord(BeanUtil.beanToMap(getById(crmProduct.getProductId())), BeanUtil.beanToMap(crmProduct), CrmTypeEnum.PRODUCT, crmProduct.getName(), crmProduct.getProductId());
             crmProduct.setUpdateTime(DateUtil.date());
             updateById(crmProduct);
             crmProduct = getById(crmProduct.getProductId());
@@ -317,7 +317,7 @@ public class CrmProductServiceImpl extends BaseServiceImpl<CrmProductMapper, Crm
         wrapper.in(CrmProduct::getProductId, ids);
         List<String> batchIdList = listObjs(wrapper, Object::toString);
         //删除字段操作记录
-        crmActionRecordService.deleteActionRecord(CrmEnum.PRODUCT, ids);
+        crmActionRecordService.deleteActionRecord(CrmTypeEnum.PRODUCT, ids);
         if (CollUtil.isNotEmpty(batchIdList)){
             //删除自定义字段
             //TODO 不删除,产品单位是自定义字段,删除后关联的产品没有单位
@@ -345,7 +345,7 @@ public class CrmProductServiceImpl extends BaseServiceImpl<CrmProductMapper, Crm
         wrapper.set(CrmProduct::getOwnerUserId, newOwnerUserId);
         update(wrapper);
         for (Integer id : ids) {
-            actionRecordUtil.addConversionRecord(id,CrmEnum.PRODUCT,newOwnerUserId,getById(id).getName());
+            actionRecordUtil.addConversionRecord(id,CrmTypeEnum.PRODUCT,newOwnerUserId,getById(id).getName());
         }
         //修改es
         String ownerUserName = UserCacheUtil.getUserName(newOwnerUserId);
@@ -522,8 +522,8 @@ public class CrmProductServiceImpl extends BaseServiceImpl<CrmProductMapper, Crm
      * @return data
      */
     @Override
-    public CrmEnum getLabel() {
-        return CrmEnum.PRODUCT;
+    public CrmTypeEnum getLabel() {
+        return CrmTypeEnum.PRODUCT;
     }
 
     /**
@@ -554,13 +554,13 @@ public class CrmProductServiceImpl extends BaseServiceImpl<CrmProductMapper, Crm
                 Map<String, Object> crmProductMap = new HashMap<>(oldProductMap);
                 crmProductMap.put(record.getString("fieldName"), record.get("value"));
                 CrmProduct crmProduct = BeanUtil.mapToBean(crmProductMap, CrmProduct.class, true);
-                actionRecordUtil.updateRecord(oldProductMap, crmProductMap, CrmEnum.PRODUCT, crmProduct.getName(), crmProduct.getProductId());
+                actionRecordUtil.updateRecord(oldProductMap, crmProductMap, CrmTypeEnum.PRODUCT, crmProduct.getName(), crmProduct.getProductId());
                 update().set(StrUtil.toUnderlineCase(record.getString("fieldName")), record.get("value")).eq("product_id",updateInformationBO.getId()).update();
             } else if (record.getInteger("fieldType") == 0 || record.getInteger("fieldType") == 2) {
                 CrmProductData productData = crmProductDataService.lambdaQuery().select(CrmProductData::getValue,CrmProductData::getId).eq(CrmProductData::getFieldId, record.getInteger("fieldId"))
                         .eq(CrmProductData::getBatchId, batchId).one();
                 String value = productData != null ? productData.getValue() : null;
-                actionRecordUtil.publicContentRecord(CrmEnum.PRODUCT, BehaviorEnum.UPDATE, productId, oldProduct.getName(), record,value);
+                actionRecordUtil.publicContentRecord(CrmTypeEnum.PRODUCT, BehaviorEnum.UPDATE, productId, oldProduct.getName(), record,value);
                 String newValue = fieldService.convertObjectValueToString(record.getInteger("type"),record.get("value"),record.getString("value"));
                 CrmProductData crmProductData = new CrmProductData();
                 crmProductData.setId(productData != null ? productData.getId() : null);

@@ -39,7 +39,7 @@ import com.liujiaming.core.utils.UserCacheUtil;
 import com.liujiaming.core.utils.UserUtil;
 import com.liujiaming.crm.common.CrmModel;
 import com.liujiaming.crm.constant.CrmCodeEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmPrintTemplateBO;
 import com.liujiaming.crm.entity.PO.CrmPrintRecord;
 import com.liujiaming.crm.entity.PO.CrmPrintTemplate;
@@ -125,8 +125,8 @@ public class CrmPrintTemplateServiceImpl extends BaseServiceImpl<CrmPrintTemplat
      */
     @Override
     public CrmPrintFieldVO queryFields(Integer crmType) {
-        CrmEnum crmEnum = CrmEnum.parse(crmType);
-        if (crmEnum == CrmEnum.BUSINESS) {
+        CrmTypeEnum crmTypeEnum = CrmTypeEnum.parse(crmType);
+        if (crmTypeEnum == CrmTypeEnum.BUSINESS) {
             List<CrmModelFiledVO> businessList = new ArrayList<>();
             businessList.add(new CrmModelFiledVO("business_name", "商机名称"));
             businessList.add(new CrmModelFiledVO("money", "商机金额"));
@@ -152,7 +152,7 @@ public class CrmPrintTemplateServiceImpl extends BaseServiceImpl<CrmPrintTemplat
             getProductFields(crmPrintFieldVO);
             getCustomerFields(crmPrintFieldVO);
             return crmPrintFieldVO;
-        } else if (crmEnum == CrmEnum.CONTRACT) {
+        } else if (crmTypeEnum == CrmTypeEnum.CONTRACT) {
             List<CrmModelFiledVO> contractList = new ArrayList<>();
             contractList.add(new CrmModelFiledVO("num", "合同编号"));
             contractList.add(new CrmModelFiledVO("name", "合同名称"));
@@ -205,7 +205,7 @@ public class CrmPrintTemplateServiceImpl extends BaseServiceImpl<CrmPrintTemplat
             contactsList.addAll(contactsFixedFieldList);
             crmPrintFieldVO.setContacts(contactsList);
             return crmPrintFieldVO;
-        } else if (crmEnum == CrmEnum.RECEIVABLES) {
+        } else if (crmTypeEnum == CrmTypeEnum.RECEIVABLES) {
             List<CrmModelFiledVO> receivablesList = new ArrayList<>();
             receivablesList.add(new CrmModelFiledVO("number", "回款编号"));
             receivablesList.add(new CrmModelFiledVO("customer_name", "客户名称"));
@@ -523,7 +523,7 @@ public class CrmPrintTemplateServiceImpl extends BaseServiceImpl<CrmPrintTemplat
         }
         List<String> tableList = ReUtil.findAllGroup0("<table.*?data-wk-table-tag=\"table\".*?table>", content);
         Map<String, String> map = new HashMap<>();
-        if (type.equals(CrmEnum.BUSINESS.getType())) {
+        if (type.equals(CrmTypeEnum.BUSINESS.getType())) {
             List<CrmModelFiledVO> businessFieldList = crmFieldService.queryField(5);
             Map<String, Integer> businessFieldMap = businessFieldList.stream().collect(Collectors.toMap(CrmModelFiledVO::getFieldName, CrmModelFiledVO::getType));
             List<CrmModelFiledVO> customerFieldList = crmFieldService.queryField(2);
@@ -570,7 +570,7 @@ public class CrmPrintTemplateServiceImpl extends BaseServiceImpl<CrmPrintTemplat
                 String v = StrUtil.isNotEmpty(entry.getValue()) ? entry.getValue() : "";
                 content = content.replaceAll("(<span((?!/span>).)*data-wk-tag=\"" + k + "\".*?)(\\{.*?\\})(</span>)", "$1" + v + "$4");
             }
-        } else if (type.equals(CrmEnum.CONTRACT.getType())) {
+        } else if (type.equals(CrmTypeEnum.CONTRACT.getType())) {
             List<CrmModelFiledVO> contractFieldList = crmFieldService.queryField(6);
             Map<String, Integer> contractFieldMap = contractFieldList.stream().collect(Collectors.toMap(CrmModelFiledVO::getFieldName, CrmModelFiledVO::getType));
             List<CrmModelFiledVO> customerFieldList = crmFieldService.queryField(2);
@@ -635,7 +635,7 @@ public class CrmPrintTemplateServiceImpl extends BaseServiceImpl<CrmPrintTemplat
                 String v = StrUtil.isNotEmpty(entry.getValue()) ? entry.getValue() : "";
                 content = content.replaceAll("(<span((?!/span>).)*data-wk-tag=\"" + k + "\".*?)(\\{.*?\\})(</span>)", "$1" + v + "$4");
             }
-        } else if (type.equals(CrmEnum.RECEIVABLES.getType())) {
+        } else if (type.equals(CrmTypeEnum.RECEIVABLES.getType())) {
             List<CrmModelFiledVO> receivablesFieldList = crmFieldService.queryField(7);
             Map<String, Integer> receivablesFieldMap = receivablesFieldList.stream().collect(Collectors.toMap(CrmModelFiledVO::getFieldName, CrmModelFiledVO::getType));
             List<CrmModelFiledVO> contractFieldList = crmFieldService.queryField(6);

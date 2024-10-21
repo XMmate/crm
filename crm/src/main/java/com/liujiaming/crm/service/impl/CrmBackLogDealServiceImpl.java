@@ -3,7 +3,7 @@ package com.liujiaming.crm.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.liujiaming.core.servlet.BaseServiceImpl;
 import com.liujiaming.crm.constant.CrmBackLogEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.PO.CrmBackLogDeal;
 import com.liujiaming.crm.mapper.CrmBackLogDealMapper;
 import com.liujiaming.crm.service.ICrmBackLogDealService;
@@ -28,15 +28,15 @@ public class CrmBackLogDealServiceImpl extends BaseServiceImpl<CrmBackLogDealMap
      * 更新对应的待办事项提醒
      *
      * @param userId         用户ID
-     * @param crmEnum        类型
+     * @param crmTypeEnum        类型
      * @param crmBackLogEnum 模块
      * @param typeId         类型ID
      */
     @Override
-    public void deleteByType(Long userId, CrmEnum crmEnum, CrmBackLogEnum crmBackLogEnum, Integer typeId) {
+    public void deleteByType(Long userId, CrmTypeEnum crmTypeEnum, CrmBackLogEnum crmBackLogEnum, Integer typeId) {
         LambdaQueryWrapper<CrmBackLogDeal> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(CrmBackLogDeal::getCreateUserId, userId);
-        wrapper.eq(CrmBackLogDeal::getCrmType, crmEnum.getType());
+        wrapper.eq(CrmBackLogDeal::getCrmType, crmTypeEnum.getType());
         wrapper.eq(CrmBackLogDeal::getModel, crmBackLogEnum.getType());
         wrapper.eq(CrmBackLogDeal::getTypeId, typeId);
         remove(wrapper);
@@ -46,18 +46,18 @@ public class CrmBackLogDealServiceImpl extends BaseServiceImpl<CrmBackLogDealMap
      * 更新对应的待办事项提醒
      *
      * @param userId         用户ID
-     * @param crmEnum        类型
+     * @param crmTypeEnum        类型
      * @param typeId         类型ID
      * @param crmBackLogEnum 模块
      */
     @Override
-    public void deleteByTypes(Long userId, CrmEnum crmEnum, Integer typeId, CrmBackLogEnum... crmBackLogEnum) {
+    public void deleteByTypes(Long userId, CrmTypeEnum crmTypeEnum, Integer typeId, CrmBackLogEnum... crmBackLogEnum) {
         List<CrmBackLogEnum> backLogEnums = Arrays.asList(crmBackLogEnum);
         LambdaQueryWrapper<CrmBackLogDeal> wrapper = new LambdaQueryWrapper<>();
         if (userId != null) {
             wrapper.eq(CrmBackLogDeal::getCreateUserId, userId);
         }
-        wrapper.eq(CrmBackLogDeal::getCrmType, crmEnum.getType());
+        wrapper.eq(CrmBackLogDeal::getCrmType, crmTypeEnum.getType());
         List<Integer> types = backLogEnums.stream().map(CrmBackLogEnum::getType).collect(Collectors.toList());
         wrapper.in(CrmBackLogDeal::getModel, types);
         wrapper.eq(CrmBackLogDeal::getTypeId, typeId);

@@ -25,7 +25,7 @@ import com.liujiaming.core.utils.UserCacheUtil;
 import com.liujiaming.core.utils.UserUtil;
 import com.liujiaming.crm.constant.CrmActivityEnum;
 import com.liujiaming.crm.constant.CrmCodeEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmSearchBO;
 import com.liujiaming.crm.entity.PO.*;
 import com.liujiaming.crm.entity.VO.CrmCustomerPoolVO;
@@ -196,7 +196,7 @@ public class CrmCustomerPoolServiceImpl extends BaseServiceImpl<CrmCustomerPoolM
           转移最后剩余的数据以及刷新es索引
          */
         transferPoolByEs(ids,prePoolId,postPoolId);
-        getRestTemplate().refresh(CrmEnum.CUSTOMER.getIndex());
+        getRestTemplate().refresh(CrmTypeEnum.CUSTOMER.getIndex());
 
         oldLists.removeAll(newLists);
         List<CrmCustomerPoolRelation> poolRelationList = new ArrayList<>(oldLists.size());
@@ -305,7 +305,7 @@ public class CrmCustomerPoolServiceImpl extends BaseServiceImpl<CrmCustomerPoolM
      */
     @Override
     public List<CrmModelFiledVO> queryPoolField() {
-        List<CrmModelFiledVO> fieldList = crmFieldService.queryField(CrmEnum.CUSTOMER.getType());
+        List<CrmModelFiledVO> fieldList = crmFieldService.queryField(CrmTypeEnum.CUSTOMER.getType());
         fieldList.removeIf(field -> FieldEnum.DESC_TEXT.getType().equals(field.getType()));
         List<Object> dealStatusList = new ArrayList<>();
         dealStatusList.add(new JSONObject().fluentPut("name", "未成交").fluentPut("value", 0));
@@ -351,7 +351,7 @@ public class CrmCustomerPoolServiceImpl extends BaseServiceImpl<CrmCustomerPoolM
         //删除跟进记录
         crmActivityService.deleteActivityRecord(CrmActivityEnum.CUSTOMER, ids);
         //删除字段操作记录
-        crmActionRecordService.deleteActionRecord(CrmEnum.CUSTOMER, ids);
+        crmActionRecordService.deleteActionRecord(CrmTypeEnum.CUSTOMER, ids);
         //删除自定义字段
         crmCustomerDataService.deleteByBatchId(batchList);
         ICrmBackLogDealService dealService = ApplicationContextHolder.getBean(ICrmBackLogDealService.class);
@@ -553,7 +553,7 @@ public class CrmCustomerPoolServiceImpl extends BaseServiceImpl<CrmCustomerPoolM
      */
     @Override
     public BasePage<Map<String, Object>> queryPageList(CrmSearchBO search, boolean isExcel) {
-        search.setLabel(CrmEnum.CUSTOMER_POOL.getType());
+        search.setLabel(CrmTypeEnum.CUSTOMER_POOL.getType());
         BasePage<Map<String, Object>> basePage = queryList(search,isExcel);
         basePage.getList().forEach(map -> {
             map.put("poolId", search.getPoolId());
@@ -748,8 +748,8 @@ public class CrmCustomerPoolServiceImpl extends BaseServiceImpl<CrmCustomerPoolM
      * @return data
      */
     @Override
-    public CrmEnum getLabel() {
-        return CrmEnum.CUSTOMER;
+    public CrmTypeEnum getLabel() {
+        return CrmTypeEnum.CUSTOMER;
     }
 
     /**

@@ -30,7 +30,7 @@ import com.liujiaming.core.utils.UserUtil;
 import com.liujiaming.crm.common.CrmModel;
 import com.liujiaming.crm.common.ElasticUtil;
 import com.liujiaming.crm.constant.CrmCodeEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmExamineData;
 import com.liujiaming.crm.entity.PO.*;
 import com.liujiaming.crm.mapper.CrmContractMapper;
@@ -260,7 +260,7 @@ public class CrmExamineRecordServiceImpl extends BaseServiceImpl<CrmExamineRecor
         Map<String, Object> map = new HashMap<>();
         map.put("receivedMoney", bigDecimal);
         map.put("unreceivedMoney", contract.getMoney().subtract(bigDecimal));
-        ElasticUtil.updateField(elasticsearchRestTemplate, map, contract.getContractId(), CrmEnum.CONTRACT.getIndex());
+        ElasticUtil.updateField(elasticsearchRestTemplate, map, contract.getContractId(), CrmTypeEnum.CONTRACT.getIndex());
     }
 
     @Override
@@ -867,11 +867,11 @@ public class CrmExamineRecordServiceImpl extends BaseServiceImpl<CrmExamineRecor
                 Map<String, Object> map = new HashMap<>();
                 map.put("dealTime", DateUtil.formatDateTime(dealTime));
                 map.put("dealStatus", 1);
-                ElasticUtil.updateField(elasticsearchRestTemplate, map, customer.getCustomerId(), CrmEnum.CUSTOMER.getIndex());
+                ElasticUtil.updateField(elasticsearchRestTemplate, map, customer.getCustomerId(), CrmTypeEnum.CUSTOMER.getIndex());
             }
             contract.setCheckStatus(status);
             ApplicationContextHolder.getBean(ICrmContractService.class).updateById(contract);
-            ElasticUtil.updateField(elasticsearchRestTemplate, "checkStatus", status, Collections.singletonList(contract.getContractId()), CrmEnum.CONTRACT.getIndex());
+            ElasticUtil.updateField(elasticsearchRestTemplate, "checkStatus", status, Collections.singletonList(contract.getContractId()), CrmTypeEnum.CONTRACT.getIndex());
         } else if (categoryType == 2) {
             CrmReceivables receivables = ApplicationContextHolder.getBean(ICrmReceivablesService.class).getById(id);
             receivables.setCheckStatus(status);
@@ -884,7 +884,7 @@ public class CrmExamineRecordServiceImpl extends BaseServiceImpl<CrmExamineRecor
             } else if (status == 1) {
                 updateContractMoney(id);
             }
-            ElasticUtil.updateField(elasticsearchRestTemplate, "checkStatus", status, Collections.singletonList(receivables.getReceivablesId()), CrmEnum.RECEIVABLES.getIndex());
+            ElasticUtil.updateField(elasticsearchRestTemplate, "checkStatus", status, Collections.singletonList(receivables.getReceivablesId()), CrmTypeEnum.RECEIVABLES.getIndex());
         } else if (categoryType == 3) {
             CrmInvoice invoice = ApplicationContextHolder.getBean(ICrmInvoiceService.class).getById(id);
             if (status == 4) {
@@ -1077,12 +1077,12 @@ public class CrmExamineRecordServiceImpl extends BaseServiceImpl<CrmExamineRecor
                 Map<String, Object> map = new HashMap<>();
                 map.put("dealTime", DateUtil.formatDateTime(dealTime));
                 map.put("dealStatus", 1);
-                ElasticUtil.updateField(elasticsearchRestTemplate, map, customer.getCustomerId(), CrmEnum.CUSTOMER.getIndex());
+                ElasticUtil.updateField(elasticsearchRestTemplate, map, customer.getCustomerId(), CrmTypeEnum.CUSTOMER.getIndex());
             }
             contract.setCheckStatus(status);
-            receivablesPlanService.updateReceivedStatus(CrmEnum.CONTRACT,contract,status);
+            receivablesPlanService.updateReceivedStatus(CrmTypeEnum.CONTRACT,contract,status);
             ApplicationContextHolder.getBean(ICrmContractService.class).updateById(contract);
-            ElasticUtil.updateField(elasticsearchRestTemplate, "checkStatus", status, Collections.singletonList(contract.getContractId()), CrmEnum.CONTRACT.getIndex());
+            ElasticUtil.updateField(elasticsearchRestTemplate, "checkStatus", status, Collections.singletonList(contract.getContractId()), CrmTypeEnum.CONTRACT.getIndex());
         } else if (categoryType == 2) {
             CrmReceivables receivables = ApplicationContextHolder.getBean(ICrmReceivablesService.class).getById(id);
             receivables.setCheckStatus(status);
@@ -1095,8 +1095,8 @@ public class CrmExamineRecordServiceImpl extends BaseServiceImpl<CrmExamineRecor
             } else if (status == 1) {
                 updateContractMoney(id);
             }
-            receivablesPlanService.updateReceivedStatus(CrmEnum.RECEIVABLES,receivables,status);
-            ElasticUtil.updateField(elasticsearchRestTemplate, "checkStatus", status, Collections.singletonList(receivables.getReceivablesId()), CrmEnum.RECEIVABLES.getIndex());
+            receivablesPlanService.updateReceivedStatus(CrmTypeEnum.RECEIVABLES,receivables,status);
+            ElasticUtil.updateField(elasticsearchRestTemplate, "checkStatus", status, Collections.singletonList(receivables.getReceivablesId()), CrmTypeEnum.RECEIVABLES.getIndex());
         } else if (categoryType == 3) {
             CrmInvoice invoice = ApplicationContextHolder.getBean(ICrmInvoiceService.class).getById(id);
             if (status == 4) {
@@ -1106,7 +1106,7 @@ public class CrmExamineRecordServiceImpl extends BaseServiceImpl<CrmExamineRecor
             }
             invoice.setCheckStatus(status);
             ApplicationContextHolder.getBean(ICrmInvoiceService.class).updateById(invoice);
-            ElasticUtil.updateField(elasticsearchRestTemplate, "checkStatus", status, Collections.singletonList(invoice.getInvoiceId()), CrmEnum.INVOICE.getIndex());
+            ElasticUtil.updateField(elasticsearchRestTemplate, "checkStatus", status, Collections.singletonList(invoice.getInvoiceId()), CrmTypeEnum.INVOICE.getIndex());
         } else if (categoryType == 4) {
             Result<HrmSalaryMonthRecord> hrmSalaryMonthRecordResult = salaryRecordService.querySalaryRecordById(id);
             HrmSalaryMonthRecord salaryMonthRecord = hrmSalaryMonthRecordResult.getData();

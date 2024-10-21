@@ -12,7 +12,7 @@ import com.liujiaming.core.common.Result;
 import com.liujiaming.core.common.SystemCodeEnum;
 import com.liujiaming.core.exception.CrmException;
 import com.liujiaming.crm.constant.CrmCodeEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmModelSaveBO;
 import com.liujiaming.crm.entity.VO.CrmModelFiledVO;
 
@@ -24,14 +24,14 @@ import java.util.regex.Matcher;
  */
 public class CrmVerify {
 
-    private CrmEnum crmEnum;
+    private CrmTypeEnum crmTypeEnum;
 
-    public CrmVerify(CrmEnum crmEnum) {
-        this.crmEnum = crmEnum;
+    public CrmVerify(CrmTypeEnum crmTypeEnum) {
+        this.crmTypeEnum = crmTypeEnum;
     }
 
     public Result verify(CrmModelSaveBO model) {
-        switch (crmEnum) {
+        switch (crmTypeEnum) {
             case LEADS:
                 return verifyLeads(model);
             case CUSTOMER:

@@ -14,11 +14,35 @@ import java.util.Map;
 @Repository
 public interface CrmBackLogMapper {
 
+    /**
+     * 今日需联系客户（下次联系时间是今天）
+     * @param map
+     * @return
+     */
+
     public Integer todayCustomerNum(Map<String, Object> map);
 
+    /**
+     * 今日需联系线索 （跟进时间是今天的线索条数）
+     * @param paras
+     * @return
+     */
     Integer todayLeadsNum(Map<String, Object> paras);
 
+    /**
+     * 今日需联系商机（下次联系时间是今天）
+     * @param paras
+     * @return
+     */
     Integer todayBusinessNum(Map<String, Object> paras);
+
+    /**
+     *分配给我的客户（未跟进的客户）
+     * @param map
+     * @return
+     */
+    public Integer followCustomerNum(Map<String, Object> map);
+
 
     /**
      * 今日需联系中，已经逾期的数据数量
@@ -27,16 +51,30 @@ public interface CrmBackLogMapper {
      */
     public Integer todayOvertimeNum(Map<String, Object> paras);
 
-    public Integer followCustomerNum(Map<String, Object> map);
 
+    /**
+     * 公海里面到期回收的
+     * @param map
+     * @return
+     */
     public List<JSONObject> putInPoolByRecord(Map<String, Object> map);
 
     public List<JSONObject> putInPoolByBusiness(Map<String, Object> map);
 
     public List<JSONObject> putInPoolByDealStatus(Map<String, Object> map);
 
+    /**
+     *
+     * @param map
+     * @return
+     */
     public Integer followLeadsNum(Map<String, Object> map);
 
+    /**
+     * 即将到期的合同
+     * @param map
+     * @return
+     */
     public Integer endContractNum(Map<String, Object> map);
 
     public Integer returnVisitRemindNum(Map<String, Object> map);

@@ -25,7 +25,7 @@ import com.liujiaming.core.utils.UserUtil;
 import com.liujiaming.crm.common.CrmModel;
 import com.liujiaming.crm.common.ElasticUtil;
 import com.liujiaming.crm.constant.CrmCodeEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.*;
 import com.liujiaming.crm.entity.PO.*;
 import com.liujiaming.crm.entity.VO.CrmFieldSortVO;
@@ -105,7 +105,7 @@ public class CrmFieldServiceImpl extends BaseServiceImpl<CrmFieldMapper, CrmFiel
             CrmFieldsBO crmFieldsBO = new CrmFieldsBO();
             crmFieldsBO.setLabel(field.getLabel());
             crmFieldsBO.setUpdateTime(DateUtil.formatDateTime(field.getUpdateTime()));
-            crmFieldsBO.setName(CrmEnum.parse(field.getLabel()).getRemarks() + "管理");
+            crmFieldsBO.setName(CrmTypeEnum.parse(field.getLabel()).getRemarks() + "管理");
             return crmFieldsBO;
         }).collect(Collectors.toList());
     }
@@ -119,7 +119,7 @@ public class CrmFieldServiceImpl extends BaseServiceImpl<CrmFieldMapper, CrmFiel
     @Transactional(rollbackFor = Exception.class)
     public void saveField(CrmFieldBO crmFieldBO) {
         Integer label = crmFieldBO.getLabel();
-        CrmEnum crmEnum = CrmEnum.parse(label);
+        CrmTypeEnum crmTypeEnum = CrmTypeEnum.parse(label);
         if (crmFieldBO.getData().size() == 0) {
             throw new CrmException(SystemCodeEnum.SYSTEM_NO_VALID);
         }
@@ -132,23 +132,23 @@ public class CrmFieldServiceImpl extends BaseServiceImpl<CrmFieldMapper, CrmFiel
             //关于非隐藏字段的判断
             if (crmField.getIsHidden().equals(1)) {
                 String[] fieldNameArr = new String[0];
-                if (crmField.getLabel().equals(CrmEnum.LEADS.getType())) {
+                if (crmField.getLabel().equals(CrmTypeEnum.LEADS.getType())) {
                     fieldNameArr = new String[]{"leads_id", "leads_name", "level"};
-                } else if (crmField.getLabel().equals(CrmEnum.CUSTOMER.getType())) {
+                } else if (crmField.getLabel().equals(CrmTypeEnum.CUSTOMER.getType())) {
                     fieldNameArr = new String[]{"customer_name", "level"};
-                } else if (crmField.getLabel().equals(CrmEnum.CONTACTS.getType())) {
+                } else if (crmField.getLabel().equals(CrmTypeEnum.CONTACTS.getType())) {
                     fieldNameArr = new String[]{"customer_id", "name"};
-                } else if (crmField.getLabel().equals(CrmEnum.PRODUCT.getType())) {
+                } else if (crmField.getLabel().equals(CrmTypeEnum.PRODUCT.getType())) {
                     fieldNameArr = new String[]{"name", "category_id", "price", "是否上下架"};
-                } else if (crmField.getLabel().equals(CrmEnum.BUSINESS.getType())) {
+                } else if (crmField.getLabel().equals(CrmTypeEnum.BUSINESS.getType())) {
                     fieldNameArr = new String[]{"business_name", "contract_id"};
-                } else if (crmField.getLabel().equals(CrmEnum.CONTRACT.getType())) {
+                } else if (crmField.getLabel().equals(CrmTypeEnum.CONTRACT.getType())) {
                     fieldNameArr = new String[]{"customer_id", "business_id", "num", "money", "order_date"};
-                } else if (crmField.getLabel().equals(CrmEnum.RECEIVABLES.getType())) {
+                } else if (crmField.getLabel().equals(CrmTypeEnum.RECEIVABLES.getType())) {
                     fieldNameArr = new String[]{"customer_id", "contract_id", "number", "receivables_plan_id"};
-                } else if (crmField.getLabel().equals(CrmEnum.RETURN_VISIT.getType())) {
+                } else if (crmField.getLabel().equals(CrmTypeEnum.RETURN_VISIT.getType())) {
                     fieldNameArr = new String[]{"customer_id", "contract_id"};
-                }else if (crmField.getLabel().equals(CrmEnum.INVOICE.getType())) {
+                }else if (crmField.getLabel().equals(CrmTypeEnum.INVOICE.getType())) {
                     fieldNameArr = new String[]{"invoice_id", "invoice_apply_number"};
                 }
                 List<String> keyList = Arrays.asList(fieldNameArr);
@@ -205,7 +205,7 @@ public class CrmFieldServiceImpl extends BaseServiceImpl<CrmFieldMapper, CrmFiel
             ElasticUtil.removeField(restTemplate.getClient(), field.getFieldName(), label);
             //删除字段授权
             crmRoleFieldService.deleteRoleField(field.getFieldId());
-            switch (crmEnum) {
+            switch (crmTypeEnum) {
                 case LEADS:
                     ApplicationContextHolder.getBean(ICrmLeadsDataService.class).lambdaUpdate().eq(CrmLeadsData::getFieldId, field.getFieldId()).remove();
                     break;
@@ -240,13 +240,13 @@ public class CrmFieldServiceImpl extends BaseServiceImpl<CrmFieldMapper, CrmFiel
                     break;
             }
         }
-        if(CrmEnum.RECEIVABLES.getType().equals(label)){
+        if(CrmTypeEnum.RECEIVABLES.getType().equals(label)){
             CrmField returnTypeField = null;
             for (CrmField crmField : crmFieldBO.getData()) {
                 //当回款的回款方式字段修改时，同步修改回款计划的回款方式
                 if("return_type".equals(crmField.getFieldName())){
                     //必定存在
-                    returnTypeField = lambdaQuery().eq(CrmField::getFieldName,"return_type").eq(CrmField::getLabel,CrmEnum.RECEIVABLES_PLAN.getType()).one();
+                    returnTypeField = lambdaQuery().eq(CrmField::getFieldName,"return_type").eq(CrmField::getLabel,CrmTypeEnum.RECEIVABLES_PLAN.getType()).one();
                     returnTypeField.setName(crmField.getName());
                     returnTypeField.setInputTips(crmField.getInputTips());
                     returnTypeField.setIsNull(crmField.getIsNull());
@@ -265,7 +265,7 @@ public class CrmFieldServiceImpl extends BaseServiceImpl<CrmFieldMapper, CrmFiel
         AtomicInteger sort = new AtomicInteger(0);
         crmFieldBO.getData().forEach(field -> {
             //回款计划的回款方式字段不允许编辑,编辑回款的回款方式字段时，同步修改回款计划的
-            if("return_type".equals(field.getFieldName()) && CrmEnum.RECEIVABLES_PLAN.getType().equals(label)){
+            if("return_type".equals(field.getFieldName()) && CrmTypeEnum.RECEIVABLES_PLAN.getType().equals(label)){
                 return;
             }
             field.setSorting(sort.getAndIncrement());
@@ -503,7 +503,7 @@ public class CrmFieldServiceImpl extends BaseServiceImpl<CrmFieldMapper, CrmFiel
                 return fieldName;
             }
         }).collect(Collectors.toList());
-        if (label.equals(CrmEnum.CUSTOMER.getType()) || label.equals(CrmEnum.CUSTOMER_POOL.getType())) {
+        if (label.equals(CrmTypeEnum.CUSTOMER.getType()) || label.equals(CrmTypeEnum.CUSTOMER_POOL.getType())) {
             //地区定位,详细地址不在字段授权配置,这这里默认展示
             nameList.add("detailAddress");
             nameList.add("address");
@@ -571,9 +571,9 @@ public class CrmFieldServiceImpl extends BaseServiceImpl<CrmFieldMapper, CrmFiel
             recordToFormType(crmModelFiled, typeEnum);
             return crmModelFiled;
         }).collect(Collectors.toList());
-        CrmEnum crmEnum = CrmEnum.parse(crmModel.getLabel());
-        if (crmEnum == CrmEnum.RECEIVABLES || crmEnum == CrmEnum.CONTRACT || crmEnum == CrmEnum.RETURN_VISIT || crmEnum == CrmEnum.INVOICE) {
-            AdminConfig numberSetting = adminService.queryFirstConfigByNameAndValue("numberSetting", crmEnum.getType().toString()).getData();
+        CrmTypeEnum crmTypeEnum = CrmTypeEnum.parse(crmModel.getLabel());
+        if (crmTypeEnum == CrmTypeEnum.RECEIVABLES || crmTypeEnum == CrmTypeEnum.CONTRACT || crmTypeEnum == CrmTypeEnum.RETURN_VISIT || crmTypeEnum == CrmTypeEnum.INVOICE) {
+            AdminConfig numberSetting = adminService.queryFirstConfigByNameAndValue("numberSetting", crmTypeEnum.getType().toString()).getData();
             Integer status = numberSetting.getStatus();
             if (status == 1) {
                 for (CrmModelFiledVO field : fieldList) {
@@ -586,7 +586,7 @@ public class CrmFieldServiceImpl extends BaseServiceImpl<CrmFieldMapper, CrmFiel
                     }
                 }
             }
-        }else if (crmEnum == CrmEnum.PRODUCT){
+        }else if (crmTypeEnum == CrmTypeEnum.PRODUCT){
             boolean isWithStatus = false;
             Long userId = UserUtil.getUserId();
             String key = userId.toString();
@@ -602,7 +602,7 @@ public class CrmFieldServiceImpl extends BaseServiceImpl<CrmFieldMapper, CrmFiel
                     }
                 }
             }
-        }else if(crmEnum == CrmEnum.CUSTOMER){
+        }else if(crmTypeEnum == CrmTypeEnum.CUSTOMER){
             fieldList.forEach(field -> {
                 if ("website".equals(field.getFieldName())){
                     field.setFormType(FieldEnum.WEBSITE.getFormType());
@@ -644,14 +644,14 @@ public class CrmFieldServiceImpl extends BaseServiceImpl<CrmFieldMapper, CrmFiel
     @Override
     public CrmFieldVerifyBO verify(CrmFieldVerifyBO verifyBO) {
         CrmField field = getById(verifyBO.getFieldId());
-        CrmEnum crmEnum = CrmEnum.parse(field.getLabel());
+        CrmTypeEnum crmTypeEnum = CrmTypeEnum.parse(field.getLabel());
         if (field.getFieldType().equals(1)) {
-            Integer count = getBaseMapper().verifyFixedField(crmEnum.getTableName(), field.getFieldName(), verifyBO.getValue().trim(), verifyBO.getBatchId(), crmEnum.getType());
+            Integer count = getBaseMapper().verifyFixedField(crmTypeEnum.getTableName(), field.getFieldName(), verifyBO.getValue().trim(), verifyBO.getBatchId(), crmTypeEnum.getType());
             if (count < 1) {
                 verifyBO.setStatus(1);
             } else {
                 //添加特殊验证
-                if (crmEnum.equals(CrmEnum.LEADS)) {
+                if (crmTypeEnum.equals(CrmTypeEnum.LEADS)) {
                     if ("leads_name".equals(field.getFieldName())) {
                         CrmLeads leads = crmLeadsService.lambdaQuery().select(CrmLeads::getLeadsId, CrmLeads::getOwnerUserId)
                                 .eq(CrmLeads::getLeadsName, verifyBO.getValue().trim())
@@ -663,7 +663,7 @@ public class CrmFieldServiceImpl extends BaseServiceImpl<CrmFieldMapper, CrmFiel
                                 .ne(StrUtil.isNotEmpty(verifyBO.getBatchId()), CrmLeads::getBatchId, verifyBO.getBatchId()).last("limit 1").one();
                         verifyBO.setOwnerUserName(UserCacheUtil.getUserInfo(leads.getOwnerUserId()).getRealname());
                     }
-                } else if (crmEnum.equals(CrmEnum.CUSTOMER)) {
+                } else if (crmTypeEnum.equals(CrmTypeEnum.CUSTOMER)) {
                     if ("customer_name".equals(field.getFieldName())) {
                         CrmCustomer customer = customerService.lambdaQuery().select(CrmCustomer::getCustomerId, CrmCustomer::getOwnerUserId).
                                 eq(CrmCustomer::getCustomerName, verifyBO.getValue().trim()).ne(CrmCustomer::getStatus, 3)
@@ -701,7 +701,7 @@ public class CrmFieldServiceImpl extends BaseServiceImpl<CrmFieldMapper, CrmFiel
             NativeSearchQuery searchQuery = new NativeSearchQueryBuilder()
                     .withQuery(queryBuilder)
                     .withSearchType(SearchType.DEFAULT)
-                    .withIndices(crmEnum.getIndex())
+                    .withIndices(crmTypeEnum.getIndex())
                     .withTypes("_doc").build();
             long count = restTemplate.count(searchQuery);
             if (count < 1) {
@@ -818,7 +818,7 @@ public class CrmFieldServiceImpl extends BaseServiceImpl<CrmFieldMapper, CrmFiel
         NativeSearchQuery searchQuery = new NativeSearchQueryBuilder()
                 .withQuery(termQuery)
                 .withSearchType(SearchType.DEFAULT)
-                .withIndices(CrmEnum.CUSTOMER.getIndex())
+                .withIndices(CrmTypeEnum.CUSTOMER.getIndex())
                 .withTypes("_doc").build();
         return restTemplate.count(searchQuery);
     }

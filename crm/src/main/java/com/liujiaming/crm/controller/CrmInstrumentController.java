@@ -11,7 +11,7 @@ import com.liujiaming.core.entity.BasePage;
 import com.liujiaming.core.exception.CrmException;
 import com.liujiaming.core.feign.crm.entity.BiParams;
 import com.liujiaming.core.utils.ExcelParseUtil;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmSearchParamsBO;
 import com.liujiaming.crm.entity.PO.CrmActivity;
 import com.liujiaming.crm.entity.VO.CrmModelFiledVO;
@@ -182,14 +182,14 @@ public class CrmInstrumentController {
         if (!Arrays.asList(1,2,3,5,6).contains(crmType)){
             throw new CrmException(SystemCodeEnum.SYSTEM_NO_VALID);
         }
-        CrmEnum crmEnum = CrmEnum.parse(crmType);
+        CrmTypeEnum crmTypeEnum = CrmTypeEnum.parse(crmType);
         List<CrmModelFiledVO> filedList = new ArrayList<>();
         filedList.add(new CrmModelFiledVO("content", FieldEnum.TEXT, "*跟进内容", 1));
         filedList.add(new CrmModelFiledVO("createUserName", FieldEnum.TEXT, "*创建人", 1));
         if (crmType == 2){
             filedList.add(new CrmModelFiledVO("crmTypeName", FieldEnum.TEXT, "*所属客户", 1));
         }else {
-            filedList.add(new CrmModelFiledVO("crmTypeName", FieldEnum.TEXT, "*所属" + crmEnum.getRemarks(), 1));
+            filedList.add(new CrmModelFiledVO("crmTypeName", FieldEnum.TEXT, "*所属" + crmTypeEnum.getRemarks(), 1));
         }
         filedList.add(new CrmModelFiledVO("createTime", FieldEnum.DATE, "跟进时间-例:2024-2-1", 1));
         filedList.add(new CrmModelFiledVO("category", FieldEnum.TEXT, "跟进方式", 1));
@@ -210,13 +210,13 @@ public class CrmInstrumentController {
         }
         try {
             HSSFRow hintRow = sheet.createRow(0);
-            String desc = CrmEnum.CONTRACT.equals(crmEnum) ? "编号" : "名称";
+            String desc = CrmTypeEnum.CONTRACT.equals(crmTypeEnum) ? "编号" : "名称";
             hintRow.createCell(0).setCellValue("注意事项：\n" +
                             "1、表头标“*”的红色字体为必填项\n" +
                             "2、跟进时间：推荐格式为2024-2-1\n" +
                             "3、若相关数据有多条时用“/”区分例如：杭州科技有限公司／卡卡罗特软件科技有限公司\n" +
-                            "4、所属" + crmEnum.getRemarks() + "中的" + crmEnum.getRemarks() + "需要存在系统中，" +
-                                "且填写的所属" + crmEnum.getRemarks() + desc +"与系统中的" + crmEnum.getRemarks() + desc +"必须保持一致否则会导入失败\n" +
+                            "4、所属" + crmTypeEnum.getRemarks() + "中的" + crmTypeEnum.getRemarks() + "需要存在系统中，" +
+                                "且填写的所属" + crmTypeEnum.getRemarks() + desc +"与系统中的" + crmTypeEnum.getRemarks() + desc +"必须保持一致否则会导入失败\n" +
                             "5、创建人为系统员工，请填写系统员工“姓名”，若匹配不到系统员工，则会导致导入失败\n" +
                             "6、如果系统中存在多个" + desc + "重复的情况，会默认导入到最新的数据中");
             hintRow.setHeight((short) 2100);
@@ -271,7 +271,7 @@ public class CrmInstrumentController {
         if (!Arrays.asList(1,2,3,5,6).contains(crmType)){
             throw new CrmException(SystemCodeEnum.SYSTEM_NO_VALID);
         }
-        CrmEnum crmEnum = CrmEnum.parse(crmType);
+        CrmTypeEnum crmTypeEnum = CrmTypeEnum.parse(crmType);
         List<Map<String,Object>> objectList = instrumentService.exportRecordList(biParams);
         List<ExcelParseUtil.ExcelDataEntity> dataList = new ArrayList<>();
         if (crmType == 2) {
@@ -280,7 +280,7 @@ public class CrmInstrumentController {
         dataList.add(ExcelParseUtil.toEntity("content", "跟进内容"));
         dataList.add(ExcelParseUtil.toEntity("createUserName", "跟进人"));
         if (crmType != 2) {
-            dataList.add(ExcelParseUtil.toEntity("crmTypeName", "所属" + crmEnum.getRemarks()));
+            dataList.add(ExcelParseUtil.toEntity("crmTypeName", "所属" + crmTypeEnum.getRemarks()));
         }
         dataList.add(ExcelParseUtil.toEntity("createTime", "跟进时间"));
         dataList.add(ExcelParseUtil.toEntity("category", "跟进方式"));

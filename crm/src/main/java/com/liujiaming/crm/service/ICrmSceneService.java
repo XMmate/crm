@@ -2,7 +2,7 @@ package com.liujiaming.crm.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.liujiaming.core.servlet.BaseService;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmSceneConfigBO;
 import com.liujiaming.crm.entity.PO.CrmScene;
 import com.liujiaming.crm.entity.VO.CrmModelFiledVO;
@@ -22,10 +22,10 @@ public interface ICrmSceneService extends BaseService<CrmScene> {
     /**
      * 查询场景
      *
-     * @param crmEnum 类型
+     * @param crmTypeEnum 类型
      * @return data
      */
-    public List<CrmScene> queryScene(CrmEnum crmEnum);
+    public List<CrmScene> queryScene(CrmTypeEnum crmTypeEnum);
 
     /**
      * 查询场景处字段

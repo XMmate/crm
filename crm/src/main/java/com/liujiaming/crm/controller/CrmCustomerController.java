@@ -20,7 +20,7 @@ import com.liujiaming.crm.common.CrmModel;
 import com.liujiaming.crm.common.log.CrmCustomerLog;
 import com.liujiaming.crm.constant.CrmAuthEnum;
 import com.liujiaming.crm.constant.CrmCodeEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.*;
 import com.liujiaming.crm.entity.PO.CrmContacts;
 import com.liujiaming.crm.entity.PO.CrmCustomer;
@@ -73,7 +73,7 @@ public class CrmCustomerController {
     private ICrmTeamMembersService teamMembersService;
 
     @PostMapping("/queryPageList")
-    @ApiOperation("查询列表页数据")
+    @ApiOperation("查询客户列表页数据")
     public Result<BasePage<Map<String, Object>>> queryPageList(@RequestBody CrmSearchBO search) {
         search.setPageType(1);
         BasePage<Map<String, Object>> mapBasePage = crmCustomerService.queryPageList(search);
@@ -273,12 +273,12 @@ public class CrmCustomerController {
     @PostMapping("/getMembers/{customerId}")
     @ApiOperation("获取团队成员")
     public Result<List<CrmMembersSelectVO>> getMembers(@PathVariable("customerId") @ApiParam("客户ID") Integer customerId) {
-        CrmEnum crmEnum = CrmEnum.CUSTOMER;
+        CrmTypeEnum crmTypeEnum = CrmTypeEnum.CUSTOMER;
         CrmCustomer customer = crmCustomerService.getById(customerId);
         if (customer == null) {
-            throw new CrmException(CrmCodeEnum.CRM_DATA_DELETED, crmEnum.getRemarks());
+            throw new CrmException(CrmCodeEnum.CRM_DATA_DELETED, crmTypeEnum.getRemarks());
         }
-        List<CrmMembersSelectVO> members = teamMembersService.getMembers(crmEnum,customerId,customer.getOwnerUserId());
+        List<CrmMembersSelectVO> members = teamMembersService.getMembers(crmTypeEnum,customerId,customer.getOwnerUserId());
         return R.ok(members);
     }
 
@@ -286,7 +286,7 @@ public class CrmCustomerController {
     @ApiOperation("新增团队成员")
     @SysLogHandler(behavior = BehaviorEnum.ADD_MEMBER)
     public Result addMembers(@RequestBody CrmMemberSaveBO crmMemberSaveBO) {
-        teamMembersService.addMember(CrmEnum.CUSTOMER,crmMemberSaveBO);
+        teamMembersService.addMember(CrmTypeEnum.CUSTOMER,crmMemberSaveBO);
         return R.ok();
     }
 
@@ -294,7 +294,7 @@ public class CrmCustomerController {
     @ApiOperation("新增团队成员")
     @SysLogHandler(behavior = BehaviorEnum.ADD_MEMBER)
     public Result updateMembers(@RequestBody CrmMemberSaveBO crmMemberSaveBO) {
-        teamMembersService.addMember(CrmEnum.CUSTOMER,crmMemberSaveBO);
+        teamMembersService.addMember(CrmTypeEnum.CUSTOMER,crmMemberSaveBO);
         return R.ok();
     }
 
@@ -302,7 +302,7 @@ public class CrmCustomerController {
     @ApiOperation("删除团队成员")
     @SysLogHandler
     public Result deleteMembers(@RequestBody CrmMemberSaveBO crmMemberSaveBO) {
-        teamMembersService.deleteMember(CrmEnum.CUSTOMER,crmMemberSaveBO);
+        teamMembersService.deleteMember(CrmTypeEnum.CUSTOMER,crmMemberSaveBO);
         return R.ok();
     }
 
@@ -310,7 +310,7 @@ public class CrmCustomerController {
     @ApiOperation("删除团队成员")
     @SysLogHandler
     public Result exitTeam(@PathVariable("customerId") @ApiParam("客户ID") Integer customerId) {
-        teamMembersService.exitTeam(CrmEnum.CUSTOMER,customerId);
+        teamMembersService.exitTeam(CrmTypeEnum.CUSTOMER,customerId);
         return R.ok();
     }
 
@@ -374,7 +374,7 @@ public class CrmCustomerController {
     public void batchExportExcel(@RequestBody @ApiParam(name = "ids", value = "id列表") List<Integer> ids, HttpServletResponse response) {
         CrmSearchBO search = new CrmSearchBO();
         search.setPageType(0);
-        search.setLabel(CrmEnum.CUSTOMER.getType());
+        search.setLabel(CrmTypeEnum.CUSTOMER.getType());
         CrmSearchBO.Search entity = new CrmSearchBO.Search();
         entity.setFormType(FieldEnum.TEXT.getFormType());
         entity.setSearchEnum(CrmSearchBO.FieldSearchEnum.ID);
@@ -428,7 +428,7 @@ public class CrmCustomerController {
     public Result<Long> uploadExcel(@RequestParam("file") MultipartFile file, @RequestParam("repeatHandling") Integer repeatHandling) {
         UploadExcelBO uploadExcelBO = new UploadExcelBO();
         uploadExcelBO.setUserInfo(UserUtil.getUser());
-        uploadExcelBO.setCrmEnum(CrmEnum.CUSTOMER);
+        uploadExcelBO.setCrmTypeEnum(CrmTypeEnum.CUSTOMER);
         uploadExcelBO.setPoolId(null);
         uploadExcelBO.setRepeatHandling(repeatHandling);
         Long messageId = uploadExcelService.uploadExcel(file, uploadExcelBO);

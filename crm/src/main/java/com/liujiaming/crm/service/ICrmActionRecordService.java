@@ -2,7 +2,7 @@ package com.liujiaming.crm.service;
 
 import cn.hutool.core.lang.Dict;
 import com.liujiaming.core.servlet.BaseService;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.PO.CrmActionRecord;
 import com.liujiaming.crm.entity.VO.CrmActionRecordVO;
 import com.liujiaming.crm.entity.VO.CrmModelFiledVO;
@@ -22,10 +22,10 @@ public interface ICrmActionRecordService extends BaseService<CrmActionRecord> {
     /**
      * 删除字段记录类型
      *
-     * @param crmEnum 类型
+     * @param crmTypeEnum 类型
      * @param ids     ids
      */
-    public void deleteActionRecord(CrmEnum crmEnum, List<Integer> ids);
+    public void deleteActionRecord(CrmTypeEnum crmTypeEnum, List<Integer> ids);
 
     /**
      * 查询跟进方式列表
@@ -43,5 +43,11 @@ public interface ICrmActionRecordService extends BaseService<CrmActionRecord> {
      */
     public List<CrmActionRecordVO> queryRecordList(Integer actionId, Integer types);
 
+
+    /**
+     *查询字段的值
+     * @param kv
+     * @return
+     */
     List<CrmModelFiledVO> queryFieldValue(Dict kv);
 }

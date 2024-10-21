@@ -19,7 +19,7 @@ import com.liujiaming.core.utils.BaseUtil;
 import com.liujiaming.core.utils.TagUtil;
 import com.liujiaming.core.utils.UserCacheUtil;
 import com.liujiaming.core.utils.UserUtil;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.PO.CrmActionRecord;
 import com.liujiaming.crm.entity.PO.CrmCustomer;
 import com.liujiaming.crm.entity.PO.CrmMarketing;
@@ -163,17 +163,17 @@ public class ActionRecordUtil {
     public static Map<Integer, Dict> propertiesMap = new HashMap<>();
 
     static {
-        propertiesMap.put(CrmEnum.LEADS.getType(), Dict.create().set("leadsName", "线索名称").set("address", "地址").set("mobile", "手机").set("nextTime", "下次联系时间").set("remark", "备注").set("email", "邮箱").set("telephone", "电话"));
-        propertiesMap.put(CrmEnum.CUSTOMER.getType(), Dict.create().set("customerName", "客户名称").set("address", "省市区").set("location", "详细地址").set("mobile", "手机").set("nextTime", "下次联系时间").set("remark", "备注").set("telephone", "电话").set("website", "网址"));
-        propertiesMap.put(CrmEnum.CONTACTS.getType(), Dict.create().set("name", "姓名").set("customerId", "客户姓名").set("mobile", "手机").set("nextTime", "下次联系时间").set("remark", "备注").set("telephone", "电话").set("email", "电子邮箱").set("post", "职务").set("address", "地址"));
-        propertiesMap.put(CrmEnum.BUSINESS.getType(), Dict.create().set("businessName", "商机名称").set("customerId", "客户姓名").set("money", "商机金额").set("dealDate", "预计成交日期").set("remark", "备注").set("typeId", "商机状态组").set("statusId", "商机阶段").set("totalPrice", "总金额").set("discountRate", "整单折扣（%）"));
-        propertiesMap.put(CrmEnum.CONTRACT.getType(), Dict.create().set("num", "合同编号").set("name", "合同名称").set("customerId", "客户名称").set("contactsId", "客户签约人").set("businessId", "商机名称").set("orderDate", "下单时间").set("money", "合同金额").set("startTime", "合同开始时间").set("endTime", "合同结束时间").set("companyUserId", "公司签约人").set("remark", "备注").set("totalPrice", "总金额").set("discountRate", "整单折扣（%）"));
-        propertiesMap.put(CrmEnum.RECEIVABLES.getType(), Dict.create().set("number", "回款编号").set("customerId", "客户姓名").set("contractId", "合同编号").set("returnTime", "回款日期").set("money", "回款金额").set("receivablesPlanId", "期数").set("remark", "备注"));
-        propertiesMap.put(CrmEnum.RECEIVABLES_PLAN.getType(), Dict.create().set("money", "计划回款金额").set("return_date", "计划回款日期").set("return_type", "计划回款方式").set("remind", "提前几天提醒").set("remark", "备注"));
-        propertiesMap.put(CrmEnum.PRODUCT.getType(), Dict.create().set("name", "产品名称").set("categoryId", "产品类型").set("num", "产品编码").set("price", "价格").set("description", "产品描述"));
-        propertiesMap.put(CrmEnum.MARKETING.getType(), Dict.create().set("marketingName", "活动名称").set("crmType", "关联对象").set("relationUserId", "参与人员").set("marketingType", "活动类型").set("startTime", "开始时间").set("endTime", "截止时间").set("browse", "浏览数").set("submitNum", "提交数").set("marketingMoney", "活动预算").set("address", "活动地址").set("synopsis", "活动简介"));
-        propertiesMap.put(CrmEnum.RETURN_VISIT.getType(), Dict.create().set("visitNumber", "回访编号").set("visitTime", "回访时间").set("ownerUserId", "回访人").set("customerId", "客户名称").set("contractId", "合同编号").set("contactsId", "联系人"));
-        propertiesMap.put(CrmEnum.INVOICE.getType(), Dict.create().set("invoiceApplyNumber", "发票申请编号").set("customerId", "客户名称").set("contractId", "合同编号").set("invoiceMoney", "开票金额").set("invoiceDate", "开票日期").set("invoiceType", "开票类型").set("remark", "备注").set("titleType", "抬头类型").set("invoiceTitle", "开票抬头").set("taxNumber", "纳税识别号").set("depositBank", "开户银行").set("depositAccount", "开户账户").set("depositAddress", "开票地址").set("contactsName", "联系人名称").set("contactsTelephone", "联系方式").set("contactsAddress", "邮寄地址"));
+        propertiesMap.put(CrmTypeEnum.LEADS.getType(), Dict.create().set("leadsName", "线索名称").set("address", "地址").set("mobile", "手机").set("nextTime", "下次联系时间").set("remark", "备注").set("email", "邮箱").set("telephone", "电话"));
+        propertiesMap.put(CrmTypeEnum.CUSTOMER.getType(), Dict.create().set("customerName", "客户名称").set("address", "省市区").set("location", "详细地址").set("mobile", "手机").set("nextTime", "下次联系时间").set("remark", "备注").set("telephone", "电话").set("website", "网址"));
+        propertiesMap.put(CrmTypeEnum.CONTACTS.getType(), Dict.create().set("name", "姓名").set("customerId", "客户姓名").set("mobile", "手机").set("nextTime", "下次联系时间").set("remark", "备注").set("telephone", "电话").set("email", "电子邮箱").set("post", "职务").set("address", "地址"));
+        propertiesMap.put(CrmTypeEnum.BUSINESS.getType(), Dict.create().set("businessName", "商机名称").set("customerId", "客户姓名").set("money", "商机金额").set("dealDate", "预计成交日期").set("remark", "备注").set("typeId", "商机状态组").set("statusId", "商机阶段").set("totalPrice", "总金额").set("discountRate", "整单折扣（%）"));
+        propertiesMap.put(CrmTypeEnum.CONTRACT.getType(), Dict.create().set("num", "合同编号").set("name", "合同名称").set("customerId", "客户名称").set("contactsId", "客户签约人").set("businessId", "商机名称").set("orderDate", "下单时间").set("money", "合同金额").set("startTime", "合同开始时间").set("endTime", "合同结束时间").set("companyUserId", "公司签约人").set("remark", "备注").set("totalPrice", "总金额").set("discountRate", "整单折扣（%）"));
+        propertiesMap.put(CrmTypeEnum.RECEIVABLES.getType(), Dict.create().set("number", "回款编号").set("customerId", "客户姓名").set("contractId", "合同编号").set("returnTime", "回款日期").set("money", "回款金额").set("receivablesPlanId", "期数").set("remark", "备注"));
+        propertiesMap.put(CrmTypeEnum.RECEIVABLES_PLAN.getType(), Dict.create().set("money", "计划回款金额").set("return_date", "计划回款日期").set("return_type", "计划回款方式").set("remind", "提前几天提醒").set("remark", "备注"));
+        propertiesMap.put(CrmTypeEnum.PRODUCT.getType(), Dict.create().set("name", "产品名称").set("categoryId", "产品类型").set("num", "产品编码").set("price", "价格").set("description", "产品描述"));
+        propertiesMap.put(CrmTypeEnum.MARKETING.getType(), Dict.create().set("marketingName", "活动名称").set("crmType", "关联对象").set("relationUserId", "参与人员").set("marketingType", "活动类型").set("startTime", "开始时间").set("endTime", "截止时间").set("browse", "浏览数").set("submitNum", "提交数").set("marketingMoney", "活动预算").set("address", "活动地址").set("synopsis", "活动简介"));
+        propertiesMap.put(CrmTypeEnum.RETURN_VISIT.getType(), Dict.create().set("visitNumber", "回访编号").set("visitTime", "回访时间").set("ownerUserId", "回访人").set("customerId", "客户名称").set("contractId", "合同编号").set("contactsId", "联系人"));
+        propertiesMap.put(CrmTypeEnum.INVOICE.getType(), Dict.create().set("invoiceApplyNumber", "发票申请编号").set("customerId", "客户名称").set("contractId", "合同编号").set("invoiceMoney", "开票金额").set("invoiceDate", "开票日期").set("invoiceType", "开票类型").set("remark", "备注").set("titleType", "抬头类型").set("invoiceTitle", "开票抬头").set("taxNumber", "纳税识别号").set("depositBank", "开户银行").set("depositAccount", "开户账户").set("depositAddress", "开票地址").set("contactsName", "联系人名称").set("contactsTelephone", "联系方式").set("contactsAddress", "邮寄地址"));
     }
 
 
@@ -188,16 +188,16 @@ public class ActionRecordUtil {
      *
      * @param oldObj  之前对象
      * @param newObj  新对象
-     * @param crmEnum 类型
+     * @param crmTypeEnum 类型
      */
     @SuppressWarnings("unchecked")
-    public void updateRecord(Map<String, Object> oldObj, Map<String, Object> newObj, CrmEnum crmEnum, String name, Integer actionId) {
+    public void updateRecord(Map<String, Object> oldObj, Map<String, Object> newObj, CrmTypeEnum crmTypeEnum, String name, Integer actionId) {
         try {
             CrmActionRecord crmActionRecord = new CrmActionRecord();
             crmActionRecord.setCreateUserId(UserUtil.getUserId());
             crmActionRecord.setCreateTime(new Date());
-            searchChange(textList, oldObj, newObj, crmEnum.getType());
-            crmActionRecord.setTypes(crmEnum.getType());
+            searchChange(textList, oldObj, newObj, crmTypeEnum.getType());
+            crmActionRecord.setTypes(crmTypeEnum.getType());
             crmActionRecord.setActionId(actionId);
             crmActionRecord.setContent(JSON.toJSONString(textList));
             crmActionRecord.setIpAddress("100.75.29.25");
@@ -214,17 +214,17 @@ public class ActionRecordUtil {
 
     }
 
-    public void addRecord(Integer actionId, CrmEnum crmEnum, String name) {
+    public void addRecord(Integer actionId, CrmTypeEnum crmTypeEnum, String name) {
         CrmActionRecord crmActionRecord = new CrmActionRecord();
         crmActionRecord.setCreateUserId(UserUtil.getUserId());
         crmActionRecord.setCreateTime(new Date());
-        crmActionRecord.setTypes(crmEnum.getType());
+        crmActionRecord.setTypes(crmTypeEnum.getType());
         crmActionRecord.setActionId(actionId);
         ArrayList<String> strings = new ArrayList<>();
-        strings.add("新建了" + crmEnum.getRemarks());
+        strings.add("新建了" + crmTypeEnum.getRemarks());
         crmActionRecord.setContent(JSON.toJSONString(strings));
         crmActionRecord.setIpAddress("100.75.29.25");
-        crmActionRecord.setDetail("新建了" + crmEnum.getRemarks() + "：" + name);
+        crmActionRecord.setDetail("新建了" + crmTypeEnum.getRemarks() + "：" + name);
         crmActionRecord.setBehavior(BehaviorEnum.SAVE.getType());
         crmActionRecord.setObject(name);
         ActionRecordTask actionRecordTask = new ActionRecordTask(crmActionRecord);
@@ -233,7 +233,7 @@ public class ActionRecordUtil {
 
 
     /**
-     * 字段更新记录
+     * 自定义字段更新记录
      * @param newFieldList
      * @param kv
      */
@@ -397,7 +397,7 @@ public class ActionRecordUtil {
         }
     }
 
-    public void publicContentRecord(CrmEnum crmEnum, BehaviorEnum behaviorEnum, Integer actionId, String name, JSONObject record, String value) {
+    public void publicContentRecord(CrmTypeEnum crmTypeEnum, BehaviorEnum behaviorEnum, Integer actionId, String name, JSONObject record, String value) {
         List<String> textList = new ArrayList<>();
         FieldEnum fieldEnum = FieldEnum.parse(record.getInteger("type"));
         if(fieldEnum == FieldEnum.DETAIL_TABLE){
@@ -416,7 +416,7 @@ public class ActionRecordUtil {
         actionRecord.setCreateUserId(UserUtil.getUserId());
         actionRecord.setCreateTime(new Date());
         actionRecord.setIpAddress(BaseUtil.getIp());
-        actionRecord.setTypes(crmEnum.getType());
+        actionRecord.setTypes(crmTypeEnum.getType());
         actionRecord.setBehavior(behaviorEnum.getType());
         actionRecord.setActionId(actionId);
         actionRecord.setContent(JSON.toJSONString(textList));
@@ -432,18 +432,18 @@ public class ActionRecordUtil {
      *
      * @param actionId
      */
-    public void addConversionRecord(Integer actionId, CrmEnum crmEnum, Long userId, String name) {
+    public void addConversionRecord(Integer actionId, CrmTypeEnum crmTypeEnum, Long userId, String name) {
         String userName = UserCacheUtil.getUserName(userId);
         CrmActionRecord crmActionRecord = new CrmActionRecord();
         crmActionRecord.setCreateUserId(UserUtil.getUserId());
         crmActionRecord.setCreateTime(new Date());
-        crmActionRecord.setTypes(crmEnum.getType());
+        crmActionRecord.setTypes(crmTypeEnum.getType());
         crmActionRecord.setActionId(actionId);
         ArrayList<String> strings = new ArrayList<>();
-        strings.add("将" + crmEnum.getRemarks() + "转移给：" + userName);
+        strings.add("将" + crmTypeEnum.getRemarks() + "转移给：" + userName);
         crmActionRecord.setContent(JSON.toJSONString(strings));
         crmActionRecord.setIpAddress(BaseUtil.getIp());
-        crmActionRecord.setDetail("将" + crmEnum.getRemarks() + "：" + name + "转移给：" + userName);
+        crmActionRecord.setDetail("将" + crmTypeEnum.getRemarks() + "：" + name + "转移给：" + userName);
         crmActionRecord.setBehavior(BehaviorEnum.CHANGE_OWNER.getType());
         crmActionRecord.setObject(name);
         ActionRecordTask actionRecordTask = new ActionRecordTask(crmActionRecord);
@@ -456,11 +456,11 @@ public class ActionRecordUtil {
     /**
      * 添加(锁定/解锁)记录
      */
-    public void addIsLockRecord(List<String> ids, CrmEnum crmEnum, Integer isLock) {
+    public void addIsLockRecord(List<String> ids, CrmTypeEnum crmTypeEnum, Integer isLock) {
         CrmActionRecord crmActionRecord = new CrmActionRecord();
         crmActionRecord.setCreateUserId(UserUtil.getUserId());
         crmActionRecord.setCreateTime(new Date());
-        crmActionRecord.setTypes(crmEnum.getType());
+        crmActionRecord.setTypes(crmTypeEnum.getType());
         crmActionRecord.setIpAddress(BaseUtil.getIp());
         ArrayList<String> strings = new ArrayList<>();
         if (isLock == 2) {
@@ -493,11 +493,11 @@ public class ActionRecordUtil {
      *
      * @param actionId
      */
-    public void addConversionCustomerRecord(Integer actionId, CrmEnum crmEnum, String name) {
+    public void addConversionCustomerRecord(Integer actionId, CrmTypeEnum crmTypeEnum, String name) {
         CrmActionRecord crmActionRecord = new CrmActionRecord();
         crmActionRecord.setCreateUserId(UserUtil.getUserId());
         crmActionRecord.setCreateTime(new Date());
-        crmActionRecord.setTypes(crmEnum.getType());
+        crmActionRecord.setTypes(crmTypeEnum.getType());
         crmActionRecord.setActionId(actionId);
         ArrayList<String> strings = new ArrayList<>();
         strings.add("将线索\"" + name + "\"转化为客户");
@@ -513,11 +513,11 @@ public class ActionRecordUtil {
     /**
      * 放入公海
      */
-    public void addPutIntoTheOpenSeaRecord(Integer actionId, CrmEnum crmEnum, String name) {
+    public void addPutIntoTheOpenSeaRecord(Integer actionId, CrmTypeEnum crmTypeEnum, String name) {
         CrmActionRecord crmActionRecord = new CrmActionRecord();
         crmActionRecord.setCreateUserId(UserUtil.getUserId());
         crmActionRecord.setCreateTime(new Date());
-        crmActionRecord.setTypes(crmEnum.getType());
+        crmActionRecord.setTypes(crmTypeEnum.getType());
         ArrayList<String> strings = new ArrayList<>();
         strings.add("将客户放入公海");
         crmActionRecord.setContent(JSON.toJSONString(strings));
@@ -535,13 +535,13 @@ public class ActionRecordUtil {
     /**
      * 添加分配客户记录
      */
-    public void addDistributionRecord(Integer actionId, CrmEnum crmEnum, Long userId, String name) {
+    public void addDistributionRecord(Integer actionId, CrmTypeEnum crmTypeEnum, Long userId, String name) {
 
         ArrayList<String> strings = new ArrayList<>();
         CrmActionRecord crmActionRecord = new CrmActionRecord();
         crmActionRecord.setCreateUserId(UserUtil.getUserId());
         crmActionRecord.setCreateTime(new Date());
-        crmActionRecord.setTypes(crmEnum.getType());
+        crmActionRecord.setTypes(crmTypeEnum.getType());
         crmActionRecord.setActionId(actionId);
         if (userId == null) {
             //领取
@@ -562,66 +562,66 @@ public class ActionRecordUtil {
         THREAD_POOL.execute(actionRecordTask);
     }
 
-    public void addDeleteActionRecord(CrmEnum crmEnum, String name, Integer actionId) {
+    public void addDeleteActionRecord(CrmTypeEnum crmTypeEnum, String name, Integer actionId) {
         CrmActionRecord actionRecord = new CrmActionRecord();
         actionRecord.setCreateUserId(UserUtil.getUserId());
         actionRecord.setCreateTime(new Date());
         actionRecord.setIpAddress(BaseUtil.getIp());
-        actionRecord.setTypes(crmEnum.getType());
+        actionRecord.setTypes(crmTypeEnum.getType());
         actionRecord.setBehavior(BehaviorEnum.DELETE.getType());
         actionRecord.setActionId(Integer.valueOf(actionId));
-        actionRecord.setDetail("删除了" + crmEnum.getRemarks() + "：" + name);
+        actionRecord.setDetail("删除了" + crmTypeEnum.getRemarks() + "：" + name);
         actionRecord.setObject(name);
         ActionRecordTask actionRecordTask = new ActionRecordTask(actionRecord);
         THREAD_POOL.execute(actionRecordTask);
     }
 
-    public void addMemberActionRecord(CrmEnum crmEnum, Integer actionId, Long userId, String name) {
+    public void addMemberActionRecord(CrmTypeEnum crmTypeEnum, Integer actionId, Long userId, String name) {
         CrmActionRecord actionRecord = new CrmActionRecord();
         actionRecord.setCreateUserId(UserUtil.getUserId());
         actionRecord.setCreateTime(new Date());
         actionRecord.setIpAddress(BaseUtil.getIp());
-        actionRecord.setTypes(crmEnum.getType());
+        actionRecord.setTypes(crmTypeEnum.getType());
         actionRecord.setBehavior(BehaviorEnum.ADD_MEMBER.getType());
         actionRecord.setActionId(actionId);
         String userName = UserCacheUtil.getUserName(userId);
-        actionRecord.setDetail("给" + crmEnum.getRemarks() + "：" + name + "添加了团队成员：" + userName);
+        actionRecord.setDetail("给" + crmTypeEnum.getRemarks() + "：" + name + "添加了团队成员：" + userName);
         actionRecord.setContent(JSON.toJSONString(Collections.singletonList(actionRecord.getDetail())));
         actionRecord.setObject(name);
         ActionRecordTask actionRecordTask = new ActionRecordTask(actionRecord);
         THREAD_POOL.execute(actionRecordTask);
     }
 
-    public void addMemberActionRecord(CrmEnum crmEnum, Integer actionId, List<Long> userIds, String name) {
+    public void addMemberActionRecord(CrmTypeEnum crmTypeEnum, Integer actionId, List<Long> userIds, String name) {
         CrmActionRecord actionRecord = new CrmActionRecord();
         actionRecord.setCreateUserId(UserUtil.getUserId());
         actionRecord.setCreateTime(new Date());
         actionRecord.setIpAddress(BaseUtil.getIp());
-        actionRecord.setTypes(crmEnum.getType());
+        actionRecord.setTypes(crmTypeEnum.getType());
         actionRecord.setBehavior(BehaviorEnum.ADD_MEMBER.getType());
         actionRecord.setActionId(actionId);
         String userName = UserCacheUtil.getUserNameList(userIds);
-        actionRecord.setDetail("给" + crmEnum.getRemarks() + "：" + name + "添加了团队成员：" + userName);
+        actionRecord.setDetail("给" + crmTypeEnum.getRemarks() + "：" + name + "添加了团队成员：" + userName);
         actionRecord.setContent(JSON.toJSONString(Collections.singletonList(actionRecord.getDetail())));
         actionRecord.setObject(name);
         ActionRecordTask actionRecordTask = new ActionRecordTask(actionRecord);
         THREAD_POOL.execute(actionRecordTask);
     }
 
-    public void addDeleteMemberActionRecord(CrmEnum crmEnum, Integer actionId, Long userId, boolean isSelf, String name) {
+    public void addDeleteMemberActionRecord(CrmTypeEnum crmTypeEnum, Integer actionId, Long userId, boolean isSelf, String name) {
         CrmActionRecord actionRecord = new CrmActionRecord();
         actionRecord.setCreateUserId(UserUtil.getUserId());
         actionRecord.setCreateTime(new Date());
         actionRecord.setIpAddress(BaseUtil.getIp());
-        actionRecord.setTypes(crmEnum.getType());
+        actionRecord.setTypes(crmTypeEnum.getType());
         actionRecord.setActionId(actionId);
         if (isSelf) {
             actionRecord.setBehavior(BehaviorEnum.EXIT_MEMBER.getType());
-            actionRecord.setDetail("退出了" + crmEnum.getRemarks() + "：" + name + "的团队成员");
+            actionRecord.setDetail("退出了" + crmTypeEnum.getRemarks() + "：" + name + "的团队成员");
         } else {
             actionRecord.setBehavior(BehaviorEnum.REMOVE_MEMBER.getType());
             String userName = UserCacheUtil.getUserName(userId);
-            actionRecord.setDetail("移除了" + crmEnum.getRemarks() + "：" + name + "的团队成员：" + userName);
+            actionRecord.setDetail("移除了" + crmTypeEnum.getRemarks() + "：" + name + "的团队成员：" + userName);
         }
         actionRecord.setContent(JSON.toJSONString(Collections.singletonList(actionRecord.getDetail())));
         actionRecord.setObject(name);
@@ -629,66 +629,66 @@ public class ActionRecordUtil {
         THREAD_POOL.execute(actionRecordTask);
     }
 
-    public void addExportActionRecord(CrmEnum crmEnum, Integer number) {
+    public void addExportActionRecord(CrmTypeEnum crmTypeEnum, Integer number) {
         CrmActionRecord actionRecord = new CrmActionRecord();
         actionRecord.setCreateUserId(UserUtil.getUserId());
         actionRecord.setCreateTime(new Date());
         actionRecord.setIpAddress(BaseUtil.getIp());
-        actionRecord.setTypes(crmEnum.getType());
+        actionRecord.setTypes(crmTypeEnum.getType());
         actionRecord.setBehavior(BehaviorEnum.EXCEL_EXPORT.getType());
-        actionRecord.setDetail("导出了" + number + "条" + crmEnum.getRemarks());
+        actionRecord.setDetail("导出了" + number + "条" + crmTypeEnum.getRemarks());
         ActionRecordTask actionRecordTask = new ActionRecordTask(actionRecord);
         THREAD_POOL.execute(actionRecordTask);
     }
 
     public void addFollowupActionRecord(Integer crmType, Integer actionId, String name) {
-        CrmEnum crmEnum = CrmEnum.parse(crmType);
+        CrmTypeEnum crmTypeEnum = CrmTypeEnum.parse(crmType);
         CrmActionRecord actionRecord = new CrmActionRecord();
         actionRecord.setCreateUserId(UserUtil.getUserId());
         actionRecord.setCreateTime(new Date());
         actionRecord.setIpAddress(BaseUtil.getIp());
-        actionRecord.setTypes(crmEnum.getType());
+        actionRecord.setTypes(crmTypeEnum.getType());
         actionRecord.setActionId(actionId);
         actionRecord.setBehavior(BehaviorEnum.FOLLOW_UP.getType());
-        actionRecord.setDetail("给" + crmEnum.getRemarks() + "：" + name + "新建了跟进记录");
+        actionRecord.setDetail("给" + crmTypeEnum.getRemarks() + "：" + name + "新建了跟进记录");
         actionRecord.setObject(name);
         ActionRecordTask actionRecordTask = new ActionRecordTask(actionRecord);
         THREAD_POOL.execute(actionRecordTask);
     }
 
-    public void addCancelActionRecord(CrmEnum crmEnum, Integer actionId, String name) {
+    public void addCancelActionRecord(CrmTypeEnum crmTypeEnum, Integer actionId, String name) {
         CrmActionRecord actionRecord = new CrmActionRecord();
         actionRecord.setCreateUserId(UserUtil.getUserId());
         actionRecord.setCreateTime(new Date());
         actionRecord.setIpAddress(BaseUtil.getIp());
-        actionRecord.setTypes(crmEnum.getType());
+        actionRecord.setTypes(crmTypeEnum.getType());
         actionRecord.setBehavior(BehaviorEnum.CANCEL_EXAMINE.getType());
         actionRecord.setActionId(actionId);
-        actionRecord.setDetail("将" + crmEnum.getRemarks() + "：" + name + "作废");
+        actionRecord.setDetail("将" + crmTypeEnum.getRemarks() + "：" + name + "作废");
         actionRecord.setObject(name);
         ActionRecordTask actionRecordTask = new ActionRecordTask(actionRecord);
         THREAD_POOL.execute(actionRecordTask);
     }
 
-    public void addObjectSaveRecord(CrmEnum crmEnum, Integer actionId, String name) {
+    public void addObjectSaveRecord(CrmTypeEnum crmTypeEnum, Integer actionId, String name) {
         CrmActionRecord actionRecord = new CrmActionRecord();
         actionRecord.setCreateUserId(UserUtil.getUserId());
         actionRecord.setCreateTime(new Date());
         actionRecord.setIpAddress(BaseUtil.getIp());
-        actionRecord.setTypes(crmEnum.getType());
+        actionRecord.setTypes(crmTypeEnum.getType());
         actionRecord.setBehavior(BehaviorEnum.SAVE.getType());
         actionRecord.setActionId(actionId);
-        actionRecord.setDetail("新建了" + crmEnum.getRemarks() + "：" + name);
+        actionRecord.setDetail("新建了" + crmTypeEnum.getRemarks() + "：" + name);
         actionRecord.setObject(name);
         ActionRecordTask actionRecordTask = new ActionRecordTask(actionRecord);
         THREAD_POOL.execute(actionRecordTask);
     }
 
-    public void addMarketingUpdateStatusRecord(String[] ids, CrmEnum crmEnum, Integer status) {
+    public void addMarketingUpdateStatusRecord(String[] ids, CrmTypeEnum crmTypeEnum, Integer status) {
         CrmActionRecord crmActionRecord = new CrmActionRecord();
         crmActionRecord.setCreateUserId(UserUtil.getUserId());
         crmActionRecord.setCreateTime(new Date());
-        crmActionRecord.setTypes(crmEnum.getType());
+        crmActionRecord.setTypes(crmTypeEnum.getType());
         crmActionRecord.setIpAddress(BaseUtil.getIp());
         if (status == 1) {
             crmActionRecord.setBehavior(BehaviorEnum.START.getType());
@@ -713,26 +713,26 @@ public class ActionRecordUtil {
         }
     }
 
-    public void addOaLogSaveRecord(CrmEnum crmEnum, Integer actionId) {
+    public void addOaLogSaveRecord(CrmTypeEnum crmTypeEnum, Integer actionId) {
         CrmActionRecord actionRecord = new CrmActionRecord();
         actionRecord.setCreateUserId(UserUtil.getUserId());
         actionRecord.setCreateTime(new Date());
         actionRecord.setIpAddress(BaseUtil.getIp());
-        actionRecord.setTypes(crmEnum.getType());
+        actionRecord.setTypes(crmTypeEnum.getType());
         actionRecord.setBehavior(BehaviorEnum.SAVE.getType());
         actionRecord.setActionId(actionId);
-        actionRecord.setDetail("新建了" + crmEnum.getRemarks() + "：" + DateUtil.formatDate(new Date()));
+        actionRecord.setDetail("新建了" + crmTypeEnum.getRemarks() + "：" + DateUtil.formatDate(new Date()));
         actionRecord.setObject(DateUtil.formatDate(new Date()));
         ActionRecordTask actionRecordTask = new ActionRecordTask(actionRecord);
         THREAD_POOL.execute(actionRecordTask);
     }
 
-    public void addCrmExamineActionRecord(CrmEnum crmEnum, Integer actionId, BehaviorEnum behaviorEnum, String number) {
+    public void addCrmExamineActionRecord(CrmTypeEnum crmTypeEnum, Integer actionId, BehaviorEnum behaviorEnum, String number) {
         CrmActionRecord actionRecord = new CrmActionRecord();
         actionRecord.setCreateUserId(UserUtil.getUserId());
         actionRecord.setCreateTime(new Date());
         actionRecord.setIpAddress(BaseUtil.getIp());
-        actionRecord.setTypes(crmEnum.getType());
+        actionRecord.setTypes(crmTypeEnum.getType());
         actionRecord.setBehavior(behaviorEnum.getType());
         actionRecord.setActionId(actionId);
         String prefix = "";
@@ -752,7 +752,7 @@ public class ActionRecordUtil {
             default:
                 break;
         }
-        actionRecord.setDetail(prefix + crmEnum.getRemarks() + "：" + number);
+        actionRecord.setDetail(prefix + crmTypeEnum.getRemarks() + "：" + number);
         actionRecord.setObject(number);
         ActionRecordTask actionRecordTask = new ActionRecordTask(actionRecord);
         THREAD_POOL.execute(actionRecordTask);
@@ -761,28 +761,28 @@ public class ActionRecordUtil {
     /**
      * 通用模板，无需特殊处理的操作记录适用
      *
-     * @param crmEnum
+     * @param crmTypeEnum
      * @param actionId
      * @param behaviorEnum
      */
-    public void addObjectActionRecord(CrmEnum crmEnum, Integer actionId, BehaviorEnum behaviorEnum, String name) {
+    public void addObjectActionRecord(CrmTypeEnum crmTypeEnum, Integer actionId, BehaviorEnum behaviorEnum, String name) {
         CrmActionRecord actionRecord = new CrmActionRecord();
         actionRecord.setCreateUserId(UserUtil.getUserId());
         actionRecord.setCreateTime(new Date());
         actionRecord.setIpAddress(BaseUtil.getIp());
-        actionRecord.setTypes(crmEnum.getType());
+        actionRecord.setTypes(crmTypeEnum.getType());
         actionRecord.setBehavior(behaviorEnum.getType());
         actionRecord.setActionId(actionId);
         String detail;
         switch (behaviorEnum) {
             case CANCEL_EXAMINE:
-                detail = "将" + crmEnum.getRemarks() + "：" + name + "作废";
+                detail = "将" + crmTypeEnum.getRemarks() + "：" + name + "作废";
                 break;
             case FOLLOW_UP:
-                detail = "给" + crmEnum.getRemarks() + "：" + name + "新建了跟进记录";
+                detail = "给" + crmTypeEnum.getRemarks() + "：" + name + "新建了跟进记录";
                 break;
             default:
-                detail = behaviorEnum.getName() + "了" + crmEnum.getRemarks() + "：" + name;
+                detail = behaviorEnum.getName() + "了" + crmTypeEnum.getRemarks() + "：" + name;
                 break;
         }
         actionRecord.setDetail(detail);

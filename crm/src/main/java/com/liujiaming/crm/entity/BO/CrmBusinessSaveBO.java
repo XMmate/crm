@@ -23,4 +23,5 @@ public class CrmBusinessSaveBO extends CrmModelSaveBO {
 
     @ApiModelProperty("联系人ID")
     private Integer contactsId;
+
 }

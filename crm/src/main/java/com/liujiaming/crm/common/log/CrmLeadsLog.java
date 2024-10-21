@@ -15,7 +15,7 @@ import com.liujiaming.core.servlet.ApplicationContextHolder;
 import com.liujiaming.core.servlet.upload.FileEntity;
 import com.liujiaming.core.utils.TagUtil;
 import com.liujiaming.core.utils.UserCacheUtil;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmModelSaveBO;
 import com.liujiaming.crm.entity.BO.CrmUpdateInformationBO;
 import com.liujiaming.crm.entity.PO.CrmLeads;
@@ -46,13 +46,13 @@ public class CrmLeadsLog {
         CrmLeads crmLeads = BeanUtil.copyProperties(crmModel.getEntity(), CrmLeads.class);
         String batchId = StrUtil.isNotEmpty(crmLeads.getBatchId()) ? crmLeads.getBatchId() : IdUtil.simpleUUID();
         sysLogUtil.updateRecord(crmModel.getField(), Dict.create().set("batchId", batchId).set("dataTableName", "wk_crm_leads_data"));
-        return sysLogUtil.updateRecord(BeanUtil.beanToMap(crmLeadsService.getById(crmLeads.getLeadsId())), BeanUtil.beanToMap(crmLeads), CrmEnum.LEADS, crmLeads.getLeadsName());
+        return sysLogUtil.updateRecord(BeanUtil.beanToMap(crmLeadsService.getById(crmLeads.getLeadsId())), BeanUtil.beanToMap(crmLeads), CrmTypeEnum.LEADS, crmLeads.getLeadsName());
     }
 
     public List<Content> changeOwnerUser(List<Integer> leadsIds, Long newOwnerUserId) {
         List<Content> contentList = new ArrayList<>();
         for (Integer leadsId : leadsIds) {
-            contentList.add(sysLogUtil.addConversionRecord(CrmEnum.LEADS, newOwnerUserId, crmLeadsService.getById(leadsId).getLeadsName()));
+            contentList.add(sysLogUtil.addConversionRecord(CrmTypeEnum.LEADS, newOwnerUserId, crmLeadsService.getById(leadsId).getLeadsName()));
         }
         return contentList;
     }
@@ -79,7 +79,7 @@ public class CrmLeadsLog {
                 Map<String, Object> crmLeadsMap = new HashMap<>(oldLeadsMap);
                 crmLeadsMap.put(record.getString("fieldName"), record.get("value"));
                 CrmLeads crmLeads = BeanUtil.mapToBean(crmLeadsMap, CrmLeads.class, true);
-                contentList.add(sysLogUtil.updateRecord(oldLeadsMap, crmLeadsMap, CrmEnum.LEADS, crmLeads.getLeadsName()));
+                contentList.add(sysLogUtil.updateRecord(oldLeadsMap, crmLeadsMap, CrmTypeEnum.LEADS, crmLeads.getLeadsName()));
             } else if (record.getInteger("fieldType") == 0 || record.getInteger("fieldType") == 2) {
                 String formType = record.getString("formType");
                 if(formType == null){
@@ -113,7 +113,7 @@ public class CrmLeadsLog {
             CrmLeads crmLeads = crmLeadsService.lambdaQuery().select(CrmLeads::getLeadsName).eq(CrmLeads::getLeadsId, id).one();
             if (crmLeads != null) {
                 String name = crmLeads.getLeadsName();
-                contentList.add(sysLogUtil.addDeleteActionRecord(CrmEnum.LEADS, name));
+                contentList.add(sysLogUtil.addDeleteActionRecord(CrmTypeEnum.LEADS, name));
             }
         }
         return contentList;

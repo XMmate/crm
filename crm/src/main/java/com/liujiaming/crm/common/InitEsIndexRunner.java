@@ -14,7 +14,7 @@ import com.liujiaming.core.feign.admin.entity.SimpleUser;
 import com.liujiaming.core.field.service.FieldService;
 import com.liujiaming.core.servlet.ApplicationContextHolder;
 import com.liujiaming.core.utils.UserCacheUtil;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmFieldDataBO;
 import com.liujiaming.crm.entity.PO.CrmCustomerPoolRelation;
 import com.liujiaming.crm.entity.PO.CrmField;
@@ -65,8 +65,8 @@ public class InitEsIndexRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        for (CrmEnum value : CrmEnum.values()) {
-            if (!Arrays.asList(CrmEnum.MARKETING, CrmEnum.CUSTOMER_POOL,CrmEnum.NULL).contains(value) && !restTemplate.indexExists(value.getIndex())) {
+        for (CrmTypeEnum value : CrmTypeEnum.values()) {
+            if (!Arrays.asList(CrmTypeEnum.MARKETING, CrmTypeEnum.CUSTOMER_POOL,CrmTypeEnum.NULL).contains(value) && !restTemplate.indexExists(value.getIndex())) {
                 initData(value);
                 log.info("es {} index init success!", value.getIndex());
             }
@@ -76,30 +76,30 @@ public class InitEsIndexRunner implements ApplicationRunner {
     /**
      * 初始化数据
      */
-    private void initData(CrmEnum crmEnum) {
+    private void initData(CrmTypeEnum crmTypeEnum) {
         /*
             初始化es索引,获取固定字段以及值
          */
-        Map<String, Integer> typeMap = initField(crmEnum);
+        Map<String, Integer> typeMap = initField(crmTypeEnum);
 
         CrmFieldMapper fieldMapper = (CrmFieldMapper) crmFieldService.getBaseMapper();
         Integer lastId = 0;
         Map<String, Object> dataMap = new HashMap<>();
-        dataMap.put("primaryKey", crmEnum.getPrimaryKey(false));
-        dataMap.put("tableName", crmEnum.getTableName());
+        dataMap.put("primaryKey", crmTypeEnum.getPrimaryKey(false));
+        dataMap.put("tableName", crmTypeEnum.getTableName());
         dataMap.put("lastId", lastId);
-        dataMap.put("label", crmEnum.getType());
+        dataMap.put("label", crmTypeEnum.getType());
         List<Future<Boolean>> futureList = new LinkedList<>();
         while (true) {
             List<Map<String, Object>> mapList = fieldMapper.initData(dataMap);
             if (mapList.size() == 0) {
                 break;
             }
-            Object o = mapList.get(mapList.size() - 1).get(crmEnum.getPrimaryKey());
+            Object o = mapList.get(mapList.size() - 1).get(crmTypeEnum.getPrimaryKey());
             lastId = TypeUtils.castToInt(o);
             dataMap.put("lastId", lastId);
             log.warn("最后数据id:{},线程id{}", lastId, Thread.currentThread().getName());
-            futureList.add(THREAD_POOL.submit(new SaveES(crmEnum, typeMap, mapList)));
+            futureList.add(THREAD_POOL.submit(new SaveES(crmTypeEnum, typeMap, mapList)));
         }
         /*
           等待所有数据处理完成,再进行下一步
@@ -113,31 +113,31 @@ public class InitEsIndexRunner implements ApplicationRunner {
                 throw new CrmException(SystemCodeEnum.SYSTEM_SERVER_ERROR);
             }
         }
-        restTemplate.refresh(crmEnum.getIndex());
+        restTemplate.refresh(crmTypeEnum.getIndex());
         lastId = 0;
         while (true) {
-            List<CrmFieldDataBO> dataBOS = fieldMapper.initFieldData(lastId, crmEnum.getPrimaryKey(false), crmEnum.getTableName());
+            List<CrmFieldDataBO> dataBOS = fieldMapper.initFieldData(lastId, crmTypeEnum.getPrimaryKey(false), crmTypeEnum.getTableName());
             if (dataBOS.size() == 0) {
                 break;
             }
             lastId = dataBOS.get(dataBOS.size() - 1).getId();
             log.warn("最后数据id:{},线程id{}", lastId, Thread.currentThread().getName());
-            THREAD_POOL.execute(new SaveEsData(crmEnum, dataBOS));
+            THREAD_POOL.execute(new SaveEsData(crmTypeEnum, dataBOS));
         }
 
         /* 保存公海信息 */
-        if (crmEnum == CrmEnum.CUSTOMER) {
+        if (crmTypeEnum == CrmTypeEnum.CUSTOMER) {
             savePool();
         }
 
         /* 保存团队成员信息 */
-        if (Arrays.asList(CrmEnum.CUSTOMER, CrmEnum.CONTACTS, CrmEnum.BUSINESS, CrmEnum.RECEIVABLES, CrmEnum.CONTRACT).contains(crmEnum)) {
-            saveTeamMembers(crmEnum);
+        if (Arrays.asList(CrmTypeEnum.CUSTOMER, CrmTypeEnum.CONTACTS, CrmTypeEnum.BUSINESS, CrmTypeEnum.RECEIVABLES, CrmTypeEnum.CONTRACT).contains(crmTypeEnum)) {
+            saveTeamMembers(crmTypeEnum);
         }
-        restTemplate.refresh(crmEnum.getIndex());
+        restTemplate.refresh(crmTypeEnum.getIndex());
     }
-    private Map<String, Integer> initField(CrmEnum crmEnum) {
-        String index = crmEnum.getIndex();
+    private Map<String, Integer> initField(CrmTypeEnum crmTypeEnum) {
+        String index = crmTypeEnum.getIndex();
         GetIndexRequest indexRequest = new GetIndexRequest(index);
         try {
             boolean exists = restTemplate.getClient().indices().exists(indexRequest, RequestOptions.DEFAULT);
@@ -151,7 +151,7 @@ public class InitEsIndexRunner implements ApplicationRunner {
         /*
           查询所有自定义字段
          */
-        List<CrmModelFiledVO> crmModelFiledList = queryInitField(crmEnum.getType());
+        List<CrmModelFiledVO> crmModelFiledList = queryInitField(crmTypeEnum.getType());
         Map<String, Object> properties = new HashMap<>(crmModelFiledList.size());
         Map<String, Integer> typeMap = new HashMap<>();
         crmModelFiledList.forEach(crmField -> {
@@ -179,7 +179,7 @@ public class InitEsIndexRunner implements ApplicationRunner {
     }
 
     private void savePool() {
-        CrmEnum crmEnum = CrmEnum.CUSTOMER;
+        CrmTypeEnum crmTypeEnum = CrmTypeEnum.CUSTOMER;
         List<CrmCustomerPoolRelation> list = ApplicationContextHolder.getBean(ICrmCustomerPoolRelationService.class).list();
         Map<Integer, List<CrmCustomerPoolRelation>> collect = list.stream().collect(Collectors.groupingBy(CrmCustomerPoolRelation::getCustomerId));
         Set<Integer> integers = collect.keySet();
@@ -192,7 +192,7 @@ public class InitEsIndexRunner implements ApplicationRunner {
             }
             Map<String, Object> map = new HashMap<>();
             map.put("poolId", poolId);
-            UpdateRequest request = new UpdateRequest(crmEnum.getIndex(), "_doc", integer.toString());
+            UpdateRequest request = new UpdateRequest(crmTypeEnum.getIndex(), "_doc", integer.toString());
             request.doc(map);
             bulkRequest.add(request);
             if (bulkRequest.requests().size() >= 1000) {
@@ -204,8 +204,8 @@ public class InitEsIndexRunner implements ApplicationRunner {
     }
 
 
-    private void saveTeamMembers(CrmEnum crmEnum) {
-        List<CrmTeamMembers> list = ApplicationContextHolder.getBean(ICrmTeamMembersService.class).lambdaQuery().eq(CrmTeamMembers::getType, crmEnum.getType()).list();
+    private void saveTeamMembers(CrmTypeEnum crmTypeEnum) {
+        List<CrmTeamMembers> list = ApplicationContextHolder.getBean(ICrmTeamMembersService.class).lambdaQuery().eq(CrmTeamMembers::getType, crmTypeEnum.getType()).list();
         Map<Integer, List<CrmTeamMembers>> collect = list.stream().collect(Collectors.groupingBy(CrmTeamMembers::getTypeId));
         Set<Integer> typeIds = collect.keySet();
         BulkRequest bulkRequest = new BulkRequest();
@@ -214,7 +214,7 @@ public class InitEsIndexRunner implements ApplicationRunner {
             List<Long> memberList = teamMembers.stream().map(CrmTeamMembers::getUserId).collect(Collectors.toList());
             Map<String, Object> map = new HashMap<>();
             map.put("teamMemberIds", memberList);
-            UpdateRequest request = new UpdateRequest(crmEnum.getIndex(), "_doc", typeId.toString());
+            UpdateRequest request = new UpdateRequest(crmTypeEnum.getIndex(), "_doc", typeId.toString());
             request.doc(map);
             bulkRequest.add(request);
             if (bulkRequest.requests().size() >= 1000) {
@@ -252,19 +252,19 @@ public class InitEsIndexRunner implements ApplicationRunner {
         wrapper.eq(CrmField::getLabel, type).orderByAsc(CrmField::getSorting);
         wrapper.groupBy(CrmField::getFieldName);
         List<CrmField> crmFieldList = crmFieldService.list(wrapper);
-        CrmEnum crmEnum = CrmEnum.parse(type);
+        CrmTypeEnum crmTypeEnum = CrmTypeEnum.parse(type);
         List<CrmModelFiledVO> filedList = crmFieldList.stream().map(field -> BeanUtil.copyProperties(field, CrmModelFiledVO.class)).collect(Collectors.toList());
         filedList.add(new CrmModelFiledVO("createUserId", FieldEnum.USER, 1));
         filedList.add(new CrmModelFiledVO("createUserName", FieldEnum.TEXT, 1));
         filedList.add(new CrmModelFiledVO("updateTime", FieldEnum.DATETIME, 1));
         filedList.add(new CrmModelFiledVO("createTime", FieldEnum.DATETIME, 1));
-        if(CrmEnum.RETURN_VISIT != crmEnum) {
+        if(CrmTypeEnum.RETURN_VISIT != crmTypeEnum) {
             filedList.add(new CrmModelFiledVO("ownerUserId", FieldEnum.USER, 1));
             filedList.add(new CrmModelFiledVO("ownerUserName", FieldEnum.TEXT, 1));
             filedList.add(new CrmModelFiledVO("ownerDeptId", FieldEnum.STRUCTURE, 1));
             filedList.add(new CrmModelFiledVO("ownerDeptName", FieldEnum.TEXT, 1));
         }
-        switch (crmEnum) {
+        switch (crmTypeEnum) {
             case LEADS: {
                 filedList.add(new CrmModelFiledVO("lastTime", FieldEnum.DATETIME, 1));
                 filedList.add(new CrmModelFiledVO("lastContent", FieldEnum.TEXTAREA, 1));
@@ -382,12 +382,12 @@ public class InitEsIndexRunner implements ApplicationRunner {
      * 保存主字段数据
      */
     public class SaveES implements Callable<Boolean> {
-        private CrmEnum crmEnum;
+        private CrmTypeEnum crmTypeEnum;
         private Map<String, Integer> fieldMap;
         private List<Map<String, Object>> mapList;
 
-        private SaveES(CrmEnum crmEnum, Map<String, Integer> fieldMap, List<Map<String, Object>> mapList) {
-            this.crmEnum = crmEnum;
+        private SaveES(CrmTypeEnum crmTypeEnum, Map<String, Integer> fieldMap, List<Map<String, Object>> mapList) {
+            this.crmTypeEnum = crmTypeEnum;
             this.fieldMap = fieldMap;
             this.mapList = mapList;
         }
@@ -403,7 +403,7 @@ public class InitEsIndexRunner implements ApplicationRunner {
             log.warn("线程id{}", Thread.currentThread().getName());
             BulkRequest bulkRequest = new BulkRequest();
             for (Map<String, Object> map : mapList) {
-                switch (crmEnum) {
+                switch (crmTypeEnum) {
                     case LEADS:
                         ApplicationContextHolder.getBean(CrmLeadsServiceImpl.class).setOtherField(map);
                         break;
@@ -460,8 +460,8 @@ public class InitEsIndexRunner implements ApplicationRunner {
                     }
                 });
 
-                IndexRequest request = new IndexRequest(crmEnum.getIndex(), "_doc");
-                request.id(map.get(crmEnum.getPrimaryKey()).toString());
+                IndexRequest request = new IndexRequest(crmTypeEnum.getIndex(), "_doc");
+                request.id(map.get(crmTypeEnum.getPrimaryKey()).toString());
                 request.source(map);
                 bulkRequest.add(request);
                 if (bulkRequest.requests().size() >= 1000) {
@@ -477,12 +477,12 @@ public class InitEsIndexRunner implements ApplicationRunner {
 
     public class SaveEsData implements Runnable {
 
-        private CrmEnum crmEnum;
+        private CrmTypeEnum crmTypeEnum;
 
         private List<CrmFieldDataBO> fieldDataList;
 
-        private SaveEsData(CrmEnum crmEnum, List<CrmFieldDataBO> fieldDataList) {
-            this.crmEnum = crmEnum;
+        private SaveEsData(CrmTypeEnum crmTypeEnum, List<CrmFieldDataBO> fieldDataList) {
+            this.crmTypeEnum = crmTypeEnum;
             this.fieldDataList = fieldDataList;
         }
 
@@ -494,7 +494,7 @@ public class InitEsIndexRunner implements ApplicationRunner {
                 if(StrUtil.isEmpty(valueList.get(0).getTypeId())){
                     continue;
                 }
-                UpdateRequest request = new UpdateRequest(crmEnum.getIndex(), "_doc", valueList.get(0).getTypeId());
+                UpdateRequest request = new UpdateRequest(crmTypeEnum.getIndex(), "_doc", valueList.get(0).getTypeId());
                 Map<String,Object> map = new HashMap<>(valueList.size());
                 for (CrmFieldDataBO fieldDataBO : valueList) {
                     if (fieldDataBO.getName().startsWith("field_") && Arrays.asList(3, 8, 9, 10, 11, 12).contains(fieldDataBO.getType())) {

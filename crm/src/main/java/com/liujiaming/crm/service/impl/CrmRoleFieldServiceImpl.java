@@ -10,7 +10,7 @@ import com.liujiaming.core.common.FieldEnum;
 import com.liujiaming.core.feign.admin.service.AdminService;
 import com.liujiaming.core.servlet.BaseServiceImpl;
 import com.liujiaming.core.utils.UserUtil;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.PO.CrmField;
 import com.liujiaming.crm.entity.PO.CrmRoleField;
 import com.liujiaming.crm.mapper.CrmRoleFieldMapper;
@@ -207,7 +207,7 @@ public class CrmRoleFieldServiceImpl extends BaseServiceImpl<CrmRoleFieldMapper,
             fields.add(new CrmRoleField(label, roleId, "create_user_name", "创建人", 2, 2, 1));
             fields.add(new CrmRoleField(label, roleId, "create_time", "创建时间", 2, 2, 1));
             fields.add(new CrmRoleField(label, roleId, "update_time", "更新时间", 2, 2, 1));
-            if (!label.equals(CrmEnum.PRODUCT.getType())) {
+            if (!label.equals(CrmTypeEnum.PRODUCT.getType())) {
                 fields.add(new CrmRoleField(label, roleId, "owner_user_name", "负责人", 2, 4, 1));
                 fields.add(new CrmRoleField(label, roleId, "owner_dept_name", "所属部门", 2, 4, 1));
             }
@@ -272,13 +272,13 @@ public class CrmRoleFieldServiceImpl extends BaseServiceImpl<CrmRoleFieldMapper,
 
     /**
      * 掩码替换值工具类
-     * @param crmEnum crm类型
+     * @param crmTypeEnum crm类型
      * @param list 数据列表
      * @param maskType 掩码级别 0 都不隐藏 1 列表隐藏详情不隐藏 2 都隐藏
      */
     @Override
-    public void replaceMaskFieldValue(CrmEnum crmEnum, List<? extends Map<String, Object>> list, Integer maskType) {
-        List<CrmRoleField> roleFields = getBaseMapper().queryMaskFieldList(maskType, crmEnum.getType());
+    public void replaceMaskFieldValue(CrmTypeEnum crmTypeEnum, List<? extends Map<String, Object>> list, Integer maskType) {
+        List<CrmRoleField> roleFields = getBaseMapper().queryMaskFieldList(maskType, crmTypeEnum.getType());
         if (roleFields.size() == 0 || maskType < 1 || UserUtil.isAdmin()) {
             return;
         }

@@ -137,8 +137,8 @@ public class CrmReceivablesServiceImpl extends BaseServiceImpl<CrmReceivablesMap
     }
 
     @Override
-    public CrmEnum getLabel() {
-        return CrmEnum.RECEIVABLES;
+    public CrmTypeEnum getLabel() {
+        return CrmTypeEnum.RECEIVABLES;
     }
 
     /**
@@ -265,14 +265,14 @@ public class CrmReceivablesServiceImpl extends BaseServiceImpl<CrmReceivablesMap
         CrmModel crmModel;
         if (id != null) {
             crmModel = getBaseMapper().queryById(id, UserUtil.getUserId());
-            crmModel.setLabel(CrmEnum.RECEIVABLES.getType());
+            crmModel.setLabel(CrmTypeEnum.RECEIVABLES.getType());
             crmModel.setOwnerUserName(UserCacheUtil.getUserName(crmModel.getOwnerUserId()));
             crmModel.put("createUserName", UserCacheUtil.getUserName((Long) crmModel.get("createUserId")));
             crmReceivablesDataService.setDataByBatchId(crmModel);
             List<String> stringList = ApplicationContextHolder.getBean(ICrmRoleFieldService.class).queryNoAuthField(crmModel.getLabel());
             stringList.forEach(crmModel::remove);
         } else {
-            crmModel = new CrmModel(CrmEnum.RECEIVABLES.getType());
+            crmModel = new CrmModel(CrmTypeEnum.RECEIVABLES.getType());
         }
         return crmModel;
     }
@@ -324,15 +324,15 @@ public class CrmReceivablesServiceImpl extends BaseServiceImpl<CrmReceivablesMap
             if (crmReceivablesPlan != null) {
                 crmReceivablesPlan.setReceivablesId(crmReceivables.getReceivablesId());
                 crmReceivablesPlan.setUpdateTime(DateUtil.date());
-                ElasticUtil.updateField(getRestTemplate(),"receivablesId",crmReceivables.getReceivablesId(),Collections.singletonList(crmReceivablesPlan.getReceivablesPlanId()),CrmEnum.RECEIVABLES_PLAN.getIndex());
+                ElasticUtil.updateField(getRestTemplate(),"receivablesId",crmReceivables.getReceivablesId(),Collections.singletonList(crmReceivablesPlan.getReceivablesPlanId()),CrmTypeEnum.RECEIVABLES_PLAN.getIndex());
                 crmReceivablesPlanService.updateById(crmReceivablesPlan);
             }
             crmActivityService.addActivity(2, CrmActivityEnum.RECEIVABLES, crmReceivables.getReceivablesId());
-            actionRecordUtil.addRecord(crmReceivables.getReceivablesId(), CrmEnum.RECEIVABLES, crmReceivables.getNumber());
+            actionRecordUtil.addRecord(crmReceivables.getReceivablesId(), CrmTypeEnum.RECEIVABLES, crmReceivables.getNumber());
             crmReceivables = getById(crmReceivables.getReceivablesId());
             if (crmReceivables.getCheckStatus() == 1 || crmReceivables.getCheckStatus() == 10){
                 examineRecordService.updateContractMoney(crmReceivables.getReceivablesId());
-                crmReceivablesPlanService.updateReceivedStatus(CrmEnum.RECEIVABLES,crmReceivables,crmReceivables.getCheckStatus());
+                crmReceivablesPlanService.updateReceivedStatus(CrmTypeEnum.RECEIVABLES,crmReceivables,crmReceivables.getCheckStatus());
             }
         } else {
             CrmReceivables receivables = getById(crmReceivables.getReceivablesId());
@@ -355,16 +355,16 @@ public class CrmReceivablesServiceImpl extends BaseServiceImpl<CrmReceivablesMap
             if (crmReceivablesPlan != null) {
                 crmReceivablesPlan.setReceivablesId(crmReceivables.getReceivablesId());
                 crmReceivablesPlan.setUpdateTime(DateUtil.date());
-                ElasticUtil.updateField(getRestTemplate(),"receivablesId",crmReceivables.getReceivablesId(),Collections.singletonList(crmReceivablesPlan.getReceivablesPlanId()),CrmEnum.RECEIVABLES_PLAN.getIndex());
+                ElasticUtil.updateField(getRestTemplate(),"receivablesId",crmReceivables.getReceivablesId(),Collections.singletonList(crmReceivablesPlan.getReceivablesPlanId()),CrmTypeEnum.RECEIVABLES_PLAN.getIndex());
                 crmReceivablesPlanService.updateById(crmReceivablesPlan);
             }
-            ApplicationContextHolder.getBean(ICrmBackLogDealService.class).deleteByTypes(null, CrmEnum.RECEIVABLES, crmReceivables.getReceivablesId(), CrmBackLogEnum.CHECK_RECEIVABLES);
-            actionRecordUtil.updateRecord(BeanUtil.beanToMap(receivables), BeanUtil.beanToMap(crmReceivables), CrmEnum.CONTRACT, crmContract.getName(), crmContract.getContractId());
+            ApplicationContextHolder.getBean(ICrmBackLogDealService.class).deleteByTypes(null, CrmTypeEnum.RECEIVABLES, crmReceivables.getReceivablesId(), CrmBackLogEnum.CHECK_RECEIVABLES);
+            actionRecordUtil.updateRecord(BeanUtil.beanToMap(receivables), BeanUtil.beanToMap(crmReceivables), CrmTypeEnum.CONTRACT, crmContract.getName(), crmContract.getContractId());
             updateById(crmReceivables);
             crmReceivables = getById(crmReceivables.getReceivablesId());
             if (crmReceivables.getCheckStatus() == 10) {
                 examineRecordService.updateContractMoney(crmReceivables.getReceivablesId());
-                crmReceivablesPlanService.updateReceivedStatus(CrmEnum.RECEIVABLES,crmReceivables,crmReceivables.getCheckStatus());
+                crmReceivablesPlanService.updateReceivedStatus(CrmTypeEnum.RECEIVABLES,crmReceivables,crmReceivables.getCheckStatus());
             }
         }
         crmModel.setEntity(BeanUtil.beanToMap(crmReceivables));
@@ -418,7 +418,7 @@ public class CrmReceivablesServiceImpl extends BaseServiceImpl<CrmReceivablesMap
             //删除跟进记录
             crmActivityService.deleteActivityRecord(CrmActivityEnum.RECEIVABLES, Collections.singletonList(id));
             //删除字段操作记录
-            crmActionRecordService.deleteActionRecord(CrmEnum.RECEIVABLES, Collections.singletonList(receivables.getReceivablesId()));
+            crmActionRecordService.deleteActionRecord(CrmTypeEnum.RECEIVABLES, Collections.singletonList(receivables.getReceivablesId()));
             //删除自定义字段
             crmReceivablesDataService.deleteByBatchId(Collections.singletonList(receivables.getBatchId()));
             //删除文件
@@ -447,11 +447,11 @@ public class CrmReceivablesServiceImpl extends BaseServiceImpl<CrmReceivablesMap
         wrapper.set(CrmReceivables::getOwnerUserId, newOwnerUserId);
         update(wrapper);
         for (Integer id : ids) {
-            if (AuthUtil.isChangeOwnerUserAuth(id, CrmEnum.RECEIVABLES, CrmAuthEnum.EDIT)) {
+            if (AuthUtil.isChangeOwnerUserAuth(id, CrmTypeEnum.RECEIVABLES, CrmAuthEnum.EDIT)) {
                 throw new CrmException(SystemCodeEnum.SYSTEM_NO_AUTH);
             }
             CrmReceivables receivables = getById(id);
-            actionRecordUtil.addConversionRecord(id,CrmEnum.RECEIVABLES,newOwnerUserId,receivables.getNumber());
+            actionRecordUtil.addConversionRecord(id,CrmTypeEnum.RECEIVABLES,newOwnerUserId,receivables.getNumber());
             if (2 == changeOwnerUserBO.getTransferType() && !changeOwnerUserBO.getOwnerUserId().equals(receivables.getOwnerUserId())) {
                 ApplicationContextHolder.getBean(ICrmTeamMembersService.class).addSingleMember(getLabel(),receivables.getReceivablesId(),receivables.getOwnerUserId(),changeOwnerUserBO.getPower(),changeOwnerUserBO.getExpiresTime(),receivables.getNumber());
             }
@@ -603,13 +603,13 @@ public class CrmReceivablesServiceImpl extends BaseServiceImpl<CrmReceivablesMap
                 Map<String, Object> crmReceivablesMap = new HashMap<>(oldReceivablesMap);
                 crmReceivablesMap.put(record.getString("fieldName"), record.get("value"));
                 CrmReceivables crmReceivables = BeanUtil.mapToBean(crmReceivablesMap, CrmReceivables.class, true);
-                actionRecordUtil.updateRecord(oldReceivablesMap, crmReceivablesMap, CrmEnum.RECEIVABLES, crmReceivables.getNumber(), crmReceivables.getReceivablesId());
+                actionRecordUtil.updateRecord(oldReceivablesMap, crmReceivablesMap, CrmTypeEnum.RECEIVABLES, crmReceivables.getNumber(), crmReceivables.getReceivablesId());
                 update().set(StrUtil.toUnderlineCase(record.getString("fieldName")), record.get("value")).eq("receivables_id",updateInformationBO.getId()).update();
             } else if (record.getInteger("fieldType") == 0 || record.getInteger("fieldType") == 2) {
                 CrmReceivablesData receivablesData = crmReceivablesDataService.lambdaQuery().select(CrmReceivablesData::getValue,CrmReceivablesData::getId).eq(CrmReceivablesData::getFieldId, record.getInteger("fieldId"))
                         .eq(CrmReceivablesData::getBatchId, batchId).one();
                 String value = receivablesData != null ? receivablesData.getValue() : null;
-                actionRecordUtil.publicContentRecord(CrmEnum.RECEIVABLES, BehaviorEnum.UPDATE, receivablesId, oldReceivables.getNumber(), record,value);
+                actionRecordUtil.publicContentRecord(CrmTypeEnum.RECEIVABLES, BehaviorEnum.UPDATE, receivablesId, oldReceivables.getNumber(), record,value);
                 String newValue = fieldService.convertObjectValueToString(record.getInteger("type"),record.get("value"),record.getString("value"));
                 CrmReceivablesData crmReceivabelsData = new CrmReceivablesData();
                 crmReceivabelsData.setId(receivablesData != null ? receivablesData.getId() : null);

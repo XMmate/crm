@@ -15,7 +15,7 @@ import com.liujiaming.core.exception.CrmException;
 import com.liujiaming.core.servlet.ApplicationContextHolder;
 import com.liujiaming.core.servlet.BaseServiceImpl;
 import com.liujiaming.core.utils.UserUtil;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.constant.CrmSceneEnum;
 import com.liujiaming.crm.entity.BO.CrmSceneConfigBO;
 import com.liujiaming.crm.entity.PO.*;
@@ -52,84 +52,84 @@ public class CrmSceneServiceImpl extends BaseServiceImpl<CrmSceneMapper, CrmScen
     /**
      * 查询场景
      *
-     * @param crmEnum 类型
+     * @param crmTypeEnum 类型
      * @return data
      */
     @Override
-    public List<CrmScene> queryScene(CrmEnum crmEnum) {
+    public List<CrmScene> queryScene(CrmTypeEnum crmTypeEnum) {
         Long userId = UserUtil.getUserId();
         List<CrmScene> sceneList = new ArrayList<>();
         //查询userId下是否有系统场景，没有则插入
-        Integer number = lambdaQuery().eq(CrmScene::getIsSystem, 1).eq(CrmScene::getType, crmEnum.getType()).eq(CrmScene::getUserId, UserUtil.getUserId()).count();
+        Integer number = lambdaQuery().eq(CrmScene::getIsSystem, 1).eq(CrmScene::getType, crmTypeEnum.getType()).eq(CrmScene::getUserId, UserUtil.getUserId()).count();
         if (number.equals(0)) {
-            if (CrmEnum.LEADS == crmEnum) {
-                sceneList.add(new CrmScene(crmEnum.getType(), "全部线索", userId, 0, "", 0, 1, CrmSceneEnum.ALL.getName()));
-                sceneList.add(new CrmScene(crmEnum.getType(), "我负责的线索", userId, 0, "", 0, 1, CrmSceneEnum.SELF.getName()));
-                sceneList.add(new CrmScene(crmEnum.getType(), "下属负责的线索", userId, 0, "", 0, 1, CrmSceneEnum.CHILD.getName()));
+            if (CrmTypeEnum.LEADS == crmTypeEnum) {
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "全部线索", userId, 0, "", 0, 1, CrmSceneEnum.ALL.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "我负责的线索", userId, 0, "", 0, 1, CrmSceneEnum.SELF.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "下属负责的线索", userId, 0, "", 0, 1, CrmSceneEnum.CHILD.getName()));
                 JSONArray array = new JSONArray();
                 array.add(new JSONObject().fluentPut("name", "isTransform").fluentPut("type", 1).fluentPut("values", Collections.singletonList("1")));
-                sceneList.add(new CrmScene(crmEnum.getType(), "已转化的线索", userId, 0, array.toJSONString(), 0, 1, "transform"));
-                sceneList.add(new CrmScene(crmEnum.getType(), "我关注的线索", userId, 0, array.toJSONString(), 0, 1, CrmSceneEnum.STAR.getName()));
-            } else if (CrmEnum.CUSTOMER == crmEnum) {
-                sceneList.add(new CrmScene(crmEnum.getType(), "全部客户", userId, 0, "", 0, 1, CrmSceneEnum.ALL.getName()));
-                sceneList.add(new CrmScene(crmEnum.getType(), "我负责的客户", userId, 0, "", 0, 1, CrmSceneEnum.SELF.getName()));
-                sceneList.add(new CrmScene(crmEnum.getType(), "下属负责的客户", userId, 0, "", 0, 1, CrmSceneEnum.CHILD.getName()));
-                sceneList.add(new CrmScene(crmEnum.getType(), "我关注的客户", userId, 0, "", 0, 1, CrmSceneEnum.STAR.getName()));
-            } else if (CrmEnum.CONTACTS == crmEnum) {
-                sceneList.add(new CrmScene(crmEnum.getType(), "全部联系人", userId, 0, "", 0, 1, CrmSceneEnum.ALL.getName()));
-                sceneList.add(new CrmScene(crmEnum.getType(), "我负责的联系人", userId, 0, "", 0, 1, CrmSceneEnum.SELF.getName()));
-                sceneList.add(new CrmScene(crmEnum.getType(), "下属负责的联系人", userId, 0, "", 0, 1, CrmSceneEnum.CHILD.getName()));
-                sceneList.add(new CrmScene(crmEnum.getType(), "我关注的联系人", userId, 0, "", 0, 1, CrmSceneEnum.STAR.getName()));
-            } else if (CrmEnum.PRODUCT == crmEnum) {
-                sceneList.add(new CrmScene(crmEnum.getType(), "全部产品", userId, 0, "", 0, 1, CrmSceneEnum.ALL.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "已转化的线索", userId, 0, array.toJSONString(), 0, 1, "transform"));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "我关注的线索", userId, 0, array.toJSONString(), 0, 1, CrmSceneEnum.STAR.getName()));
+            } else if (CrmTypeEnum.CUSTOMER == crmTypeEnum) {
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "全部客户", userId, 0, "", 0, 1, CrmSceneEnum.ALL.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "我负责的客户", userId, 0, "", 0, 1, CrmSceneEnum.SELF.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "下属负责的客户", userId, 0, "", 0, 1, CrmSceneEnum.CHILD.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "我关注的客户", userId, 0, "", 0, 1, CrmSceneEnum.STAR.getName()));
+            } else if (CrmTypeEnum.CONTACTS == crmTypeEnum) {
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "全部联系人", userId, 0, "", 0, 1, CrmSceneEnum.ALL.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "我负责的联系人", userId, 0, "", 0, 1, CrmSceneEnum.SELF.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "下属负责的联系人", userId, 0, "", 0, 1, CrmSceneEnum.CHILD.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "我关注的联系人", userId, 0, "", 0, 1, CrmSceneEnum.STAR.getName()));
+            } else if (CrmTypeEnum.PRODUCT == crmTypeEnum) {
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "全部产品", userId, 0, "", 0, 1, CrmSceneEnum.ALL.getName()));
                 JSONArray array = new JSONArray();
                 array.add(new JSONObject().fluentPut("name", "status").fluentPut("type", 1).fluentPut("values", Collections.singletonList(1)));
-                sceneList.add(new CrmScene(crmEnum.getType(), "上架的产品", userId, 0, array.toJSONString(), 0, 1, ""));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "上架的产品", userId, 0, array.toJSONString(), 0, 1, ""));
                 array.clear();
                 array.add(new JSONObject().fluentPut("name", "status").fluentPut("type", 1).fluentPut("values", Collections.singletonList(0)));
-                sceneList.add(new CrmScene(crmEnum.getType(), "下架的产品", userId, 0, array.toJSONString(), 0, 1, ""));
-            } else if (CrmEnum.BUSINESS == crmEnum) {
-                sceneList.add(new CrmScene(crmEnum.getType(), "全部商机", userId, 0, "", 0, 1, CrmSceneEnum.ALL.getName()));
-                sceneList.add(new CrmScene(crmEnum.getType(), "我负责的商机", userId, 0, "", 0, 1, CrmSceneEnum.SELF.getName()));
-                sceneList.add(new CrmScene(crmEnum.getType(), "下属负责的商机", userId, 0, "", 0, 1, CrmSceneEnum.CHILD.getName()));
-                sceneList.add(new CrmScene(crmEnum.getType(), "我关注的商机", userId, 0, "", 0, 1, CrmSceneEnum.STAR.getName()));
-                sceneList.add(new CrmScene(crmEnum.getType(), "赢单商机", userId, 0, new JSONArray().fluentAdd(new JSONObject().fluentPut("name", "isEnd").fluentPut("type", 1).fluentPut("values", Collections.singletonList(1))).toJSONString(), 0, 1, ""));
-                sceneList.add(new CrmScene(crmEnum.getType(), "输单商机", userId, 0, new JSONArray().fluentAdd(new JSONObject().fluentPut("name", "isEnd").fluentPut("type", 1).fluentPut("values", Collections.singletonList(2))).toJSONString(), 0, 1, ""));
-                sceneList.add(new CrmScene(crmEnum.getType(), "无效商机", userId, 0, new JSONArray().fluentAdd(new JSONObject().fluentPut("name", "isEnd").fluentPut("type", 1).fluentPut("values", Collections.singletonList(3))).toJSONString(), 0, 1, ""));
-                sceneList.add(new CrmScene(crmEnum.getType(), "进行中的商机", userId, 0, new JSONArray().fluentAdd(new JSONObject().fluentPut("name", "isEnd").fluentPut("type", 1).fluentPut("values", Collections.singletonList(0))).toJSONString(), 0, 1, ""));
-            } else if (CrmEnum.CONTRACT == crmEnum) {
-                sceneList.add(new CrmScene(crmEnum.getType(), "全部合同", userId, 0, "", 0, 1, CrmSceneEnum.ALL.getName()));
-                sceneList.add(new CrmScene(crmEnum.getType(), "我负责的合同", userId, 0, "", 0, 1, CrmSceneEnum.SELF.getName()));
-                sceneList.add(new CrmScene(crmEnum.getType(), "下属负责的合同", userId, 0, "", 0, 1, CrmSceneEnum.CHILD.getName()));
-            } else if (CrmEnum.RECEIVABLES == crmEnum) {
-                sceneList.add(new CrmScene(crmEnum.getType(), "全部回款", userId, 0, "", 0, 1, CrmSceneEnum.ALL.getName()));
-                sceneList.add(new CrmScene(crmEnum.getType(), "我负责的回款", userId, 0, "", 0, 1, CrmSceneEnum.SELF.getName()));
-                sceneList.add(new CrmScene(crmEnum.getType(), "下属负责的回款", userId, 0, "", 0, 1, CrmSceneEnum.CHILD.getName()));
-            } else if(CrmEnum.RECEIVABLES_PLAN == crmEnum){
-                sceneList.add(new CrmScene(crmEnum.getType(), "全部回款计划", userId, 0, "", 0, 1, CrmSceneEnum.ALL.getName()));
-                sceneList.add(new CrmScene(crmEnum.getType(), "我负责的回款计划", userId, 1, "", 0, 1, CrmSceneEnum.SELF.getName()));
-                sceneList.add(new CrmScene(crmEnum.getType(), "下属负责的回款计划", userId, 2, "", 0, 1, CrmSceneEnum.CHILD.getName()));
-                sceneList.add(new CrmScene(crmEnum.getType(), "全部逾期未回款", userId, 0, new JSONArray().fluentAdd(new JSONObject().fluentPut("name", "receivedStatus").fluentPut("type", 1).fluentPut("values", Collections.singletonList(4))).toJSONString(), 0, 1, ""));
-                sceneList.add(new CrmScene(crmEnum.getType(), "本月到期未回款", userId, 0, new JSONArray().fluentAdd(new JSONObject().fluentPut("name", "receivedStatus").fluentPut("type", 1).fluentPut("values", Collections.singletonList(4))).fluentAdd(new JSONObject().fluentPut("name", "returnDate").fluentPut("type", 14).fluentPut("values", Collections.singletonList("month"))).toJSONString(), 0, 1, ""));
-                sceneList.add(new CrmScene(crmEnum.getType(), "本周到期未回款", userId, 0, new JSONArray().fluentAdd(new JSONObject().fluentPut("name", "receivedStatus").fluentPut("type", 1).fluentPut("values", Collections.singletonList(4))).fluentAdd(new JSONObject().fluentPut("name", "returnDate").fluentPut("type", 14).fluentPut("values", Collections.singletonList("week"))).toJSONString(), 0, 1, ""));
-                sceneList.add(new CrmScene(crmEnum.getType(), "已回款", userId, 0, new JSONArray().fluentAdd(new JSONObject().fluentPut("name", "receivedStatus").fluentPut("type", 1).fluentPut("values", Collections.singletonList(1))).toJSONString(), 0, 1, ""));
-                sceneList.add(new CrmScene(crmEnum.getType(), "本月已回款", userId, 0, new JSONArray().fluentAdd(new JSONObject().fluentPut("name", "receivedStatus").fluentPut("type", 1).fluentPut("values", Collections.singletonList(1))).fluentAdd(new JSONObject().fluentPut("name", "returnDate").fluentPut("type", 14).fluentPut("values", Collections.singletonList("month"))).toJSONString(), 0, 1, ""));
-                sceneList.add(new CrmScene(crmEnum.getType(), "本周已回款", userId, 0, new JSONArray().fluentAdd(new JSONObject().fluentPut("name", "receivedStatus").fluentPut("type", 1).fluentPut("values", Collections.singletonList(1))).fluentAdd(new JSONObject().fluentPut("name", "returnDate").fluentPut("type", 14).fluentPut("values", Collections.singletonList("week"))).toJSONString(), 0, 1, ""));
-                sceneList.add(new CrmScene(crmEnum.getType(), "部分回款", userId, 0, new JSONArray().fluentAdd(new JSONObject().fluentPut("name", "receivedStatus").fluentPut("type", 1).fluentPut("values", Collections.singletonList(2))).toJSONString(), 0, 1, ""));
-            } else if (CrmEnum.RETURN_VISIT == crmEnum) {
-                sceneList.add(new CrmScene(crmEnum.getType(), "全部回访", userId, 0, "", 0, 1, CrmSceneEnum.ALL.getName()));
-                sceneList.add(new CrmScene(crmEnum.getType(), "我负责的回访", userId, 0, "", 0, 1, CrmSceneEnum.SELF.getName()));
-                sceneList.add(new CrmScene(crmEnum.getType(), "下属负责的回访", userId, 0, "", 0, 1, CrmSceneEnum.CHILD.getName()));
-            } else if (CrmEnum.INVOICE == crmEnum) {
-                sceneList.add(new CrmScene(crmEnum.getType(), "全部发票", userId, 0, "", 0, 1, CrmSceneEnum.ALL.getName()));
-                sceneList.add(new CrmScene(crmEnum.getType(), "我负责的发票", userId, 0, "", 0, 1, CrmSceneEnum.SELF.getName()));
-                sceneList.add(new CrmScene(crmEnum.getType(), "下属负责的发票", userId, 0, "", 0, 1, CrmSceneEnum.CHILD.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "下架的产品", userId, 0, array.toJSONString(), 0, 1, ""));
+            } else if (CrmTypeEnum.BUSINESS == crmTypeEnum) {
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "全部商机", userId, 0, "", 0, 1, CrmSceneEnum.ALL.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "我负责的商机", userId, 0, "", 0, 1, CrmSceneEnum.SELF.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "下属负责的商机", userId, 0, "", 0, 1, CrmSceneEnum.CHILD.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "我关注的商机", userId, 0, "", 0, 1, CrmSceneEnum.STAR.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "赢单商机", userId, 0, new JSONArray().fluentAdd(new JSONObject().fluentPut("name", "isEnd").fluentPut("type", 1).fluentPut("values", Collections.singletonList(1))).toJSONString(), 0, 1, ""));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "输单商机", userId, 0, new JSONArray().fluentAdd(new JSONObject().fluentPut("name", "isEnd").fluentPut("type", 1).fluentPut("values", Collections.singletonList(2))).toJSONString(), 0, 1, ""));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "无效商机", userId, 0, new JSONArray().fluentAdd(new JSONObject().fluentPut("name", "isEnd").fluentPut("type", 1).fluentPut("values", Collections.singletonList(3))).toJSONString(), 0, 1, ""));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "进行中的商机", userId, 0, new JSONArray().fluentAdd(new JSONObject().fluentPut("name", "isEnd").fluentPut("type", 1).fluentPut("values", Collections.singletonList(0))).toJSONString(), 0, 1, ""));
+            } else if (CrmTypeEnum.CONTRACT == crmTypeEnum) {
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "全部合同", userId, 0, "", 0, 1, CrmSceneEnum.ALL.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "我负责的合同", userId, 0, "", 0, 1, CrmSceneEnum.SELF.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "下属负责的合同", userId, 0, "", 0, 1, CrmSceneEnum.CHILD.getName()));
+            } else if (CrmTypeEnum.RECEIVABLES == crmTypeEnum) {
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "全部回款", userId, 0, "", 0, 1, CrmSceneEnum.ALL.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "我负责的回款", userId, 0, "", 0, 1, CrmSceneEnum.SELF.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "下属负责的回款", userId, 0, "", 0, 1, CrmSceneEnum.CHILD.getName()));
+            } else if(CrmTypeEnum.RECEIVABLES_PLAN == crmTypeEnum){
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "全部回款计划", userId, 0, "", 0, 1, CrmSceneEnum.ALL.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "我负责的回款计划", userId, 1, "", 0, 1, CrmSceneEnum.SELF.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "下属负责的回款计划", userId, 2, "", 0, 1, CrmSceneEnum.CHILD.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "全部逾期未回款", userId, 0, new JSONArray().fluentAdd(new JSONObject().fluentPut("name", "receivedStatus").fluentPut("type", 1).fluentPut("values", Collections.singletonList(4))).toJSONString(), 0, 1, ""));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "本月到期未回款", userId, 0, new JSONArray().fluentAdd(new JSONObject().fluentPut("name", "receivedStatus").fluentPut("type", 1).fluentPut("values", Collections.singletonList(4))).fluentAdd(new JSONObject().fluentPut("name", "returnDate").fluentPut("type", 14).fluentPut("values", Collections.singletonList("month"))).toJSONString(), 0, 1, ""));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "本周到期未回款", userId, 0, new JSONArray().fluentAdd(new JSONObject().fluentPut("name", "receivedStatus").fluentPut("type", 1).fluentPut("values", Collections.singletonList(4))).fluentAdd(new JSONObject().fluentPut("name", "returnDate").fluentPut("type", 14).fluentPut("values", Collections.singletonList("week"))).toJSONString(), 0, 1, ""));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "已回款", userId, 0, new JSONArray().fluentAdd(new JSONObject().fluentPut("name", "receivedStatus").fluentPut("type", 1).fluentPut("values", Collections.singletonList(1))).toJSONString(), 0, 1, ""));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "本月已回款", userId, 0, new JSONArray().fluentAdd(new JSONObject().fluentPut("name", "receivedStatus").fluentPut("type", 1).fluentPut("values", Collections.singletonList(1))).fluentAdd(new JSONObject().fluentPut("name", "returnDate").fluentPut("type", 14).fluentPut("values", Collections.singletonList("month"))).toJSONString(), 0, 1, ""));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "本周已回款", userId, 0, new JSONArray().fluentAdd(new JSONObject().fluentPut("name", "receivedStatus").fluentPut("type", 1).fluentPut("values", Collections.singletonList(1))).fluentAdd(new JSONObject().fluentPut("name", "returnDate").fluentPut("type", 14).fluentPut("values", Collections.singletonList("week"))).toJSONString(), 0, 1, ""));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "部分回款", userId, 0, new JSONArray().fluentAdd(new JSONObject().fluentPut("name", "receivedStatus").fluentPut("type", 1).fluentPut("values", Collections.singletonList(2))).toJSONString(), 0, 1, ""));
+            } else if (CrmTypeEnum.RETURN_VISIT == crmTypeEnum) {
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "全部回访", userId, 0, "", 0, 1, CrmSceneEnum.ALL.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "我负责的回访", userId, 0, "", 0, 1, CrmSceneEnum.SELF.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "下属负责的回访", userId, 0, "", 0, 1, CrmSceneEnum.CHILD.getName()));
+            } else if (CrmTypeEnum.INVOICE == crmTypeEnum) {
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "全部发票", userId, 0, "", 0, 1, CrmSceneEnum.ALL.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "我负责的发票", userId, 0, "", 0, 1, CrmSceneEnum.SELF.getName()));
+                sceneList.add(new CrmScene(crmTypeEnum.getType(), "下属负责的发票", userId, 0, "", 0, 1, CrmSceneEnum.CHILD.getName()));
             }
             saveBatch(sceneList, Const.BATCH_SAVE_SIZE);
         } else {
-            sceneList.addAll(lambdaQuery().eq(CrmScene::getType, crmEnum.getType()).eq(CrmScene::getUserId, UserUtil.getUserId()).eq(CrmScene::getIsHide,0).list());
+            sceneList.addAll(lambdaQuery().eq(CrmScene::getType, crmTypeEnum.getType()).eq(CrmScene::getUserId, UserUtil.getUserId()).eq(CrmScene::getIsHide,0).list());
         }
-        List<CrmSceneDefault> defaults = crmSceneDefaultService.lambdaQuery().eq(CrmSceneDefault::getType, crmEnum.getType()).eq(CrmSceneDefault::getUserId, userId).list();
+        List<CrmSceneDefault> defaults = crmSceneDefaultService.lambdaQuery().eq(CrmSceneDefault::getType, crmTypeEnum.getType()).eq(CrmSceneDefault::getUserId, userId).list();
         for (CrmSceneDefault sceneDefault : defaults) {
             Integer sceneId = sceneDefault.getSceneId();
             for (CrmScene crmScene : sceneList) {
@@ -156,20 +156,20 @@ public class CrmSceneServiceImpl extends BaseServiceImpl<CrmSceneMapper, CrmScen
                     crmFieldService.recordToFormType(filedVO, FieldEnum.parse(filedVO.getType()));
                     return filedVO;
                 }).collect(Collectors.toList());
-        CrmEnum crmEnum = CrmEnum.parse(label);
-        if (crmEnum == CrmEnum.NULL) {
+        CrmTypeEnum crmTypeEnum = CrmTypeEnum.parse(label);
+        if (crmTypeEnum == CrmTypeEnum.NULL) {
             throw new CrmException(SystemCodeEnum.SYSTEM_NO_VALID);
         }
-        if(CrmEnum.RETURN_VISIT != crmEnum){
+        if(CrmTypeEnum.RETURN_VISIT != crmTypeEnum){
             fieldList.add(new CrmModelFiledVO("owner_user_id", FieldEnum.USER, "负责人", 1));
             fieldList.add(new CrmModelFiledVO("owner_dept_id", FieldEnum.STRUCTURE, "所属部门", 1));
         }
         fieldList.add(new CrmModelFiledVO("create_user_id", FieldEnum.USER, "创建人", 1));
         fieldList.add(new CrmModelFiledVO("update_time", FieldEnum.DATETIME, "更新时间", 1));
         fieldList.add(new CrmModelFiledVO("create_time", FieldEnum.DATETIME, "创建时间", 1));
-        if (CrmEnum.LEADS == crmEnum) {
+        if (CrmTypeEnum.LEADS == crmTypeEnum) {
             fieldList.add(new CrmModelFiledVO("last_time", FieldEnum.DATETIME, "最后跟进时间", 1));
-        } else if (CrmEnum.CUSTOMER == crmEnum) {
+        } else if (CrmTypeEnum.CUSTOMER == crmTypeEnum) {
             List<Object> dealStatusList = new ArrayList<>();
             dealStatusList.add(new JSONObject().fluentPut("name", "未成交").fluentPut("value", 0));
             dealStatusList.add(new JSONObject().fluentPut("name", "已成交").fluentPut("value", 1));
@@ -178,15 +178,15 @@ public class CrmSceneServiceImpl extends BaseServiceImpl<CrmSceneMapper, CrmScen
             fieldList.add(new CrmModelFiledVO("detail_address", FieldEnum.TEXT, "详细地址", 1));
             fieldList.add(new CrmModelFiledVO("address", FieldEnum.MAP_ADDRESS, "地区定位", 1));
             fieldList.add(new CrmModelFiledVO("teamMemberIds", FieldEnum.USER, "相关团队",1));
-        } else if (CrmEnum.CONTACTS == crmEnum) {
+        } else if (CrmTypeEnum.CONTACTS == crmTypeEnum) {
             fieldList.add(new CrmModelFiledVO("last_time", FieldEnum.DATETIME, "最后跟进时间", 1));
             fieldList.add(new CrmModelFiledVO("teamMemberIds", FieldEnum.USER, "相关团队",1));
-        } else if (CrmEnum.PRODUCT == crmEnum) {
+        } else if (CrmTypeEnum.PRODUCT == crmTypeEnum) {
             List<Object> statusList = new ArrayList<>();
             statusList.add(new JSONObject().fluentPut("name", "上架").fluentPut("value", 1));
             statusList.add(new JSONObject().fluentPut("name", "下架").fluentPut("value", 0));
             fieldList.add(new CrmModelFiledVO("status", FieldEnum.SELECT, "是否上下架", 1).setSetting(statusList));
-        } else if (CrmEnum.BUSINESS == crmEnum) {
+        } else if (CrmTypeEnum.BUSINESS == crmTypeEnum) {
             List<CrmBusinessType> crmBusinessTypes = ApplicationContextHolder.getBean(ICrmBusinessTypeService.class).queryBusinessStatusOptions();
             crmBusinessTypes.forEach(record -> {
                 record.getStatusList().add(new CrmBusinessStatus().setName("赢单").setTypeId(record.getTypeId()).setStatusId(-1));
@@ -196,7 +196,7 @@ public class CrmSceneServiceImpl extends BaseServiceImpl<CrmSceneMapper, CrmScen
             fieldList.add(new CrmModelFiledVO("type_id", FieldEnum.BUSINESS, "商机状态组", 1).setFormType("business_type").setSetting(new ArrayList<>(crmBusinessTypes)));
             fieldList.add(new CrmModelFiledVO("last_time", FieldEnum.DATETIME, "最后跟进时间", 1));
             fieldList.add(new CrmModelFiledVO("teamMemberIds", FieldEnum.USER, "相关团队",1));
-        } else if (CrmEnum.CONTRACT == crmEnum) {
+        } else if (CrmTypeEnum.CONTRACT == crmTypeEnum) {
             List<Object> checkList = new ArrayList<>();
             checkList.add(new JSONObject().fluentPut("name", "待审核").fluentPut("value", 0));
             checkList.add(new JSONObject().fluentPut("name", "通过").fluentPut("value", 1));
@@ -208,7 +208,7 @@ public class CrmSceneServiceImpl extends BaseServiceImpl<CrmSceneMapper, CrmScen
             fieldList.add(new CrmModelFiledVO("check_status", FieldEnum.CHECKBOX, "审核状态", 1).setFormType("checkStatus").setType(null).setSetting(checkList));
             fieldList.add(new CrmModelFiledVO("last_time", FieldEnum.DATETIME, "最后跟进时间", 1));
             fieldList.add(new CrmModelFiledVO("teamMemberIds", FieldEnum.USER, "相关团队",1));
-        } else if (CrmEnum.RECEIVABLES == crmEnum) {
+        } else if (CrmTypeEnum.RECEIVABLES == crmTypeEnum) {
             List<Object> checkList = new ArrayList<>();
             checkList.add(new JSONObject().fluentPut("name", "待审核").fluentPut("value", 0));
             checkList.add(new JSONObject().fluentPut("name", "通过").fluentPut("value", 1));
@@ -217,7 +217,7 @@ public class CrmSceneServiceImpl extends BaseServiceImpl<CrmSceneMapper, CrmScen
             checkList.add(new JSONObject().fluentPut("name", "未提交").fluentPut("value", 5));
             fieldList.add(new CrmModelFiledVO("check_status", FieldEnum.CHECKBOX, "审核状态", 1).setFormType("checkStatus").setType(null).setSetting(checkList));
             fieldList.add(new CrmModelFiledVO("teamMemberIds", FieldEnum.USER, "相关团队",1));
-        } else if (CrmEnum.RECEIVABLES_PLAN == crmEnum) {
+        } else if (CrmTypeEnum.RECEIVABLES_PLAN == crmTypeEnum) {
             fieldList.add(new CrmModelFiledVO("realReceivedMoney", FieldEnum.FLOATNUMBER, "实际回款金额",1));
             fieldList.add(new CrmModelFiledVO("realReturnDate", FieldEnum.DATE, "实际回款日期",1));
             List<Object> checkList = new ArrayList<>();
@@ -228,7 +228,7 @@ public class CrmSceneServiceImpl extends BaseServiceImpl<CrmSceneMapper, CrmScen
             checkList.add(new JSONObject().fluentPut("name", "逾期").fluentPut("value", 4));
             checkList.add(new JSONObject().fluentPut("name", "待生效").fluentPut("value", 5));
             fieldList.add(new CrmModelFiledVO("receivedStatus", FieldEnum.CHECKBOX, "回款状态",1).setSetting(checkList));
-        } else if (CrmEnum.INVOICE == crmEnum){
+        } else if (CrmTypeEnum.INVOICE == crmTypeEnum){
             for (CrmModelFiledVO crmModelFiledVO : fieldList) {
                 if("invoiceType".equals(crmModelFiledVO.getFieldName())){
                     List<Object> checkList = new ArrayList<>();

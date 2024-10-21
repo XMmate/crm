@@ -16,7 +16,7 @@ import com.liujiaming.core.servlet.upload.FileEntity;
 import com.liujiaming.core.utils.TagUtil;
 import com.liujiaming.core.utils.UserCacheUtil;
 import com.liujiaming.core.utils.UserUtil;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmChangeOwnerUserBO;
 import com.liujiaming.crm.entity.BO.CrmContractSaveBO;
 import com.liujiaming.crm.entity.BO.CrmMemberSaveBO;
@@ -49,7 +49,7 @@ public class CrmContractLog {
         for (Integer id : ids) {
             String name = crmContractService.getContractName(id);
             if (name != null) {
-                contentList.add(sysLogUtil.addDeleteActionRecord(CrmEnum.CONTRACT, name));
+                contentList.add(sysLogUtil.addDeleteActionRecord(CrmTypeEnum.CONTRACT, name));
             }
         }
         return contentList;
@@ -58,7 +58,7 @@ public class CrmContractLog {
     public List<Content> changeOwnerUser(CrmChangeOwnerUserBO crmChangeOwnerUserBO) {
         return crmChangeOwnerUserBO.getIds().stream().map(id -> {
             String name = crmContractService.getContractName(id);
-            return sysLogUtil.addConversionRecord(CrmEnum.CONTRACT, crmChangeOwnerUserBO.getOwnerUserId(), name);
+            return sysLogUtil.addConversionRecord(CrmTypeEnum.CONTRACT, crmChangeOwnerUserBO.getOwnerUserId(), name);
         }).collect(Collectors.toList());
     }
 
@@ -68,7 +68,7 @@ public class CrmContractLog {
         sysLogUtil.updateRecord(crmModel.getField(), Dict.create().set("batchId", batchId).set("dataTableName", "wk_crm_contract_data"));
         crmContractDataService.saveData(crmModel.getField(), batchId);
         CrmContract contract = crmContractService.getById(crmContract.getContractId());
-        return sysLogUtil.updateRecord(BeanUtil.beanToMap(contract), BeanUtil.beanToMap(crmContract), CrmEnum.CONTRACT, crmContract.getName());
+        return sysLogUtil.updateRecord(BeanUtil.beanToMap(contract), BeanUtil.beanToMap(crmContract), CrmTypeEnum.CONTRACT, crmContract.getName());
     }
 
 
@@ -77,7 +77,7 @@ public class CrmContractLog {
         for (Integer id : crmMemberSaveBO.getIds()) {
             String name = crmContractService.getContractName(id);
             for (Long memberId : crmMemberSaveBO.getMemberIds()) {
-                contentList.add(sysLogUtil.addMemberActionRecord(CrmEnum.CONTRACT, id, memberId, name));
+                contentList.add(sysLogUtil.addMemberActionRecord(CrmTypeEnum.CONTRACT, id, memberId, name));
             }
         }
         return contentList;
@@ -88,7 +88,7 @@ public class CrmContractLog {
         for (Integer id : crmMemberSaveBO.getIds()) {
             String name = crmContractService.getContractName(id);
             for (Long memberId : crmMemberSaveBO.getMemberIds()) {
-                contentList.add(sysLogUtil.addMemberActionRecord(CrmEnum.CONTRACT, id, memberId, name));
+                contentList.add(sysLogUtil.addMemberActionRecord(CrmTypeEnum.CONTRACT, id, memberId, name));
             }
         }
         return contentList;
@@ -100,9 +100,9 @@ public class CrmContractLog {
             String name = crmContractService.getContractName(id);
             for (Long memberId : crmMemberSaveBO.getMemberIds()) {
                 if (!memberId.equals(UserUtil.getUserId())) {
-                    contentList.add(sysLogUtil.addDeleteMemberActionRecord(CrmEnum.CONTRACT, memberId, false, name));
+                    contentList.add(sysLogUtil.addDeleteMemberActionRecord(CrmTypeEnum.CONTRACT, memberId, false, name));
                 } else {
-                    contentList.add(sysLogUtil.addDeleteMemberActionRecord(CrmEnum.CONTRACT, memberId, true, name));
+                    contentList.add(sysLogUtil.addDeleteMemberActionRecord(CrmTypeEnum.CONTRACT, memberId, true, name));
                 }
             }
         }
@@ -111,7 +111,7 @@ public class CrmContractLog {
 
     public Content exitTeam(Integer contractId) {
         String contractName = crmContractService.getContractName(contractId);
-        return sysLogUtil.addDeleteMemberActionRecord(CrmEnum.CONTRACT, UserUtil.getUserId(), true, contractName);
+        return sysLogUtil.addDeleteMemberActionRecord(CrmTypeEnum.CONTRACT, UserUtil.getUserId(), true, contractName);
     }
 
 
@@ -130,7 +130,7 @@ public class CrmContractLog {
                 Map<String, Object> crmContractMap = new HashMap<>(oldContractMap);
                 crmContractMap.put(record.getString("fieldName"), record.get("value"));
                 CrmContract crmContract = BeanUtil.mapToBean(crmContractMap, CrmContract.class, true);
-                contentList.add(sysLogUtil.updateRecord(oldContractMap, crmContractMap, CrmEnum.CONTRACT, crmContract.getName()));
+                contentList.add(sysLogUtil.updateRecord(oldContractMap, crmContractMap, CrmTypeEnum.CONTRACT, crmContract.getName()));
             } else if (record.getInteger("fieldType") == 0 || record.getInteger("fieldType") == 2) {
                 String formType = record.getString("formType");
                 if(formType == null){

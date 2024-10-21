@@ -13,7 +13,7 @@ import com.liujiaming.core.servlet.upload.FileEntity;
 import com.liujiaming.crm.common.CrmModel;
 import com.liujiaming.crm.common.log.CrmReceivablesLog;
 import com.liujiaming.crm.constant.CrmCodeEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.*;
 import com.liujiaming.crm.entity.PO.CrmReceivables;
 import com.liujiaming.crm.entity.VO.CrmInfoNumVO;
@@ -157,7 +157,7 @@ public class CrmReceivablesController {
     public void batchExportExcel(@RequestBody @ApiParam(name = "ids", value = "id列表") List<Integer> ids, HttpServletResponse response) {
         CrmSearchBO search = new CrmSearchBO();
         search.setPageType(0);
-        search.setLabel(CrmEnum.RECEIVABLES.getType());
+        search.setLabel(CrmTypeEnum.RECEIVABLES.getType());
         CrmSearchBO.Search entity = new CrmSearchBO.Search();
         entity.setFormType(FieldEnum.TEXT.getFormType());
         entity.setSearchEnum(CrmSearchBO.FieldSearchEnum.ID);
@@ -185,12 +185,12 @@ public class CrmReceivablesController {
     @PostMapping("/getMembers/{receivablesId}")
     @ApiOperation("获取团队成员")
     public Result<List<CrmMembersSelectVO>> getMembers(@PathVariable("receivablesId") @ApiParam("回款ID") Integer receivablesId) {
-        CrmEnum crmEnum = CrmEnum.RECEIVABLES;
+        CrmTypeEnum crmTypeEnum = CrmTypeEnum.RECEIVABLES;
         CrmReceivables receivables = crmReceivablesService.getById(receivablesId);
         if (receivables == null) {
-            throw new CrmException(CrmCodeEnum.CRM_DATA_DELETED, crmEnum.getRemarks());
+            throw new CrmException(CrmCodeEnum.CRM_DATA_DELETED, crmTypeEnum.getRemarks());
         }
-        List<CrmMembersSelectVO> members = teamMembersService.getMembers(crmEnum,receivablesId,receivables.getOwnerUserId());
+        List<CrmMembersSelectVO> members = teamMembersService.getMembers(crmTypeEnum,receivablesId,receivables.getOwnerUserId());
         return R.ok(members);
     }
 
@@ -198,7 +198,7 @@ public class CrmReceivablesController {
     @ApiOperation("新增团队成员")
     @SysLogHandler(behavior = BehaviorEnum.ADD_MEMBER)
     public Result addMembers(@RequestBody CrmMemberSaveBO crmMemberSaveBO) {
-        teamMembersService.addMember(CrmEnum.RECEIVABLES,crmMemberSaveBO);
+        teamMembersService.addMember(CrmTypeEnum.RECEIVABLES,crmMemberSaveBO);
         return R.ok();
     }
 
@@ -206,7 +206,7 @@ public class CrmReceivablesController {
     @ApiOperation("新增团队成员")
     @SysLogHandler(behavior = BehaviorEnum.ADD_MEMBER)
     public Result updateMembers(@RequestBody CrmMemberSaveBO crmMemberSaveBO) {
-        teamMembersService.addMember(CrmEnum.RECEIVABLES,crmMemberSaveBO);
+        teamMembersService.addMember(CrmTypeEnum.RECEIVABLES,crmMemberSaveBO);
         return R.ok();
     }
 
@@ -214,7 +214,7 @@ public class CrmReceivablesController {
     @ApiOperation("删除团队成员")
     @SysLogHandler
     public Result deleteMembers(@RequestBody CrmMemberSaveBO crmMemberSaveBO) {
-        teamMembersService.deleteMember(CrmEnum.RECEIVABLES,crmMemberSaveBO);
+        teamMembersService.deleteMember(CrmTypeEnum.RECEIVABLES,crmMemberSaveBO);
         return R.ok();
     }
 
@@ -222,7 +222,7 @@ public class CrmReceivablesController {
     @ApiOperation("退出团队")
     @SysLogHandler
     public Result exitTeam(@PathVariable("receivablesId") @ApiParam("回款ID") Integer receivablesId) {
-        teamMembersService.exitTeam(CrmEnum.RECEIVABLES,receivablesId);
+        teamMembersService.exitTeam(CrmTypeEnum.RECEIVABLES,receivablesId);
         return R.ok();
     }
 

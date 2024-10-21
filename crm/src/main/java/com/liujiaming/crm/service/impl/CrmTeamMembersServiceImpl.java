@@ -17,7 +17,7 @@ import com.liujiaming.core.utils.UserUtil;
 import com.liujiaming.crm.common.ActionRecordUtil;
 import com.liujiaming.crm.common.AuthUtil;
 import com.liujiaming.crm.constant.CrmAuthEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmMemberSaveBO;
 import com.liujiaming.crm.entity.PO.*;
 import com.liujiaming.crm.entity.VO.CrmMembersSelectVO;
@@ -65,17 +65,17 @@ public class CrmTeamMembersServiceImpl extends BaseServiceImpl<CrmTeamMembersMap
     /**
      * 获取团队成员
      *
-     * @param crmEnum     对应类型
+     * @param crmTypeEnum     对应类型
      * @param typeId      对应类型ID
      * @param ownerUserId 负责人ID
      * @return data
      */
     @Override
-    public List<CrmMembersSelectVO> getMembers(CrmEnum crmEnum, Integer typeId, Long ownerUserId) {
+    public List<CrmMembersSelectVO> getMembers(CrmTypeEnum crmTypeEnum, Integer typeId, Long ownerUserId) {
         List<CrmMembersSelectVO> selectVOS = new ArrayList<>();
         if (ownerUserId != null) {
-            List<Long> authUserList = AuthUtil.queryAuthUserList(crmEnum, CrmAuthEnum.READ);
-            Integer num = lambdaQuery().eq(CrmTeamMembers::getType,crmEnum.getType()).eq(CrmTeamMembers::getTypeId,typeId).eq(CrmTeamMembers::getUserId,UserUtil.getUserId()).count();
+            List<Long> authUserList = AuthUtil.queryAuthUserList(crmTypeEnum, CrmAuthEnum.READ);
+            Integer num = lambdaQuery().eq(CrmTeamMembers::getType,crmTypeEnum.getType()).eq(CrmTeamMembers::getTypeId,typeId).eq(CrmTeamMembers::getUserId,UserUtil.getUserId()).count();
             if (!authUserList.contains(ownerUserId) && num == 0) {
                 throw new CrmException(SystemCodeEnum.SYSTEM_NO_AUTH);
             }
@@ -88,7 +88,7 @@ public class CrmTeamMembersServiceImpl extends BaseServiceImpl<CrmTeamMembersMap
             selectVO.setExpiresTime(null);
             selectVOS.add(selectVO);
         }
-        List<CrmTeamMembers> teamMembers = lambdaQuery().eq(CrmTeamMembers::getType, crmEnum.getType()).eq(CrmTeamMembers::getTypeId, typeId).list();
+        List<CrmTeamMembers> teamMembers = lambdaQuery().eq(CrmTeamMembers::getType, crmTypeEnum.getType()).eq(CrmTeamMembers::getTypeId, typeId).list();
         for (CrmTeamMembers teamMember : teamMembers) {
             if (Objects.equals(teamMember.getUserId(), ownerUserId)) {
                 continue;
@@ -108,108 +108,108 @@ public class CrmTeamMembersServiceImpl extends BaseServiceImpl<CrmTeamMembersMap
     /**
      * 添加团队成员
      *
-     * @param crmEnum         对应类型
+     * @param crmTypeEnum         对应类型
      * @param crmMemberSaveBO data
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void addMember(CrmEnum crmEnum, CrmMemberSaveBO crmMemberSaveBO) {
-        addMember(crmEnum, crmMemberSaveBO, false, new ArrayList<>());
+    public void addMember(CrmTypeEnum crmTypeEnum, CrmMemberSaveBO crmMemberSaveBO) {
+        addMember(crmTypeEnum, crmMemberSaveBO, false, new ArrayList<>());
     }
 
     /**
      * 删除团队成员
      *
-     * @param crmEnum         对应类型
+     * @param crmTypeEnum         对应类型
      * @param crmMemberSaveBO data
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void deleteMember(CrmEnum crmEnum, CrmMemberSaveBO crmMemberSaveBO) {
+    public void deleteMember(CrmTypeEnum crmTypeEnum, CrmMemberSaveBO crmMemberSaveBO) {
         for (Integer typeId : crmMemberSaveBO.getIds()) {
-            if (crmMemberSaveBO.getChangeType() != null && crmEnum == CrmEnum.CUSTOMER) {
+            if (crmMemberSaveBO.getChangeType() != null && crmTypeEnum == CrmTypeEnum.CUSTOMER) {
                 if (crmMemberSaveBO.getChangeType().contains(1)) {
                     LambdaQueryWrapper<CrmContacts> queryWrapper = new LambdaQueryWrapper<>();
                     queryWrapper.eq(CrmContacts::getCustomerId, typeId);
                     queryWrapper.select(CrmContacts::getContactsId);
                     List<Integer> ids = ApplicationContextHolder.getBean(ICrmContactsService.class).listObjs(queryWrapper, TypeUtils::castToInt);
-                    deleteMember(CrmEnum.CONTACTS, new CrmMemberSaveBO(ids, crmMemberSaveBO));
+                    deleteMember(CrmTypeEnum.CONTACTS, new CrmMemberSaveBO(ids, crmMemberSaveBO));
                 }
                 if (crmMemberSaveBO.getChangeType().contains(2)) {
                     LambdaQueryWrapper<CrmBusiness> queryWrapper = new LambdaQueryWrapper<>();
                     queryWrapper.eq(CrmBusiness::getCustomerId, typeId);
                     queryWrapper.select(CrmBusiness::getBusinessId);
                     List<Integer> ids = ApplicationContextHolder.getBean(ICrmBusinessService.class).listObjs(queryWrapper, TypeUtils::castToInt);
-                    deleteMember(CrmEnum.BUSINESS, new CrmMemberSaveBO(ids, crmMemberSaveBO));
+                    deleteMember(CrmTypeEnum.BUSINESS, new CrmMemberSaveBO(ids, crmMemberSaveBO));
                 }
                 if (crmMemberSaveBO.getChangeType().contains(3)) {
                     LambdaQueryWrapper<CrmContract> queryWrapper = new LambdaQueryWrapper<>();
                     queryWrapper.eq(CrmContract::getCustomerId, typeId);
                     queryWrapper.select(CrmContract::getContractId);
                     List<Integer> ids = ApplicationContextHolder.getBean(ICrmContractService.class).listObjs(queryWrapper, TypeUtils::castToInt);
-                    deleteMember(CrmEnum.CONTRACT, new CrmMemberSaveBO(ids, crmMemberSaveBO));
+                    deleteMember(CrmTypeEnum.CONTRACT, new CrmMemberSaveBO(ids, crmMemberSaveBO));
                 }
             }
-            deleteMembers(crmEnum, typeId, crmMemberSaveBO.getMemberIds());
+            deleteMembers(crmTypeEnum, typeId, crmMemberSaveBO.getMemberIds());
         }
 
-        updateEsField(crmEnum, crmMemberSaveBO.getIds(), crmMemberSaveBO.getMemberIds(), true);
+        updateEsField(crmTypeEnum, crmMemberSaveBO.getIds(), crmMemberSaveBO.getMemberIds(), true);
     }
 
     /**
      * 退出团队
      *
-     * @param crmEnum 对应类型
+     * @param crmTypeEnum 对应类型
      * @param typeId  对应类型ID
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void exitTeam(CrmEnum crmEnum, Integer typeId) {
-        deleteMembers(crmEnum, typeId, Collections.singletonList(UserUtil.getUserId()));
-        updateEsField(crmEnum, Collections.singletonList(typeId), Collections.singletonList(UserUtil.getUserId()), true);
+    public void exitTeam(CrmTypeEnum crmTypeEnum, Integer typeId) {
+        deleteMembers(crmTypeEnum, typeId, Collections.singletonList(UserUtil.getUserId()));
+        updateEsField(crmTypeEnum, Collections.singletonList(typeId), Collections.singletonList(UserUtil.getUserId()), true);
     }
 
     /**
      * 添加单条团队成员数据
      *
-     * @param crmEnum 对应类型
+     * @param crmTypeEnum 对应类型
      * @param typeId  对应类型ID
      * @param userId  用户ID
      * @param power   读写类型
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void addSingleMember(CrmEnum crmEnum, Integer typeId, Long userId, Integer power, Date expiresTime, String name) {
+    public void addSingleMember(CrmTypeEnum crmTypeEnum, Integer typeId, Long userId, Integer power, Date expiresTime, String name) {
         /*
           添加单条数据前先尝试删除，防止出现多余的数据
          */
         lambdaUpdate()
                 .eq(CrmTeamMembers::getUserId,userId)
                 .eq(CrmTeamMembers::getTypeId,typeId)
-                .eq(CrmTeamMembers::getType,crmEnum.getType())
+                .eq(CrmTeamMembers::getType,crmTypeEnum.getType())
                 .remove();
         CrmTeamMembers crmTeamMembers = new CrmTeamMembers();
         crmTeamMembers.setUserId(userId);
         crmTeamMembers.setTypeId(typeId);
-        crmTeamMembers.setType(crmEnum.getType());
+        crmTeamMembers.setType(crmTypeEnum.getType());
         crmTeamMembers.setPower(power);
         crmTeamMembers.setExpiresTime(expiresTime);
         save(crmTeamMembers);
-        addTermMessage(crmEnum, typeId, name, userId, 1);
-        updateEsField(crmEnum,Collections.singletonList(typeId),Collections.singletonList(userId),false);
+        addTermMessage(crmTypeEnum, typeId, name, userId, 1);
+        updateEsField(crmTypeEnum,Collections.singletonList(typeId),Collections.singletonList(userId),false);
     }
 
     /**
      * 查询团队成员数量
      *
-     * @param crmEnum     对应类型
+     * @param crmTypeEnum     对应类型
      * @param typeId      对应类型ID
      * @param ownerUserId 用户ID
      */
     @Override
-    public Integer queryMemberCount(CrmEnum crmEnum, Integer typeId, Long ownerUserId) {
+    public Integer queryMemberCount(CrmTypeEnum crmTypeEnum, Integer typeId, Long ownerUserId) {
         Integer count = lambdaQuery()
-                .eq(CrmTeamMembers::getType, crmEnum.getType())
+                .eq(CrmTeamMembers::getType, crmTypeEnum.getType())
                 .eq(CrmTeamMembers::getTypeId, typeId).count();
         return ownerUserId != null ? count + 1 : count;
     }
@@ -230,9 +230,9 @@ public class CrmTeamMembersServiceImpl extends BaseServiceImpl<CrmTeamMembersMap
         listMap.forEach((type,typeIds)->{
             BulkRequest bulkRequest = new BulkRequest();
             Map<Integer, List<CrmTeamMembers>> typeIdMap = typeIds.stream().collect(Collectors.groupingBy(CrmTeamMembers::getTypeId));
-            CrmEnum crmEnum = CrmEnum.parse(type);
+            CrmTypeEnum crmTypeEnum = CrmTypeEnum.parse(type);
             typeIdMap.forEach((typeId,memberIds)->{
-                UpdateRequest request = new UpdateRequest(crmEnum.getIndex(),"_doc",typeId.toString());
+                UpdateRequest request = new UpdateRequest(crmTypeEnum.getIndex(),"_doc",typeId.toString());
                 List<Long> ids = memberIds.stream().map(CrmTeamMembers::getUserId).collect(Collectors.toList());
                 request.script(new Script(ScriptType.INLINE, "painless", "ctx._source.teamMemberIds.removeAll(params.value)", Collections.singletonMap("value", ids)));
                 bulkRequest.add(request);
@@ -249,7 +249,7 @@ public class CrmTeamMembersServiceImpl extends BaseServiceImpl<CrmTeamMembersMap
         });
     }
 
-    private void addMember(CrmEnum crmEnum, CrmMemberSaveBO crmMemberSaveBO, boolean append, List<CrmTeamMembers> teamMembers) {
+    private void addMember(CrmTypeEnum crmTypeEnum, CrmMemberSaveBO crmMemberSaveBO, boolean append, List<CrmTeamMembers> teamMembers) {
         if (crmMemberSaveBO.getPower() != 1 && crmMemberSaveBO.getPower() != 2) {
             throw new CrmException(SystemCodeEnum.SYSTEM_NO_VALID);
         }
@@ -257,12 +257,12 @@ public class CrmTeamMembersServiceImpl extends BaseServiceImpl<CrmTeamMembersMap
             return;
         }
         for (Integer id : crmMemberSaveBO.getIds()) {
-            if (AuthUtil.isRwAuth(id, crmEnum, CrmAuthEnum.EDIT)) {
+            if (AuthUtil.isRwAuth(id, crmTypeEnum, CrmAuthEnum.EDIT)) {
                 continue;
             }
             List<Long> memberIds = new ArrayList<>(crmMemberSaveBO.getMemberIds());
             LambdaQueryWrapper<CrmTeamMembers> wrapper = new LambdaQueryWrapper<>();
-            wrapper.select(CrmTeamMembers::getUserId).eq(CrmTeamMembers::getType, crmEnum.getType())
+            wrapper.select(CrmTeamMembers::getUserId).eq(CrmTeamMembers::getType, crmTypeEnum.getType())
                     .eq(CrmTeamMembers::getTypeId, id).in(CrmTeamMembers::getUserId,memberIds);
             List<Long> userIds = listObjs(wrapper, TypeUtils::castToLong);
             if(userIds.size() > 0) {
@@ -272,7 +272,7 @@ public class CrmTeamMembersServiceImpl extends BaseServiceImpl<CrmTeamMembersMap
                         .in(CrmTeamMembers::getUserId,userIds).update();
                 memberIds.removeAll(userIds);
             }
-            Object[] objects = getTypeName(crmEnum, id);
+            Object[] objects = getTypeName(crmTypeEnum, id);
             if (objects.length == 0) {
                 continue;
             }
@@ -283,39 +283,39 @@ public class CrmTeamMembersServiceImpl extends BaseServiceImpl<CrmTeamMembersMap
             for (Long memberId : memberIds) {
                 CrmTeamMembers crmTeamMembers = new CrmTeamMembers();
                 crmTeamMembers.setPower(crmMemberSaveBO.getPower());
-                crmTeamMembers.setType(crmEnum.getType());
+                crmTeamMembers.setType(crmTypeEnum.getType());
                 crmTeamMembers.setTypeId(id);
                 crmTeamMembers.setCreateTime(new Date());
                 crmTeamMembers.setExpiresTime(crmMemberSaveBO.getExpiresTime());
                 crmTeamMembers.setUserId(memberId);
                 teamMembers.add(crmTeamMembers);
-                addTermMessage(crmEnum, id, (String) objects[1], memberId, 1);
+                addTermMessage(crmTypeEnum, id, (String) objects[1], memberId, 1);
             }
             if (memberIds.size() > 0){
-                actionRecordUtil.addMemberActionRecord(crmEnum, id, memberIds, (String) objects[1]);
+                actionRecordUtil.addMemberActionRecord(crmTypeEnum, id, memberIds, (String) objects[1]);
             }
-            updateEsField(crmEnum, Collections.singletonList(id), memberIds, false);
-            if (crmMemberSaveBO.getChangeType() != null && crmEnum == CrmEnum.CUSTOMER) {
+            updateEsField(crmTypeEnum, Collections.singletonList(id), memberIds, false);
+            if (crmMemberSaveBO.getChangeType() != null && crmTypeEnum == CrmTypeEnum.CUSTOMER) {
                 if (crmMemberSaveBO.getChangeType().contains(1)) {
                     LambdaQueryWrapper<CrmContacts> queryWrapper = new LambdaQueryWrapper<>();
                     queryWrapper.eq(CrmContacts::getCustomerId, id);
                     queryWrapper.select(CrmContacts::getContactsId);
                     List<Integer> ids = ApplicationContextHolder.getBean(ICrmContactsService.class).listObjs(queryWrapper, TypeUtils::castToInt);
-                    addMember(CrmEnum.CONTACTS, new CrmMemberSaveBO(ids, crmMemberSaveBO), true, teamMembers);
+                    addMember(CrmTypeEnum.CONTACTS, new CrmMemberSaveBO(ids, crmMemberSaveBO), true, teamMembers);
                 }
                 if (crmMemberSaveBO.getChangeType().contains(2)) {
                     LambdaQueryWrapper<CrmBusiness> queryWrapper = new LambdaQueryWrapper<>();
                     queryWrapper.eq(CrmBusiness::getCustomerId, id);
                     queryWrapper.select(CrmBusiness::getBusinessId);
                     List<Integer> ids = ApplicationContextHolder.getBean(ICrmBusinessService.class).listObjs(queryWrapper, TypeUtils::castToInt);
-                    addMember(CrmEnum.BUSINESS, new CrmMemberSaveBO(ids, crmMemberSaveBO), true, teamMembers);
+                    addMember(CrmTypeEnum.BUSINESS, new CrmMemberSaveBO(ids, crmMemberSaveBO), true, teamMembers);
                 }
                 if (crmMemberSaveBO.getChangeType().contains(3)) {
                     LambdaQueryWrapper<CrmContract> queryWrapper = new LambdaQueryWrapper<>();
                     queryWrapper.eq(CrmContract::getCustomerId, id);
                     queryWrapper.select(CrmContract::getContractId);
                     List<Integer> ids = ApplicationContextHolder.getBean(ICrmContractService.class).listObjs(queryWrapper, TypeUtils::castToInt);
-                    addMember(CrmEnum.CONTRACT, new CrmMemberSaveBO(ids, crmMemberSaveBO), true, teamMembers);
+                    addMember(CrmTypeEnum.CONTRACT, new CrmMemberSaveBO(ids, crmMemberSaveBO), true, teamMembers);
                 }
             }
         }
@@ -328,14 +328,14 @@ public class CrmTeamMembersServiceImpl extends BaseServiceImpl<CrmTeamMembersMap
     /**
      * 发送通知
      *
-     * @param crmEnum 对应crm
+     * @param crmTypeEnum 对应crm
      * @param typeId  对应crm类型ID
      * @param title   标题 即对应类型名称
      * @param userId  用户ID
      * @param type    1 新增 2 移除 3 退出
      */
-    private void addTermMessage(CrmEnum crmEnum, Integer typeId, String title, Long userId, Integer type) {
-        String enumName = "CRM_" + crmEnum.name();
+    private void addTermMessage(CrmTypeEnum crmTypeEnum, Integer typeId, String title, Long userId, Integer type) {
+        String enumName = "CRM_" + crmTypeEnum.name();
 
         switch (type) {
             case 1: {
@@ -363,13 +363,13 @@ public class CrmTeamMembersServiceImpl extends BaseServiceImpl<CrmTeamMembersMap
         ApplicationContextHolder.getBean(AdminMessageService.class).sendMessage(adminMessageBO);
     }
 
-    private void updateEsField(CrmEnum crmEnum, List<Integer> ids, List<Long> members, boolean isRemove) {
+    private void updateEsField(CrmTypeEnum crmTypeEnum, List<Integer> ids, List<Long> members, boolean isRemove) {
         if (ids.size() == 0 || members.size() == 0) {
             return;
         }
         try {
             for (Integer id : ids) {
-                UpdateRequest updateRequest = new UpdateRequest(crmEnum.getIndex(), "_doc", id.toString());
+                UpdateRequest updateRequest = new UpdateRequest(crmTypeEnum.getIndex(), "_doc", id.toString());
                 String script;
                 if (isRemove) {
                     script = "if (ctx._source.teamMemberIds== null) {ctx._source.teamMemberIds=[]}else{ctx._source.teamMemberIds.removeAll(params.value)}";
@@ -379,14 +379,14 @@ public class CrmTeamMembersServiceImpl extends BaseServiceImpl<CrmTeamMembersMap
                 updateRequest.script(new Script(ScriptType.INLINE, "painless", script, Collections.singletonMap("value", members)));
                 restTemplate.getClient().update(updateRequest, RequestOptions.DEFAULT);
             }
-            restTemplate.refresh(crmEnum.getIndex());
+            restTemplate.refresh(crmTypeEnum.getIndex());
         } catch (Exception ex) {
             log.error("添加团队成员异常:", ex);
         }
     }
 
-    private Object[] getTypeName(CrmEnum crmEnum, Integer typeId) {
-        switch (crmEnum) {
+    private Object[] getTypeName(CrmTypeEnum crmTypeEnum, Integer typeId) {
+        switch (crmTypeEnum) {
             case CUSTOMER: {
                 CrmCustomer customer = ApplicationContextHolder.getBean(ICrmCustomerService.class)
                         .lambdaQuery()
@@ -433,14 +433,14 @@ public class CrmTeamMembersServiceImpl extends BaseServiceImpl<CrmTeamMembersMap
         }
     }
 
-    private void deleteMembers(CrmEnum crmEnum, Integer typeId, List<Long> memberIds) {
-        Object[] objects = getTypeName(crmEnum, typeId);
+    private void deleteMembers(CrmTypeEnum crmTypeEnum, Integer typeId, List<Long> memberIds) {
+        Object[] objects = getTypeName(crmTypeEnum, typeId);
         if (objects.length == 0) {
             return;
         }
         for (Long memberId : memberIds) {
             Integer count = lambdaQuery()
-                    .eq(CrmTeamMembers::getType, crmEnum.getType())
+                    .eq(CrmTeamMembers::getType, crmTypeEnum.getType())
                     .eq(CrmTeamMembers::getTypeId, typeId)
                     .eq(CrmTeamMembers::getUserId, memberId)
                     .count();
@@ -448,15 +448,15 @@ public class CrmTeamMembersServiceImpl extends BaseServiceImpl<CrmTeamMembersMap
                 continue;
             }
             if (!memberId.equals(UserUtil.getUserId())) {
-                addTermMessage(crmEnum, typeId, (String) objects[1], memberId, 2);
-                actionRecordUtil.addDeleteMemberActionRecord(crmEnum, typeId, memberId, false, (String) objects[1]);
+                addTermMessage(crmTypeEnum, typeId, (String) objects[1], memberId, 2);
+                actionRecordUtil.addDeleteMemberActionRecord(crmTypeEnum, typeId, memberId, false, (String) objects[1]);
             } else {
-                addTermMessage(crmEnum, typeId, (String) objects[1], memberId, 3);
-                actionRecordUtil.addDeleteMemberActionRecord(crmEnum, typeId, memberId, true, (String) objects[1]);
+                addTermMessage(crmTypeEnum, typeId, (String) objects[1], memberId, 3);
+                actionRecordUtil.addDeleteMemberActionRecord(crmTypeEnum, typeId, memberId, true, (String) objects[1]);
             }
         }
         lambdaUpdate()
-                .eq(CrmTeamMembers::getType, crmEnum.getType())
+                .eq(CrmTeamMembers::getType, crmTypeEnum.getType())
                 .eq(CrmTeamMembers::getTypeId, typeId)
                 .in(CrmTeamMembers::getUserId, memberIds).remove();
     }

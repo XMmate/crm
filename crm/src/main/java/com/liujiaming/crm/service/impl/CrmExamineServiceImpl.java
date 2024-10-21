@@ -20,7 +20,7 @@ import com.liujiaming.core.utils.TagUtil;
 import com.liujiaming.core.utils.UserCacheUtil;
 import com.liujiaming.core.utils.UserUtil;
 import com.liujiaming.crm.constant.CrmCodeEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmMyExamineBO;
 import com.liujiaming.crm.entity.BO.CrmQueryExamineStepBO;
 import com.liujiaming.crm.entity.BO.CrmSaveExamineBO;
@@ -74,17 +74,17 @@ public class CrmExamineServiceImpl extends BaseServiceImpl<CrmExamineMapper, Crm
     /**
      * 查询当前开启状态的审批数量
      *
-     * @param crmEnum enum
+     * @param crmTypeEnum enum
      * @return data
      */
     @Override
-    public Integer queryCount(CrmEnum crmEnum) {
+    public Integer queryCount(CrmTypeEnum crmTypeEnum) {
         int type;
-        if (crmEnum.equals(CrmEnum.CONTRACT)) {
+        if (crmTypeEnum.equals(CrmTypeEnum.CONTRACT)) {
             type = 1;
-        } else if (crmEnum.equals(CrmEnum.RECEIVABLES)) {
+        } else if (crmTypeEnum.equals(CrmTypeEnum.RECEIVABLES)) {
             type = 2;
-        } else if (crmEnum.equals(CrmEnum.INVOICE)) {
+        } else if (crmTypeEnum.equals(CrmTypeEnum.INVOICE)) {
             type = 3;
         } else {
             throw new CrmException(SystemCodeEnum.SYSTEM_NO_VALID);

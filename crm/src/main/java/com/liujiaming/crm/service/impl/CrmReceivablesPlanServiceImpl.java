@@ -29,7 +29,7 @@ import com.liujiaming.crm.common.CrmModel;
 import com.liujiaming.crm.common.ElasticUtil;
 import com.liujiaming.crm.constant.CrmBackLogEnum;
 import com.liujiaming.crm.constant.CrmCodeEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmBusinessSaveBO;
 import com.liujiaming.crm.entity.BO.CrmReceivablesPlanBO;
 import com.liujiaming.crm.entity.BO.CrmSearchBO;
@@ -280,13 +280,13 @@ public class CrmReceivablesPlanServiceImpl extends BaseServiceImpl<CrmReceivable
 
     /**
      * 修改回款计划状态
-     * @param crmEnum crmEnum
+     * @param crmTypeEnum crmTypeEnum
      * @param object 对应的PO对象
      * @param examineStatus 审批状态
      */
     @Override
-    public void updateReceivedStatus(CrmEnum crmEnum, Object object, Integer examineStatus) {
-        if(crmEnum == CrmEnum.CONTRACT) {
+    public void updateReceivedStatus(CrmTypeEnum crmTypeEnum, Object object, Integer examineStatus) {
+        if(crmTypeEnum == CrmTypeEnum.CONTRACT) {
             CrmContract contract = BeanUtil.copyProperties(object,CrmContract.class);
             LambdaQueryWrapper<CrmReceivablesPlan> queryWrapper = new LambdaQueryWrapper<>();
             queryWrapper.select(CrmReceivablesPlan::getReceivablesPlanId);
@@ -301,7 +301,7 @@ public class CrmReceivablesPlanServiceImpl extends BaseServiceImpl<CrmReceivable
                     ElasticUtil.updateField(getRestTemplate(), "receivedStatus", 3, ids, getIndex());
                 }
             }
-        } else if(crmEnum == CrmEnum.RECEIVABLES) {
+        } else if(crmTypeEnum == CrmTypeEnum.RECEIVABLES) {
             CrmReceivables receivables = BeanUtil.copyProperties(object,CrmReceivables.class);
             if((Objects.equals(1,examineStatus) || Objects.equals(10,examineStatus) ) && receivables.getReceivablesPlanId() != null) {
                 List<Integer> statuss =  new ArrayList<>();
@@ -401,16 +401,16 @@ public class CrmReceivablesPlanServiceImpl extends BaseServiceImpl<CrmReceivable
                 crmReceivablesPlan.setNum(Integer.valueOf(receivablesPlan.getNum()) + 1 + "");
             }
             save(crmReceivablesPlan);
-            actionRecordUtil.addRecord(crmReceivablesPlan.getReceivablesPlanId(), CrmEnum.RECEIVABLES_PLAN, crmReceivablesPlan.getNum());
+            actionRecordUtil.addRecord(crmReceivablesPlan.getReceivablesPlanId(), CrmTypeEnum.RECEIVABLES_PLAN, crmReceivablesPlan.getNum());
         } else {
             Integer number = crmReceivablesService.lambdaQuery().eq(CrmReceivables::getReceivablesPlanId, crmReceivablesPlan.getReceivablesPlanId()).count();
             if (number > 0) {
                 throw new CrmException(CrmCodeEnum.CRM_RECEIVABLES_PLAN_ERROR);
             }
             if (crmReceivablesPlan.getContractId() != null) {
-                crmBackLogDealService.deleteByType(crmContract.getOwnerUserId(), CrmEnum.RECEIVABLES_PLAN, CrmBackLogEnum.REMIND_RECEIVABLES_PLAN, crmReceivablesPlan.getReceivablesPlanId());
+                crmBackLogDealService.deleteByType(crmContract.getOwnerUserId(), CrmTypeEnum.RECEIVABLES_PLAN, CrmBackLogEnum.REMIND_RECEIVABLES_PLAN, crmReceivablesPlan.getReceivablesPlanId());
             }
-            actionRecordUtil.updateRecord(BeanUtil.beanToMap(getById(crmReceivablesPlan.getReceivablesPlanId())), BeanUtil.beanToMap(crmReceivablesPlan), CrmEnum.RECEIVABLES_PLAN, crmReceivablesPlan.getNum(), crmReceivablesPlan.getReceivablesPlanId());
+            actionRecordUtil.updateRecord(BeanUtil.beanToMap(getById(crmReceivablesPlan.getReceivablesPlanId())), BeanUtil.beanToMap(crmReceivablesPlan), CrmTypeEnum.RECEIVABLES_PLAN, crmReceivablesPlan.getNum(), crmReceivablesPlan.getReceivablesPlanId());
             if (crmReceivablesPlan.getReceivedStatus() == null || crmReceivablesPlan.getReceivedStatus() == 3){
                 crmReceivablesPlan.setReceivedStatus(0);
             }
@@ -458,13 +458,13 @@ public class CrmReceivablesPlanServiceImpl extends BaseServiceImpl<CrmReceivable
                 Map<String, Object> crmReceivablesPlanMap = new HashMap<>(oldReceivablesPlanMap);
                 crmReceivablesPlanMap.put(record.getString("fieldName"), record.get("value"));
                 CrmReceivablesPlan crmReceivablesPlan = BeanUtil.mapToBean(crmReceivablesPlanMap, CrmReceivablesPlan.class, true);
-                actionRecordUtil.updateRecord(oldReceivablesPlanMap, crmReceivablesPlanMap, CrmEnum.RECEIVABLES_PLAN, crmReceivablesPlan.getNum(), crmReceivablesPlan.getReceivablesPlanId());
+                actionRecordUtil.updateRecord(oldReceivablesPlanMap, crmReceivablesPlanMap, CrmTypeEnum.RECEIVABLES_PLAN, crmReceivablesPlan.getNum(), crmReceivablesPlan.getReceivablesPlanId());
                 update().set(StrUtil.toUnderlineCase(record.getString("fieldName")), record.get("value")).eq("receivables_plan_id",updateInformationBO.getId()).update();
             } else if (record.getInteger("fieldType") == 0 || record.getInteger("fieldType") == 2) {
                 CrmReceivablesPlanData receivablesPlanData = receivablesPlanDataService.lambdaQuery().select(CrmReceivablesPlanData::getValue,CrmReceivablesPlanData::getId).eq(CrmReceivablesPlanData::getFieldId, record.getInteger("fieldId"))
                         .eq(CrmReceivablesPlanData::getBatchId, batchId).one();
                 String value = receivablesPlanData != null ? receivablesPlanData.getValue() : null;
-                actionRecordUtil.publicContentRecord(CrmEnum.RECEIVABLES_PLAN, BehaviorEnum.UPDATE, receivablesPlanId, oldReceivablesPlan.getNum(), record,value);
+                actionRecordUtil.publicContentRecord(CrmTypeEnum.RECEIVABLES_PLAN, BehaviorEnum.UPDATE, receivablesPlanId, oldReceivablesPlan.getNum(), record,value);
                 String newValue = fieldService.convertObjectValueToString(record.getInteger("type"),record.get("value"),record.getString("value"));
                 CrmReceivablesPlanData crmReceivablesPlanData = new CrmReceivablesPlanData();
                 crmReceivablesPlanData.setId(receivablesPlanData != null ? receivablesPlanData.getId() : null);
@@ -515,7 +515,7 @@ public class CrmReceivablesPlanServiceImpl extends BaseServiceImpl<CrmReceivable
             crmModel.put("contractId", Collections.singletonList(new JSONObject().fluentPut("contractId",crmModel.get("contractId")).fluentPut("contractNum",crmModel.get("contractNum"))));
         }
         List<CrmModelFiledVO> filedVOS = crmFieldService.queryField(crmModel);
-       // CrmField crmField = crmFieldService.lambdaQuery().eq(CrmField::getLabel, CrmEnum.RECEIVABLES.getType()).eq(CrmField::getFieldName, "return_type").one();
+       // CrmField crmField = crmFieldService.lambdaQuery().eq(CrmField::getLabel, CrmTypeEnum.RECEIVABLES.getType()).eq(CrmField::getFieldName, "return_type").one();
        // filedVOS.add(BeanUtil.copyProperties(crmField, CrmModelFiledVO.class));
         if (appendInformation) {
             List<CrmModelFiledVO> modelFiledVOS = appendInformation(crmModel);
@@ -597,8 +597,8 @@ public class CrmReceivablesPlanServiceImpl extends BaseServiceImpl<CrmReceivable
     }
 
     @Override
-    public CrmEnum getLabel() {
-        return CrmEnum.RECEIVABLES_PLAN;
+    public CrmTypeEnum getLabel() {
+        return CrmTypeEnum.RECEIVABLES_PLAN;
     }
 
     @Override

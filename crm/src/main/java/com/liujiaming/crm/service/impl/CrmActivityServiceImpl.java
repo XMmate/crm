@@ -187,10 +187,10 @@ public class CrmActivityServiceImpl extends BaseServiceImpl<CrmActivityMapper, C
         save(crmActivity);
         updateNextTime(crmActivity);
         if (crmActivity.getType() == 1) {
-            crmBackLogDealService.deleteByType(user.getUserId(), CrmEnum.parse(crmActivity.getActivityType()), CrmBackLogEnum.TODAY_CUSTOMER, crmActivity.getActivityTypeId());
-            crmBackLogDealService.deleteByType(user.getUserId(), CrmEnum.parse(crmActivity.getActivityType()), CrmBackLogEnum.FOLLOW_LEADS, crmActivity.getActivityTypeId());
-            crmBackLogDealService.deleteByType(user.getUserId(), CrmEnum.parse(crmActivity.getActivityType()), CrmBackLogEnum.FOLLOW_CUSTOMER, crmActivity.getActivityTypeId());
-            crmBackLogDealService.deleteByType(user.getUserId(), CrmEnum.parse(crmActivity.getActivityType()), CrmBackLogEnum.TO_ENTER_CUSTOMER_POOL, crmActivity.getActivityTypeId());
+            crmBackLogDealService.deleteByType(user.getUserId(), CrmTypeEnum.parse(crmActivity.getActivityType()), CrmBackLogEnum.TODAY_CUSTOMER, crmActivity.getActivityTypeId());
+            crmBackLogDealService.deleteByType(user.getUserId(), CrmTypeEnum.parse(crmActivity.getActivityType()), CrmBackLogEnum.FOLLOW_LEADS, crmActivity.getActivityTypeId());
+            crmBackLogDealService.deleteByType(user.getUserId(), CrmTypeEnum.parse(crmActivity.getActivityType()), CrmBackLogEnum.FOLLOW_CUSTOMER, crmActivity.getActivityTypeId());
+            crmBackLogDealService.deleteByType(user.getUserId(), CrmTypeEnum.parse(crmActivity.getActivityType()), CrmBackLogEnum.TO_ENTER_CUSTOMER_POOL, crmActivity.getActivityTypeId());
         }
         actionRecordUtil.addFollowupActionRecord(crmActivity.getActivityType(), crmActivity.getActivityTypeId(), "");
     }
@@ -237,7 +237,7 @@ public class CrmActivityServiceImpl extends BaseServiceImpl<CrmActivityMapper, C
         }
         Integer activityType = crmActivity.getActivityType();
         Integer activityTypeId = crmActivity.getActivityTypeId();
-        if (activityType.equals(CrmEnum.LEADS.getType())) {
+        if (activityType.equals(CrmTypeEnum.LEADS.getType())) {
             CrmLeads crmLeads = ApplicationContextHolder.getBean(ICrmLeadsService.class).getById(activityTypeId);
             if (isDel && StrUtil.isEmpty(crmActivity.getContent())){
                 laseTime = crmLeads.getCreateTime();
@@ -247,7 +247,7 @@ public class CrmActivityServiceImpl extends BaseServiceImpl<CrmActivityMapper, C
                     .set(CrmLeads::getLastContent,lastContent).set(CrmLeads::getNextTime,nextTime)
                     .set(CrmLeads::getUpdateTime,new Date())
                     .eq(CrmLeads::getLeadsId,activityTypeId).update();
-        } else if (activityType.equals(CrmEnum.CUSTOMER.getType())) {
+        } else if (activityType.equals(CrmTypeEnum.CUSTOMER.getType())) {
             CrmCustomer customer = ApplicationContextHolder.getBean(ICrmCustomerService.class).getById(activityTypeId);
             if (isDel && StrUtil.isEmpty(crmActivity.getContent())){
                 laseTime = customer.getCreateTime();
@@ -257,7 +257,7 @@ public class CrmActivityServiceImpl extends BaseServiceImpl<CrmActivityMapper, C
                     .set(CrmCustomer::getLastContent,lastContent).set(CrmCustomer::getNextTime,nextTime)
                     .set(CrmCustomer::getUpdateTime,new Date())
                     .eq(CrmCustomer::getCustomerId,activityTypeId).update();
-        } else if (activityType.equals(CrmEnum.BUSINESS.getType())) {
+        } else if (activityType.equals(CrmTypeEnum.BUSINESS.getType())) {
             CrmBusiness business = ApplicationContextHolder.getBean(ICrmBusinessService.class).getById(activityTypeId);
             if (isDel && StrUtil.isEmpty(crmActivity.getContent())){
                 laseTime = business.getCreateTime();
@@ -267,7 +267,7 @@ public class CrmActivityServiceImpl extends BaseServiceImpl<CrmActivityMapper, C
                     .set(CrmBusiness::getNextTime,nextTime)
                     .set(CrmBusiness::getUpdateTime,new Date())
                     .eq(CrmBusiness::getBusinessId,activityTypeId).update();
-        } else if (activityType.equals(CrmEnum.CONTACTS.getType())) {
+        } else if (activityType.equals(CrmTypeEnum.CONTACTS.getType())) {
             CrmContacts contacts = ApplicationContextHolder.getBean(ICrmContactsService.class).getById(activityTypeId);
             if (isDel && StrUtil.isEmpty(crmActivity.getContent())){
                 laseTime = contacts.getCreateTime();
@@ -277,7 +277,7 @@ public class CrmActivityServiceImpl extends BaseServiceImpl<CrmActivityMapper, C
                     .set(CrmContacts::getNextTime,nextTime)
                     .set(CrmContacts::getUpdateTime,new Date())
                     .eq(CrmContacts::getContactsId,activityTypeId).update();
-        } else if (activityType.equals(CrmEnum.CONTRACT.getType())) {
+        } else if (activityType.equals(CrmTypeEnum.CONTRACT.getType())) {
             CrmContract contract = ApplicationContextHolder.getBean(ICrmContractService.class).getById(activityTypeId);
             if (isDel && StrUtil.isEmpty(crmActivity.getContent())){
                 laseTime = contract.getCreateTime();
@@ -287,7 +287,7 @@ public class CrmActivityServiceImpl extends BaseServiceImpl<CrmActivityMapper, C
                     .set(CrmContract::getUpdateTime,new Date())
                     .eq(CrmContract::getContractId,activityTypeId).update();
         }
-        String index = CrmEnum.parse(activityType).getIndex();
+        String index = CrmTypeEnum.parse(activityType).getIndex();
         UpdateRequest updateRequest = new UpdateRequest(index, "_doc", activityTypeId.toString());
         Map<String, Object> map = new HashMap<>();
         map.put("lastTime", DateUtil.formatDateTime(laseTime));
@@ -316,11 +316,11 @@ public class CrmActivityServiceImpl extends BaseServiceImpl<CrmActivityMapper, C
                 crmContacts.setNextTime(nextTime);
                 CrmActivityRelation activityRelation = new CrmActivityRelation();
                 activityRelation.setActivityId(crmActivity.getActivityId());
-                activityRelation.setType(CrmEnum.CONTACTS.getType());
+                activityRelation.setType(CrmTypeEnum.CONTACTS.getType());
                 activityRelation.setTypeId(contactId);
                 activityRelationList.add(activityRelation);
                 crmContactsList.add(crmContacts);
-                UpdateRequest updateContactsRequest = new UpdateRequest(CrmEnum.CONTACTS.getIndex(), "_doc", contactId.toString());
+                UpdateRequest updateContactsRequest = new UpdateRequest(CrmTypeEnum.CONTACTS.getIndex(), "_doc", contactId.toString());
                 Map<String, Object> contactsMap = new HashMap<>();
                 contactsMap.put("nextTime", DateUtil.formatDateTime(nextTime));
                 updateContactsRequest.doc(contactsMap);
@@ -342,11 +342,11 @@ public class CrmActivityServiceImpl extends BaseServiceImpl<CrmActivityMapper, C
                 crmBusiness.setNextTime(nextTime);
                 CrmActivityRelation activityRelation = new CrmActivityRelation();
                 activityRelation.setActivityId(crmActivity.getActivityId());
-                activityRelation.setType(CrmEnum.BUSINESS.getType());
+                activityRelation.setType(CrmTypeEnum.BUSINESS.getType());
                 activityRelation.setTypeId(businessId);
                 activityRelationList.add(activityRelation);
                 businessList.add(crmBusiness);
-                UpdateRequest updateBusinessRequest = new UpdateRequest(CrmEnum.BUSINESS.getIndex(), "_doc", businessId.toString());
+                UpdateRequest updateBusinessRequest = new UpdateRequest(CrmTypeEnum.BUSINESS.getIndex(), "_doc", businessId.toString());
                 Map<String, Object> businessMap = new HashMap<>();
                 businessMap.put("nextTime", DateUtil.formatDateTime(nextTime));
                 updateBusinessRequest.doc(businessMap);
@@ -380,7 +380,7 @@ public class CrmActivityServiceImpl extends BaseServiceImpl<CrmActivityMapper, C
                 record.setImg(new ArrayList<>());
             }
         }
-        if (record.getActivityType().equals(CrmEnum.CUSTOMER.getType())) {
+        if (record.getActivityType().equals(CrmTypeEnum.CUSTOMER.getType())) {
             String businessIds = record.getBusinessIds();
             List<SimpleCrmEntity> businessList = new ArrayList<>();
             if (businessIds != null) {

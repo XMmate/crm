@@ -22,7 +22,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("wk_examine_record_log")
-@ApiModel(value="ExamineRecordLog对象", description="审核日志表")
+@ApiModel(value="ExamineRecordLog对象", description="审核流表")
 public class ExamineRecordLog implements Serializable {
 
     private static final long serialVersionUID=1L;

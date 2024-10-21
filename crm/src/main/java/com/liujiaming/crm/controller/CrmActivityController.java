@@ -14,7 +14,7 @@ import com.liujiaming.crm.common.AuthUtil;
 import com.liujiaming.crm.common.log.CrmActivityLog;
 import com.liujiaming.crm.constant.CrmActivityEnum;
 import com.liujiaming.crm.constant.CrmAuthEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmActivityBO;
 import com.liujiaming.crm.entity.PO.CrmActivity;
 import com.liujiaming.crm.entity.VO.CrmActivityVO;
@@ -54,7 +54,7 @@ public class CrmActivityController {
     @ApiOperation("添加跟进记录")
     @SysLogHandler(behavior = BehaviorEnum.FOLLOW_UP)
     public Result addCrmActivityRecord(@RequestBody @Valid CrmActivity crmActivity) {
-        boolean auth = AuthUtil.isCrmAuth(CrmEnum.parse(crmActivity.getActivityType()), crmActivity.getActivityTypeId(),CrmAuthEnum.READ);
+        boolean auth = AuthUtil.isCrmAuth(CrmTypeEnum.parse(crmActivity.getActivityType()), crmActivity.getActivityTypeId(),CrmAuthEnum.READ);
         if (auth) {
             return R.noAuth();
         }

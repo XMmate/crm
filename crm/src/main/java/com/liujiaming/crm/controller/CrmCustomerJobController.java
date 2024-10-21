@@ -19,7 +19,7 @@ import com.liujiaming.core.redis.service.Redis;
 import com.liujiaming.core.servlet.ApplicationContextHolder;
 import com.liujiaming.core.utils.BaseUtil;
 import com.liujiaming.core.utils.TagUtil;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmCustomerPoolBO;
 import com.liujiaming.crm.entity.PO.*;
 import com.liujiaming.crm.mapper.CrmCustomerPoolMapper;
@@ -118,7 +118,7 @@ public class CrmCustomerJobController {
                         continue;
                     }
                     for (Integer id : ids) {
-                        crmActionRecordList.add(addPutPoolRecord(CrmEnum.CUSTOMER.getType(),id,rule.getType(),rule.getLimitDay(),date));
+                        crmActionRecordList.add(addPutPoolRecord(CrmTypeEnum.CUSTOMER.getType(),id,rule.getType(),rule.getLimitDay(),date));
                     }
                     customerIdSet.addAll(ids);
                 }
@@ -127,7 +127,7 @@ public class CrmCustomerJobController {
                     if (ObjectUtil.isNotEmpty(crmCustomer.getOwnerUserId())) {
                         CrmOwnerRecord crmOwnerRecord = new CrmOwnerRecord();
                         crmOwnerRecord.setTypeId(customerId);
-                        crmOwnerRecord.setType(CrmEnum.CUSTOMER_POOL.getType());
+                        crmOwnerRecord.setType(CrmTypeEnum.CUSTOMER_POOL.getType());
                         crmOwnerRecord.setPreOwnerUserId(crmCustomer.getOwnerUserId());
                         crmOwnerRecordService.save(crmOwnerRecord);
                         crmCustomerService.lambdaUpdate()

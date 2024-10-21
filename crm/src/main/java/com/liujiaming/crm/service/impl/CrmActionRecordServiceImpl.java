@@ -7,7 +7,7 @@ import com.liujiaming.core.feign.admin.entity.AdminConfig;
 import com.liujiaming.core.feign.admin.service.AdminService;
 import com.liujiaming.core.servlet.ApplicationContextHolder;
 import com.liujiaming.core.servlet.BaseServiceImpl;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.PO.CrmActionRecord;
 import com.liujiaming.crm.entity.VO.CrmActionRecordVO;
 import com.liujiaming.crm.entity.VO.CrmModelFiledVO;
@@ -33,13 +33,13 @@ public class CrmActionRecordServiceImpl extends BaseServiceImpl<CrmActionRecordM
     /**
      * 删除字段记录类型
      *
-     * @param crmEnum 类型
+     * @param crmTypeEnum 类型
      * @param ids     ids
      */
     @Override
-    public void deleteActionRecord(CrmEnum crmEnum, List<Integer> ids) {
+    public void deleteActionRecord(CrmTypeEnum crmTypeEnum, List<Integer> ids) {
         LambdaQueryWrapper<CrmActionRecord> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(CrmActionRecord::getTypes, crmEnum.getType());
+        wrapper.eq(CrmActionRecord::getTypes, crmTypeEnum.getType());
         wrapper.in(CrmActionRecord::getActionId, ids);
         remove(wrapper);
     }

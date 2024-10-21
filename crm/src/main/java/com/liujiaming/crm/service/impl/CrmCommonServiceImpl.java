@@ -12,7 +12,7 @@ import com.liujiaming.core.servlet.ApplicationContextHolder;
 import com.liujiaming.core.servlet.BaseService;
 import com.liujiaming.core.utils.BaseUtil;
 import com.liujiaming.core.utils.UserUtil;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.PO.*;
 import com.liujiaming.crm.service.*;
 import com.liujiaming.crm.entity.PO.*;
@@ -219,8 +219,8 @@ public class CrmCommonServiceImpl implements ICrmCommonService {
      **/
     private long deleteByQuery(RestHighLevelClient client) {
         List<String> indexList = new ArrayList<>();
-        for (CrmEnum value : CrmEnum.values()) {
-            if (!value.equals(CrmEnum.NULL) && !value.equals(CrmEnum.CUSTOMER_POOL) && !value.equals(CrmEnum.MARKETING)){
+        for (CrmTypeEnum value : CrmTypeEnum.values()) {
+            if (!value.equals(CrmTypeEnum.NULL) && !value.equals(CrmTypeEnum.CUSTOMER_POOL) && !value.equals(CrmTypeEnum.MARKETING)){
                 indexList.add(value.getIndex());
             }
         }

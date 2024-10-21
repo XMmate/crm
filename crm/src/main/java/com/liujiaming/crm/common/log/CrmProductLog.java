@@ -14,7 +14,7 @@ import com.liujiaming.core.servlet.ApplicationContextHolder;
 import com.liujiaming.core.servlet.upload.FileEntity;
 import com.liujiaming.core.utils.TagUtil;
 import com.liujiaming.core.utils.UserCacheUtil;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmChangeOwnerUserBO;
 import com.liujiaming.crm.entity.BO.CrmModelSaveBO;
 import com.liujiaming.crm.entity.BO.CrmProductStatusBO;
@@ -45,7 +45,7 @@ public class CrmProductLog {
         List<Content> contentList = new ArrayList<>();
         for (Integer id : ids) {
             CrmProduct product = crmProductService.getById(id);
-            contentList.add(sysLogUtil.addDeleteActionRecord(CrmEnum.PRODUCT,product.getName()));
+            contentList.add(sysLogUtil.addDeleteActionRecord(CrmTypeEnum.PRODUCT,product.getName()));
         }
         return contentList;
     }
@@ -54,14 +54,14 @@ public class CrmProductLog {
         CrmProduct crmProduct = BeanUtil.copyProperties(crmModel.getEntity(), CrmProduct.class);
         String batchId = crmProduct.getBatchId();
         sysLogUtil.updateRecord(crmModel.getField(), Dict.create().set("batchId", batchId).set("dataTableName", "wk_crm_product_data"));
-        return sysLogUtil.updateRecord(BeanUtil.beanToMap(crmProductService.getById(crmProduct.getProductId())), BeanUtil.beanToMap(crmProduct), CrmEnum.PRODUCT, crmProduct.getName());
+        return sysLogUtil.updateRecord(BeanUtil.beanToMap(crmProductService.getById(crmProduct.getProductId())), BeanUtil.beanToMap(crmProduct), CrmTypeEnum.PRODUCT, crmProduct.getName());
     }
 
     public List<Content> changeOwnerUser(CrmChangeOwnerUserBO crmChangeOwnerUserBO) {
         List<Content> contentList = new ArrayList<>();
         for (Integer id : crmChangeOwnerUserBO.getIds()) {
             CrmProduct product = crmProductService.getById(id);
-            contentList.add(sysLogUtil.addConversionRecord(CrmEnum.PRODUCT, crmChangeOwnerUserBO.getOwnerUserId(), product.getName()));
+            contentList.add(sysLogUtil.addConversionRecord(CrmTypeEnum.PRODUCT, crmChangeOwnerUserBO.getOwnerUserId(), product.getName()));
         }
         return contentList;
     }
@@ -92,7 +92,7 @@ public class CrmProductLog {
                 Map<String, Object> crmProductMap = new HashMap<>(oldProductMap);
                 crmProductMap.put(record.getString("fieldName"), record.get("value"));
                 CrmProduct crmProduct = BeanUtil.mapToBean(crmProductMap, CrmProduct.class, true);
-                contentList.add(sysLogUtil.updateRecord(oldProductMap, crmProductMap, CrmEnum.PRODUCT, crmProduct.getName()));
+                contentList.add(sysLogUtil.updateRecord(oldProductMap, crmProductMap, CrmTypeEnum.PRODUCT, crmProduct.getName()));
             } else if (record.getInteger("fieldType") == 0 || record.getInteger("fieldType") == 2) {
                 String oldFieldValue = crmProductDataService.lambdaQuery().select(CrmProductData::getValue).eq(CrmProductData::getFieldId, record.getInteger("fieldId"))
                         .eq(CrmProductData::getBatchId, batchId).one().getValue();

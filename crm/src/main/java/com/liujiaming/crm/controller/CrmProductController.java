@@ -13,7 +13,7 @@ import com.liujiaming.core.servlet.upload.FileEntity;
 import com.liujiaming.core.utils.UserUtil;
 import com.liujiaming.crm.common.CrmModel;
 import com.liujiaming.crm.common.log.CrmProductLog;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.*;
 import com.liujiaming.crm.entity.VO.CrmInfoNumVO;
 import com.liujiaming.crm.entity.VO.CrmModelFiledVO;
@@ -117,7 +117,7 @@ public class CrmProductController {
     public void batchExportExcel(@RequestBody @ApiParam(name = "ids", value = "id列表") List<Integer> ids, HttpServletResponse response) {
         CrmSearchBO search = new CrmSearchBO();
         search.setPageType(0);
-        search.setLabel(CrmEnum.PRODUCT.getType());
+        search.setLabel(CrmTypeEnum.PRODUCT.getType());
         CrmSearchBO.Search entity = new CrmSearchBO.Search();
         entity.setFormType(FieldEnum.TEXT.getFormType());
         entity.setSearchEnum(CrmSearchBO.FieldSearchEnum.ID);
@@ -197,7 +197,7 @@ public class CrmProductController {
     public Result<Long> uploadExcel(@RequestParam("file") MultipartFile file, @RequestParam("repeatHandling") Integer repeatHandling) {
         UploadExcelBO uploadExcelBO = new UploadExcelBO();
         uploadExcelBO.setUserInfo(UserUtil.getUser());
-        uploadExcelBO.setCrmEnum(CrmEnum.PRODUCT);
+        uploadExcelBO.setCrmTypeEnum(CrmTypeEnum.PRODUCT);
         uploadExcelBO.setPoolId(null);
         uploadExcelBO.setRepeatHandling(repeatHandling);
         Long messageId = ApplicationContextHolder.getBean(CrmUploadExcelService.class).uploadExcel(file, uploadExcelBO);
@@ -217,7 +217,7 @@ public class CrmProductController {
     public Result<BasePage<Map<String, Object>>> querySaleProductPageList(@RequestBody CrmQuerySaleProductPageBO querySaleProductPageBO){
         CrmSearchBO search = new CrmSearchBO();
         search.setPageType(0);
-        search.setLabel(CrmEnum.PRODUCT.getType());
+        search.setLabel(CrmTypeEnum.PRODUCT.getType());
         search.setSearch(querySaleProductPageBO.getSearch());
         search.setPage(querySaleProductPageBO.getPage());
         search.setLimit(querySaleProductPageBO.getLimit());

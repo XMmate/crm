@@ -17,7 +17,7 @@ import com.liujiaming.crm.common.CrmModel;
 import com.liujiaming.crm.common.log.CrmContactsLog;
 import com.liujiaming.crm.constant.CrmAuthEnum;
 import com.liujiaming.crm.constant.CrmCodeEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.*;
 import com.liujiaming.crm.entity.PO.CrmContacts;
 import com.liujiaming.crm.entity.VO.CrmInfoNumVO;
@@ -109,7 +109,7 @@ public class CrmContactsController {
     @PostMapping("/queryBusiness")
     @ApiOperation("联系人下查询商机")
     public Result<BasePage<Map<String, Object>>> queryBusiness(@RequestBody CrmBusinessPageBO businessPageBO) {
-        boolean auth = AuthUtil.isCrmAuth(CrmEnum.CONTACTS, businessPageBO.getContactsId(), CrmAuthEnum.READ);
+        boolean auth = AuthUtil.isCrmAuth(CrmTypeEnum.CONTACTS, businessPageBO.getContactsId(), CrmAuthEnum.READ);
         if (auth) {
             throw new CrmException(SystemCodeEnum.SYSTEM_NO_AUTH);
         }
@@ -145,7 +145,7 @@ public class CrmContactsController {
     public void batchExportExcel(@RequestBody @ApiParam(name = "ids", value = "id列表") List<Integer> ids, HttpServletResponse response) {
         CrmSearchBO search = new CrmSearchBO();
         search.setPageType(0);
-        search.setLabel(CrmEnum.CONTACTS.getType());
+        search.setLabel(CrmTypeEnum.CONTACTS.getType());
         CrmSearchBO.Search entity = new CrmSearchBO.Search();
         entity.setFormType(FieldEnum.TEXT.getFormType());
         entity.setSearchEnum(CrmSearchBO.FieldSearchEnum.ID);
@@ -225,7 +225,7 @@ public class CrmContactsController {
     public Result<Long> uploadExcel(@RequestParam("file") MultipartFile file, @RequestParam("repeatHandling") Integer repeatHandling) {
         UploadExcelBO uploadExcelBO = new UploadExcelBO();
         uploadExcelBO.setUserInfo(UserUtil.getUser());
-        uploadExcelBO.setCrmEnum(CrmEnum.CONTACTS);
+        uploadExcelBO.setCrmTypeEnum(CrmTypeEnum.CONTACTS);
         uploadExcelBO.setPoolId(null);
         uploadExcelBO.setRepeatHandling(repeatHandling);
         Long messageId = ApplicationContextHolder.getBean(CrmUploadExcelService.class).uploadExcel(file, uploadExcelBO);
@@ -243,12 +243,12 @@ public class CrmContactsController {
     @PostMapping("/getMembers/{contactsId}")
     @ApiOperation("获取团队成员")
     public Result<List<CrmMembersSelectVO>> getMembers(@PathVariable("contactsId") @ApiParam("联系人ID") Integer contractId) {
-        CrmEnum crmEnum = CrmEnum.CONTACTS;
+        CrmTypeEnum crmTypeEnum = CrmTypeEnum.CONTACTS;
         CrmContacts contacts = crmContactsService.getById(contractId);
         if (contacts == null) {
-            throw new CrmException(CrmCodeEnum.CRM_DATA_DELETED, crmEnum.getRemarks());
+            throw new CrmException(CrmCodeEnum.CRM_DATA_DELETED, crmTypeEnum.getRemarks());
         }
-        List<CrmMembersSelectVO> members = teamMembersService.getMembers(crmEnum,contractId,contacts.getOwnerUserId());
+        List<CrmMembersSelectVO> members = teamMembersService.getMembers(crmTypeEnum,contractId,contacts.getOwnerUserId());
         return R.ok(members);
     }
 
@@ -256,7 +256,7 @@ public class CrmContactsController {
     @ApiOperation("新增团队成员")
     @SysLogHandler(behavior = BehaviorEnum.ADD_MEMBER)
     public Result addMembers(@RequestBody CrmMemberSaveBO crmMemberSaveBO) {
-        teamMembersService.addMember(CrmEnum.CONTACTS,crmMemberSaveBO);
+        teamMembersService.addMember(CrmTypeEnum.CONTACTS,crmMemberSaveBO);
         return R.ok();
     }
 
@@ -264,7 +264,7 @@ public class CrmContactsController {
     @ApiOperation("新增团队成员")
     @SysLogHandler(behavior = BehaviorEnum.ADD_MEMBER)
     public Result updateMembers(@RequestBody CrmMemberSaveBO crmMemberSaveBO) {
-        teamMembersService.addMember(CrmEnum.CONTACTS,crmMemberSaveBO);
+        teamMembersService.addMember(CrmTypeEnum.CONTACTS,crmMemberSaveBO);
         return R.ok();
     }
 
@@ -272,7 +272,7 @@ public class CrmContactsController {
     @ApiOperation("删除团队成员")
     @SysLogHandler
     public Result deleteMembers(@RequestBody CrmMemberSaveBO crmMemberSaveBO) {
-        teamMembersService.deleteMember(CrmEnum.CONTACTS,crmMemberSaveBO);
+        teamMembersService.deleteMember(CrmTypeEnum.CONTACTS,crmMemberSaveBO);
         return R.ok();
     }
 
@@ -280,7 +280,7 @@ public class CrmContactsController {
     @ApiOperation("退出团队")
     @SysLogHandler
     public Result exitTeam(@PathVariable("contactsId") @ApiParam("联系人ID") Integer contactsId) {
-        teamMembersService.exitTeam(CrmEnum.CONTACTS,contactsId);
+        teamMembersService.exitTeam(CrmTypeEnum.CONTACTS,contactsId);
         return R.ok();
     }
 }

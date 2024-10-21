@@ -10,7 +10,7 @@ import com.liujiaming.core.exception.CrmException;
 import com.liujiaming.core.utils.BaseUtil;
 import com.liujiaming.core.utils.UserUtil;
 import com.liujiaming.crm.constant.CrmAuthEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -44,14 +44,14 @@ public class CrmAuthAspect {
         String[] split = requestURI.split("/");
         Long userId = UserUtil.getUserId();
         boolean flag = false;
-        CrmEnum crmEnum = CrmEnum.parse(split[1].substring(3).toUpperCase());
-        if (crmEnum  != CrmEnum.NULL && !userId.equals(UserUtil.getSuperUser())) {
+        CrmTypeEnum crmTypeEnum = CrmTypeEnum.parse(split[1].substring(3).toUpperCase());
+        if (crmTypeEnum  != CrmTypeEnum.NULL && !userId.equals(UserUtil.getSuperUser())) {
             if ("add".equals(split[2]) || "update".equals(split[2])) {
                 JSONObject jsonObject = JSON.parseObject(ServletUtil.getBody(request));
-                Integer id = Optional.ofNullable(jsonObject.getJSONObject("entity")).orElse(new JSONObject()).getInteger(crmEnum.getPrimaryKey());
+                Integer id = Optional.ofNullable(jsonObject.getJSONObject("entity")).orElse(new JSONObject()).getInteger(crmTypeEnum.getPrimaryKey());
                 if(id != null){
                     BaseUtil.getRedis().del(CrmCacheKey.CRM_BACKLOG_NUM_CACHE_KEY + UserUtil.getUserId().toString());
-                    flag = AuthUtil.isRwAuth(id,crmEnum, CrmAuthEnum.EDIT);
+                    flag = AuthUtil.isRwAuth(id,crmTypeEnum, CrmAuthEnum.EDIT);
                 }
 
             } else if ("deleteByIds".equals(split[2])) {
@@ -60,14 +60,14 @@ public class CrmAuthAspect {
                     List<Integer> idsArr = JSON.parseArray(ServletUtil.getBody(request), Integer.class);
                     for (Integer id : idsArr) {
                         if (id != null) {
-                            flag = AuthUtil.isCrmAuth(crmEnum, id,CrmAuthEnum.DELETE);
+                            flag = AuthUtil.isCrmAuth(crmTypeEnum, id,CrmAuthEnum.DELETE);
                         }
                     }
                 }
             } else if ("queryById".equals(split[2])) {
                 //客户公海单独处理
                 if (!Arrays.asList("crmCustomer", "crmMarketing").contains(split[1])) {
-                    flag = AuthUtil.isCrmAuth(crmEnum, Integer.valueOf(split[3]),CrmAuthEnum.READ);
+                    flag = AuthUtil.isCrmAuth(crmTypeEnum, Integer.valueOf(split[3]),CrmAuthEnum.READ);
                 }
             }
             if (flag) {

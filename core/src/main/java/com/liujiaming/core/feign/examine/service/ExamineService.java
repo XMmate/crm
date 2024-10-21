@@ -50,6 +50,13 @@ public interface ExamineService {
     @PostMapping("/examineWaiting/queryOaExamineIdList")
     public Result<List<Integer>> queryOaExamineIdList(@RequestParam("status")Integer status,@RequestParam("categoryId")Integer categoryId);
 
+
+    /**
+     * 根据条件查询审批流程表ID列表
+     * @param label
+     * @param status
+     * @return
+     */
     @PostMapping("/examineWaiting/queryCrmExamineIdList")
     public Result<List<Integer>> queryCrmExamineIdList(@RequestParam("label")Integer label,@RequestParam("status")Integer status);
 

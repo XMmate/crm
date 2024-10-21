@@ -15,7 +15,7 @@ import com.liujiaming.core.exception.CrmException;
 import com.liujiaming.core.feign.crm.entity.BiParams;
 import com.liujiaming.core.servlet.ApplicationContextHolder;
 import com.liujiaming.core.utils.BiTimeUtil;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmSearchBO;
 import com.liujiaming.crm.entity.BO.EsUpdateFieldBO;
 import com.liujiaming.crm.entity.BO.EsUpdatePropertiesBO;
@@ -45,13 +45,13 @@ import java.util.*;
 @Slf4j
 public class ElasticUtil {
     public static void addField(RestHighLevelClient client, CrmFieldConfig crmField, Integer fieldType) {
-        CrmEnum crmEnum = CrmEnum.parse(crmField.getLabel());
+        CrmTypeEnum crmTypeEnum = CrmTypeEnum.parse(crmField.getLabel());
         try {
             JSONObject object = new JSONObject();
             JSONObject child = new JSONObject();
             child.put(StrUtil.toCamelCase(crmField.getFieldName()), parseType(fieldType));
             object.put("properties", child);
-            PutMappingRequest request = new PutMappingRequest(crmEnum.getIndex());
+            PutMappingRequest request = new PutMappingRequest(crmTypeEnum.getIndex());
             request.source(object);
             client.indices().putMapping(request, RequestOptions.DEFAULT);
         } catch (IOException e) {
@@ -61,7 +61,7 @@ public class ElasticUtil {
     }
 
     public static void removeField(RestHighLevelClient client, String fieldName, Integer label) {
-        UpdateByQueryRequest request = new UpdateByQueryRequest(CrmEnum.parse(label).getIndex());
+        UpdateByQueryRequest request = new UpdateByQueryRequest(CrmTypeEnum.parse(label).getIndex());
         request.setScript(new Script(ScriptType.INLINE, "painless", "ctx._source." + StrUtil.toCamelCase(fieldName) + " = null", new HashMap<>()));
         request.setBatchSize(1000);
         request.setRefresh(true);
@@ -160,52 +160,53 @@ public class ElasticUtil {
 
     /**
      * 冗余字段map对应
+     * 这里是线程安全的 static方法只会在类初始化的时候加载一次，其他地方都是get()操作，因此updateMap是线程安全的
      */
     private static Map<String, List<EsUpdatePropertiesBO>> updateMap = new HashMap<>();
 
     static {
         List<EsUpdatePropertiesBO> userPropertiesList = new ArrayList<>();
-        userPropertiesList.add(new EsUpdatePropertiesBO("ownerUserId", "ownerUserName", Lists.newArrayList(CrmEnum.LEADS.getIndex()
-                , CrmEnum.CUSTOMER.getIndex(), CrmEnum.CONTACTS.getIndex(), CrmEnum.CONTRACT.getIndex(), CrmEnum.BUSINESS.getIndex()
-                , CrmEnum.RECEIVABLES.getIndex(), CrmEnum.RETURN_VISIT.getIndex(), CrmEnum.PRODUCT.getIndex(), CrmEnum.INVOICE.getIndex())));
-        userPropertiesList.add(new EsUpdatePropertiesBO("ownerDeptId", "ownerDeptName", Lists.newArrayList(CrmEnum.LEADS.getIndex()
-                , CrmEnum.CUSTOMER.getIndex(), CrmEnum.CONTACTS.getIndex(), CrmEnum.CONTRACT.getIndex(), CrmEnum.BUSINESS.getIndex()
-                , CrmEnum.RECEIVABLES.getIndex(), CrmEnum.RETURN_VISIT.getIndex(), CrmEnum.PRODUCT.getIndex(), CrmEnum.INVOICE.getIndex())));
-        userPropertiesList.add(new EsUpdatePropertiesBO("createUserId", "createUserName", Lists.newArrayList(CrmEnum.LEADS.getIndex()
-                , CrmEnum.CUSTOMER.getIndex(), CrmEnum.CONTACTS.getIndex(), CrmEnum.CONTRACT.getIndex(), CrmEnum.BUSINESS.getIndex()
-                , CrmEnum.RECEIVABLES.getIndex(), CrmEnum.RETURN_VISIT.getIndex(), CrmEnum.PRODUCT.getIndex(), CrmEnum.INVOICE.getIndex())));
-        userPropertiesList.add(new EsUpdatePropertiesBO("companyUserId", "companyUserName", Lists.newArrayList(CrmEnum.CONTRACT.getIndex())));
+        userPropertiesList.add(new EsUpdatePropertiesBO("ownerUserId", "ownerUserName", Lists.newArrayList(CrmTypeEnum.LEADS.getIndex()
+                , CrmTypeEnum.CUSTOMER.getIndex(), CrmTypeEnum.CONTACTS.getIndex(), CrmTypeEnum.CONTRACT.getIndex(), CrmTypeEnum.BUSINESS.getIndex()
+                , CrmTypeEnum.RECEIVABLES.getIndex(), CrmTypeEnum.RETURN_VISIT.getIndex(), CrmTypeEnum.PRODUCT.getIndex(), CrmTypeEnum.INVOICE.getIndex())));
+        userPropertiesList.add(new EsUpdatePropertiesBO("ownerDeptId", "ownerDeptName", Lists.newArrayList(CrmTypeEnum.LEADS.getIndex()
+                , CrmTypeEnum.CUSTOMER.getIndex(), CrmTypeEnum.CONTACTS.getIndex(), CrmTypeEnum.CONTRACT.getIndex(), CrmTypeEnum.BUSINESS.getIndex()
+                , CrmTypeEnum.RECEIVABLES.getIndex(), CrmTypeEnum.RETURN_VISIT.getIndex(), CrmTypeEnum.PRODUCT.getIndex(), CrmTypeEnum.INVOICE.getIndex())));
+        userPropertiesList.add(new EsUpdatePropertiesBO("createUserId", "createUserName", Lists.newArrayList(CrmTypeEnum.LEADS.getIndex()
+                , CrmTypeEnum.CUSTOMER.getIndex(), CrmTypeEnum.CONTACTS.getIndex(), CrmTypeEnum.CONTRACT.getIndex(), CrmTypeEnum.BUSINESS.getIndex()
+                , CrmTypeEnum.RECEIVABLES.getIndex(), CrmTypeEnum.RETURN_VISIT.getIndex(), CrmTypeEnum.PRODUCT.getIndex(), CrmTypeEnum.INVOICE.getIndex())));
+        userPropertiesList.add(new EsUpdatePropertiesBO("companyUserId", "companyUserName", Lists.newArrayList(CrmTypeEnum.CONTRACT.getIndex())));
         updateMap.put("user", userPropertiesList);
         List<EsUpdatePropertiesBO> deptPropertiesList = new ArrayList<>(2);
-        deptPropertiesList.add(new EsUpdatePropertiesBO("ownerDeptId", "ownerDeptName", Lists.newArrayList(CrmEnum.LEADS.getIndex()
-                , CrmEnum.CUSTOMER.getIndex(), CrmEnum.CONTACTS.getIndex(), CrmEnum.CONTRACT.getIndex(), CrmEnum.BUSINESS.getIndex()
-                , CrmEnum.RECEIVABLES.getIndex(), CrmEnum.PRODUCT.getIndex(), CrmEnum.INVOICE.getIndex())));
+        deptPropertiesList.add(new EsUpdatePropertiesBO("ownerDeptId", "ownerDeptName", Lists.newArrayList(CrmTypeEnum.LEADS.getIndex()
+                , CrmTypeEnum.CUSTOMER.getIndex(), CrmTypeEnum.CONTACTS.getIndex(), CrmTypeEnum.CONTRACT.getIndex(), CrmTypeEnum.BUSINESS.getIndex()
+                , CrmTypeEnum.RECEIVABLES.getIndex(), CrmTypeEnum.PRODUCT.getIndex(), CrmTypeEnum.INVOICE.getIndex())));
         updateMap.put("dept", deptPropertiesList);
         List<EsUpdatePropertiesBO> customerPropertiesList = new ArrayList<>();
 
-        List<String> customerIndexList = Lists.newArrayList(CrmEnum.CONTACTS.getIndex(),
-                CrmEnum.BUSINESS.getIndex(), CrmEnum.CONTRACT.getIndex(), CrmEnum.RECEIVABLES.getIndex(),
-                CrmEnum.RETURN_VISIT.getIndex(), CrmEnum.INVOICE.getIndex());
+        List<String> customerIndexList = Lists.newArrayList(CrmTypeEnum.CONTACTS.getIndex(),
+                CrmTypeEnum.BUSINESS.getIndex(), CrmTypeEnum.CONTRACT.getIndex(), CrmTypeEnum.RECEIVABLES.getIndex(),
+                CrmTypeEnum.RETURN_VISIT.getIndex(), CrmTypeEnum.INVOICE.getIndex());
 
         customerPropertiesList.add(new EsUpdatePropertiesBO("customerId", "customerName", customerIndexList));
         updateMap.put("customer", customerPropertiesList);
         List<EsUpdatePropertiesBO> contactsPropertiesList = new ArrayList<>();
-        contactsPropertiesList.add(new EsUpdatePropertiesBO("contactsId", "contactsName", Lists.newArrayList(CrmEnum.CONTRACT.getIndex(),
-                CrmEnum.RETURN_VISIT.getIndex())));
+        contactsPropertiesList.add(new EsUpdatePropertiesBO("contactsId", "contactsName", Lists.newArrayList(CrmTypeEnum.CONTRACT.getIndex(),
+                CrmTypeEnum.RETURN_VISIT.getIndex())));
         updateMap.put("contacts", contactsPropertiesList);
         List<EsUpdatePropertiesBO> businessPropertiesList = new ArrayList<>();
-        businessPropertiesList.add(new EsUpdatePropertiesBO("businessId", "businessName", Lists.newArrayList(CrmEnum.CONTRACT.getIndex())));
+        businessPropertiesList.add(new EsUpdatePropertiesBO("businessId", "businessName", Lists.newArrayList(CrmTypeEnum.CONTRACT.getIndex())));
         updateMap.put("business", businessPropertiesList);
         List<EsUpdatePropertiesBO> contractPropertiesList = new ArrayList<>();
-        contractPropertiesList.add(new EsUpdatePropertiesBO("contractId", "contractNum", Lists.newArrayList(CrmEnum.RECEIVABLES.getIndex(), CrmEnum.RETURN_VISIT.getIndex(), CrmEnum.INVOICE.getIndex())));
+        contractPropertiesList.add(new EsUpdatePropertiesBO("contractId", "contractNum", Lists.newArrayList(CrmTypeEnum.RECEIVABLES.getIndex(), CrmTypeEnum.RETURN_VISIT.getIndex(), CrmTypeEnum.INVOICE.getIndex())));
         updateMap.put("contract", contractPropertiesList);
         List<EsUpdatePropertiesBO> productPropertiesList = new ArrayList<>();
-        productPropertiesList.add(new EsUpdatePropertiesBO("categoryId", "categoryName", Lists.newArrayList(CrmEnum.RECEIVABLES.getIndex(), CrmEnum.RETURN_VISIT.getIndex())));
+        productPropertiesList.add(new EsUpdatePropertiesBO("categoryId", "categoryName", Lists.newArrayList(CrmTypeEnum.RECEIVABLES.getIndex(), CrmTypeEnum.RETURN_VISIT.getIndex())));
         updateMap.put("product", productPropertiesList);
     }
 
     /**
-     * 根据类型跟新es冗余数据
+     * 根据类型更新es冗余数据
      *
      * @param client
      * @param type
@@ -213,6 +214,7 @@ public class ElasticUtil {
      * @param name
      */
     public static void batchUpdateEsData(RestHighLevelClient client, String type, String id, String name) {
+        // sourceProperties =(new EsUpdatePropertiesBO("businessId", "businessName", Lists.newArrayList(CrmTypeEnum.CONTRACT.getIndex())));
         List<EsUpdatePropertiesBO> sourceProperties = updateMap.get(type);
         List<EsUpdatePropertiesBO> propertiesList = JSON.parseArray(JSON.toJSONString(sourceProperties), EsUpdatePropertiesBO.class);
         DiscoveryClient discoveryClient = ApplicationContextHolder.getBean(DiscoveryClient.class);

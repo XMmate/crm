@@ -9,7 +9,7 @@ import com.liujiaming.core.servlet.ApplicationContextHolder;
 import com.liujiaming.core.utils.BaseUtil;
 import com.liujiaming.core.utils.UserUtil;
 import com.liujiaming.crm.constant.CrmAuthEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.PO.CrmCustomer;
 import com.liujiaming.crm.entity.PO.CrmCustomerPool;
 import com.liujiaming.crm.mapper.CrmAuthMapper;
@@ -25,27 +25,27 @@ import java.util.*;
  */
 public class AuthUtil {
 
-    public static boolean isCrmAuth(CrmEnum crmEnum, Integer id,CrmAuthEnum crmAuthEnum) {
-        String conditions = crmEnum.getPrimaryKey(false) + " = " + id + getCrmAuthSql(crmEnum, 1,crmAuthEnum);
-        Integer integer = ApplicationContextHolder.getBean(CrmAuthMapper.class).queryAuthNum("wk_crm_" + crmEnum.getTableName(), conditions);
+    public static boolean isCrmAuth(CrmTypeEnum crmTypeEnum, Integer id,CrmAuthEnum crmAuthEnum) {
+        String conditions = crmTypeEnum.getPrimaryKey(false) + " = " + id + getCrmAuthSql(crmTypeEnum, 1,crmAuthEnum);
+        Integer integer = ApplicationContextHolder.getBean(CrmAuthMapper.class).queryAuthNum("wk_crm_" + crmTypeEnum.getTableName(), conditions);
         return integer == 0;
     }
 
     /**
      * 团队成员是否有操作权限
      */
-    public static boolean isRwAuth(Integer id, CrmEnum crmEnum,CrmAuthEnum crmAuthEnum) {
-        String conditions = crmEnum.getPrimaryKey(false) + " = " + id + getCrmAuthSql(crmEnum, 0,crmAuthEnum);
-        Integer integer = ApplicationContextHolder.getBean(CrmAuthMapper.class).queryAuthNum("wk_crm_" + crmEnum.getTableName(), conditions);
+    public static boolean isRwAuth(Integer id, CrmTypeEnum crmTypeEnum,CrmAuthEnum crmAuthEnum) {
+        String conditions = crmTypeEnum.getPrimaryKey(false) + " = " + id + getCrmAuthSql(crmTypeEnum, 0,crmAuthEnum);
+        Integer integer = ApplicationContextHolder.getBean(CrmAuthMapper.class).queryAuthNum("wk_crm_" + crmTypeEnum.getTableName(), conditions);
         return integer == 0;
     }
 
     /**
      * 是否具有转移客户负责人权限
      */
-    public static boolean isChangeOwnerUserAuth(Integer id, CrmEnum crmEnum,CrmAuthEnum crmAuthEnum) {
-        String conditions = crmEnum.getPrimaryKey(false) + " = " + id + getCrmAuthSql(crmEnum, 3,crmAuthEnum);
-        Integer integer = ApplicationContextHolder.getBean(CrmAuthMapper.class).queryAuthNum("wk_crm_" + crmEnum.getTableName(), conditions);
+    public static boolean isChangeOwnerUserAuth(Integer id, CrmTypeEnum crmTypeEnum,CrmAuthEnum crmAuthEnum) {
+        String conditions = crmTypeEnum.getPrimaryKey(false) + " = " + id + getCrmAuthSql(crmTypeEnum, 3,crmAuthEnum);
+        Integer integer = ApplicationContextHolder.getBean(CrmAuthMapper.class).queryAuthNum("wk_crm_" + crmTypeEnum.getTableName(), conditions);
         return integer == 0;
     }
 
@@ -60,7 +60,7 @@ public class AuthUtil {
         if (customer == null || customer.getOwnerUserId() == null) {
             return false;
         } else {
-            return AuthUtil.isCrmAuth(CrmEnum.CUSTOMER, customerId,crmAuthEnum);
+            return AuthUtil.isCrmAuth(CrmTypeEnum.CUSTOMER, customerId,crmAuthEnum);
         }
     }
 
@@ -102,30 +102,30 @@ public class AuthUtil {
     /**
      * 拼客户管理数据权限sql
      *
-     * @param crmEnum 类型
+     * @param crmTypeEnum 类型
      * @param readOnly 团队成员参数 0 要求读写权限 1 属于团队成员即可 3 禁止团队成员访问
      * @return sql
      */
-    public static String getCrmAuthSql(CrmEnum crmEnum, String alias, Integer readOnly,CrmAuthEnum crmAuthEnum) {
-        if (UserUtil.isAdmin() || crmEnum.equals(CrmEnum.PRODUCT) || crmEnum.equals(CrmEnum.CUSTOMER_POOL)) {
+    public static String getCrmAuthSql(CrmTypeEnum crmTypeEnum, String alias, Integer readOnly,CrmAuthEnum crmAuthEnum) {
+        if (UserUtil.isAdmin() || crmTypeEnum.equals(CrmTypeEnum.PRODUCT) || crmTypeEnum.equals(CrmTypeEnum.CUSTOMER_POOL)) {
             return "";
         }
         StringBuilder conditions = new StringBuilder();
-        List<Long> longs = queryAuthUserList(crmEnum, crmAuthEnum);
+        List<Long> longs = queryAuthUserList(crmTypeEnum, crmAuthEnum);
         if (longs != null && longs.size() > 0) {
-            if (crmEnum.equals(CrmEnum.MARKETING)) {
+            if (crmTypeEnum.equals(CrmTypeEnum.MARKETING)) {
                 conditions.append(" and (");
                 longs.forEach(id -> conditions.append(" {alias}owner_user_id like CONCAT('%,','").append(id).append("',',%') or ").append("  {alias}relation_user_id like CONCAT('%,','").append(id).append("',',%') or"));
                 conditions.delete(conditions.length() - 2, conditions.length());
             } else {
                 conditions.append(" and ({alias}owner_user_id in (").append(StrUtil.join(",", longs)).append(")");
                 /* 坚持对应团队负责人权限 */
-                boolean contains = Arrays.asList(CrmEnum.CUSTOMER, CrmEnum.CONTACTS, CrmEnum.BUSINESS, CrmEnum.RECEIVABLES, CrmEnum.CONTRACT).contains(crmEnum);
+                boolean contains = Arrays.asList(CrmTypeEnum.CUSTOMER, CrmTypeEnum.CONTACTS, CrmTypeEnum.BUSINESS, CrmTypeEnum.RECEIVABLES, CrmTypeEnum.CONTRACT).contains(crmTypeEnum);
                 if (contains && CrmAuthEnum.DELETE != crmAuthEnum && !Objects.equals(3,readOnly)) {
-                    conditions.append("or {alias}").append(crmEnum.getPrimaryKey(false));
+                    conditions.append("or {alias}").append(crmTypeEnum.getPrimaryKey(false));
                     conditions.append(" in (");
                     conditions.append("SELECT type_id FROM wk_crm_team_members where type = '")
-                            .append(crmEnum.getType())
+                            .append(crmTypeEnum.getType())
                             .append("' and user_id = '").append(UserUtil.getUserId()).append("'");
                     if(Objects.equals(0,readOnly)){
                         conditions.append(" and power ='2'");
@@ -144,8 +144,8 @@ public class AuthUtil {
         return StrUtil.format(conditions.toString(), map);
     }
 
-    public static String getCrmAuthSql(CrmEnum crmEnum, Integer readOnly,CrmAuthEnum crmAuthEnum) {
-        return getCrmAuthSql(crmEnum, "", readOnly,crmAuthEnum);
+    public static String getCrmAuthSql(CrmTypeEnum crmTypeEnum, Integer readOnly,CrmAuthEnum crmAuthEnum) {
+        return getCrmAuthSql(crmTypeEnum, "", readOnly,crmAuthEnum);
     }
 
     /**
@@ -169,16 +169,16 @@ public class AuthUtil {
 
     /**
      * 查询当前用户可查询的用户列表
-     * @param crmEnum     crm类型
+     * @param crmTypeEnum     crm类型
      * @param crmAuthEnum 数据操作权限类型
      * @return 用户列表
      */
     @SuppressWarnings("unchecked")
-    public static List<Long> queryAuthUserList(CrmEnum crmEnum, CrmAuthEnum crmAuthEnum) {
+    public static List<Long> queryAuthUserList(CrmTypeEnum crmTypeEnum, CrmAuthEnum crmAuthEnum) {
         Long userId = UserUtil.getUserId();
         Redis redis = BaseUtil.getRedis();
         String key = CrmCacheKey.CRM_AUTH_USER_CACHE_KEY + userId.toString();
-        Integer menuId = crmAuthEnum.getMenuId(crmEnum);
+        Integer menuId = crmAuthEnum.getMenuId(crmTypeEnum);
         Map<Object,Object> map = redis.getRedisMap(key);
         if (map != null && map.containsKey(menuId)) {
             return (List<Long>) map.get(menuId);
@@ -192,12 +192,12 @@ public class AuthUtil {
 
     /**
      * 查询当前用户可查询的用户列表与数据的交集
-     * @param crmEnum     crm类型
+     * @param crmTypeEnum     crm类型
      * @param crmAuthEnum 数据操作权限类型
      * @return 用户列表
      */
-    public static List<Long> filterUserIdList(CrmEnum crmEnum, CrmAuthEnum crmAuthEnum,List<Long> allUserIdList) {
-        List<Long> authUserList = queryAuthUserList(crmEnum, crmAuthEnum);
+    public static List<Long> filterUserIdList(CrmTypeEnum crmTypeEnum, CrmAuthEnum crmAuthEnum,List<Long> allUserIdList) {
+        List<Long> authUserList = queryAuthUserList(crmTypeEnum, crmAuthEnum);
         authUserList.retainAll(allUserIdList);
         return authUserList;
     }

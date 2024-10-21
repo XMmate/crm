@@ -3,7 +3,7 @@ package com.liujiaming.crm.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.liujiaming.core.common.Result;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmSceneConfigBO;
 import com.liujiaming.crm.entity.PO.CrmScene;
 import com.liujiaming.crm.entity.VO.CrmModelFiledVO;
@@ -36,7 +36,7 @@ public class CrmSceneController {
     @PostMapping("/queryScene")
     @ApiOperation("查询场景列表")
     public Result<List<CrmScene>> queryScene(@ApiParam(name = "type", value = "类型") @RequestParam("type") Integer type) {
-        List<CrmScene> sceneList = crmSceneService.queryScene(CrmEnum.parse(type));
+        List<CrmScene> sceneList = crmSceneService.queryScene(CrmTypeEnum.parse(type));
         return Result.ok(sceneList);
     }
 

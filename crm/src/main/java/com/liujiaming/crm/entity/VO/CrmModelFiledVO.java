@@ -21,7 +21,7 @@ import java.util.Map;
 @Data
 @ToString
 @Accessors(chain = true)
-@ApiModel("crm需要的自定义字段对象")
+@ApiModel(value = "crm需要的自定义字段对象", description="crm自定义字段操作VO")
 public class CrmModelFiledVO implements Serializable {
 
     public CrmModelFiledVO() {

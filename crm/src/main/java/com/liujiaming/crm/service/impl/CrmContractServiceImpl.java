@@ -146,8 +146,8 @@ public class CrmContractServiceImpl extends BaseServiceImpl<CrmContractMapper, C
      * @return data
      */
     @Override
-    public CrmEnum getLabel() {
-        return CrmEnum.CONTRACT;
+    public CrmTypeEnum getLabel() {
+        return CrmTypeEnum.CONTRACT;
     }
 
     /**
@@ -300,7 +300,7 @@ public class CrmContractServiceImpl extends BaseServiceImpl<CrmContractMapper, C
         CrmModel crmModel;
         if (id != null) {
             crmModel = getBaseMapper().queryById(id, UserUtil.getUserId());
-            crmModel.setLabel(CrmEnum.CONTRACT.getType());
+            crmModel.setLabel(CrmTypeEnum.CONTRACT.getType());
             crmModel.setOwnerUserName(UserCacheUtil.getUserName(crmModel.getOwnerUserId()));
             List<String> nameList = StrUtil.splitTrim((String) crmModel.get("companyUserId"), Const.SEPARATOR);
             String name = nameList.stream().map(str -> UserCacheUtil.getUserName(Long.valueOf(str))).collect(Collectors.joining(Const.SEPARATOR));
@@ -316,7 +316,7 @@ public class CrmContractServiceImpl extends BaseServiceImpl<CrmContractMapper, C
             }
             crmModel.put("receivedProgress",receivedProgress);
         } else {
-            crmModel = new CrmModel(CrmEnum.CONTRACT.getType());
+            crmModel = new CrmModel(CrmTypeEnum.CONTRACT.getType());
         }
         return crmModel;
     }
@@ -384,11 +384,11 @@ public class CrmContractServiceImpl extends BaseServiceImpl<CrmContractMapper, C
                 Map<String, Object> map = new HashMap<>();
                 map.put("dealTime", DateUtil.formatDateTime(dealTime));
                 map.put("dealStatus", 1);
-                ElasticUtil.updateField(elasticsearchRestTemplate, map, customer.getCustomerId(), CrmEnum.CUSTOMER.getIndex());
+                ElasticUtil.updateField(elasticsearchRestTemplate, map, customer.getCustomerId(), CrmTypeEnum.CUSTOMER.getIndex());
             }
             updateById(crmContract);
             crmActivityService.addActivity(2, CrmActivityEnum.CONTRACT, crmContract.getContractId());
-            actionRecordUtil.addRecord(crmContract.getContractId(), CrmEnum.CONTRACT, crmContract.getName());
+            actionRecordUtil.addRecord(crmContract.getContractId(), CrmTypeEnum.CONTRACT, crmContract.getName());
         } else {
             CrmContract contract = getById(crmContract.getContractId());
             if (contract.getCheckStatus() == 8) {
@@ -415,9 +415,9 @@ public class CrmContractServiceImpl extends BaseServiceImpl<CrmContractMapper, C
             BigDecimal decimal = getBaseMapper().queryReceivablesMoney(crmContract.getContractId());
             crmContract.setUnreceivedMoney(crmContract.getMoney().subtract(decimal));
             crmContract.setReceivedMoney(decimal);
-            crmBackLogDealService.deleteByTypes(null, CrmEnum.CONTRACT, crmContract.getContractId(), CrmBackLogEnum.END_CONTRACT,CrmBackLogEnum.REMIND_RETURN_VISIT_CONTRACT,CrmBackLogEnum.CHECK_CONTRACT);
+            crmBackLogDealService.deleteByTypes(null, CrmTypeEnum.CONTRACT, crmContract.getContractId(), CrmBackLogEnum.END_CONTRACT,CrmBackLogEnum.REMIND_RETURN_VISIT_CONTRACT,CrmBackLogEnum.CHECK_CONTRACT);
             crmContract.setUpdateTime(DateUtil.date());
-            actionRecordUtil.updateRecord(BeanUtil.beanToMap(contract), BeanUtil.beanToMap(crmContract), CrmEnum.CONTRACT, crmContract.getName(), crmContract.getContractId());
+            actionRecordUtil.updateRecord(BeanUtil.beanToMap(contract), BeanUtil.beanToMap(crmContract), CrmTypeEnum.CONTRACT, crmContract.getName(), crmContract.getContractId());
             updateById(crmContract);
             crmContract = getById(crmContract.getContractId());
             ElasticUtil.batchUpdateEsData(elasticsearchRestTemplate.getClient(), "contract", crmContract.getContractId().toString(), crmContract.getName());
@@ -427,7 +427,7 @@ public class CrmContractServiceImpl extends BaseServiceImpl<CrmContractMapper, C
         //判断当前是否提交审核，提交审核需要生成一条系统通知
         if (0 == crmContract.getCheckStatus()) {
             if (examineData != null) {
-                actionRecordUtil.addCrmExamineActionRecord(CrmEnum.CONTRACT, examineData.getRecordId(), BehaviorEnum.SUBMIT_EXAMINE, crmContract.getNum());
+                actionRecordUtil.addCrmExamineActionRecord(CrmTypeEnum.CONTRACT, examineData.getRecordId(), BehaviorEnum.SUBMIT_EXAMINE, crmContract.getNum());
             }
         }
         if (3 == crmContract.getCheckStatus()||0 == crmContract.getCheckStatus()||10== crmContract.getCheckStatus()) {
@@ -443,7 +443,7 @@ public class CrmContractServiceImpl extends BaseServiceImpl<CrmContractMapper, C
                     Map<String,Object> map = new HashMap<>();
                     map.put("receivedStatus", 5);
                     map.put("updateTime", DateUtil.formatDateTime(new Date()));
-                    ElasticUtil.updateField(getRestTemplate(), map, plan.getReceivablesPlanId(), CrmEnum.RECEIVABLES_PLAN.getIndex());
+                    ElasticUtil.updateField(getRestTemplate(), map, plan.getReceivablesPlanId(), CrmTypeEnum.RECEIVABLES_PLAN.getIndex());
                 }
             }
         }
@@ -535,7 +535,7 @@ public class CrmContractServiceImpl extends BaseServiceImpl<CrmContractMapper, C
             //删除跟进记录
             crmActivityService.deleteActivityRecord(CrmActivityEnum.CONTRACT, Collections.singletonList(id));
             //删除字段操作记录
-            crmActionRecordService.deleteActionRecord(CrmEnum.CONTRACT, Collections.singletonList(contract.getContractId()));
+            crmActionRecordService.deleteActionRecord(CrmTypeEnum.CONTRACT, Collections.singletonList(contract.getContractId()));
             //删除自定义字段
             crmContractDataService.deleteByBatchId(Collections.singletonList(contract.getBatchId()));
             //删除文件
@@ -563,7 +563,7 @@ public class CrmContractServiceImpl extends BaseServiceImpl<CrmContractMapper, C
         }
         String ownerUserName = UserCacheUtil.getUserName(changOwnerUserBO.getOwnerUserId());
         changOwnerUserBO.getIds().forEach(id -> {
-            if (AuthUtil.isChangeOwnerUserAuth(id, CrmEnum.CONTRACT, CrmAuthEnum.EDIT)) {
+            if (AuthUtil.isChangeOwnerUserAuth(id, CrmTypeEnum.CONTRACT, CrmAuthEnum.EDIT)) {
                 throw new CrmException(SystemCodeEnum.SYSTEM_NO_AUTH);
             }
             CrmContract contract = getById(id);
@@ -577,7 +577,7 @@ public class CrmContractServiceImpl extends BaseServiceImpl<CrmContractMapper, C
             ApplicationContextHolder.getBean(ICrmTeamMembersService.class).deleteMember(getLabel(),new CrmMemberSaveBO(id,changOwnerUserBO.getOwnerUserId()));
             contract.setOwnerUserId(changOwnerUserBO.getOwnerUserId());
             updateById(contract);
-            actionRecordUtil.addConversionRecord(id, CrmEnum.CONTRACT, changOwnerUserBO.getOwnerUserId(), contract.getName());
+            actionRecordUtil.addConversionRecord(id, CrmTypeEnum.CONTRACT, changOwnerUserBO.getOwnerUserId(), contract.getName());
             //修改es
             Map<String, Object> map = new HashMap<>();
             map.put("ownerUserId", changOwnerUserBO.getOwnerUserId());
@@ -694,9 +694,9 @@ public class CrmContractServiceImpl extends BaseServiceImpl<CrmContractMapper, C
         }
         batchIdList.add(crmContract.getBatchId());
         batchIdList.addAll(crmActivityService.queryFileBatchId(crmContract.getContractId(), getLabel().getType()));
-        String receivableCon = AuthUtil.getCrmAuthSql(CrmEnum.RECEIVABLES, 1,CrmAuthEnum.READ);
-        String returnVisitCon = AuthUtil.getCrmAuthSql(CrmEnum.RETURN_VISIT, 1,CrmAuthEnum.READ);
-        String invoiceCon = AuthUtil.getCrmAuthSql(CrmEnum.INVOICE, 1,CrmAuthEnum.READ);
+        String receivableCon = AuthUtil.getCrmAuthSql(CrmTypeEnum.RECEIVABLES, 1,CrmAuthEnum.READ);
+        String returnVisitCon = AuthUtil.getCrmAuthSql(CrmTypeEnum.RETURN_VISIT, 1,CrmAuthEnum.READ);
+        String invoiceCon = AuthUtil.getCrmAuthSql(CrmTypeEnum.INVOICE, 1,CrmAuthEnum.READ);
         Map<String, Object> map = new HashMap<>();
         map.put("contractId", contractId);
         map.put("receivableCon", receivableCon);
@@ -797,7 +797,7 @@ public class CrmContractServiceImpl extends BaseServiceImpl<CrmContractMapper, C
                 Map<String, Object> crmContractMap = new HashMap<>(oldContractMap);
                 crmContractMap.put(record.getString("fieldName"), record.get("value"));
                 CrmContract crmContract = BeanUtil.mapToBean(crmContractMap, CrmContract.class, true);
-                actionRecordUtil.updateRecord(oldContractMap, crmContractMap, CrmEnum.CONTRACT, crmContract.getName(), crmContract.getContractId());
+                actionRecordUtil.updateRecord(oldContractMap, crmContractMap, CrmTypeEnum.CONTRACT, crmContract.getName(), crmContract.getContractId());
                 update().set(StrUtil.toUnderlineCase(record.getString("fieldName")), record.get("value")).eq("contract_id",updateInformationBO.getId()).update();
                 if ("name".equals(record.getString("fieldName"))) {
                     ElasticUtil.batchUpdateEsData(elasticsearchRestTemplate.getClient(), "contract", crmContract.getContractId().toString(), crmContract.getName());
@@ -808,7 +808,7 @@ public class CrmContractServiceImpl extends BaseServiceImpl<CrmContractMapper, C
                         .eq(CrmContractData::getFieldId, record.getInteger("fieldId"))
                         .eq(CrmContractData::getBatchId, batchId).last("limit 1").one();
                 String value = contractData != null ? contractData.getValue() : null;
-                actionRecordUtil.publicContentRecord(CrmEnum.CONTRACT, BehaviorEnum.UPDATE, contractId, oldContract.getName(), record,value);
+                actionRecordUtil.publicContentRecord(CrmTypeEnum.CONTRACT, BehaviorEnum.UPDATE, contractId, oldContract.getName(), record,value);
                 String newValue = fieldService.convertObjectValueToString(record.getInteger("type"),record.get("value"),record.getString("value"));
                 CrmContractData crmContractData = new CrmContractData();
                 crmContractData.setId(contractData != null ? contractData.getId() : null);
@@ -828,7 +828,7 @@ public class CrmContractServiceImpl extends BaseServiceImpl<CrmContractMapper, C
 
     @Override
     public BasePage<JSONObject> queryListByContractId(CrmRelationPageBO crmRelationPageBO) {
-        String conditions = AuthUtil.getCrmAuthSql(CrmEnum.RECEIVABLES, "rec", 1,CrmAuthEnum.READ);
+        String conditions = AuthUtil.getCrmAuthSql(CrmTypeEnum.RECEIVABLES, "rec", 1,CrmAuthEnum.READ);
         return crmReceivablesService.queryListByContractId(crmRelationPageBO.parse(), crmRelationPageBO.getContractId(), conditions);
     }
 
@@ -846,9 +846,9 @@ public class CrmContractServiceImpl extends BaseServiceImpl<CrmContractMapper, C
 
     @Override
     public BasePage<JSONObject> queryReturnVisit(CrmRelationPageBO crmRelationPageBO) {
-        List<CrmField> nameList = crmFieldService.lambdaQuery().select(CrmField::getFieldId, CrmField::getFieldName).eq(CrmField::getLabel, CrmEnum.RETURN_VISIT.getType())
+        List<CrmField> nameList = crmFieldService.lambdaQuery().select(CrmField::getFieldId, CrmField::getFieldName).eq(CrmField::getLabel, CrmTypeEnum.RETURN_VISIT.getType())
                 .eq(CrmField::getIsHidden, 0).ne(CrmField::getFieldType, 1).list();
-        String conditions = AuthUtil.getCrmAuthSql(CrmEnum.RECEIVABLES, "a", 1,CrmAuthEnum.READ);
+        String conditions = AuthUtil.getCrmAuthSql(CrmTypeEnum.RECEIVABLES, "a", 1,CrmAuthEnum.READ);
         BasePage<JSONObject> basePage = getBaseMapper().queryReturnVisit(crmRelationPageBO.parse(), crmRelationPageBO.getContractId(), conditions, nameList);
         for (JSONObject jsonObject : basePage.getList()) {
             String ownerUserName = UserCacheUtil.getUserName(jsonObject.getLong("ownerUserId"));
@@ -860,7 +860,7 @@ public class CrmContractServiceImpl extends BaseServiceImpl<CrmContractMapper, C
     @Override
     public void contractDiscard(Integer contractId) {
         CrmContract contract = getById(contractId);
-        actionRecordUtil.addObjectActionRecord(CrmEnum.CONTRACT, contractId, BehaviorEnum.CANCEL_EXAMINE, contract.getName());
+        actionRecordUtil.addObjectActionRecord(CrmTypeEnum.CONTRACT, contractId, BehaviorEnum.CANCEL_EXAMINE, contract.getName());
         lambdaUpdate().set(CrmContract::getCheckStatus, 8).set(CrmContract::getUpdateTime, new Date()).eq(CrmContract::getContractId, contractId).update();
         Map<String, Object> map = new HashMap<>();
         map.put("checkStatus", 8);
@@ -878,7 +878,7 @@ public class CrmContractServiceImpl extends BaseServiceImpl<CrmContractMapper, C
             map = new HashMap<>();
             map.put("receivedStatus", 3);
             map.put("updateTime", DateUtil.formatDateTime(new Date()));
-            ElasticUtil.updateField(getRestTemplate(), map, plan.getReceivablesPlanId(), CrmEnum.RECEIVABLES_PLAN.getIndex());
+            ElasticUtil.updateField(getRestTemplate(), map, plan.getReceivablesPlanId(), CrmTypeEnum.RECEIVABLES_PLAN.getIndex());
         }
 
 
@@ -921,7 +921,7 @@ public class CrmContractServiceImpl extends BaseServiceImpl<CrmContractMapper, C
         List<String> collect = contractIds.stream().map(Object::toString).collect(Collectors.toList());
         CrmSearchBO crmSearchBO = new CrmSearchBO();
         crmSearchBO.setSearchList(Collections.singletonList(new CrmSearchBO.Search("_id", "text", CrmSearchBO.FieldSearchEnum.ID, collect)));
-        crmSearchBO.setLabel(CrmEnum.CONTRACT.getType());
+        crmSearchBO.setLabel(CrmTypeEnum.CONTRACT.getType());
         crmSearchBO.setPage(eventCrmPageBO.getPage());
         crmSearchBO.setLimit(eventCrmPageBO.getLimit());
         if (type == 2) {

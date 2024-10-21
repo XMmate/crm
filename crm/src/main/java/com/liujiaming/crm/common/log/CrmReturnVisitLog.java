@@ -13,7 +13,7 @@ import com.liujiaming.core.servlet.ApplicationContextHolder;
 import com.liujiaming.core.servlet.upload.FileEntity;
 import com.liujiaming.core.utils.TagUtil;
 import com.liujiaming.core.utils.UserCacheUtil;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmBusinessSaveBO;
 import com.liujiaming.crm.entity.BO.CrmUpdateInformationBO;
 import com.liujiaming.crm.entity.PO.CrmReturnVisit;
@@ -43,14 +43,14 @@ public class CrmReturnVisitLog {
         CrmReturnVisit crmReturnVisit = BeanUtil.copyProperties(crmModel.getEntity(), CrmReturnVisit.class);
         String batchId = crmReturnVisit.getBatchId();
         sysLogUtil.updateRecord(crmModel.getField(), Dict.create().set("batchId", batchId).set("dataTableName", "wk_crm_return_visit_data"));
-        return sysLogUtil.updateRecord(BeanUtil.beanToMap(crmReturnVisitService.getById(crmReturnVisit.getVisitId())), BeanUtil.beanToMap(crmReturnVisit), CrmEnum.RETURN_VISIT, crmReturnVisit.getVisitNumber());
+        return sysLogUtil.updateRecord(BeanUtil.beanToMap(crmReturnVisitService.getById(crmReturnVisit.getVisitId())), BeanUtil.beanToMap(crmReturnVisit), CrmTypeEnum.RETURN_VISIT, crmReturnVisit.getVisitNumber());
     }
 
     public List<Content> deleteByIds(List<Integer> ids) {
         List<Content> contentList = new ArrayList<>();
         for (Integer id : ids) {
             CrmReturnVisit crmReturnVisit = crmReturnVisitService.getById(id);
-            contentList.add(sysLogUtil.addDeleteActionRecord(CrmEnum.RETURN_VISIT,crmReturnVisit.getVisitNumber()));
+            contentList.add(sysLogUtil.addDeleteActionRecord(CrmTypeEnum.RETURN_VISIT,crmReturnVisit.getVisitNumber()));
         }
         return contentList;
     }
@@ -65,7 +65,7 @@ public class CrmReturnVisitLog {
                 Map<String, Object> crmRetuenVisitMap = new HashMap<>(oldReturnVisitMap);
                 crmRetuenVisitMap.put(record.getString("fieldName"), record.get("value"));
                 CrmReturnVisit crmReturnVisit = BeanUtil.mapToBean(crmRetuenVisitMap, CrmReturnVisit.class, true);
-                contentList.add(sysLogUtil.updateRecord(oldReturnVisitMap, crmRetuenVisitMap, CrmEnum.RETURN_VISIT, crmReturnVisit.getVisitNumber()));
+                contentList.add(sysLogUtil.updateRecord(oldReturnVisitMap, crmRetuenVisitMap, CrmTypeEnum.RETURN_VISIT, crmReturnVisit.getVisitNumber()));
             } else if (record.getInteger("fieldType") == 0 || record.getInteger("fieldType") == 2) {
                 String formType = record.getString("formType");
                 if(formType == null){

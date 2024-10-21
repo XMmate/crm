@@ -31,7 +31,7 @@ import com.liujiaming.crm.common.CrmModel;
 import com.liujiaming.crm.constant.CrmActivityEnum;
 import com.liujiaming.crm.constant.CrmBackLogEnum;
 import com.liujiaming.crm.constant.CrmCodeEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmModelSaveBO;
 import com.liujiaming.crm.entity.BO.CrmSearchBO;
 import com.liujiaming.crm.entity.BO.CrmUpdateInformationBO;
@@ -128,8 +128,8 @@ public class CrmLeadsServiceImpl extends BaseServiceImpl<CrmLeadsMapper, CrmLead
     }
 
     @Override
-    public CrmEnum getLabel() {
-        return CrmEnum.LEADS;
+    public CrmTypeEnum getLabel() {
+        return CrmTypeEnum.LEADS;
     }
 
     /**
@@ -227,13 +227,13 @@ public class CrmLeadsServiceImpl extends BaseServiceImpl<CrmLeadsMapper, CrmLead
         CrmModel crmModel;
         if (id != null) {
             crmModel = getBaseMapper().queryById(id, UserUtil.getUserId());
-            crmModel.setLabel(CrmEnum.LEADS.getType());
+            crmModel.setLabel(CrmTypeEnum.LEADS.getType());
             crmModel.setOwnerUserName(UserCacheUtil.getUserName(crmModel.getOwnerUserId()));
             crmLeadsDataService.setDataByBatchId(crmModel);
             List<String> stringList = ApplicationContextHolder.getBean(ICrmRoleFieldService.class).queryNoAuthField(crmModel.getLabel());
             stringList.forEach(crmModel::remove);
         } else {
-            crmModel = new CrmModel(CrmEnum.LEADS.getType());
+            crmModel = new CrmModel(CrmTypeEnum.LEADS.getType());
         }
         return crmModel;
     }
@@ -261,11 +261,11 @@ public class CrmLeadsServiceImpl extends BaseServiceImpl<CrmLeadsMapper, CrmLead
         if (crmLeads.getLeadsId() != null) {
             crmLeads.setCustomerId(0);
             crmLeads.setUpdateTime(DateUtil.date());
-            actionRecordUtil.updateRecord(BeanUtil.beanToMap(getById(crmLeads.getLeadsId())), BeanUtil.beanToMap(crmLeads), CrmEnum.LEADS, crmLeads.getLeadsName(), crmLeads.getLeadsId());
+            actionRecordUtil.updateRecord(BeanUtil.beanToMap(getById(crmLeads.getLeadsId())), BeanUtil.beanToMap(crmLeads), CrmTypeEnum.LEADS, crmLeads.getLeadsName(), crmLeads.getLeadsId());
             updateById(crmLeads);
             //查询一次保存es,因为有些字段没有保存es会出现null
             crmLeads = getById(crmLeads.getLeadsId());
-            crmBackLogDealService.deleteByType(crmLeads.getOwnerUserId(), CrmEnum.LEADS, CrmBackLogEnum.FOLLOW_LEADS, crmLeads.getLeadsId());
+            crmBackLogDealService.deleteByType(crmLeads.getOwnerUserId(), CrmTypeEnum.LEADS, CrmBackLogEnum.FOLLOW_LEADS, crmLeads.getLeadsId());
         } else {
             crmLeads.setCreateTime(DateUtil.date());
             crmLeads.setUpdateTime(DateUtil.date());
@@ -280,7 +280,7 @@ public class CrmLeadsServiceImpl extends BaseServiceImpl<CrmLeadsMapper, CrmLead
             }
             crmLeads.setBatchId(batchId);
             save(crmLeads);
-            actionRecordUtil.addRecord(crmLeads.getLeadsId(), CrmEnum.LEADS, crmLeads.getLeadsName());
+            actionRecordUtil.addRecord(crmLeads.getLeadsId(), CrmTypeEnum.LEADS, crmLeads.getLeadsName());
         }
         crmModel.setEntity(BeanUtil.beanToMap(crmLeads));
         savePage(crmModel, crmLeads.getLeadsId(),isExcel);
@@ -310,7 +310,7 @@ public class CrmLeadsServiceImpl extends BaseServiceImpl<CrmLeadsMapper, CrmLead
         //删除跟进记录
         crmActivityService.deleteActivityRecord(CrmActivityEnum.LEADS, ids);
         //删除字段操作记录
-        crmActionRecordService.deleteActionRecord(CrmEnum.LEADS, ids);
+        crmActionRecordService.deleteActionRecord(CrmTypeEnum.LEADS, ids);
         //删除自定义字段
         crmLeadsDataService.deleteByBatchId(batchIdList);
         //todo 删除文件,暂不处理
@@ -336,7 +336,7 @@ public class CrmLeadsServiceImpl extends BaseServiceImpl<CrmLeadsMapper, CrmLead
         for (Integer leadsId : leadsIds) {
             CrmLeads crmLeads = getById(leadsId);
             BaseUtil.getRedis().del(CrmCacheKey.CRM_BACKLOG_NUM_CACHE_KEY + crmLeads.getOwnerUserId().toString());
-            actionRecordUtil.addConversionRecord(leadsId,CrmEnum.LEADS,newOwnerUserId,crmLeads.getLeadsName());
+            actionRecordUtil.addConversionRecord(leadsId,CrmTypeEnum.LEADS,newOwnerUserId,crmLeads.getLeadsName());
         }
         update(wrapper);
         BaseUtil.getRedis().del(CrmCacheKey.CRM_BACKLOG_NUM_CACHE_KEY + newOwnerUserId.toString());
@@ -386,8 +386,8 @@ public class CrmLeadsServiceImpl extends BaseServiceImpl<CrmLeadsMapper, CrmLead
             crmCustomer.setLastTime(crmLeads.getLastTime());
             String customerBatchId = IdUtil.simpleUUID();
             crmCustomer.setBatchId(customerBatchId);
-            List<CrmField> leadsFields = crmFieldService.list(CrmEnum.LEADS.getType(), false);
-            List<CrmField> customerFields = crmFieldService.list(CrmEnum.CUSTOMER.getType(), true);
+            List<CrmField> leadsFields = crmFieldService.list(CrmTypeEnum.LEADS.getType(), false);
+            List<CrmField> customerFields = crmFieldService.list(CrmTypeEnum.CUSTOMER.getType(), true);
             List<CrmCustomerData> customerDataList = new ArrayList<>();
             Map<String, Object> customerExtraMap = new HashMap<>();
             for (CrmField leadsField : leadsFields) {
@@ -454,7 +454,7 @@ public class CrmLeadsServiceImpl extends BaseServiceImpl<CrmLeadsMapper, CrmLead
             crmModelSaveBO.setField(collect);
             crmModelSaveBoMap.put(customerId,crmModelSaveBO);
 
-            actionRecordUtil.addConversionCustomerRecord(crmCustomer.getCustomerId(), CrmEnum.CUSTOMER, crmCustomer.getCustomerName());
+            actionRecordUtil.addConversionCustomerRecord(crmCustomer.getCustomerId(), CrmTypeEnum.CUSTOMER, crmCustomer.getCustomerName());
             lambdaUpdate().set(CrmLeads::getIsTransform, 1).set(CrmLeads::getUpdateTime, new Date()).set(CrmLeads::getCustomerId, crmCustomer.getCustomerId())
                     .eq(CrmLeads::getLeadsId, leadsId).update();
 
@@ -462,7 +462,7 @@ public class CrmLeadsServiceImpl extends BaseServiceImpl<CrmLeadsMapper, CrmLead
             List<CrmActionRecord> crmActionRecordList = crmActionRecordService.lambdaQuery().eq(CrmActionRecord::getActionId, leadsId).eq(CrmActionRecord::getTypes, 1).list();
             crmActionRecordList.forEach(crmActionRecord -> {
                 crmActionRecord.setId(null);
-                crmActionRecord.setTypes(CrmEnum.CUSTOMER.getType());
+                crmActionRecord.setTypes(CrmTypeEnum.CUSTOMER.getType());
                 crmActionRecord.setActionId(crmCustomer.getCustomerId());
             });
             crmActionRecordService.saveBatch(crmActionRecordList, 500);
@@ -477,7 +477,7 @@ public class CrmLeadsServiceImpl extends BaseServiceImpl<CrmLeadsMapper, CrmLead
                     List<String> fileIds = leadsRecordFiles.stream().map(FileEntity::getFileId).collect(Collectors.toList());
                     crmActivity.setBatchId(customerRecordBatchId);
                     crmActivity.setActivityId(null);
-                    crmActivity.setActivityType(CrmEnum.CUSTOMER.getType());
+                    crmActivity.setActivityType(CrmTypeEnum.CUSTOMER.getType());
                     crmActivity.setActivityTypeId(crmCustomer.getCustomerId());
                     adminFileService.saveBatchFileEntity(fileIds, customerRecordBatchId);
                 });
@@ -494,7 +494,7 @@ public class CrmLeadsServiceImpl extends BaseServiceImpl<CrmLeadsMapper, CrmLead
         for (int i = 0; i < leadsIds.size(); i++) {
             Integer leadsId = leadsIds.get(i);
             Integer customerId = customerIds.get(i);
-            UpdateRequest updateRequest = new UpdateRequest(CrmEnum.LEADS.getIndex(),"_doc",leadsId.toString());
+            UpdateRequest updateRequest = new UpdateRequest(CrmTypeEnum.LEADS.getIndex(),"_doc",leadsId.toString());
             Map<String,Object> map = new HashMap<>();
             map.put("isTransform",1);
             map.put("updateTime",DateUtil.formatDateTime(new Date()));
@@ -684,13 +684,13 @@ public class CrmLeadsServiceImpl extends BaseServiceImpl<CrmLeadsMapper, CrmLead
                 Map<String,Object> crmLeadsMap = new HashMap<>(oldLeadsMap);
                 crmLeadsMap.put(record.getString("fieldName"),record.get("value"));
                 CrmLeads crmLeads = BeanUtil.mapToBean(crmLeadsMap, CrmLeads.class, true);
-                actionRecordUtil.updateRecord(oldLeadsMap, crmLeadsMap, CrmEnum.LEADS,crmLeads.getLeadsName(),crmLeads.getLeadsId());
+                actionRecordUtil.updateRecord(oldLeadsMap, crmLeadsMap, CrmTypeEnum.LEADS,crmLeads.getLeadsName(),crmLeads.getLeadsId());
                 update().set(StrUtil.toUnderlineCase(record.getString("fieldName")), record.get("value")).eq("leads_id",updateInformationBO.getId()).update();
             }else if (record.getInteger("fieldType") == 0 || record.getInteger("fieldType") == 2){
                 CrmLeadsData leadsData = crmLeadsDataService.lambdaQuery().select(CrmLeadsData::getValue,CrmLeadsData::getId).eq(CrmLeadsData::getFieldId, record.getInteger("fieldId"))
                         .eq(CrmLeadsData::getBatchId, batchId).one();
                 String value = leadsData != null ? leadsData.getValue() : null;
-                actionRecordUtil.publicContentRecord(CrmEnum.LEADS, BehaviorEnum.UPDATE,leadsId,oldLeads.getLeadsName(),record,value);
+                actionRecordUtil.publicContentRecord(CrmTypeEnum.LEADS, BehaviorEnum.UPDATE,leadsId,oldLeads.getLeadsName(),record,value);
                 String newValue = fieldService.convertObjectValueToString(record.getInteger("type"),record.get("value"),record.getString("value"));
                 CrmLeadsData crmLeadsData = new CrmLeadsData();
                 crmLeadsData.setId(leadsData != null ? leadsData.getId() : null);
@@ -726,7 +726,7 @@ public class CrmLeadsServiceImpl extends BaseServiceImpl<CrmLeadsMapper, CrmLead
         List<String> collect = leadsIds.stream().map(Object::toString).collect(Collectors.toList());
         CrmSearchBO crmSearchBO = new CrmSearchBO();
         crmSearchBO.setSearchList(Collections.singletonList(new CrmSearchBO.Search("_id", "text", CrmSearchBO.FieldSearchEnum.ID, collect)));
-        crmSearchBO.setLabel(CrmEnum.LEADS.getType());
+        crmSearchBO.setLabel(CrmTypeEnum.LEADS.getType());
         crmSearchBO.setPage(eventCrmPageBO.getPage());
         crmSearchBO.setLimit(eventCrmPageBO.getLimit());
         return queryPageList(crmSearchBO);

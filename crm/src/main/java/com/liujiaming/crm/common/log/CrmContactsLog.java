@@ -15,7 +15,7 @@ import com.liujiaming.core.servlet.ApplicationContextHolder;
 import com.liujiaming.core.servlet.upload.FileEntity;
 import com.liujiaming.core.utils.TagUtil;
 import com.liujiaming.core.utils.UserCacheUtil;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmChangeOwnerUserBO;
 import com.liujiaming.crm.entity.BO.CrmContactsSaveBO;
 import com.liujiaming.crm.entity.BO.CrmUpdateInformationBO;
@@ -48,7 +48,7 @@ public class CrmContactsLog {
         for (Integer id : ids) {
             String name = crmContactsService.getContactsName(id);
             if (name != null) {
-                contentList.add(sysLogUtil.addDeleteActionRecord(CrmEnum.CONTACTS, name));
+                contentList.add(sysLogUtil.addDeleteActionRecord(CrmTypeEnum.CONTACTS, name));
             }
         }
         return contentList;
@@ -57,7 +57,7 @@ public class CrmContactsLog {
     public List<Content> changeOwnerUser(CrmChangeOwnerUserBO crmChangeOwnerUserBO) {
         return crmChangeOwnerUserBO.getIds().stream().map(id -> {
             String contactsName = crmContactsService.getContactsName(id);
-            return sysLogUtil.addConversionRecord(CrmEnum.CONTACTS, crmChangeOwnerUserBO.getOwnerUserId(), contactsName);
+            return sysLogUtil.addConversionRecord(CrmTypeEnum.CONTACTS, crmChangeOwnerUserBO.getOwnerUserId(), contactsName);
         }).collect(Collectors.toList());
     }
 
@@ -65,7 +65,7 @@ public class CrmContactsLog {
         CrmContacts crmContacts = BeanUtil.copyProperties(crmModel.getEntity(), CrmContacts.class);
         String batchId = StrUtil.isNotEmpty(crmContacts.getBatchId()) ? crmContacts.getBatchId() : IdUtil.simpleUUID();
         sysLogUtil.updateRecord(crmModel.getField(), Dict.create().set("batchId", batchId).set("dataTableName", "wk_crm_contacts_data"));
-        return sysLogUtil.updateRecord(BeanUtil.beanToMap(crmContactsService.getById(crmContacts.getContactsId())), BeanUtil.beanToMap(crmContacts), CrmEnum.CONTACTS, crmContacts.getName());
+        return sysLogUtil.updateRecord(BeanUtil.beanToMap(crmContactsService.getById(crmContacts.getContactsId())), BeanUtil.beanToMap(crmContacts), CrmTypeEnum.CONTACTS, crmContacts.getName());
     }
 
 
@@ -79,7 +79,7 @@ public class CrmContactsLog {
                 Map<String, Object> crmContactsMap = new HashMap<>(oldContactsMap);
                 crmContactsMap.put(record.getString("fieldName"), record.get("value"));
                 CrmContacts crmContacts = BeanUtil.mapToBean(crmContactsMap, CrmContacts.class, true);
-                contentList.add(sysLogUtil.updateRecord(oldContactsMap, crmContactsMap, CrmEnum.CONTACTS, crmContacts.getName()));
+                contentList.add(sysLogUtil.updateRecord(oldContactsMap, crmContactsMap, CrmTypeEnum.CONTACTS, crmContacts.getName()));
             } else if (record.getInteger("fieldType") == 0 || record.getInteger("fieldType") == 2) {
                 String formType = record.getString("formType");
                 if(formType == null){

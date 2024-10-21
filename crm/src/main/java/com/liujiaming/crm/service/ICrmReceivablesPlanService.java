@@ -4,7 +4,7 @@ import com.liujiaming.core.entity.BasePage;
 import com.liujiaming.core.servlet.BaseService;
 import com.liujiaming.core.servlet.upload.FileEntity;
 import com.liujiaming.crm.common.CrmModel;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmBusinessSaveBO;
 import com.liujiaming.crm.entity.BO.CrmReceivablesPlanBO;
 import com.liujiaming.crm.entity.BO.CrmSearchBO;
@@ -58,11 +58,11 @@ public interface ICrmReceivablesPlanService extends BaseService<CrmReceivablesPl
 
     /**
      * 修改回款计划状态
-     * @param crmEnum crmEnum
+     * @param crmTypeEnum crmTypeEnum
      * @param object 对应的PO对象
      * @param examineStatus 审批状态
      */
-    public void updateReceivedStatus(CrmEnum crmEnum, Object object, Integer examineStatus);
+    public void updateReceivedStatus(CrmTypeEnum crmTypeEnum, Object object, Integer examineStatus);
 
 
     /**

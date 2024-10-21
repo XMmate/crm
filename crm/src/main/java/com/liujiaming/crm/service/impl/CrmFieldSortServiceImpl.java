@@ -6,7 +6,7 @@ import com.liujiaming.core.common.Const;
 import com.liujiaming.core.common.FieldEnum;
 import com.liujiaming.core.servlet.BaseServiceImpl;
 import com.liujiaming.core.utils.UserUtil;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.PO.CrmField;
 import com.liujiaming.crm.entity.PO.CrmFieldSort;
 import com.liujiaming.crm.entity.VO.CrmFieldSortVO;
@@ -54,8 +54,8 @@ public class CrmFieldSortServiceImpl extends BaseServiceImpl<CrmFieldSortMapper,
     @Override
     public List<CrmFieldSort> queryAllFieldSortList(Integer label,Long userId) {
         List<CrmField> crmFieldList = crmFieldService.list(label, false);
-        CrmEnum crmEnum = CrmEnum.parse(label);
-        switch (crmEnum) {
+        CrmTypeEnum crmTypeEnum = CrmTypeEnum.parse(label);
+        switch (crmTypeEnum) {
             case CUSTOMER:
                 crmFieldList.add(new CrmField("status", "锁定状态", FieldEnum.NUMBER));
                 crmFieldList.add(new CrmField("dealStatus", "成交状态", FieldEnum.SELECT));
@@ -126,7 +126,7 @@ public class CrmFieldSortServiceImpl extends BaseServiceImpl<CrmFieldSortMapper,
             default:
                 break;
         }
-        if (!CrmEnum.RECEIVABLES_PLAN.getType().equals(label)&&!CrmEnum.RETURN_VISIT.getType().equals(label)) {
+        if (!CrmTypeEnum.RECEIVABLES_PLAN.getType().equals(label)&&!CrmTypeEnum.RETURN_VISIT.getType().equals(label)) {
             crmFieldList.add(new CrmField("ownerDeptName", "所属部门", FieldEnum.TEXT));
         }
         crmFieldList.add(new CrmField("updateTime", "更新时间", FieldEnum.DATETIME));

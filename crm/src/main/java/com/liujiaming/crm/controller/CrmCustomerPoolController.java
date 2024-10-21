@@ -14,7 +14,7 @@ import com.liujiaming.core.utils.ExcelParseUtil;
 import com.liujiaming.core.utils.UserUtil;
 import com.liujiaming.crm.common.log.CrmCustomerPoolLog;
 import com.liujiaming.crm.constant.CrmCodeEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmCustomerPoolBO;
 import com.liujiaming.crm.entity.BO.CrmSearchBO;
 import com.liujiaming.crm.entity.BO.UploadExcelBO;
@@ -127,7 +127,7 @@ public class CrmCustomerPoolController {
         }
         UploadExcelBO uploadExcelBO = new UploadExcelBO();
         uploadExcelBO.setUserInfo(UserUtil.getUser());
-        uploadExcelBO.setCrmEnum(CrmEnum.CUSTOMER);
+        uploadExcelBO.setCrmTypeEnum(CrmTypeEnum.CUSTOMER);
         uploadExcelBO.setPoolId(poolId);
         uploadExcelBO.setRepeatHandling(repeatHandling);
         Long messageId = uploadExcelService.uploadExcel(file, uploadExcelBO);
@@ -159,7 +159,7 @@ public class CrmCustomerPoolController {
         CrmSearchBO search = new CrmSearchBO();
         search.setPoolId(poolId);
         search.setPageType(0);
-        search.setLabel(CrmEnum.CUSTOMER.getType());
+        search.setLabel(CrmTypeEnum.CUSTOMER.getType());
         CrmSearchBO.Search entity = new CrmSearchBO.Search();
         entity.setFormType(FieldEnum.TEXT.getFormType());
         entity.setSearchEnum(CrmSearchBO.FieldSearchEnum.ID);

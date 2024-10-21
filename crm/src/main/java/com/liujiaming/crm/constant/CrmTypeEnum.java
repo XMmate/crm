@@ -4,10 +4,10 @@ import cn.hutool.core.util.StrUtil;
 
 /**
  * @author liujiaming
- * crm模块枚举
+ * crm类型枚举
  */
 
-public enum CrmEnum {
+public enum CrmTypeEnum {
     /**
      * 线索
      */
@@ -62,7 +62,7 @@ public enum CrmEnum {
      */
     NULL(0,"");
 
-    CrmEnum(Integer type, String remarks) {
+    CrmTypeEnum(Integer type, String remarks) {
         this.type = type;
         this.remarks = remarks;
     }
@@ -78,19 +78,19 @@ public enum CrmEnum {
         return type;
     }
 
-    public static CrmEnum parse(Integer type) {
-        for (CrmEnum crmEnum : CrmEnum.values()) {
-            if (crmEnum.getType().equals(type)) {
-                return crmEnum;
+    public static CrmTypeEnum parse(Integer type) {
+        for (CrmTypeEnum crmTypeEnum : CrmTypeEnum.values()) {
+            if (crmTypeEnum.getType().equals(type)) {
+                return crmTypeEnum;
             }
         }
         return NULL;
     }
 
-    public static CrmEnum parse(String name) {
-        for (CrmEnum crmEnum : CrmEnum.values()) {
-            if (crmEnum.name().equals(name)) {
-                return crmEnum;
+    public static CrmTypeEnum parse(String name) {
+        for (CrmTypeEnum crmTypeEnum : CrmTypeEnum.values()) {
+            if (crmTypeEnum.name().equals(name)) {
+                return crmTypeEnum;
             }
         }
         return NULL;
@@ -111,7 +111,7 @@ public enum CrmEnum {
      */
     public String getPrimaryKey(boolean camelCase) {
         String name;
-        if(this == CrmEnum.RETURN_VISIT){
+        if(this == CrmTypeEnum.RETURN_VISIT){
             name = "visit";
         }else {
             name = name().toLowerCase();

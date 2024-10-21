@@ -3,7 +3,7 @@ package com.liujiaming.crm.common.log;
 import cn.hutool.core.bean.BeanUtil;
 import com.liujiaming.core.common.log.Content;
 import com.liujiaming.core.servlet.ApplicationContextHolder;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.PO.CrmMarketing;
 import com.liujiaming.crm.service.ICrmMarketingService;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +17,7 @@ public class CrmMarketingLog {
     private ICrmMarketingService crmMarketingService = ApplicationContextHolder.getBean(ICrmMarketingService.class);
 
     public Content update(CrmMarketing crmMarketing) {
-        return sysLogUtil.updateRecord(BeanUtil.beanToMap(crmMarketingService.getById(crmMarketing.getMarketingId())), BeanUtil.beanToMap(crmMarketing), CrmEnum.MARKETING,crmMarketing.getMarketingName());
+        return sysLogUtil.updateRecord(BeanUtil.beanToMap(crmMarketingService.getById(crmMarketing.getMarketingId())), BeanUtil.beanToMap(crmMarketing), CrmTypeEnum.MARKETING,crmMarketing.getMarketingName());
     }
 
     public List<Content> updateStatus(@RequestParam("marketingIds") String marketingIds, @RequestParam("status") Integer status) {

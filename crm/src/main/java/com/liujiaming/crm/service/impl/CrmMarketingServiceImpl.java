@@ -20,7 +20,7 @@ import com.liujiaming.core.utils.TagUtil;
 import com.liujiaming.core.utils.UserCacheUtil;
 import com.liujiaming.core.utils.UserUtil;
 import com.liujiaming.crm.constant.CrmCodeEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmCensusBO;
 import com.liujiaming.crm.entity.BO.CrmMarketingPageBO;
 import com.liujiaming.crm.entity.BO.CrmModelSaveBO;
@@ -353,10 +353,10 @@ public class CrmMarketingServiceImpl extends BaseServiceImpl<CrmMarketingMapper,
             }
             CrmModelSaveBO crmModelSaveBO = JSON.parseObject(marketingInfo.getFieldInfo(), CrmModelSaveBO.class);
             try {
-                if (crmType.equals(CrmEnum.LEADS.getType())){
+                if (crmType.equals(CrmTypeEnum.LEADS.getType())){
                     List<CrmModelFiledVO> filedList = crmLeadsService.queryField(null);
                     List<CrmModelFiledVO> uniqueList = filedList.stream().filter(field -> field.getIsUnique()!=null && field.getIsUnique().equals(1)).collect(Collectors.toList());
-                    CrmEnum crmEnum = CrmEnum.LEADS;
+                    CrmTypeEnum crmTypeEnum = CrmTypeEnum.LEADS;
                     Map<String,Object> map = new HashMap<>();
                     for (CrmModelFiledVO crmModelFiledVO : crmModelSaveBO.getField()) {
                         map.put(crmModelFiledVO.getFieldName(),crmModelFiledVO.getValue());
@@ -367,7 +367,7 @@ public class CrmMarketingServiceImpl extends BaseServiceImpl<CrmMarketingMapper,
                             if (ObjectUtil.isEmpty(value)) {
                                 continue;
                             }
-                            Integer count = crmFieldMapper.verifyFixedField(crmEnum.getTableName(), StrUtil.toUnderlineCase(field.getFieldName()), value.toString(), null, crmEnum.getType());
+                            Integer count = crmFieldMapper.verifyFixedField(crmTypeEnum.getTableName(), StrUtil.toUnderlineCase(field.getFieldName()), value.toString(), null, crmTypeEnum.getType());
                             if (count > 0) {
                                 crmMarketingInfoService.lambdaUpdate().set(CrmMarketingInfo::getStatus,2).eq(CrmMarketingInfo::getRId,marketingInfo.getRId()).update();
                                 throw new CrmException(CrmCodeEnum.CRM_FIELD_ALREADY_EXISTS,field.getName());
@@ -376,7 +376,7 @@ public class CrmMarketingServiceImpl extends BaseServiceImpl<CrmMarketingMapper,
                             if (ObjectUtil.isEmpty(map.get(field.getFieldName()))) {
                                 continue;
                             }
-                            Integer count = crmFieldMapper.verifyField(crmEnum.getTableName(), field.getFieldId(), map.getOrDefault(field.getFieldName(),"").toString(), null);
+                            Integer count = crmFieldMapper.verifyField(crmTypeEnum.getTableName(), field.getFieldId(), map.getOrDefault(field.getFieldName(),"").toString(), null);
                             if (count > 0) {
                                 crmMarketingInfoService.lambdaUpdate().set(CrmMarketingInfo::getStatus,2).eq(CrmMarketingInfo::getRId,marketingInfo.getRId()).update();
                                 throw new CrmException(CrmCodeEnum.CRM_FIELD_ALREADY_EXISTS,field.getName());
@@ -385,10 +385,10 @@ public class CrmMarketingServiceImpl extends BaseServiceImpl<CrmMarketingMapper,
                     }
                     crmLeadsService.addOrUpdate(crmModelSaveBO,false);
                     crmMarketingInfoService.lambdaUpdate().set(CrmMarketingInfo::getStatus,1).eq(CrmMarketingInfo::getRId,marketingInfo.getRId()).update();
-                }else if (crmType.equals(CrmEnum.CUSTOMER.getType())){
+                }else if (crmType.equals(CrmTypeEnum.CUSTOMER.getType())){
                     List<CrmModelFiledVO> filedList = customerService.queryField(null);
                     List<CrmModelFiledVO> uniqueList = filedList.stream().filter(field -> field.getIsUnique()!=null && field.getIsUnique().equals(1)).collect(Collectors.toList());
-                    CrmEnum crmEnum = CrmEnum.CUSTOMER;
+                    CrmTypeEnum crmTypeEnum = CrmTypeEnum.CUSTOMER;
                     Map<String,Object> map = new HashMap<>();
                     for (CrmModelFiledVO crmModelFiledVO : crmModelSaveBO.getField()) {
                         map.put(crmModelFiledVO.getFieldName(),crmModelFiledVO.getValue().toString());
@@ -399,7 +399,7 @@ public class CrmMarketingServiceImpl extends BaseServiceImpl<CrmMarketingMapper,
                             if (ObjectUtil.isEmpty(value)) {
                                 continue;
                             }
-                            Integer count = crmFieldMapper.verifyFixedField(crmEnum.getTableName(), StrUtil.toUnderlineCase(field.getFieldName()), value.toString(), null, crmEnum.getType());
+                            Integer count = crmFieldMapper.verifyFixedField(crmTypeEnum.getTableName(), StrUtil.toUnderlineCase(field.getFieldName()), value.toString(), null, crmTypeEnum.getType());
                             if (count > 0) {
                                 crmMarketingInfoService.lambdaUpdate().set(CrmMarketingInfo::getStatus,2).eq(CrmMarketingInfo::getRId,marketingInfo.getRId()).update();
                                 throw new CrmException(CrmCodeEnum.CRM_FIELD_ALREADY_EXISTS,field.getName());
@@ -408,7 +408,7 @@ public class CrmMarketingServiceImpl extends BaseServiceImpl<CrmMarketingMapper,
                             if (ObjectUtil.isEmpty(map.get(field.getFieldName()))) {
                                 continue;
                             }
-                            Integer count = crmFieldMapper.verifyField(crmEnum.getTableName(), field.getFieldId(), map.getOrDefault(field.getFieldName(),"").toString(), null);
+                            Integer count = crmFieldMapper.verifyField(crmTypeEnum.getTableName(), field.getFieldId(), map.getOrDefault(field.getFieldName(),"").toString(), null);
                             if (count > 0) {
                                 crmMarketingInfoService.lambdaUpdate().set(CrmMarketingInfo::getStatus,2).eq(CrmMarketingInfo::getRId,marketingInfo.getRId()).update();
                                 throw new CrmException(CrmCodeEnum.CRM_FIELD_ALREADY_EXISTS,field.getName());

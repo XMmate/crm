@@ -1,7 +1,7 @@
 package com.liujiaming.crm.service;
 
 import com.liujiaming.core.servlet.BaseService;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.PO.CrmField;
 import com.liujiaming.crm.entity.PO.CrmRoleField;
 
@@ -42,11 +42,11 @@ public interface ICrmRoleFieldService extends BaseService<CrmRoleField> {
 
     /**
      * 掩码替换值工具类
-     * @param crmEnum crm类型
+     * @param crmTypeEnum crm类型
      * @param list 数据列表
      * @param maskType 掩码级别 0 都不隐藏 1 列表隐藏详情不隐藏 2 都隐藏
      */
-    public void replaceMaskFieldValue(CrmEnum crmEnum, List<? extends Map<String, Object>> list, Integer maskType);
+    public void replaceMaskFieldValue(CrmTypeEnum crmTypeEnum, List<? extends Map<String, Object>> list, Integer maskType);
 
     /**
      * 保存字段设置

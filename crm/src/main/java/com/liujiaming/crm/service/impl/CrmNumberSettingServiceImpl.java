@@ -14,7 +14,7 @@ import com.liujiaming.core.feign.admin.service.AdminService;
 import com.liujiaming.core.servlet.ApplicationContextHolder;
 import com.liujiaming.core.servlet.BaseServiceImpl;
 import com.liujiaming.crm.constant.CrmCodeEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.PO.*;
 import com.liujiaming.crm.entity.VO.CrmNumberSettingVO;
 import com.liujiaming.crm.mapper.CrmNumberSettingMapper;
@@ -79,10 +79,10 @@ public class CrmNumberSettingServiceImpl extends BaseServiceImpl<CrmNumberSettin
      */
     @Override
     public String generateNumber(AdminConfig config, Date date) {
-        CrmEnum crmEnum = CrmEnum.parse(Integer.valueOf(config.getValue()));
+        CrmTypeEnum crmTypeEnum = CrmTypeEnum.parse(Integer.valueOf(config.getValue()));
         List<String> numberList = new ArrayList<>();
         String maxNum;
-        switch (crmEnum) {
+        switch (crmTypeEnum) {
             case CONTRACT:
                 LambdaQueryWrapper<CrmContract> contractLambdaQueryWrapper = new LambdaQueryWrapper<>();
                 contractLambdaQueryWrapper.select(CrmContract::getNum).ne(CrmContract::getCheckStatus, 7).orderByDesc(CrmContract::getCreateTime).last("limit 1");

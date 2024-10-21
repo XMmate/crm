@@ -17,7 +17,7 @@ import com.liujiaming.core.servlet.upload.FileEntity;
 import com.liujiaming.core.utils.TagUtil;
 import com.liujiaming.core.utils.UserCacheUtil;
 import com.liujiaming.core.utils.UserUtil;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.*;
 import com.liujiaming.crm.entity.BO.*;
 import com.liujiaming.crm.entity.PO.CrmCustomer;
@@ -48,7 +48,7 @@ public class CrmCustomerLog {
         CrmCustomer crmCustomer = BeanUtil.copyProperties(crmModel.getEntity(), CrmCustomer.class);
         String batchId = StrUtil.isNotEmpty(crmCustomer.getBatchId()) ? crmCustomer.getBatchId() : IdUtil.simpleUUID();
         sysLogUtil.updateRecord(crmModel.getField(), Dict.create().set("batchId", batchId).set("dataTableName", "wk_crm_customer_data"));
-        return sysLogUtil.updateRecord(BeanUtil.beanToMap(crmCustomerService.getById(crmCustomer.getCustomerId())), BeanUtil.beanToMap(crmCustomer), CrmEnum.CUSTOMER, crmCustomer.getCustomerName());
+        return sysLogUtil.updateRecord(BeanUtil.beanToMap(crmCustomerService.getById(crmCustomer.getCustomerId())), BeanUtil.beanToMap(crmCustomer), CrmTypeEnum.CUSTOMER, crmCustomer.getCustomerName());
     }
 
     public List<Content> deleteByIds(List<Integer> ids) {
@@ -56,7 +56,7 @@ public class CrmCustomerLog {
         for (Integer id : ids) {
             String name = crmCustomerService.getCustomerName(id);
             if (name != null) {
-                contentList.add(sysLogUtil.addDeleteActionRecord(CrmEnum.CUSTOMER, name));
+                contentList.add(sysLogUtil.addDeleteActionRecord(CrmTypeEnum.CUSTOMER, name));
             }
         }
         return contentList;
@@ -83,7 +83,7 @@ public class CrmCustomerLog {
     public List<Content> changeOwnerUser(CrmChangeOwnerUserBO crmChangeOwnerUserBO) {
         return crmChangeOwnerUserBO.getIds().stream().map(id -> {
             String customerName = crmCustomerService.getCustomerName(id);
-            return sysLogUtil.addConversionRecord(CrmEnum.CUSTOMER, crmChangeOwnerUserBO.getOwnerUserId(), customerName);
+            return sysLogUtil.addConversionRecord(CrmTypeEnum.CUSTOMER, crmChangeOwnerUserBO.getOwnerUserId(), customerName);
         }).collect(Collectors.toList());
     }
 
@@ -92,7 +92,7 @@ public class CrmCustomerLog {
         for (Integer id : crmMemberSaveBO.getIds()) {
             String name = crmCustomerService.getCustomerName(id);
             for (Long memberId : crmMemberSaveBO.getMemberIds()) {
-                contentList.add(sysLogUtil.addMemberActionRecord(CrmEnum.CUSTOMER, id, memberId, name));
+                contentList.add(sysLogUtil.addMemberActionRecord(CrmTypeEnum.CUSTOMER, id, memberId, name));
             }
         }
         return contentList;
@@ -103,7 +103,7 @@ public class CrmCustomerLog {
         for (Integer id : crmMemberSaveBO.getIds()) {
             String name = crmCustomerService.getCustomerName(id);
             for (Long memberId : crmMemberSaveBO.getMemberIds()) {
-                contentList.add(sysLogUtil.addMemberActionRecord(CrmEnum.CUSTOMER, id, memberId, name));
+                contentList.add(sysLogUtil.addMemberActionRecord(CrmTypeEnum.CUSTOMER, id, memberId, name));
             }
         }
         return contentList;
@@ -115,9 +115,9 @@ public class CrmCustomerLog {
             CrmCustomer oldCustomer = crmCustomerService.getById(id);
             for (Long memberId : crmMemberSaveBO.getMemberIds()) {
                 if (!memberId.equals(UserUtil.getUserId())) {
-                    contentList.add(sysLogUtil.addDeleteMemberActionRecord(CrmEnum.CUSTOMER, memberId, false, oldCustomer.getCustomerName()));
+                    contentList.add(sysLogUtil.addDeleteMemberActionRecord(CrmTypeEnum.CUSTOMER, memberId, false, oldCustomer.getCustomerName()));
                 } else {
-                    contentList.add(sysLogUtil.addDeleteMemberActionRecord(CrmEnum.CUSTOMER, memberId, true, oldCustomer.getCustomerName()));
+                    contentList.add(sysLogUtil.addDeleteMemberActionRecord(CrmTypeEnum.CUSTOMER, memberId, true, oldCustomer.getCustomerName()));
                 }
             }
         }
@@ -126,7 +126,7 @@ public class CrmCustomerLog {
 
     public Content exitTeam(Integer customerId) {
         CrmCustomer oldCustomer = crmCustomerService.getById(customerId);
-        return sysLogUtil.addDeleteMemberActionRecord(CrmEnum.CUSTOMER, UserUtil.getUserId(), true, oldCustomer.getCustomerName());
+        return sysLogUtil.addDeleteMemberActionRecord(CrmTypeEnum.CUSTOMER, UserUtil.getUserId(), true, oldCustomer.getCustomerName());
     }
 
     public List<Content> updateCustomerByIds(CrmCustomerPoolBO poolBO) {
@@ -168,7 +168,7 @@ public class CrmCustomerLog {
                 Map<String, Object> crmCustomerMap = new HashMap<>(oldCustomerMap);
                 crmCustomerMap.put(record.getString("fieldName"), record.get("value"));
                 CrmCustomer crmCustomer = BeanUtil.mapToBean(crmCustomerMap, CrmCustomer.class, true);
-                contentList.add(sysLogUtil.updateRecord(oldCustomerMap, crmCustomerMap, CrmEnum.CUSTOMER, crmCustomer.getCustomerName()));
+                contentList.add(sysLogUtil.updateRecord(oldCustomerMap, crmCustomerMap, CrmTypeEnum.CUSTOMER, crmCustomer.getCustomerName()));
             } else if (record.getInteger("fieldType") == 0 || record.getInteger("fieldType") == 2) {
                 String formType = record.getString("formType");
                 if(formType == null){

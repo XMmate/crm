@@ -29,7 +29,7 @@ import com.liujiaming.crm.common.ElasticUtil;
 import com.liujiaming.crm.constant.CrmActivityEnum;
 import com.liujiaming.crm.constant.CrmAuthEnum;
 import com.liujiaming.crm.constant.CrmCodeEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.*;
 import com.liujiaming.crm.entity.PO.*;
 import com.liujiaming.crm.entity.VO.CrmFieldSortVO;
@@ -167,13 +167,13 @@ public class CrmContactsServiceImpl extends BaseServiceImpl<CrmContactsMapper, C
         CrmModel crmModel;
         if (id != null) {
             crmModel = getBaseMapper().queryById(id, UserUtil.getUserId());
-            crmModel.setLabel(CrmEnum.CONTACTS.getType());
+            crmModel.setLabel(CrmTypeEnum.CONTACTS.getType());
             crmModel.setOwnerUserName(UserCacheUtil.getUserName(crmModel.getOwnerUserId()));
             crmContactsDataService.setDataByBatchId(crmModel);
             List<String> stringList = ApplicationContextHolder.getBean(ICrmRoleFieldService.class).queryNoAuthField(crmModel.getLabel());
             stringList.forEach(crmModel::remove);
         } else {
-            crmModel = new CrmModel(CrmEnum.CONTACTS.getType());
+            crmModel = new CrmModel(CrmTypeEnum.CONTACTS.getType());
         }
         return crmModel;
     }
@@ -194,7 +194,7 @@ public class CrmContactsServiceImpl extends BaseServiceImpl<CrmContactsMapper, C
             crmContacts.setEmail(null);
         }
         if (crmContacts.getContactsId() != null) {
-            actionRecordUtil.updateRecord(BeanUtil.beanToMap(getById(crmContacts.getContactsId())), BeanUtil.beanToMap(crmContacts), CrmEnum.CONTACTS, crmContacts.getName(), crmContacts.getContactsId());
+            actionRecordUtil.updateRecord(BeanUtil.beanToMap(getById(crmContacts.getContactsId())), BeanUtil.beanToMap(crmContacts), CrmTypeEnum.CONTACTS, crmContacts.getName(), crmContacts.getContactsId());
             crmContacts.setUpdateTime(DateUtil.date());
             updateById(crmContacts);
             crmContacts = getById(crmContacts);
@@ -215,7 +215,7 @@ public class CrmContactsServiceImpl extends BaseServiceImpl<CrmContactsMapper, C
                 crmContactsBusinessService.save(crmModel.getBusinessId(), crmContacts.getContactsId());
             }
             crmActivityService.addActivity(2, CrmActivityEnum.CONTACTS, crmContacts.getContactsId());
-            actionRecordUtil.addRecord(crmContacts.getContactsId(), CrmEnum.CONTACTS, crmContacts.getName());
+            actionRecordUtil.addRecord(crmContacts.getContactsId(), CrmTypeEnum.CONTACTS, crmContacts.getName());
         }
         ICrmCustomerService bean = ApplicationContextHolder.getBean(ICrmCustomerService.class);
         CrmCustomer customer = bean.getById(crmContacts.getCustomerId());
@@ -267,7 +267,7 @@ public class CrmContactsServiceImpl extends BaseServiceImpl<CrmContactsMapper, C
                 //删除跟进记录
                 crmActivityService.deleteActivityRecord(CrmActivityEnum.CONTACTS, Collections.singletonList(contacts.getContactsId()));
                 //删除字段操作记录
-                crmActionRecordService.deleteActionRecord(CrmEnum.CONTACTS, Collections.singletonList(contacts.getContactsId()));
+                crmActionRecordService.deleteActionRecord(CrmTypeEnum.CONTACTS, Collections.singletonList(contacts.getContactsId()));
                 //删除联系人商机关联
                 ApplicationContextHolder.getBean(ICrmContactsBusinessService.class).removeByContactsId(id);
                 //删除自定义字段
@@ -291,11 +291,11 @@ public class CrmContactsServiceImpl extends BaseServiceImpl<CrmContactsMapper, C
             return;
         }
         for (Integer id : ids) {
-            if (AuthUtil.isChangeOwnerUserAuth(id, CrmEnum.CONTACTS, CrmAuthEnum.EDIT)) {
+            if (AuthUtil.isChangeOwnerUserAuth(id, CrmTypeEnum.CONTACTS, CrmAuthEnum.EDIT)) {
                 throw new CrmException(SystemCodeEnum.SYSTEM_NO_AUTH);
             }
             CrmContacts contacts = getById(id);
-            actionRecordUtil.addConversionRecord(id, CrmEnum.CONTACTS, newOwnerUserId, contacts.getName());
+            actionRecordUtil.addConversionRecord(id, CrmTypeEnum.CONTACTS, newOwnerUserId, contacts.getName());
             if (2 == changeOwnerUserBO.getTransferType() && !changeOwnerUserBO.getOwnerUserId().equals(contacts.getOwnerUserId())) {
                 ApplicationContextHolder.getBean(ICrmTeamMembersService.class).addSingleMember(getLabel(), contacts.getContactsId(), contacts.getOwnerUserId(), changeOwnerUserBO.getPower(), changeOwnerUserBO.getExpiresTime(), contacts.getName());
             }
@@ -492,8 +492,8 @@ public class CrmContactsServiceImpl extends BaseServiceImpl<CrmContactsMapper, C
      * @return data
      */
     @Override
-    public CrmEnum getLabel() {
-        return CrmEnum.CONTACTS;
+    public CrmTypeEnum getLabel() {
+        return CrmTypeEnum.CONTACTS;
     }
 
     /**
@@ -532,7 +532,7 @@ public class CrmContactsServiceImpl extends BaseServiceImpl<CrmContactsMapper, C
                 Map<String, Object> crmContactsMap = new HashMap<>(oldContactsMap);
                 crmContactsMap.put(record.getString("fieldName"), record.get("value"));
                 CrmContacts crmContacts = BeanUtil.mapToBean(crmContactsMap, CrmContacts.class, true);
-                actionRecordUtil.updateRecord(oldContactsMap, crmContactsMap, CrmEnum.CONTACTS, crmContacts.getName(), crmContacts.getContactsId());
+                actionRecordUtil.updateRecord(oldContactsMap, crmContactsMap, CrmTypeEnum.CONTACTS, crmContacts.getName(), crmContacts.getContactsId());
                 update().set(StrUtil.toUnderlineCase(record.getString("fieldName")), record.get("value")).eq("contacts_id", updateInformationBO.getId()).update();
                 if ("name".equals(record.getString("fieldName"))) {
                     ElasticUtil.batchUpdateEsData(elasticsearchRestTemplate.getClient(), "contacts", crmContacts.getContactsId().toString(), crmContacts.getName());
@@ -542,7 +542,7 @@ public class CrmContactsServiceImpl extends BaseServiceImpl<CrmContactsMapper, C
                         .select(CrmContactsData::getValue, CrmContactsData::getId).eq(CrmContactsData::getFieldId, record.getInteger("fieldId"))
                         .eq(CrmContactsData::getBatchId, batchId).one();
                 String value = contactsData != null ? contactsData.getValue() : null;
-                actionRecordUtil.publicContentRecord(CrmEnum.CONTACTS, BehaviorEnum.UPDATE, contactsId, oldContacts.getName(), record, value);
+                actionRecordUtil.publicContentRecord(CrmTypeEnum.CONTACTS, BehaviorEnum.UPDATE, contactsId, oldContacts.getName(), record, value);
                 String newValue = fieldService.convertObjectValueToString(record.getInteger("type"), record.get("value"), record.getString("value"));
                 CrmContactsData crmContactsData = new CrmContactsData();
                 crmContactsData.setId(contactsData != null ? contactsData.getId() : null);

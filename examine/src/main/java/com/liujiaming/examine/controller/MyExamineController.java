@@ -7,6 +7,7 @@ import com.liujiaming.core.feign.oa.entity.ExamineVO;
 import com.liujiaming.examine.entity.BO.ExaminePageBO;
 import com.liujiaming.examine.entity.VO.ExamineRecordInfoVO;
 import com.liujiaming.examine.service.IExamineService;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/examineWaiting")
+@ApiModel("待审批/审批模块")
 public class MyExamineController {
     @Autowired
     private IExamineService examineService;
@@ -50,7 +52,7 @@ public class MyExamineController {
     }
 
     @PostMapping("/queryCrmExamineIdList")
-    @ApiExplain("查询CRM审批流联业务主键列表")
+    @ApiExplain("根据条件查询审批流程表ID列表")
     public Result<List<Integer>> queryCrmExamineIdList(@RequestParam("label")Integer label,@RequestParam(value = "status",required = false)Integer status) {
         return Result.ok(examineService.queryCrmExamineIdList(label,status));
     }

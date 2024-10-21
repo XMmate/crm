@@ -35,7 +35,7 @@ import com.liujiaming.crm.common.CrmModel;
 import com.liujiaming.crm.constant.CrmAuthEnum;
 import com.liujiaming.crm.constant.CrmBackLogEnum;
 import com.liujiaming.crm.constant.CrmCodeEnum;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmContractSaveBO;
 import com.liujiaming.crm.entity.BO.CrmSearchBO;
 import com.liujiaming.crm.entity.BO.CrmUpdateInformationBO;
@@ -182,7 +182,7 @@ public class CrmInvoiceServiceImpl extends BaseServiceImpl<CrmInvoiceMapper, Crm
         update(lambdaUpdateWrapper);
         for (Integer id : ids) {
             CrmInvoice invoice = getById(id);
-            actionRecordUtil.addConversionRecord(id, CrmEnum.INVOICE, ownerUserId, invoice.getInvoiceApplyNumber());
+            actionRecordUtil.addConversionRecord(id, CrmTypeEnum.INVOICE, ownerUserId, invoice.getInvoiceApplyNumber());
         }
         //修改es
         Map<String, Object> map = new HashMap<>();
@@ -212,7 +212,7 @@ public class CrmInvoiceServiceImpl extends BaseServiceImpl<CrmInvoiceMapper, Crm
 
     @Override
     public void updateInvoiceInfo(CrmInvoiceInfo crmInvoiceInfo) {
-        boolean auth = AuthUtil.isRwAuth(crmInvoiceInfo.getCustomerId(), CrmEnum.CUSTOMER, CrmAuthEnum.EDIT);
+        boolean auth = AuthUtil.isRwAuth(crmInvoiceInfo.getCustomerId(), CrmTypeEnum.CUSTOMER, CrmAuthEnum.EDIT);
         if (auth) {
             throw new CrmException(SystemCodeEnum.SYSTEM_NO_AUTH);
         }
@@ -222,7 +222,7 @@ public class CrmInvoiceServiceImpl extends BaseServiceImpl<CrmInvoiceMapper, Crm
     @Override
     public void deleteInvoiceInfo(Integer infoId) {
         CrmInvoiceInfo invoiceInfo = crmInvoiceInfoService.getById(infoId);
-        boolean auth = AuthUtil.isRwAuth(invoiceInfo.getCustomerId(), CrmEnum.CUSTOMER,CrmAuthEnum.DELETE);
+        boolean auth = AuthUtil.isRwAuth(invoiceInfo.getCustomerId(), CrmTypeEnum.CUSTOMER,CrmAuthEnum.DELETE);
         if (auth) {
             throw new CrmException(SystemCodeEnum.SYSTEM_NO_AUTH);
         }
@@ -252,8 +252,8 @@ public class CrmInvoiceServiceImpl extends BaseServiceImpl<CrmInvoiceMapper, Crm
      *
      * @return data
      */
-    public CrmEnum getLabel() {
-        return CrmEnum.INVOICE;
+    public CrmTypeEnum getLabel() {
+        return CrmTypeEnum.INVOICE;
     }
 
     @Override
@@ -362,8 +362,8 @@ public class CrmInvoiceServiceImpl extends BaseServiceImpl<CrmInvoiceMapper, Crm
             if(newInvoiceMap.containsKey("invoiceType")){
                 newInvoiceMap.put("invoiceType",parseInvoiceType(TypeUtils.castToInt(newInvoiceMap.get("invoiceType"))));
             }
-            ApplicationContextHolder.getBean(ICrmBackLogDealService.class).deleteByTypes(null, CrmEnum.INVOICE,crmInvoice.getInvoiceId(), CrmBackLogEnum.CHECK_INVOICE);
-            actionRecordUtil.updateRecord(oldInvoiceMap, newInvoiceMap, CrmEnum.INVOICE, crmInvoice.getInvoiceApplyNumber(), crmInvoice.getInvoiceId());
+            ApplicationContextHolder.getBean(ICrmBackLogDealService.class).deleteByTypes(null, CrmTypeEnum.INVOICE,crmInvoice.getInvoiceId(), CrmBackLogEnum.CHECK_INVOICE);
+            actionRecordUtil.updateRecord(oldInvoiceMap, newInvoiceMap, CrmTypeEnum.INVOICE, crmInvoice.getInvoiceApplyNumber(), crmInvoice.getInvoiceId());
             crmInvoice.setUpdateTime(new Date());
             updateById(crmInvoice);
             crmInvoice = getById(crmInvoice.getInvoiceId());
@@ -385,7 +385,7 @@ public class CrmInvoiceServiceImpl extends BaseServiceImpl<CrmInvoiceMapper, Crm
             crmInvoice.setExamineRecordId(crmExamineData.getRecordId());
             crmInvoice.setCheckStatus(crmExamineData.getExamineStatus());
             updateById(crmInvoice);
-            actionRecordUtil.addRecord(crmInvoice.getInvoiceId(), CrmEnum.INVOICE, crmInvoice.getInvoiceApplyNumber());
+            actionRecordUtil.addRecord(crmInvoice.getInvoiceId(), CrmTypeEnum.INVOICE, crmInvoice.getInvoiceApplyNumber());
         }
         crmModel.setEntity(BeanUtil.beanToMap(crmInvoice));
         crmModel.getEntity().put("realInvoiceDate",DateUtil.formatDate((Date) crmModel.getEntity().get("realInvoiceDate")));
@@ -403,7 +403,7 @@ public class CrmInvoiceServiceImpl extends BaseServiceImpl<CrmInvoiceMapper, Crm
         CrmModel crmModel;
         if (id != null) {
             crmModel = getBaseMapper().queryByIds(id, UserUtil.getUserId());
-            crmModel.setLabel(CrmEnum.INVOICE.getType());
+            crmModel.setLabel(CrmTypeEnum.INVOICE.getType());
             crmModel.setOwnerUserName(UserCacheUtil.getUserName(crmModel.getOwnerUserId()));
             List<String> nameList = StrUtil.splitTrim((String) crmModel.get("companyUserId"), Const.SEPARATOR);
             String name = nameList.stream().map(str -> UserCacheUtil.getUserName(Long.valueOf(str))).collect(Collectors.joining(Const.SEPARATOR));
@@ -413,7 +413,7 @@ public class CrmInvoiceServiceImpl extends BaseServiceImpl<CrmInvoiceMapper, Crm
             List<String> stringList = ApplicationContextHolder.getBean(ICrmRoleFieldService.class).queryNoAuthField(crmModel.getLabel());
             stringList.forEach(crmModel::remove);
         } else {
-            crmModel = new CrmModel(CrmEnum.INVOICE.getType());
+            crmModel = new CrmModel(CrmTypeEnum.INVOICE.getType());
         }
         return crmModel;
     }
@@ -542,13 +542,13 @@ public class CrmInvoiceServiceImpl extends BaseServiceImpl<CrmInvoiceMapper, Crm
                 if(crmInvoiceMap.containsKey("invoiceType")){
                     crmInvoiceMap.put("invoiceType",parseInvoiceType(TypeUtils.castToInt(crmInvoiceMap.get("invoiceType"))));
                 }
-                actionRecordUtil.updateRecord(oldInvoiceMap, crmInvoiceMap, CrmEnum.INVOICE,crmInvoices.getInvoiceApplyNumber(),crmInvoices.getInvoiceId());
+                actionRecordUtil.updateRecord(oldInvoiceMap, crmInvoiceMap, CrmTypeEnum.INVOICE,crmInvoices.getInvoiceApplyNumber(),crmInvoices.getInvoiceId());
                 update().set(StrUtil.toUnderlineCase(record.getString("fieldName")), record.get("value")).eq("invoice_id",updateInformationBO.getId()).update();
             }else if (record.getInteger("fieldType") == 0 || record.getInteger("fieldType") == 2){
                 CrmInvoiceData invoiceData = crmInvoiceDataService.lambdaQuery().select(CrmInvoiceData::getValue,CrmInvoiceData::getId).eq(CrmInvoiceData::getFieldId, record.getInteger("fieldId"))
                         .eq(CrmInvoiceData::getBatchId, batchId).one();
                 String value = invoiceData != null ? invoiceData.getValue() : null;
-                actionRecordUtil.publicContentRecord(CrmEnum.INVOICE, BehaviorEnum.UPDATE,invoiceId,crmInvoice.getInvoiceApplyNumber(),record,value);
+                actionRecordUtil.publicContentRecord(CrmTypeEnum.INVOICE, BehaviorEnum.UPDATE,invoiceId,crmInvoice.getInvoiceApplyNumber(),record,value);
                 String newValue = fieldService.convertObjectValueToString(record.getInteger("type"),record.get("value"),record.getString("value"));
 
                 CrmInvoiceData crmInvoiceData = new CrmInvoiceData();

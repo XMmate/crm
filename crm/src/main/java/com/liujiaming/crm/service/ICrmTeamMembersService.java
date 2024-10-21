@@ -1,7 +1,7 @@
 package com.liujiaming.crm.service;
 
 import com.liujiaming.core.servlet.BaseService;
-import com.liujiaming.crm.constant.CrmEnum;
+import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmMemberSaveBO;
 import com.liujiaming.crm.entity.PO.CrmTeamMembers;
 import com.liujiaming.crm.entity.VO.CrmMembersSelectVO;
@@ -22,55 +22,55 @@ public interface ICrmTeamMembersService extends BaseService<CrmTeamMembers> {
     /**
      * 获取团队成员
      *
-     * @param crmEnum     对应类型
+     * @param crmTypeEnum     对应类型
      * @param typeId      对应类型ID
      * @param ownerUserId 负责人ID
      * @return data
      */
-    public List<CrmMembersSelectVO> getMembers(CrmEnum crmEnum, Integer typeId, Long ownerUserId);
+    public List<CrmMembersSelectVO> getMembers(CrmTypeEnum crmTypeEnum, Integer typeId, Long ownerUserId);
 
     /**
      * 添加团队成员
      *
-     * @param crmEnum         对应类型
+     * @param crmTypeEnum         对应类型
      * @param crmMemberSaveBO data
      */
-    public void addMember(CrmEnum crmEnum, CrmMemberSaveBO crmMemberSaveBO);
+    public void addMember(CrmTypeEnum crmTypeEnum, CrmMemberSaveBO crmMemberSaveBO);
 
     /**
      * 删除团队成员
      *
-     * @param crmEnum         对应类型
+     * @param crmTypeEnum         对应类型
      * @param crmMemberSaveBO data
      */
-    public void deleteMember(CrmEnum crmEnum, CrmMemberSaveBO crmMemberSaveBO);
+    public void deleteMember(CrmTypeEnum crmTypeEnum, CrmMemberSaveBO crmMemberSaveBO);
 
     /**
      * 退出团队
      *
-     * @param crmEnum 对应类型
+     * @param crmTypeEnum 对应类型
      * @param typeId  对应类型ID
      */
-    public void exitTeam(CrmEnum crmEnum, Integer typeId);
+    public void exitTeam(CrmTypeEnum crmTypeEnum, Integer typeId);
 
     /**
      * 添加单条团队成员数据
      *
-     * @param crmEnum 对应类型
+     * @param crmTypeEnum 对应类型
      * @param typeId  对应类型ID
      * @param userId  用户ID
      * @param power   读写类型
      */
-    public void addSingleMember(CrmEnum crmEnum, Integer typeId, Long userId, Integer power, Date expiresTime, String name);
+    public void addSingleMember(CrmTypeEnum crmTypeEnum, Integer typeId, Long userId, Integer power, Date expiresTime, String name);
 
 
     /**
      * 查询团队成员数量
-     * @param crmEnum 对应类型
+     * @param crmTypeEnum 对应类型
      * @param typeId  对应类型ID
      * @param ownerUserId  用户ID
      */
-    public Integer queryMemberCount(CrmEnum crmEnum, Integer typeId, Long ownerUserId);
+    public Integer queryMemberCount(CrmTypeEnum crmTypeEnum, Integer typeId, Long ownerUserId);
 
     /**
      * 删除过期的团队成员数据

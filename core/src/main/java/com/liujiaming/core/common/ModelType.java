@@ -1,8 +1,10 @@
 package com.liujiaming.core.common;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 
 @Getter
+@ApiModel("模块枚举")
 public enum ModelType {
     ADMIN("admin","后台管理"),
     CRM("crm","客户管理"),
