@@ -64,7 +64,7 @@ public interface CrmBackLogMapper {
     public List<JSONObject> putInPoolByDealStatus(Map<String, Object> map);
 
     /**
-     *
+     *未跟进的线索
      * @param map
      * @return
      */
@@ -77,12 +77,37 @@ public interface CrmBackLogMapper {
      */
     public Integer endContractNum(Map<String, Object> map);
 
+    /**回访提醒
+     *
+     * @param map
+     * @return
+     */
     public Integer returnVisitRemindNum(Map<String, Object> map);
 
+    /**
+     * 应收账款计划提醒
+     * @param map
+     * @return
+     */
     public Integer remindReceivablesPlanNum(Map<String, Object> map);
 
+    /**、
+     *应收账款已逾期提醒
+     * @param date
+     * @param userId
+     * @return
+     */
     public Integer remindReceivablesOvertimeNum(@Param("date")Date date,@Param("userId")Long userId);
 
+
+    /**
+     * 提醒应收账款
+     * @param parse
+     * @param type
+     * @param ids
+     * @param userId
+     * @return
+     */
     public BasePage<CrmReceivablesPlan> remindReceivables(BasePage<CrmReceivablesPlan> parse, @Param("type") Integer type, @Param("ids") List<String> ids, @Param("userId") Long userId);
 
     @Select("select customer_id from wk_crm_customer where to_days(next_time) = to_days(now()) and last_time < next_time and owner_user_id = #{userId} and status != 3")

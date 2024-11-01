@@ -90,7 +90,7 @@ public interface ICrmBusinessService extends BaseService<CrmBusiness> {
     public BasePage<CrmContacts> queryContacts(CrmContactsPageBO pageEntity);
 
     /**
-     * 查询详情信息
+     * 查询商机详情信息
      * @param businessId 商机id
      * @return data
      */

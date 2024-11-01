@@ -25,7 +25,6 @@ import java.util.Map;
 public interface CrmBusinessMapper extends BaseMapper<CrmBusiness> {
     /**
      * 通过id查询商机数据
-     *
      * @param id id
      * @param userId 用户ID
      * @return data

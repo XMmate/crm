@@ -33,7 +33,7 @@ import com.liujiaming.crm.common.ActionRecordUtil;
 import com.liujiaming.crm.common.AuthUtil;
 import com.liujiaming.crm.common.CrmModel;
 import com.liujiaming.crm.constant.CrmAuthEnum;
-import com.liujiaming.crm.constant.CrmBackLogEnum;
+import com.liujiaming.crm.constant.CrmBackLogModelEnum;
 import com.liujiaming.crm.constant.CrmCodeEnum;
 import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmContractSaveBO;
@@ -46,7 +46,6 @@ import com.liujiaming.crm.entity.PO.CrmInvoiceInfo;
 import com.liujiaming.crm.entity.VO.CrmFieldSortVO;
 import com.liujiaming.crm.entity.VO.CrmModelFiledVO;
 import com.liujiaming.crm.mapper.CrmInvoiceMapper;
-import com.liujiaming.crm.service.*;
 import com.liujiaming.crm.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -362,7 +361,7 @@ public class CrmInvoiceServiceImpl extends BaseServiceImpl<CrmInvoiceMapper, Crm
             if(newInvoiceMap.containsKey("invoiceType")){
                 newInvoiceMap.put("invoiceType",parseInvoiceType(TypeUtils.castToInt(newInvoiceMap.get("invoiceType"))));
             }
-            ApplicationContextHolder.getBean(ICrmBackLogDealService.class).deleteByTypes(null, CrmTypeEnum.INVOICE,crmInvoice.getInvoiceId(), CrmBackLogEnum.CHECK_INVOICE);
+            ApplicationContextHolder.getBean(ICrmBackLogDealService.class).deleteByTypes(null, CrmTypeEnum.INVOICE,crmInvoice.getInvoiceId(), CrmBackLogModelEnum.CHECK_INVOICE);
             actionRecordUtil.updateRecord(oldInvoiceMap, newInvoiceMap, CrmTypeEnum.INVOICE, crmInvoice.getInvoiceApplyNumber(), crmInvoice.getInvoiceId());
             crmInvoice.setUpdateTime(new Date());
             updateById(crmInvoice);

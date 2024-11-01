@@ -86,8 +86,7 @@ public interface CrmPageService {
     Logger log = LoggerFactory.getLogger(CrmPageService.class);
 
     /**
-     * 查询列表页
-     *
+     * 去es查询列表页
      * @param crmSearchBO 业务查询对象
      * @return data
      */

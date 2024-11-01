@@ -17,8 +17,9 @@ import java.util.List;
  */
 public interface ICrmBusinessDataService extends BaseService<CrmBusinessData> {
     /**
-     * 设置用户数据
-     * @param crmModel crmModel
+     *根据BatchId()往CrmModel填充扩展字段表里面的数据，
+     *  CrmModel是个扩展Map,可以表示任何对象
+     * @param crmModel
      */
     public void setDataByBatchId(CrmModel crmModel);
 

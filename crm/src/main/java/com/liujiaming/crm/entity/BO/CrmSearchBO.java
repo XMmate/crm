@@ -22,7 +22,7 @@ import java.util.List;
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value = "高级筛选BO", description = "高级筛选表")
+@ApiModel(value = " Crm高级筛选BO", description = "高级筛选表")
 @ToString
 public class CrmSearchBO extends PageEntity implements Serializable {
 
@@ -35,7 +35,7 @@ public class CrmSearchBO extends PageEntity implements Serializable {
     @ApiModelProperty(value = "场景ID")
     private Integer sceneId;
 
-    @ApiModelProperty(value = "type")
+    @ApiModelProperty(value = "type 类型和这个 CrmTypeEnum枚举类对应")
     private Integer label;
 
     @ApiModelProperty(value = "排序字段")
@@ -52,20 +52,20 @@ public class CrmSearchBO extends PageEntity implements Serializable {
     @Accessors(chain = true)
     public static class Search implements Serializable {
 
-        @ApiModelProperty(value = "名字")
+        @ApiModelProperty(value = "条件名字例如电话（telephone）地址（address）")
         private String name;
 
-        @ApiModelProperty(value = "格式")
+        @ApiModelProperty(value = "values的数据格式例如电话的文本(text)数据日期的(datetime)数据格式")
         private String formType;
 
-        @ApiModelProperty(value = "高级筛选列表")
+        @ApiModelProperty(value = "判断条件 等于 不等于 包含 不包含等 对应FieldSearchEnum这个枚举类")
         @JsonProperty("type")
         private FieldSearchEnum searchEnum;
 
         @ApiModelProperty(value = "es查询需要")
         private transient Script script;
 
-        @ApiModelProperty(value = "值列表")
+        @ApiModelProperty(value = "值列表例如电话号码（['12363456783',]）")
         private List<String> values = new ArrayList<>();
 
         public Search(String name, String formType, FieldSearchEnum searchEnum, List<String> values) {
@@ -149,6 +149,9 @@ public class CrmSearchBO extends PageEntity implements Serializable {
         NULL(0),
 
 
+        /**
+         * 脚本
+         */
         SCRIPT(-1);
 
         FieldSearchEnum(Integer type) {

@@ -40,42 +40,42 @@ public class CrmBackLogController {
     }
 
     @PostMapping("/todayLeads")
-    @ApiOperation("今日需联系线索")
+    @ApiOperation("今日需联系线索 type(1今日需联系，2已逾期 3已联系) ")
     public Result<BasePage<Map<String, Object>>> todayLeads(@RequestBody CrmBackLogBO crmBackLogBO) {
         BasePage<Map<String, Object>> basePage = crmBackLogService.todayLeads(crmBackLogBO);
         return Result.ok(basePage);
     }
 
     @PostMapping("/todayCustomer")
-    @ApiOperation("今日需联系客户")
+    @ApiOperation("今日需联系客户 type(1今日需联系，2已逾期 3已联系）")
     public Result<BasePage<Map<String, Object>>> todayCustomer(@RequestBody CrmBackLogBO crmBackLogBO) {
         BasePage<Map<String, Object>> basePage = crmBackLogService.todayCustomer(crmBackLogBO);
         return Result.ok(basePage);
     }
 
     @PostMapping("/todayBusiness")
-    @ApiOperation("今日需联系商机")
+    @ApiOperation("今日需联系商机 type(1今日需联系，2已逾期 3已联系）")
     public Result<BasePage<Map<String, Object>>> todayBusiness(@RequestBody CrmBackLogBO crmBackLogBO) {
         BasePage<Map<String, Object>> basePage = crmBackLogService.todayBusiness(crmBackLogBO);
         return Result.ok(basePage);
     }
 
     @PostMapping("/followLeads")
-    @ApiOperation("分配给我的线索")
+    @ApiOperation("分配给我的线索 type(1待跟进 2已跟进)")
     public Result<BasePage<Map<String, Object>>> followLeads(@RequestBody CrmBackLogBO crmBackLogBO) {
         BasePage<Map<String, Object>> basePage = crmBackLogService.followLeads(crmBackLogBO);
         return Result.ok(basePage);
     }
 
     @PostMapping("/followCustomer")
-    @ApiOperation("分配给我的客户")
+    @ApiOperation("分配给我的客户 type(1待跟进 2已跟进)")
     public Result<BasePage<Map<String, Object>>> followCustomer(@RequestBody CrmBackLogBO crmBackLogBO) {
         BasePage<Map<String, Object>> basePage = crmBackLogService.followCustomer(crmBackLogBO);
         return Result.ok(basePage);
     }
 
     @PostMapping("/returnVisitRemind")
-    @ApiOperation("待回访合同")
+    @ApiOperation("待回访合同 type(1待审核 2已审核)")
     public Result<BasePage<Map<String, Object>>> returnVisitRemind(@RequestBody CrmBackLogBO crmBackLogBO) {
         BasePage<Map<String, Object>> basePage = crmBackLogService.returnVisitRemind(crmBackLogBO);
         return Result.ok(basePage);
@@ -96,42 +96,46 @@ public class CrmBackLogController {
     }
 
     @PostMapping("/checkContract")
-    @ApiOperation("待审核合同")
+    @ApiOperation("查询待审核合同 type(1待审核 2已审核)")
     public Result<BasePage<Map<String, Object>>> checkContract(@RequestBody CrmBackLogBO crmBackLogBO) {
         BasePage<Map<String, Object>> basePage = crmBackLogService.checkContract(crmBackLogBO);
         return Result.ok(basePage);
     }
 
     @PostMapping("/checkReceivables")
-    @ApiOperation("待审核回款")
+    @ApiOperation("查询待审核回款 type(1待审核 2已审核)")
     public Result<BasePage<Map<String, Object>>> checkReceivables(@RequestBody CrmBackLogBO crmBackLogBO) {
         BasePage<Map<String, Object>> basePage = crmBackLogService.checkReceivables(crmBackLogBO);
         return Result.ok(basePage);
     }
 
     @PostMapping("/checkInvoice")
-    @ApiOperation("待审核发票")
+    @ApiOperation("查询待审核发票 type(1待审核 2已审核)")
     public Result<BasePage<Map<String, Object>>> checkInvoice(@RequestBody CrmBackLogBO crmBackLogBO) {
         BasePage<Map<String, Object>> basePage = crmBackLogService.checkInvoice(crmBackLogBO);
         return Result.ok(basePage);
     }
 
     @PostMapping("/remindReceivables")
-    @ApiOperation("待回款提醒")
+    @ApiOperation("查询待回款提醒 type(1待回款 2已回款 3已逾期)")
     public Result<BasePage<CrmReceivablesPlan>> remindReceivables(@RequestBody CrmBackLogBO crmBackLogBO) {
         BasePage<CrmReceivablesPlan> basePage = crmBackLogService.remindReceivables(crmBackLogBO);
         return Result.ok(basePage);
     }
 
     @PostMapping("/endContract")
-    @ApiOperation("即将到期的合同")
+    @ApiOperation("查询即将到期的合同 type(1即将到期 2已到期")
     public Result<BasePage<Map<String, Object>>> endContract(@RequestBody CrmBackLogBO crmBackLogBO) {
         BasePage<Map<String, Object>> basePage = crmBackLogService.endContract(crmBackLogBO);
         return Result.ok(basePage);
     }
 
+    /**
+     * modelID 1今日需联系客户 2分配给我的线索 3分配给我的客户 4待进入公海的客户
+     * 5待审核合同 6待审核回款 7待回款提醒 8即将到期的合同 9待回访合同 10待审核发票 11 今日需联系线索 12 今日需联系商机
+     */
     @PostMapping("/allDeal")
-    @ApiOperation("待办事项全部标为已处理")
+    @ApiOperation("（按模块）待办事项全部标为已处理")
     public Result allDeal(@RequestParam("model") Integer model) {
         crmBackLogService.allDeal(model);
         return Result.ok();
@@ -154,7 +158,7 @@ public class CrmBackLogController {
      * 待进入客户池提醒
      */
     @PostMapping("/putInPoolRemind")
-    @ApiOperation("待进入客户池提醒")
+    @ApiOperation("查询待进入客户池提醒")
     public Result<BasePage<Map<String, Object>>> putInPoolRemind(@RequestBody CrmBackLogBO crmBackLogBO){
         BasePage<Map<String, Object>> page = crmBackLogService.putInPoolRemind(crmBackLogBO);
         return Result.ok(page);

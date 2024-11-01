@@ -85,7 +85,7 @@ public class CrmBusinessController {
     }
 
     @PostMapping("/information/{id}")
-    @ApiOperation("查询商机详情页信息")
+    @ApiOperation("根据ID查询商机详情页信息")
     public Result<List<CrmModelFiledVO>> information(@PathVariable("id") @ApiParam(name = "id", value = "id") Integer id) {
         List<CrmModelFiledVO> information = crmBusinessService.information(id);
         return R.ok(information);

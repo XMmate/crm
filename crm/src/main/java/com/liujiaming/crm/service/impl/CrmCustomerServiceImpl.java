@@ -395,8 +395,8 @@ public class CrmCustomerServiceImpl extends BaseServiceImpl<CrmCustomerMapper, C
             crmCustomer.setEmail(null);
         }
         if (crmCustomer.getCustomerId() != null) {
-            crmBackLogDealService.deleteByType(crmCustomer.getOwnerUserId(), getLabel(), CrmBackLogEnum.TODAY_CUSTOMER, crmCustomer.getCustomerId());
-            crmBackLogDealService.deleteByType(crmCustomer.getOwnerUserId(), getLabel(), CrmBackLogEnum.FOLLOW_CUSTOMER, crmCustomer.getCustomerId());
+            crmBackLogDealService.deleteByType(crmCustomer.getOwnerUserId(), getLabel(), CrmBackLogModelEnum.TODAY_CUSTOMER, crmCustomer.getCustomerId());
+            crmBackLogDealService.deleteByType(crmCustomer.getOwnerUserId(), getLabel(), CrmBackLogModelEnum.FOLLOW_CUSTOMER, crmCustomer.getCustomerId());
             crmCustomer.setUpdateTime(DateUtil.date());
             actionRecordUtil.updateRecord(BeanUtil.beanToMap(getById(crmCustomer.getCustomerId())), BeanUtil.beanToMap(crmCustomer), CrmTypeEnum.CUSTOMER, crmCustomer.getCustomerName(), crmCustomer.getCustomerId());
             updateById(crmCustomer);

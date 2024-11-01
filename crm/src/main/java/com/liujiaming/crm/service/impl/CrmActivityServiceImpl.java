@@ -187,10 +187,10 @@ public class CrmActivityServiceImpl extends BaseServiceImpl<CrmActivityMapper, C
         save(crmActivity);
         updateNextTime(crmActivity);
         if (crmActivity.getType() == 1) {
-            crmBackLogDealService.deleteByType(user.getUserId(), CrmTypeEnum.parse(crmActivity.getActivityType()), CrmBackLogEnum.TODAY_CUSTOMER, crmActivity.getActivityTypeId());
-            crmBackLogDealService.deleteByType(user.getUserId(), CrmTypeEnum.parse(crmActivity.getActivityType()), CrmBackLogEnum.FOLLOW_LEADS, crmActivity.getActivityTypeId());
-            crmBackLogDealService.deleteByType(user.getUserId(), CrmTypeEnum.parse(crmActivity.getActivityType()), CrmBackLogEnum.FOLLOW_CUSTOMER, crmActivity.getActivityTypeId());
-            crmBackLogDealService.deleteByType(user.getUserId(), CrmTypeEnum.parse(crmActivity.getActivityType()), CrmBackLogEnum.TO_ENTER_CUSTOMER_POOL, crmActivity.getActivityTypeId());
+            crmBackLogDealService.deleteByType(user.getUserId(), CrmTypeEnum.parse(crmActivity.getActivityType()), CrmBackLogModelEnum.TODAY_CUSTOMER, crmActivity.getActivityTypeId());
+            crmBackLogDealService.deleteByType(user.getUserId(), CrmTypeEnum.parse(crmActivity.getActivityType()), CrmBackLogModelEnum.FOLLOW_LEADS, crmActivity.getActivityTypeId());
+            crmBackLogDealService.deleteByType(user.getUserId(), CrmTypeEnum.parse(crmActivity.getActivityType()), CrmBackLogModelEnum.FOLLOW_CUSTOMER, crmActivity.getActivityTypeId());
+            crmBackLogDealService.deleteByType(user.getUserId(), CrmTypeEnum.parse(crmActivity.getActivityType()), CrmBackLogModelEnum.TO_ENTER_CUSTOMER_POOL, crmActivity.getActivityTypeId());
         }
         actionRecordUtil.addFollowupActionRecord(crmActivity.getActivityType(), crmActivity.getActivityTypeId(), "");
     }

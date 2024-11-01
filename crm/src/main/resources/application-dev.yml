@@ -26,3 +26,6 @@ spring:
     publisher-returns: true
     template:
       mandatory: true
+
+  jackson:
+    default-property-inclusion: non_null

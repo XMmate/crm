@@ -27,6 +27,8 @@ public class CrmCustomer implements Serializable {
 
     private static final long serialVersionUID=1L;
 
+
+    @ApiModelProperty(value = "客户id")
     @TableId(value = "customer_id", type = IdType.AUTO)
     private Integer customerId;
 

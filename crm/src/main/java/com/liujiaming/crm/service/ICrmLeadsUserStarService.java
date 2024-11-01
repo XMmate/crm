@@ -22,5 +22,11 @@ public interface ICrmLeadsUserStarService extends BaseService<CrmLeadsUserStar> 
      */
     public Integer isStar(Object leadsId, Long userId);
 
+
+    /**
+     * 用户线索关注列表
+     * @param userId
+     * @return
+     */
     List<Integer> starList(Long userId);
 }

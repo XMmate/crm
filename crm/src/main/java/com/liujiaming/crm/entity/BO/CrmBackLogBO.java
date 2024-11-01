@@ -14,10 +14,10 @@ import java.util.List;
 @ApiModel("待办事项模块查询BO")
 public class CrmBackLogBO extends PageEntity {
 
-    @ApiModelProperty("类型")
+    @ApiModelProperty("类型 1今日需要联系的 2已逾期 3已联系")
     private Integer type;
 
-    @ApiModelProperty("isSub")
+    @ApiModelProperty("isSub 1我的 2我的下属")
     private Integer isSub;
 
     @ApiModelProperty(value = "高级筛选列表")

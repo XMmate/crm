@@ -22,7 +22,7 @@ public interface ICrmBackLogService {
     public JSONObject num();
 
     /**
-     * 今日需联系线索
+     * 今日需联系线索（今日需联系，已逾期 已联系）
      * @return data
      */
     BasePage<Map<String, Object>> todayLeads(CrmBackLogBO crmBackLogBO);
@@ -96,16 +96,23 @@ public interface ICrmBackLogService {
 
     /**
      * 全部标记为已处理
+     * modelID
      * @param model model
      */
     public void allDeal(Integer model);
 
     /**
      * 部分标记为已处理
-     * @param model model
+     * @param model model模块  jsonObjectList标记列表
      */
     public void dealById(Integer model, List<JSONObject> jsonObjectList);
 
+
+    /**
+     *查询待进入客户池提醒
+     * @param crmBackLogBO
+     * @return
+     */
     BasePage<Map<String, Object>> putInPoolRemind(CrmBackLogBO crmBackLogBO);
 
 }

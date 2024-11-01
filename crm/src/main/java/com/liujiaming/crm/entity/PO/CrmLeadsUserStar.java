@@ -23,7 +23,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("wk_crm_leads_user_star")
-@ApiModel(value="CrmLeadsUserStar对象", description="用户线索标星关系表 ")
+@ApiModel(value="CrmLeadsUserStar对象", description="用户线索标关注关系表 ")
 public class CrmLeadsUserStar implements Serializable {
 
     private static final long serialVersionUID=1L;
@@ -34,7 +34,7 @@ public class CrmLeadsUserStar implements Serializable {
     @ApiModelProperty(value = "用户id")
     private Long userId;
 
-    @ApiModelProperty(value = "客户id")
+    @ApiModelProperty(value = "线索ID")
     private Integer leadsId;
 
 

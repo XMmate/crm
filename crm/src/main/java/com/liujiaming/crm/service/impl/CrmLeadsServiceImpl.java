@@ -29,7 +29,7 @@ import com.liujiaming.core.utils.UserUtil;
 import com.liujiaming.crm.common.ActionRecordUtil;
 import com.liujiaming.crm.common.CrmModel;
 import com.liujiaming.crm.constant.CrmActivityEnum;
-import com.liujiaming.crm.constant.CrmBackLogEnum;
+import com.liujiaming.crm.constant.CrmBackLogModelEnum;
 import com.liujiaming.crm.constant.CrmCodeEnum;
 import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmModelSaveBO;
@@ -40,8 +40,6 @@ import com.liujiaming.crm.entity.VO.CrmFieldSortVO;
 import com.liujiaming.crm.entity.VO.CrmInfoNumVO;
 import com.liujiaming.crm.entity.VO.CrmModelFiledVO;
 import com.liujiaming.crm.mapper.CrmLeadsMapper;
-import com.liujiaming.crm.service.*;
-import com.liujiaming.crm.entity.PO.*;
 import com.liujiaming.crm.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.update.UpdateRequest;
@@ -186,7 +184,7 @@ public class CrmLeadsServiceImpl extends BaseServiceImpl<CrmLeadsMapper, CrmLead
     }
 
     /**
-     * 分页查询
+     * 根据search条件分页查询数据
      *
      * @param search
      * @return
@@ -265,7 +263,7 @@ public class CrmLeadsServiceImpl extends BaseServiceImpl<CrmLeadsMapper, CrmLead
             updateById(crmLeads);
             //查询一次保存es,因为有些字段没有保存es会出现null
             crmLeads = getById(crmLeads.getLeadsId());
-            crmBackLogDealService.deleteByType(crmLeads.getOwnerUserId(), CrmTypeEnum.LEADS, CrmBackLogEnum.FOLLOW_LEADS, crmLeads.getLeadsId());
+            crmBackLogDealService.deleteByType(crmLeads.getOwnerUserId(), CrmTypeEnum.LEADS, CrmBackLogModelEnum.FOLLOW_LEADS, crmLeads.getLeadsId());
         } else {
             crmLeads.setCreateTime(DateUtil.date());
             crmLeads.setUpdateTime(DateUtil.date());

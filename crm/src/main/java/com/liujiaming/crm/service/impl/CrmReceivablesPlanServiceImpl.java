@@ -27,7 +27,7 @@ import com.liujiaming.core.utils.UserUtil;
 import com.liujiaming.crm.common.ActionRecordUtil;
 import com.liujiaming.crm.common.CrmModel;
 import com.liujiaming.crm.common.ElasticUtil;
-import com.liujiaming.crm.constant.CrmBackLogEnum;
+import com.liujiaming.crm.constant.CrmBackLogModelEnum;
 import com.liujiaming.crm.constant.CrmCodeEnum;
 import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.entity.BO.CrmBusinessSaveBO;
@@ -38,8 +38,6 @@ import com.liujiaming.crm.entity.PO.*;
 import com.liujiaming.crm.entity.VO.CrmFieldSortVO;
 import com.liujiaming.crm.entity.VO.CrmModelFiledVO;
 import com.liujiaming.crm.mapper.CrmReceivablesPlanMapper;
-import com.liujiaming.crm.service.*;
-import com.liujiaming.crm.entity.PO.*;
 import com.liujiaming.crm.service.*;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.index.IndexRequest;
@@ -408,7 +406,7 @@ public class CrmReceivablesPlanServiceImpl extends BaseServiceImpl<CrmReceivable
                 throw new CrmException(CrmCodeEnum.CRM_RECEIVABLES_PLAN_ERROR);
             }
             if (crmReceivablesPlan.getContractId() != null) {
-                crmBackLogDealService.deleteByType(crmContract.getOwnerUserId(), CrmTypeEnum.RECEIVABLES_PLAN, CrmBackLogEnum.REMIND_RECEIVABLES_PLAN, crmReceivablesPlan.getReceivablesPlanId());
+                crmBackLogDealService.deleteByType(crmContract.getOwnerUserId(), CrmTypeEnum.RECEIVABLES_PLAN, CrmBackLogModelEnum.REMIND_RECEIVABLES_PLAN, crmReceivablesPlan.getReceivablesPlanId());
             }
             actionRecordUtil.updateRecord(BeanUtil.beanToMap(getById(crmReceivablesPlan.getReceivablesPlanId())), BeanUtil.beanToMap(crmReceivablesPlan), CrmTypeEnum.RECEIVABLES_PLAN, crmReceivablesPlan.getNum(), crmReceivablesPlan.getReceivablesPlanId());
             if (crmReceivablesPlan.getReceivedStatus() == null || crmReceivablesPlan.getReceivedStatus() == 3){

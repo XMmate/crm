@@ -21,16 +21,11 @@ import com.liujiaming.core.servlet.ApplicationContextHolder;
 import com.liujiaming.core.utils.UserUtil;
 import com.liujiaming.crm.common.AuthUtil;
 import com.liujiaming.crm.common.ElasticUtil;
-import com.liujiaming.crm.constant.CrmBackLogEnum;
-import com.liujiaming.crm.constant.CrmCodeEnum;
-import com.liujiaming.crm.constant.CrmModelEnum;
-import com.liujiaming.crm.constant.CrmTypeEnum;
+import com.liujiaming.crm.constant.*;
 import com.liujiaming.crm.entity.BO.CrmBackLogBO;
 import com.liujiaming.crm.entity.BO.CrmSearchBO;
 import com.liujiaming.crm.entity.PO.*;
 import com.liujiaming.crm.mapper.CrmBackLogMapper;
-import com.liujiaming.crm.service.*;
-import com.liujiaming.crm.entity.PO.*;
 import com.liujiaming.crm.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.script.Script;
@@ -147,9 +142,8 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
 
                 ICrmBackLogDealService logDealService = ApplicationContextHolder.getBean(ICrmBackLogDealService.class);
                 LambdaQueryWrapper<CrmBackLogDeal> wrapper = new LambdaQueryWrapper<>();
-                wrapper.eq(CrmBackLogDeal::getModel, 4);
-                //todo 9是什么
-                wrapper.eq(CrmBackLogDeal::getCrmType, 9);
+                wrapper.eq(CrmBackLogDeal::getModel, CrmModelEnum.TO_PUBLIC_SEA.getModelID());
+                wrapper.eq(CrmBackLogDeal::getCrmType, CrmTypeEnum.CUSTOMER_POOL.getType());
                 wrapper.eq(CrmBackLogDeal::getCreateUserId, userId);
                 wrapper.select(CrmBackLogDeal::getTypeId);
                 List<Integer> dealIdList = logDealService.listObjs(wrapper, obj -> Integer.valueOf(obj.toString()));
@@ -177,7 +171,7 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
             Integer checkContract = null;
             if (CollUtil.isNotEmpty(ids)) {
                 LambdaQueryWrapper<CrmBackLogDeal> wrapper = new LambdaQueryWrapper<>();
-                wrapper.eq(CrmBackLogDeal::getModel, 5);
+                wrapper.eq(CrmBackLogDeal::getModel, CrmModelEnum.PENDING_CONTRACT_APPROVAL.getModelID());
                 wrapper.eq(CrmBackLogDeal::getCrmType, CrmTypeEnum.CONTRACT.getType());
                 wrapper.eq(CrmBackLogDeal::getCreateUserId, userId);
                 wrapper.select(CrmBackLogDeal::getTypeId);
@@ -187,11 +181,8 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
                     checkContract = crmContractService.lambdaQuery().in(CrmContract::getContractId, ids).in(CrmContract::getCheckStatus, 0, 3).count();
                 }
             }
-            if (checkContract == null) {
-                checkContract = 0;
-            }
+            checkContract = (checkContract == null) ? 0 : checkContract;
             kv.put("checkContract", checkContract);
-
             AdminConfig returnVisitRemindConfig = adminService.queryFirstConfigByName("returnVisitRemindConfig").getData();
             if (Objects.equals(1, returnVisitRemindConfig.getStatus())) {
                 paras.put("remindDay", returnVisitRemindConfig.getValue());
@@ -230,7 +221,7 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
             Integer checkInvoice = null;
             if (CollUtil.isNotEmpty(ids)) {
                 LambdaQueryWrapper<CrmBackLogDeal> wrapper = new LambdaQueryWrapper<>();
-                wrapper.eq(CrmBackLogDeal::getModel, 10);
+                wrapper.eq(CrmBackLogDeal::getModel, CrmModelEnum.PENDING_INVOICE_APPROVAL.getModelID());
                 wrapper.eq(CrmBackLogDeal::getCrmType, CrmTypeEnum.INVOICE.getType());
                 wrapper.eq(CrmBackLogDeal::getCreateUserId, userId);
                 wrapper.select(CrmBackLogDeal::getTypeId);
@@ -240,13 +231,9 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
                     checkInvoice = crmInvoiceService.lambdaQuery().in(CrmInvoice::getInvoiceId, ids).in(CrmInvoice::getCheckStatus, 0, 3).count();
                 }
             }
-            if (checkInvoice == null) {
-                checkInvoice = 0;
-            }
+            checkInvoice = (checkInvoice == null) ? 0 : checkInvoice;
             kv.put("checkInvoice", checkInvoice);
         }
-
-
         redis.setex(CrmCacheKey.CRM_BACKLOG_NUM_CACHE_KEY + userId.toString(), 600, kv);
         return kv;
     }
@@ -301,6 +288,12 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
         return basePage;
     }
 
+    /**
+     * 构建待办事项模块BO查询条件
+     *  type （1今日需联系，2已逾期 3已联系）
+     * @param crmBackLogBO
+     * @param crmTypeEnum
+     */
     private void setCrmBackLogBO(CrmBackLogBO crmBackLogBO, CrmTypeEnum crmTypeEnum) {
         Integer type = crmBackLogBO.getType();
         Integer isSub = crmBackLogBO.getIsSub();
@@ -329,13 +322,13 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
             throw new CrmException(SystemCodeEnum.SYSTEM_NO_VALID);
         }
         if (type == 1 && isSub == 1) {
-            CrmBackLogEnum model = CrmBackLogEnum.TODAY_CUSTOMER;
+            CrmBackLogModelEnum model = CrmBackLogModelEnum.TODAY_CUSTOMER;
             if (crmTypeEnum.equals(CrmTypeEnum.LEADS)) {
-                model = CrmBackLogEnum.TODAY_LEADS;
+                model = CrmBackLogModelEnum.TODAY_LEADS;
             } else if (crmTypeEnum.equals(CrmTypeEnum.BUSINESS)) {
-                model = CrmBackLogEnum.TODAY_BUSINESS;
+                model = CrmBackLogModelEnum.TODAY_BUSINESS;
             }
-            List<String> dealIdList = backLogDealService.queryTypeId(model.getType(), crmTypeEnum.getType(), UserUtil.getUserId());
+            List<String> dealIdList = backLogDealService.queryTypeId(model.getModelID(), crmTypeEnum.getType(), UserUtil.getUserId());
             crmBackLogBO.getData().add(new CrmSearchBO.Search("_id", "text", CrmSearchBO.FieldSearchEnum.IS_NOT, dealIdList));
         }
     }
@@ -345,7 +338,7 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
         map.put("table", crmTypeEnum.getTableName());
         map.put("type", crmTypeEnum.getType());
         map.put("userId", UserUtil.getUserId());
-        map.put("model", CrmBackLogEnum.valueOf("TODAY_"+crmTypeEnum.name()).getType());
+        map.put("model", CrmBackLogModelEnum.valueOf("TODAY_"+crmTypeEnum.name()).getModelID());
         return map;
     }
 
@@ -623,24 +616,25 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
      */
     @Override
     public void allDeal(Integer model) {
-        int crmType = 0;
+        int crmType = CrmTypeEnum.NULL.getType();
         Long userId = UserUtil.getUserId();
         List<CrmBackLogDeal> backLogDealList = new ArrayList<>();
+
         List<Integer> idList = new ArrayList<>();
         List<String> dealIdList = new ArrayList<>();
-        switch (CrmBackLogEnum.parse(model)) {
+        switch (CrmBackLogModelEnum.parse(model)) {
             case TODAY_CUSTOMER:
-                crmType = 2;
+                crmType = CrmTypeEnum.CUSTOMER.getType();
                 dealIdList = backLogDealService.queryTypeId(model, crmType, userId);
                 idList = crmBackLogMapper.queryTodayCustomerId(userId);
                 break;
             case FOLLOW_LEADS:
-                crmType = 1;
+                crmType = CrmTypeEnum.LEADS.getType();
                 dealIdList = backLogDealService.queryTypeId(model, crmType, userId);
                 idList = crmBackLogMapper.queryFollowLeadsId(userId);
                 break;
             case FOLLOW_CUSTOMER:
-                crmType = 2;
+                crmType = CrmTypeEnum.CUSTOMER.getType();
                 dealIdList = backLogDealService.queryTypeId(model, crmType, userId);
                 idList = crmBackLogMapper.queryFollowCustomerId(userId);
                 break;
@@ -692,22 +686,22 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
                 });
                 break;
             case CHECK_CONTRACT:
-                crmType = 6;
+                crmType = CrmTypeEnum.CONTRACT.getType();
                 dealIdList = backLogDealService.queryTypeId(model, crmType, userId);
                 idList = examineService.queryCrmExamineIdList(1, 1).getData();
                 break;
             case CHECK_RECEIVABLES:
-                crmType = 7;
+                crmType = CrmTypeEnum.RECEIVABLES.getType();
                 dealIdList = backLogDealService.queryTypeId(model, crmType, userId);
                 idList = examineService.queryCrmExamineIdList(2, 1).getData();
                 break;
             case CHECK_INVOICE:
-                crmType = 18;
+                crmType = CrmTypeEnum.INVOICE.getType();
                 dealIdList = backLogDealService.queryTypeId(model, crmType, userId);
                 idList = examineService.queryCrmExamineIdList(3, 1).getData();
                 break;
             case REMIND_RECEIVABLES_PLAN:
-                crmType = 8;
+                crmType =CrmTypeEnum.RECEIVABLES_PLAN.getType();
                 dealIdList = backLogDealService.queryTypeId(model, crmType, userId);
                 idList = crmBackLogMapper.queryRemindReceivablesPlanId(userId);
                 break;
@@ -716,7 +710,7 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
                 if (adminConfig.getStatus() == 0) {
                     throw new CrmException(CrmCodeEnum.CRM_CONTRACT_EXPIRATION_REMIND_ERROR);
                 }
-                crmType = 6;
+                crmType = CrmTypeEnum.CONTRACT.getType();
                 dealIdList = backLogDealService.queryTypeId(model, crmType, userId);
                 idList = crmBackLogMapper.queryEndContractId(userId, Integer.valueOf(adminConfig.getValue()));
                 break;
@@ -725,23 +719,24 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
                 if (returnVisitRemindConfig.getStatus() == 0) {
                     throw new CrmException(CrmCodeEnum.CRM_RETURN_VISIT_REMIND_ERROR);
                 }
-                crmType = 6;
+                crmType = CrmTypeEnum.CONTRACT.getType();
                 dealIdList = backLogDealService.queryTypeId(model, crmType, userId);
                 idList = crmBackLogMapper.queryReturnVisitContractId(userId, Integer.valueOf(returnVisitRemindConfig.getValue()));
                 break;
             case TODAY_LEADS:
-                crmType = 1;
+                crmType = CrmTypeEnum.LEADS.getType();
                 dealIdList = backLogDealService.queryTypeId(model, crmType, userId);
                 idList = crmBackLogMapper.queryTodayLeadsId(userId);
                 break;
             case TODAY_BUSINESS:
-                crmType = 5;
+                crmType = CrmTypeEnum.BUSINESS.getType();
                 dealIdList = backLogDealService.queryTypeId(model, crmType, userId);
                 idList = crmBackLogMapper.queryTodayBusinessId(userId);
                 break;
             default:
                 break;
         }
+
         if (crmType != CrmTypeEnum.CUSTOMER_POOL.getType()) {
             idList.removeAll(dealIdList.stream().map(Integer::valueOf).collect(Collectors.toList()));
             for (Integer id : idList) {
@@ -761,36 +756,39 @@ public class CrmBackLogServiceImpl implements ICrmBackLogService {
      */
     @Override
     public void dealById(Integer model, List<JSONObject> jsonObjectList) {
+        if (jsonObjectList.size()==0){
+            return;
+        }
         Long userId = UserUtil.getUserId();
-        int crmType = 0;
-        switch (CrmBackLogEnum.parse(model)) {
+        int crmType = CrmTypeEnum.NULL.getType();
+        switch (CrmBackLogModelEnum.parse(model)) {
             case FOLLOW_LEADS:
             case TODAY_LEADS:
-                crmType = 1;
+                crmType = CrmTypeEnum.LEADS.getType();
                 break;
             case TODAY_BUSINESS:
-                crmType = 5;
+                crmType = CrmTypeEnum.BUSINESS.getType();
                 break;
             case TODAY_CUSTOMER:
             case FOLLOW_CUSTOMER:
-                crmType = 2;
+                crmType = CrmTypeEnum.CUSTOMER.getType();
                 break;
             case CHECK_CONTRACT:
             case END_CONTRACT:
             case REMIND_RETURN_VISIT_CONTRACT:
-                crmType = 6;
+                crmType = CrmTypeEnum.CONTRACT.getType();
                 break;
             case CHECK_RECEIVABLES:
-                crmType = 7;
+                crmType = CrmTypeEnum.RECEIVABLES.getType();
                 break;
             case REMIND_RECEIVABLES_PLAN:
-                crmType = 8;
+                crmType = CrmTypeEnum.RECEIVABLES.getType();
                 break;
             case TO_ENTER_CUSTOMER_POOL:
-                crmType = 9;
+                crmType = CrmTypeEnum.CUSTOMER_POOL.getType();
                 break;
             case CHECK_INVOICE:
-                crmType = 18;
+                crmType =CrmTypeEnum.INVOICE.getType();
                 break;
             default:
                 break;

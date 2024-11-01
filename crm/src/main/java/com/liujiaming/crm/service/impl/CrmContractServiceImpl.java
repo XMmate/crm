@@ -415,7 +415,7 @@ public class CrmContractServiceImpl extends BaseServiceImpl<CrmContractMapper, C
             BigDecimal decimal = getBaseMapper().queryReceivablesMoney(crmContract.getContractId());
             crmContract.setUnreceivedMoney(crmContract.getMoney().subtract(decimal));
             crmContract.setReceivedMoney(decimal);
-            crmBackLogDealService.deleteByTypes(null, CrmTypeEnum.CONTRACT, crmContract.getContractId(), CrmBackLogEnum.END_CONTRACT,CrmBackLogEnum.REMIND_RETURN_VISIT_CONTRACT,CrmBackLogEnum.CHECK_CONTRACT);
+            crmBackLogDealService.deleteByTypes(null, CrmTypeEnum.CONTRACT, crmContract.getContractId(), CrmBackLogModelEnum.END_CONTRACT,CrmBackLogModelEnum.REMIND_RETURN_VISIT_CONTRACT,CrmBackLogModelEnum.CHECK_CONTRACT);
             crmContract.setUpdateTime(DateUtil.date());
             actionRecordUtil.updateRecord(BeanUtil.beanToMap(contract), BeanUtil.beanToMap(crmContract), CrmTypeEnum.CONTRACT, crmContract.getName(), crmContract.getContractId());
             updateById(crmContract);

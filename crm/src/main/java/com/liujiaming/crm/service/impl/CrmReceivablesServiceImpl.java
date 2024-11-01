@@ -358,7 +358,7 @@ public class CrmReceivablesServiceImpl extends BaseServiceImpl<CrmReceivablesMap
                 ElasticUtil.updateField(getRestTemplate(),"receivablesId",crmReceivables.getReceivablesId(),Collections.singletonList(crmReceivablesPlan.getReceivablesPlanId()),CrmTypeEnum.RECEIVABLES_PLAN.getIndex());
                 crmReceivablesPlanService.updateById(crmReceivablesPlan);
             }
-            ApplicationContextHolder.getBean(ICrmBackLogDealService.class).deleteByTypes(null, CrmTypeEnum.RECEIVABLES, crmReceivables.getReceivablesId(), CrmBackLogEnum.CHECK_RECEIVABLES);
+            ApplicationContextHolder.getBean(ICrmBackLogDealService.class).deleteByTypes(null, CrmTypeEnum.RECEIVABLES, crmReceivables.getReceivablesId(), CrmBackLogModelEnum.CHECK_RECEIVABLES);
             actionRecordUtil.updateRecord(BeanUtil.beanToMap(receivables), BeanUtil.beanToMap(crmReceivables), CrmTypeEnum.CONTRACT, crmContract.getName(), crmContract.getContractId());
             updateById(crmReceivables);
             crmReceivables = getById(crmReceivables.getReceivablesId());

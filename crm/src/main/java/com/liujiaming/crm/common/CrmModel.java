@@ -1,12 +1,26 @@
 package com.liujiaming.crm.common;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.HashMap;
 
 /**
  * @author liujiaming
  * crm模块单个的实体类对象
+ * 这里继承了Map
  */
 public class CrmModel extends HashMap<String, Object> {
+
+
+
+
+    @ApiModelProperty(value = "crm类型对应这个CrmTypeEnum枚举类")
+    private transient Integer label;
+
+
+    @ApiModelProperty(value = "主键id")
+    private transient Integer id;
+
 
     public CrmModel() {
 
@@ -16,9 +30,6 @@ public class CrmModel extends HashMap<String, Object> {
         this.label = label;
     }
 
-    private transient Integer label;
-
-    private transient Integer id;
 
     public Integer getLabel() {
         return label;

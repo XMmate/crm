@@ -31,11 +31,7 @@ public class CrmBusinessDataServiceImpl extends BaseServiceImpl<CrmBusinessDataM
     @Autowired
     private FieldService fieldService;
 
-    /**
-     * 设置用户数据
-     *
-     * @param crmModel crmModel
-     */
+
     @Override
     public void setDataByBatchId(CrmModel crmModel) {
         List<CrmBusinessData> businessDataList = query().eq("batch_id", crmModel.getBatchId()).list();

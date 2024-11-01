@@ -32,7 +32,7 @@ import com.liujiaming.core.utils.UserUtil;
 import com.liujiaming.crm.common.ActionRecordUtil;
 import com.liujiaming.crm.common.AuthUtil;
 import com.liujiaming.crm.constant.CrmAuthEnum;
-import com.liujiaming.crm.constant.CrmBackLogEnum;
+import com.liujiaming.crm.constant.CrmBackLogModelEnum;
 import com.liujiaming.crm.constant.CrmTypeEnum;
 import com.liujiaming.crm.constant.MonthEnum;
 import com.liujiaming.crm.entity.BO.CrmSearchBO;
@@ -40,8 +40,6 @@ import com.liujiaming.crm.entity.BO.CrmSearchParamsBO;
 import com.liujiaming.crm.entity.PO.*;
 import com.liujiaming.crm.mapper.CrmActivityMapper;
 import com.liujiaming.crm.mapper.CrmInstrumentMapper;
-import com.liujiaming.crm.service.*;
-import com.liujiaming.crm.entity.PO.*;
 import com.liujiaming.crm.service.*;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -839,10 +837,10 @@ public class CrmInstrumentServiceImpl implements CrmInstrumentService {
                 crmActivity.setCreateTime(createDate != null ? createDate : new Date());
                 crmActivityService.save(crmActivity);
                 if (crmActivity.getType() == 1) {
-                    crmBackLogDealService.deleteByType(user.getUserId(), CrmTypeEnum.parse(crmActivity.getActivityType()), CrmBackLogEnum.TODAY_CUSTOMER, crmActivity.getActivityTypeId());
-                    crmBackLogDealService.deleteByType(user.getUserId(), CrmTypeEnum.parse(crmActivity.getActivityType()), CrmBackLogEnum.FOLLOW_LEADS, crmActivity.getActivityTypeId());
-                    crmBackLogDealService.deleteByType(user.getUserId(), CrmTypeEnum.parse(crmActivity.getActivityType()), CrmBackLogEnum.FOLLOW_CUSTOMER, crmActivity.getActivityTypeId());
-                    crmBackLogDealService.deleteByType(user.getUserId(), CrmTypeEnum.parse(crmActivity.getActivityType()), CrmBackLogEnum.TO_ENTER_CUSTOMER_POOL, crmActivity.getActivityTypeId());
+                    crmBackLogDealService.deleteByType(user.getUserId(), CrmTypeEnum.parse(crmActivity.getActivityType()), CrmBackLogModelEnum.TODAY_CUSTOMER, crmActivity.getActivityTypeId());
+                    crmBackLogDealService.deleteByType(user.getUserId(), CrmTypeEnum.parse(crmActivity.getActivityType()), CrmBackLogModelEnum.FOLLOW_LEADS, crmActivity.getActivityTypeId());
+                    crmBackLogDealService.deleteByType(user.getUserId(), CrmTypeEnum.parse(crmActivity.getActivityType()), CrmBackLogModelEnum.FOLLOW_CUSTOMER, crmActivity.getActivityTypeId());
+                    crmBackLogDealService.deleteByType(user.getUserId(), CrmTypeEnum.parse(crmActivity.getActivityType()), CrmBackLogModelEnum.TO_ENTER_CUSTOMER_POOL, crmActivity.getActivityTypeId());
                 }
                 actionRecordUtil.addFollowupActionRecord(crmActivity.getActivityType(), crmActivity.getActivityTypeId(), "");
             }

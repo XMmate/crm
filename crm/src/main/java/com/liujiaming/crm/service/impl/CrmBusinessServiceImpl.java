@@ -171,6 +171,7 @@ public class CrmBusinessServiceImpl extends BaseServiceImpl<CrmBusinessMapper, C
         return queryField(id,false);
     }
 
+
     private List<CrmModelFiledVO> queryField(Integer id,boolean appendInformation){
         CrmModel crmModel = queryById(id);
         if (id != null) {
@@ -199,7 +200,10 @@ public class CrmBusinessServiceImpl extends BaseServiceImpl<CrmBusinessMapper, C
             crmModelFiledVOS.addAll(modelFiledVOS);
         }
         return crmModelFiledVOS;
+
     }
+
+
 
     @Override
     public List<List<CrmModelFiledVO>> queryFormPositionField(Integer id) {

@@ -45,7 +45,7 @@ public interface ICrmLeadsService extends BaseService<CrmLeads> {
     public  List<List<CrmModelFiledVO>> queryFormPositionField(Integer id);
 
     /**
-     * 查询所有数据
+     * 根据search条件分页查询数据
      *
      * @param search 搜索条件
      * @return
